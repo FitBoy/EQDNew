@@ -1,0 +1,29 @@
+//
+//  FKDetailViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/25.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FKDetailViewController.h"
+
+@interface FKDetailViewController ()
+{
+    UITableView *tableV;
+    NSMutableArray *arr_names;
+    NSMutableArray *arr_contens;
+    
+}
+@end
+
+@implementation FKDetailViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    arr_names =[NSMutableArray arrayWithArray:@[@"反馈编码",@"反馈标题",@"反馈类型",@"反馈人",@"反馈时间",@"反馈图文",@"提醒时间",@"录入地址",]];
+    arr_contens =[NSMutableArray arrayWithCapacity:0];
+}
+
+
+@end

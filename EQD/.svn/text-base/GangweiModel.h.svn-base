@@ -1,0 +1,18 @@
+//
+//  GangweiModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/28.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface GangweiModel : NSObject
+@property (nonatomic,copy) NSString* careename;
+@property (nonatomic,copy) NSString* postname;
+@property (nonatomic,copy) NSString* type;
+@property (nonatomic,copy) NSString* postnum;
+@property (nonatomic,copy) NSString* ID;
+
+@end

@@ -1,0 +1,16 @@
+//
+//  CardChooseViewController.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/1.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBBaseViewController.h"
+#import "UserModel.h"
+#import "QunModel.h"
+@interface CardChooseViewController : FBBaseViewController
+@property (nonatomic,strong) UserModel* model;
+@property (nonatomic,strong)  QunModel *qunmodel;
+@property (nonatomic,assign) BOOL isQun;
+@end

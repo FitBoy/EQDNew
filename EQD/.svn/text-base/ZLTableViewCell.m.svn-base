@@ -1,0 +1,90 @@
+//
+//  ZLTableViewCell.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/19.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "ZLTableViewCell.h"
+#import <Masonry.h>
+@implementation ZLTableViewCell
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.B_headimg =[FBIndexPathButton buttonWithType:UIButtonTypeSystem];
+        [self addSubview:self.B_headimg];
+        self.B_headimg.layer.masksToBounds=YES;
+        self.B_headimg.layer.cornerRadius=20;
+        
+        self.L_name =[[UILabel alloc]init];
+        self.L_name.font =[UIFont systemFontOfSize:15];
+        [self addSubview:self.L_name];
+        
+        self.L_bumen = [[UILabel alloc]init];
+        self.L_bumen.font =[UIFont systemFontOfSize:12];
+        [self addSubview:self.L_bumen];
+        
+        self.L_gangwei =[[UILabel alloc]init];
+        self.L_gangwei.font =[UIFont systemFontOfSize:12];
+        self.L_gangwei.textAlignment=NSTextAlignmentRight;
+        [self addSubview:self.L_gangwei];
+        
+        self.L_date =[[UILabel alloc]init];
+        self.L_date.textAlignment =NSTextAlignmentCenter;
+        self.L_date.font =[UIFont systemFontOfSize:15];
+        [self addSubview:self.L_date];
+        
+        //下面增加约束
+        [self.B_headimg mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(40, 40));
+            make.centerY.mas_equalTo(self.mas_centerY);
+            make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        }];
+        
+        [self.L_date mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(165, 20));
+            make.top.mas_equalTo(self.B_headimg.mas_top);
+            make.right.mas_equalTo(self.mas_right).mas_offset(-35);
+        }];
+        
+        
+        [self.L_name mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(20);
+            make.top.mas_equalTo(self.B_headimg.mas_top);
+            make.left.mas_equalTo(self.B_headimg.mas_right).mas_offset(5);
+            make.right.mas_equalTo(self.L_date.mas_left);
+            
+        }];
+        
+        [self.L_gangwei mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(120, 15));
+            make.bottom.mas_equalTo(self.B_headimg.mas_bottom);
+            make.right.mas_equalTo(self.mas_right).mas_offset(-35);
+        }];
+        
+        
+        [self.L_bumen mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(15);
+            make.left.mas_equalTo(self.B_headimg.mas_right).mas_offset(5);
+            make.bottom.mas_equalTo(self.B_headimg.mas_bottom);
+            make.right.mas_equalTo(self.L_gangwei.mas_left);
+        }];
+        
+        
+        
+    }
+    return self;
+}
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

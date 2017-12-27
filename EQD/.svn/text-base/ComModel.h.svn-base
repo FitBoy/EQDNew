@@ -1,0 +1,33 @@
+//
+//  ComModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/24.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface ComModel : NSObject
+///公司的创始人
+@property (nonatomic,copy) NSString* combusi;
+///公司的联系方式
+@property (nonatomic,copy) NSString* comcontact;
+///负责人
+@property (nonatomic,copy) NSString* comdutyman;
+///责任人的电话
+@property (nonatomic,copy) NSString* comdutytel;
+///公司邮箱
+@property (nonatomic,copy) NSString* comemai;
+///公司id
+@property (nonatomic,copy) NSString* comid;
+///公司名称
+@property (nonatomic,copy) NSString* comname;
+///公司类型
+@property (nonatomic,copy) NSString* comtype;
+///公司地址
+@property (nonatomic,copy) NSString* comadres;
+///是否企业认证
+@property (nonatomic,copy) NSString* authen;
+
+@end

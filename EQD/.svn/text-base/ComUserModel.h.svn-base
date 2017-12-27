@@ -1,0 +1,19 @@
+//
+//  ComUserModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/1.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface ComUserModel : NSObject
+@property (nonatomic,copy) NSString* cid;
+@property (nonatomic,copy) NSString* careername;
+@property (nonatomic,copy) NSString* careernum;
+@property (nonatomic,copy) NSString* postname;
+@property (nonatomic,copy) NSString* postnum;
+@property (nonatomic,copy) NSString* status;
+
+@end

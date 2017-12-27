@@ -1,0 +1,227 @@
+//
+//  FBMyPiZhunViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/30.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBMyPiZhunViewController.h"
+#import "PZLiZhiViewController.h"
+#import "PZXZWuZiViewController.h"
+#import "PZGangWeiDDViewController.h"
+#import "PZZhuanZhengViewController.h"
+#import "PZXuQiuPersonViewController.h"
+@interface FBMyPiZhunViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *tableV;
+    NSMutableArray *arr_big;
+    NSMutableArray *arr_leibie;
+}
+
+@end
+
+@implementation FBMyPiZhunViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title =@"我的批准";
+    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"外出",@"加班",@"调休",@"调班"],@[@"用车",@"报废",@"行政物资"],@[@"调薪",@"费用报销",@"福利",@"社保"],@[@"劳动合同",@"转正",@"岗位异动",@"离职批准",@"人力资源需求"]]];
+    arr_leibie = [NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=50;
+}
+
+#pragma  mark - 表的数据源
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return nil;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return arr_big.count;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSArray *tarr = arr_big[section];
+    return tarr.count;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    NSArray *tarr = arr_big[indexPath.section];
+    cell.textLabel.text =tarr[indexPath.row];
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+        {//考勤
+            switch (indexPath.row) {
+                case 0:
+                {
+                    //请假
+                    
+                    
+                }
+                    break;
+                case 1:
+                {
+                    //出差
+                    
+                }
+                    break;
+                case 2:
+                {
+                    //外出
+                }
+                    break;
+                case 3:
+                {
+                    //加班
+                }
+                    break;
+                case 4:
+                {
+                    //调休
+                    
+                }
+                    break;
+                case 5:
+                {
+                    //调班
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+            break;
+        case 1:
+        {//后勤
+            
+            switch (indexPath.row) {
+                case 0:
+                {
+                    //用车
+                }
+                    break;
+                    
+                case 1:
+                {
+                    //报废
+                }
+                    break;
+                    case 2:
+                {
+                  //行政物资
+                    PZXZWuZiViewController *WZvc =[[PZXZWuZiViewController alloc]init];
+                    [self.navigationController pushViewController:WZvc animated:NO];
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+            break;
+        case 2:
+        {//薪酬福利
+            switch (indexPath.row) {
+                case 0:
+                {
+                    //调薪
+                }
+                    break;
+                case 1:
+                {
+                    //费用报销
+                }
+                    break;
+                case 2:
+                {
+                    //福利
+                }
+                    break;
+                case 3:
+                {
+                    //社保
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+        case 3:
+        {
+            //组织管理
+            switch (indexPath.row) {
+                case 0:
+                {
+                    //劳动合同
+                }
+                    break;
+                case 1:
+                {
+                    //转正
+                    PZZhuanZhengViewController *ZZvc =[[PZZhuanZhengViewController alloc]init];
+                    [self.navigationController pushViewController:ZZvc animated:NO];
+                    
+                }
+                    break;
+                    
+                case 2:
+                {
+                    //岗位异动
+                    PZGangWeiDDViewController *GWvc =[[PZGangWeiDDViewController alloc]init];
+                    [self.navigationController pushViewController:GWvc animated:NO];
+                    
+                }
+                    break;
+                case 3:
+                {
+                    //离职批准
+                    PZLiZhiViewController *LZvc =[[PZLiZhiViewController alloc]init];
+                    [self.navigationController pushViewController:LZvc animated:NO];
+                    
+                }
+                    case 4:
+                {
+                    //人力资源需求
+                    PZXuQiuPersonViewController *XQvc=[[PZXuQiuPersonViewController alloc]init];
+                    [self.navigationController pushViewController:XQvc animated:NO];
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+
+@end

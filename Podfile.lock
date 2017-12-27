@@ -1,0 +1,114 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - AMap3DMap (5.4.0):
+    - AMapFoundation (~> 1.3)
+  - AMapFoundation (1.4.2)
+  - AMapLocation (2.4.0):
+    - AMapFoundation (~> 1.4)
+  - AMapSearch (5.4.0):
+    - AMapFoundation (~> 1.4)
+  - Bugly (2.4.8)
+  - CocoaAsyncSocket (7.6.1)
+  - CocoaHTTPServer (2.3):
+    - CocoaAsyncSocket
+    - CocoaLumberjack
+  - CocoaLumberjack (3.3.0):
+    - CocoaLumberjack/Default (= 3.3.0)
+    - CocoaLumberjack/Extensions (= 3.3.0)
+  - CocoaLumberjack/Default (3.3.0)
+  - CocoaLumberjack/Extensions (3.3.0):
+    - CocoaLumberjack/Default
+  - CTAssetsPickerController (3.3.2-alpha):
+    - PureLayout (~> 3.0.0)
+  - GTMBase64 (1.0.0)
+  - JCore (1.1.6)
+  - JPush (3.0.7):
+    - JCore (~> 1.1.6)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.14.1)
+  - PureLayout (3.0.2)
+  - RongCloudIM (2.8.20):
+    - RongCloudIM/CallKit (= 2.8.20)
+    - RongCloudIM/CallLib (= 2.8.20)
+    - RongCloudIM/IMKit (= 2.8.20)
+    - RongCloudIM/IMLib (= 2.8.20)
+    - RongCloudIM/RedPacket (= 2.8.20)
+    - RongCloudIM/Sticker (= 2.8.20)
+  - RongCloudIM/CallKit (2.8.20):
+    - RongCloudIM/CallLib
+    - RongCloudIM/IMKit
+  - RongCloudIM/CallLib (2.8.20):
+    - RongCloudIM/IMLib
+  - RongCloudIM/IMKit (2.8.20):
+    - RongCloudIM/IMLib
+  - RongCloudIM/IMLib (2.8.20)
+  - RongCloudIM/RedPacket (2.8.20):
+    - RongCloudIM/IMKit
+  - RongCloudIM/Sticker (2.8.20):
+    - RongCloudIM/IMKit
+  - SDWebImage (4.1.2):
+    - SDWebImage/Core (= 4.1.2)
+  - SDWebImage/Core (4.1.2)
+  - YYText (1.0.7)
+
+DEPENDENCIES:
+  - AFNetworking
+  - AMap3DMap
+  - AMapLocation
+  - AMapSearch
+  - Bugly
+  - CocoaAsyncSocket
+  - CocoaHTTPServer
+  - CTAssetsPickerController (~> 3.3.2-alpha)
+  - GTMBase64
+  - JPush
+  - Masonry
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - RongCloudIM
+  - SDWebImage
+  - YYText
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap3DMap: 3eb906ac6b9d488413ab26c24f67eca4b4ad4641
+  AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
+  AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
+  AMapSearch: 97042f81c1c8ea8adc4b1dadf1b1a688210aa141
+  Bugly: da3c02408c14838d498429320545a8e439392978
+  CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
+  CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
+  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
+  CTAssetsPickerController: ef06977de8e0b6d6ff11a324d357a12335a61243
+  GTMBase64: 0da7372e95f5171f3f652db38cde6716f8eb5e24
+  JCore: 18fc8725124f26e55625eaf224659b3a999dcf63
+  JPush: 111b79b8a0169ab8fd4c486dac3ed166ed69293e
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: 238e6a37e2dba12160ee3b79f6d2a2b26abcab42
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
+  RongCloudIM: fbb835e78844cb11f3f279467dea0fc962905002
+  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+
+PODFILE CHECKSUM: a2cb43cb6e99ac2a41227ab9af7f13902ae36a50
+
+COCOAPODS: 1.2.0.beta.1

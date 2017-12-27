@@ -1,0 +1,32 @@
+//
+//  YaoQingModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/10.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface YaoQingModel : NSObject
+///公司名称
+@property (nonatomic,copy) NSString* icom;
+///公司id
+@property (nonatomic,copy) NSString* icomid;
+///岗位名称
+@property (nonatomic,copy) NSString* iepost;
+///岗位id
+@property (nonatomic,copy) NSString* iepostnum;
+///部门名称
+@property (nonatomic,copy) NSString* iesec;
+///邀请人
+@property (nonatomic,copy) NSString* ipeople;
+///邀请人岗位
+@property (nonatomic,copy) NSString* ipost;
+///邀请人部门
+@property (nonatomic,copy) NSString* isec;
+///邀请人电话
+@property (nonatomic,copy) NSString* itel;
+
+
+@end

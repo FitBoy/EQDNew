@@ -1,0 +1,24 @@
+//
+//  Person_comModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/19.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface Person_comModel : NSObject
+///公司id
+@property (nonatomic,copy) NSString* cid;
+///公司名称
+@property (nonatomic,copy) NSString* cname;
+///岗位名称
+@property (nonatomic,copy) NSString* careername;
+///岗位id
+@property (nonatomic,copy) NSString* careernum;
+///部门名称
+@property (nonatomic,copy) NSString* postname;
+///部门id
+@property (nonatomic,copy) NSString* postnum;
+@end

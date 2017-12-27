@@ -1,0 +1,12 @@
+//
+//  FBAddFriendViewController.h
+//  YiQiDian
+//
+//  Created by 梁新帅 on 2017/2/23.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+@interface FBAddFriendViewController : UIViewController
+
+@end

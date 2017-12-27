@@ -1,0 +1,188 @@
+//
+//  QYQHaoYouViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/15.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "QYQHaoYouViewController.h"
+#import "FBHaoYouModel.h"
+#import "BMChineseSort.h"
+#import <UIImageView+AFNetworking.h>
+#import "FBchengyuanTableViewCell.h"
+@interface QYQHaoYouViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+{
+    UITableView *tableV;
+    NSMutableArray *arr_haoyou;
+    NSMutableArray *tarr;
+    NSMutableArray *arr_addhaoyou;
+    NSMutableArray *arr_index;
+    NSMutableArray *arr_sort;
+}
+
+@end
+
+@implementation QYQHaoYouViewController
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadRequestData];
+}
+-(void)loadRequestData{
+    
+    NSString *uid =[USERDEFAULTS objectForKey:Y_Zhanghao];
+    [WebRequest User_GetFriendListuid:uid And:^(NSDictionary *dic) {
+        [arr_haoyou removeAllObjects];
+        [tarr removeAllObjects];
+        
+        NSNumber *number =dic[Y_STATUS];
+        NSArray *arr =dic[Y_ITEMS];
+        if ([number integerValue]==200 ) {
+            if(arr.count)
+            {
+                for (NSDictionary *dic1 in arr) {
+                    FBHaoYouModel *model = [FBHaoYouModel mj_objectWithKeyValues:dic1];
+                    [arr_haoyou addObject:model];
+                    [tarr addObject:model];
+                }
+            }
+            arr_index = [BMChineseSort IndexWithArray:arr_haoyou Key:@"pname"];
+            arr_sort = [BMChineseSort sortObjectArray:arr_haoyou Key:@"pname"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableV.mj_header endRefreshing];
+                [tableV reloadData];
+            });
+        }
+    }];
+    
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title =@"邀请好友加群";
+    arr_addhaoyou = [NSMutableArray arrayWithCapacity:0];
+    arr_haoyou = [NSMutableArray arrayWithCapacity:0];
+    tarr = [NSMutableArray arrayWithCapacity:0];
+    arr_index = [NSMutableArray arrayWithCapacity:0];
+    arr_sort = [NSMutableArray arrayWithCapacity:0];
+    UISearchBar * searchBar =[[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, DEVICE_WIDTH, 40)];
+    [self.view addSubview:searchBar];
+    searchBar.delegate=self;
+    searchBar.placeholder=@"搜索";
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, DEVICE_WIDTH, DEVICE_HEIGHT-104) style:UITableViewStylePlain];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=60;
+    tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
+    
+    UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(yaoqingClick)];
+    [self.navigationItem setRightBarButtonItem:right];
+
+}
+-(void)yaoqingClick
+{
+    NSMutableString *uid =[NSMutableString string];
+    for (int i=0; i<arr_addhaoyou.count; i++) {
+        FBHaoYouModel  *model =arr_addhaoyou[i];
+        if (i==arr_addhaoyou.count-1) {
+            [uid appendString:model.uname];
+        }
+        else
+        {
+        [uid appendFormat:@"%@,",model.uname];
+        }
+    }
+    FBLoadingEffectView *effecV =[[FBLoadingEffectView alloc]init];
+    [self.view addSubview:effecV];
+    effecV.L_title.text = @"正在处理";
+    
+    [WebRequest User_AddGroupWithuid:uid groupid:self.model.groupid groupname:self.model.groupname And:^(NSDictionary *dic) {
+        [effecV cancelView];
+        NSNumber *code = dic[@"code"];
+        if ([code integerValue]==200) {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            [alert showAlertWith:@"邀请加群成功"];
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }];
+    
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    if (searchText.length==0) {
+        arr_haoyou =[NSMutableArray arrayWithArray:tarr];
+    }
+    else{
+        NSPredicate *predicate =[NSPredicate predicateWithFormat:@"pname CONTAINS[cd] %@",searchText];
+        arr_haoyou = [NSMutableArray arrayWithArray:[tarr filteredArrayUsingPredicate:predicate]];
+    }
+    
+    arr_index = [BMChineseSort IndexWithArray:arr_haoyou Key:@"pname"];
+    arr_sort = [BMChineseSort sortObjectArray:arr_haoyou Key:@"pname"];
+    [tableV reloadData];
+    
+    
+}
+#pragma  mark - 表的数据源
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return arr_index.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSArray *arr = arr_sort[section];
+    return arr.count;
+}
+
+-(NSArray <NSString*>*)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return arr_index;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return arr_index.count;
+}
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return arr_index[section];
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    FBchengyuanTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[FBchengyuanTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    NSArray *arr =arr_sort[indexPath.section];
+    FBHaoYouModel *model =arr[indexPath.row];
+    
+    
+    [cell.IV_headimg setImageWithURL:[NSURL URLWithString:model.iphoto] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+    cell.L_name.text = model.pname;
+    cell.L_date.text = model.uname;
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSArray *arr =arr_sort[indexPath.section];
+    FBHaoYouModel *model =arr[indexPath.row];
+    if (cell.accessoryType ==UITableViewCellAccessoryNone) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [arr_addhaoyou addObject:model];
+    }
+    else
+    {
+        cell.accessoryType =UITableViewCellAccessoryNone;
+        [arr_addhaoyou removeObject:model];
+    }
+}
+
+
+
+@end

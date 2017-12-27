@@ -1,0 +1,176 @@
+//
+//  GSRuZhuViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/25.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "GSRuZhuViewController.h"
+#import "FBTextField.h"
+#import "RZWanShanViewController.h"
+#import "LTrueNameViewController.h"
+@interface GSRuZhuViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+{
+    UserModel *user;
+    UISearchBar * searchBar;
+    UITableView *tableV;
+    NSMutableArray *arr_names;
+}
+
+@end
+
+@implementation GSRuZhuViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    user =[WebRequest GetUserInfo];
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    searchBar =[[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, DEVICE_WIDTH, 40)];
+    [self.view addSubview:searchBar];
+    searchBar.placeholder=@"请输入公司在易企点平台上的编码";
+    searchBar.delegate=self;
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, DEVICE_WIDTH, DEVICE_HEIGHT-104) style:UITableViewStylePlain];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=50;
+    arr_names =[NSMutableArray arrayWithCapacity:0];
+
+}
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [tableV reloadData];
+    
+}
+#pragma  mark - 表的数据源
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1+(arr_names.count>0? 1:0);
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    if (indexPath.row==0) {
+        cell.textLabel.text =[NSString stringWithFormat:@"搜索：%@",searchBar.text];
+        cell.detailTextLabel.text=nil;
+    }
+    else
+    {
+        cell.textLabel.text=[NSString stringWithFormat:@"企业名称：%@",arr_names[0]];
+        cell.detailTextLabel.text =[NSString stringWithFormat:@"企业地址：%@",arr_names[1]];
+    }
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row==0) {
+        
+        if (searchBar.text.length==0) {
+            
+        }
+        else
+        {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeAnnularDeterminate;
+            hud.label.text = @"正在查找";
+            
+        [WebRequest Com_GetSimpleInfoWithcid:searchBar.text And:^(NSDictionary *dic) {
+            [hud hideAnimated:NO];
+            NSNumber *status =dic[Y_STATUS];
+            NSArray  *arr = dic[Y_ITEMS];
+            if ([status integerValue]==200) {
+                if (arr.count) {
+                    NSDictionary *dic1 =arr[0];
+                    ComModel *comM =[ComModel mj_objectWithKeyValues:dic1];
+                    arr_names= [NSMutableArray arrayWithArray:@[comM.comname,comM.comadres]];
+                    [tableV reloadData];
+                }
+                else
+                {
+                    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.label.text =@"没有找到该企业";
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                    });
+                }
+                
+                }
+            
+        }];
+        }
+    }
+  else
+  {
+      
+      UIAlertController *alert =[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"您将要入驻%@",arr_names[0]] message:nil preferredStyle:UIAlertControllerStyleAlert];
+      [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+          
+      }]];
+      [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+          
+          
+          
+          
+          
+          if ([user.comid integerValue]==0) {
+              
+              [WebRequest Com_AddStaffWithuid:[USERDEFAULTS objectForKey:Y_Zhanghao] And:^(NSDictionary *dic) {
+                  if ([dic[Y_STATUS] integerValue]==200) {
+                      NSArray *arr =dic[Y_ITEMS];
+                      NSDictionary *dic2 = arr[0];
+                      if ([dic2[@"authen"] integerValue]==1) {
+                          //已经实名认证
+                          RZWanShanViewController *WSvc =[[RZWanShanViewController alloc]init];
+                          WSvc.comid =searchBar.text;
+                          [self.navigationController pushViewController:WSvc animated:NO];
+
+                          
+                      }
+                      else
+                      {
+                          //未实名认证
+                          LTrueNameViewController *TNvc =[[LTrueNameViewController alloc]init];
+                          TNvc.isFirst=2;
+                          [self.navigationController pushViewController:TNvc animated:NO];
+                    }
+                  }
+                  
+              }];
+              
+            }
+          else
+          {
+              MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+              hud.mode = MBProgressHUDModeText;
+              hud.label.text =@"您已经加入公司，不能再加入其它公司";
+              dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+              dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                  [MBProgressHUD hideHUDForView:self.view  animated:YES];
+              });
+          }
+          
+          
+          
+        
+          
+      }]];
+      
+      [self presentViewController:alert animated:NO completion:nil];
+      
+  }
+    
+    
+}
+
+
+
+@end

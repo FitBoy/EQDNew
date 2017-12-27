@@ -1,0 +1,182 @@
+//
+//  LZYuanYinViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/30.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "LZYuanYinViewController.h"
+#import "FBTextVViewController.h"
+#import "FBNCModel.h"
+@interface LZYuanYinViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate>
+{
+    UITableView *tableV;
+    NSMutableArray *arr_contens;
+    NSMutableArray *arr_titles;
+    NSMutableArray *arr_selected;
+    
+}
+
+@end
+
+@implementation LZYuanYinViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem .title = @"离职原因";
+    arr_titles = [NSMutableArray arrayWithArray:@[@"家庭原因",@"个人原因",@"公司原因",@"其他原因"]];
+    arr_contens =[NSMutableArray arrayWithCapacity:0];
+   NSArray *tarr=@[@[
+  @{@"name":@"1、家里孩子太小，离不开",@"code":@"0"},
+  @{@"name":@"2、家里准备盖房子",@"code":@"0"},
+  @{@"name":@"3、家里庄稼要开始收割",@"code":@"0"},
+  @{@"name":@"4、家里发生了邻里纠纷，要回去处理",@"code":@"0"},
+  @{@"name":@"5、兄弟或姐妹要结婚，辞职回家",@"code":@"0"},
+  @{@"name":@"6、父母年纪大了，需要回家照顾",@"code":@"0"}
+  ],
+@[
+  @{@"name":@"1、身体不好",@"code":@"0"},
+  @{@"name":@"2、回家结婚",@"code":@"0"},
+  @{@"name":@"3、回家读书",@"code":@"0"},
+  @{@"name":@"4、水土不服",@"code":@"0"},
+  @{@"name":@"5、想家",@"code":@"0"},
+  @{@"name":@"6、回家学技术",@"code":@"0"},
+  @{@"name":@"7、不适应目前的岗位",@"code":@"0"},
+  @{@"name":@"8、在这里没有发展",@"code":@"0"},
+  @{@"name":@"9、与同事不好相处",@"code":@"0"},
+  @{@"name":@"10、承受不了工作压力",@"code":@"0"},
+  @{@"name":@"11、我要创业",@"code":@"0"},
+  @{@"name":@"12、寻求更大的发展空间",@"code":@"0"},
+  @{@"name":@"13、考公务员",@"code":@"0"}
+  ],
+  @[
+  @{@"name":@"1、工资/福利太低",@"code":@"0"},
+  @{@"name":@"2、工作时间太长",@"code":@"0"},
+  @{@"name":@"3、工作环境太差",@"code":@"0"},
+  @{@"name":@"4、上班太累",@"code":@"0"},
+  @{@"name":@"5、休息时间太少",@"code":@"0"},
+  @{@"name":@"6、领导对我不公",@"code":@"0"},
+  @{@"name":@"7、车间太热（冷）",@"code":@"0"},
+  @{@"name":@"8、管理太严格不习惯",@"code":@"0"},
+  @{@"name":@"9、分配的岗位不适应",@"code":@"0"},
+  @{@"name":@"10、领导总是批评我",@"code":@"0"},
+  @{@"name":@"11、伙食不好",@"code":@"0"},
+  @{@"name":@"12、住宿条件不好",@"code":@"0"},
+  @{@"name":@"13、活太重",@"code":@"0"},
+  @{@"name":@"14、没有发展空间",@"code":@"0"},
+  @{@"name":@"15、不适应公司文化",@"code":@"0"},
+  @{@"name":@"16、管理层太官僚，不适应",@"code":@"0"},
+  @{@"name":@"17、感觉公司没前途",@"code":@"0"}
+  ],
+  @[@{@"name":@"请输入",@"code":@"0"}]];
+    
+    for (NSArray *arr in tarr) {
+        NSMutableArray *tarr1 =[NSMutableArray arrayWithCapacity:0];
+        for (NSDictionary *dic1 in arr) {
+            FBNCModel *model = [FBNCModel mj_objectWithKeyValues:dic1];
+            [tarr1 addObject:model];
+        }
+        [arr_contens addObject:tarr1];
+    }
+    
+       arr_selected = [NSMutableArray arrayWithCapacity:0];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, DEVICE_WIDTH, DEVICE_HEIGHT-20) style:UITableViewStyleGrouped];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=40;
+    
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(quedingClick)];
+    [self.navigationItem setRightBarButtonItem:right];
+}
+-(void)quedingClick
+{
+    //确定
+    if ([self.delegate respondsToSelector:@selector(yuanyinArr:indexPath:)]) {
+        [self.delegate yuanyinArr:arr_selected indexPath:self.indexPath];
+    }
+    [self.navigationController popViewControllerAnimated:NO];
+    
+}
+#pragma  mark - 表的数据源
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 15;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return arr_titles.count;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSArray *tarr =arr_contens[section];
+    return tarr.count;
+}
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return arr_titles[section];
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        
+    }
+    
+   
+    NSArray *tarr =arr_contens[indexPath.section];
+    FBNCModel *model =tarr[indexPath.row];
+    cell.textLabel.text =model.name;
+    cell.accessoryType =[model.code integerValue]==0?UITableViewCellAccessoryNone:UITableViewCellAccessoryCheckmark;
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.section<3) {
+        UITableViewCell *cell = [tableV cellForRowAtIndexPath:indexPath];
+        FBNCModel *model = arr_contens[indexPath.section][indexPath.row];
+        if ([model.code integerValue]==0) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            [arr_selected addObject:model.name];
+            model.code =@"1";
+            
+        }
+        else
+        {
+            cell.accessoryType =UITableViewCellAccessoryNone;
+            [arr_selected removeObject:model.name];
+            model.code=@"0";
+
+        }
+        
+    }
+    else
+    {
+        FBTextVViewController *TVvc =[[FBTextVViewController alloc]init];
+        TVvc.indexpath =indexPath;
+        TVvc.delegate =self;
+        TVvc.content =arr_contens[indexPath.section][indexPath.row];
+        TVvc.contentTitle =@"离职原因";
+        [self.navigationController pushViewController:TVvc animated:NO];
+    }
+}
+
+#pragma mark - 自定义的协议代理
+-(void)textVtext:(NSString *)text indexPath:(NSIndexPath *)indexPath
+{
+
+    NSArray *tarr =@[@{@"name":text,@"code":@"0"}];
+    [arr_contens removeObjectAtIndex:3];
+    [arr_contens addObject:tarr];
+    [tableV reloadSections:[NSIndexSet  indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
+
+
+@end

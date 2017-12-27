@@ -1,0 +1,59 @@
+//
+//  FBShowimg_moreViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/25.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBShowimg_moreViewController.h"
+#import "STImageVIew.h"
+#import "NSString+FBString.h"
+@interface FBShowimg_moreViewController ()<STImageViewDelegate,UIScrollViewDelegate>
+{
+    UIScrollView *SV_imgs;
+}
+
+@end
+
+@implementation FBShowimg_moreViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets =NO;
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld \%ld",self.index,_arr_imgs.count];
+    
+    SV_imgs =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, DEVICE_WIDTH, DEVICE_HEIGHT-64)];
+    [self.view addSubview:SV_imgs];
+    SV_imgs.contentSize = CGSizeMake(DEVICE_WIDTH*_arr_imgs.count, DEVICE_HEIGHT-64);
+    for (int i=0; i<_arr_imgs.count; i++) {
+        NSString *str =_arr_imgs[i];
+     CGSize size= [NSString getImageSizeWithURL2:[NSURL URLWithString:str]];
+        float height = (float)size.height*DEVICE_WIDTH/size.width;
+        
+        STImageVIew *imgV =[[STImageVIew alloc]initWithFrame:CGRectMake(DEVICE_WIDTH*i, (DEVICE_HEIGHT-height-64)/2.0, DEVICE_WIDTH, height)];
+        imgV.delegate =self;
+        [SV_imgs addSubview:imgV];
+        
+    }
+    
+    [SV_imgs setContentOffset:CGPointMake(DEVICE_WIDTH*self.index, 0)];
+    
+    SV_imgs.delegate=self;
+    
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld \%ld",(NSInteger)(scrollView.contentOffset.x/DEVICE_WIDTH),_arr_imgs.count];
+    
+}
+#pragma mark - stimg的协议代理
+-(void)stImageVIewSingleClick:(STImageVIew *)imageView
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    
+}
+
+
+@end

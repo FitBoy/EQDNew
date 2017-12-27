@@ -1,0 +1,14 @@
+//
+//  RZWanShanViewController.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/26.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBBaseViewController.h"
+#import "YaoQingModel.h"
+@interface RZWanShanViewController : FBBaseViewController
+@property (nonatomic,copy) NSString* comid;
+@property (nonatomic,strong)  YaoQingModel *model;
+@end

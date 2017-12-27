@@ -1,0 +1,22 @@
+//
+//  chengYuanModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/12.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+@interface chengYuanModel : NSObject
+@property (nonatomic,copy) NSString* authen;
+@property (nonatomic,copy)  NSString *birth;
+@property (nonatomic,copy) NSString* bplace;
+@property (nonatomic,copy) NSString* email;
+@property (nonatomic,copy) NSString* iphoto;
+@property (nonatomic,copy) NSString* name;
+@property (nonatomic,copy) NSString* nation;
+@property (nonatomic,copy) NSString* pname;
+@property (nonatomic,copy) NSString* sex;
+@property (nonatomic,copy) NSString* uname;
+-(NSString*)iphoto;
+@end

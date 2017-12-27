@@ -1,0 +1,215 @@
+//
+//  RWFaSongViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/30.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "RWFaSongViewController.h"
+#import "FBTextFieldViewController.h"
+#import "FBTextVViewController.h"
+#import "FBTimeDayViewController.h"
+#import "MyRenWuViewController.h"
+#import "TwoTongShiViewController.h"
+@interface RWFaSongViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTimeDayViewControllerDelegate>
+{
+    UITableView *tableV;
+    NSMutableArray *arr_names;
+    NSMutableArray *arr_contents;
+    ComModel *com;
+}
+
+@end
+
+@implementation RWFaSongViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    com = [WebRequest getCompanyInfo];
+    self.navigationItem.title=@"发任务";
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStylePlain];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=50;
+    arr_names =[NSMutableArray arrayWithArray:@[@"*任务名称",@"关联父项目",@"*责任人",@"协助人",@"知会人",@"*开始",@"*结束",@"*验收标准",@"*验收人",@"*验收时间",@"*责任（奖罚）"]];
+    
+    arr_contents =[NSMutableArray arrayWithArray:@[@"请输入",@"请选择",@"请选择",@"请选择(非必填)",@"请选择(非必填)",@"请选择",@"请选择",@"请输入",@"请选择",@"请选择",@"请选择"]];
+    
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(fasongCLik)];
+    [self.navigationItem setRightBarButtonItem:right];
+}
+-(void)fasongCLik
+{
+    //发送
+    NSInteger flag=0;
+    for (NSString *tstr  in arr_contents) {
+        if ([tstr isEqualToString:@"请输入"] || [tstr isEqualToString:@"请选择"]) {
+            flag =1;
+            break;
+        }
+    }
+    
+    if (flag==0) {
+        ///发任务
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeAnnularDeterminate;
+        hud.label.text = @"正在发送";
+        
+        [WebRequest Com_PublishTaskWithtname:arr_contents[0] tparent:arr_contents[1] tdutyname:arr_contents[2] tdutynum:@"1" tassisname:arr_contents[3] tassisnum:@"1" tinforname:arr_contents[4] tinfonum:@"1" tbegintimes:arr_contents[5] tendtimes:arr_contents[6] tcheckstandard:arr_contents[7] tchecktimes:arr_contents[9] tduty:arr_contents[8] tcreateman:[USERDEFAULTS objectForKey:Y_Zhanghao] tcomid:com.comid And:^(NSDictionary *dic) {
+            [hud hideAnimated:NO];
+            
+            
+        }];
+        
+    }
+    else
+    {
+        MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text =@"带星的为必填项";
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [MBProgressHUD hideHUDForView:self.view  animated:YES];
+        });
+    }
+    
+}
+#pragma  mark - 表的数据源
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return arr_names.count;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.textLabel.text =arr_names[indexPath.row];
+    cell.detailTextLabel.text =arr_contents[indexPath.row];
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+            {
+                //任务名称
+                FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];
+                TFvc.indexPath =indexPath;
+                TFvc.delegate =self;
+                TFvc.contentTitle =arr_names[indexPath.row];
+                TFvc.content = arr_contents[indexPath.row];
+                [self.navigationController pushViewController:TFvc animated:NO];
+            }
+            break;
+        case 1:
+        {
+          //关联父项目
+            MyRenWuViewController *RWvc =[[MyRenWuViewController alloc]init];
+            [self.navigationController pushViewController:RWvc animated:NO];
+            
+        }
+            break;
+        case 2:
+        {
+            //责任人
+            TwoTongShiViewController *TSVvc =[[TwoTongShiViewController alloc]init];
+            [self.navigationController pushViewController:TSVvc animated:NO];
+            
+        }
+            break;
+        case 3:
+        {
+            //协助人
+        }
+            break;
+        case 4:
+        {
+           //知会人
+        }
+            break;
+        case 5:
+        {
+           //开始
+            FBTimeDayViewController *TDvc =[[FBTimeDayViewController alloc]init];
+            TDvc.indexPath =indexPath;
+            TDvc.delegate =self;
+            TDvc.contentTitle =arr_names[indexPath.row];
+            [self.navigationController pushViewController:TDvc animated:NO];
+            
+        }
+            break;
+        case 6:
+        {
+           //结束
+            FBTimeDayViewController *TDvc =[[FBTimeDayViewController alloc]init];
+            TDvc.indexPath =indexPath;
+            TDvc.delegate =self;
+            TDvc.contentTitle =arr_names[indexPath.row];
+            [self.navigationController pushViewController:TDvc animated:NO];
+        }
+            break;
+        case 7:
+        {
+           //验收标准
+            FBTextVViewController *Vvc =[[FBTextVViewController alloc]init];
+            Vvc.delegate =self;
+            Vvc.contentTitle =arr_names[indexPath.row];
+            Vvc.content =arr_contents[indexPath.row];
+            Vvc.indexpath =indexPath;
+            [self.navigationController pushViewController:Vvc animated:NO];
+            
+        }
+            break;
+        case 8:
+        {
+            //验收人
+            TwoTongShiViewController *TSVvc =[[TwoTongShiViewController alloc]init];
+            [self.navigationController pushViewController:TSVvc animated:NO];
+        }
+            break;
+        case 9:
+        {
+            //验收时间
+            FBTimeDayViewController *TDvc =[[FBTimeDayViewController alloc]init];
+            TDvc.indexPath =indexPath;
+            TDvc.delegate =self;
+            TDvc.contentTitle =arr_names[indexPath.row];
+            [self.navigationController pushViewController:TDvc animated:NO];
+        }
+            break;
+        case 10:
+        {
+           //责任
+        }
+            break;
+         
+        default:
+            break;
+    }
+}
+
+#pragma mark - 自定义的协议代理
+-(void)content:(NSString *)content WithindexPath:(NSIndexPath *)indexPath
+{
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:content];
+    [tableV reloadData];
+}
+-(void)timeDay:(NSString *)time indexPath:(NSIndexPath *)indexPath
+{
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:time];
+    [tableV reloadData];
+}
+-(void)textVtext:(NSString *)text indexPath:(NSIndexPath *)indexPath
+{
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:text];
+    [tableV reloadData];
+    
+}
+@end

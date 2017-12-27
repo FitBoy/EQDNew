@@ -1,0 +1,115 @@
+//
+//  TKeHuGuanLiViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/23.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "TKeHuGuanLiViewController.h"
+#import "KHAddViewController.h"
+#import "KHDetailViewController.h"
+#import "FBFour_noimgTableViewCell.h"
+#import "KHShaiXuanViewController.h"
+@interface TKeHuGuanLiViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *tableV;
+    NSMutableArray *arr_contents;
+    NSMutableArray *tarr;
+}
+
+@end
+
+@implementation TKeHuGuanLiViewController
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadRequestData];
+}
+-(void)loadRequestData{
+    
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    self.navigationItem.title = @"客户管理";
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"add_eqd2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(tianjiakehuClick)];
+    [self.navigationItem setRightBarButtonItem:right];
+    UISearchBar * searchBar =[[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, DEVICE_WIDTH, 40)];
+    [self.view addSubview:searchBar];
+    searchBar.delegate=self;
+    searchBar.placeholder=@"搜索客户";
+    arr_contents =[NSMutableArray arrayWithCapacity:0];
+    tarr =[NSMutableArray arrayWithCapacity:0];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, DEVICE_WIDTH, DEVICE_HEIGHT-104) style:UITableViewStylePlain];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=50;
+}
+-(void)tianjiakehuClick
+{
+    UIAlertController *alert =[[UIAlertController alloc]init];
+    [alert addAction:[UIAlertAction actionWithTitle:@"添加客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       KHAddViewController  *KHAvc =[[KHAddViewController alloc]init];
+        dispatch_async(dispatch_get_main_queue(), ^{
+             [self.navigationController pushViewController:KHAvc animated:NO];
+        });
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"筛选" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        KHShaiXuanViewController *SXvc =[[KHShaiXuanViewController alloc]init];
+        [self.navigationController pushViewController:SXvc animated:NO];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"附近" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    
+    [self presentViewController:alert animated:NO completion:nil];
+    
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    if (searchText.length==0) {
+        arr_contents =[NSMutableArray arrayWithArray:tarr];
+    }
+    else{
+        NSPredicate *predicate =[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@",searchText];
+        arr_contents = [NSMutableArray arrayWithArray:[tarr filteredArrayUsingPredicate:predicate]];
+    }
+    [tableV reloadData];
+}
+#pragma  mark - 表的数据源
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    FBFour_noimgTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[FBFour_noimgTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    cell.L_left0.text =@"客户名称";
+    cell.L_right0.text =@"手机";
+    cell.L_left1.text =@"客户类型";
+    cell.L_right1.text=@"销售区域";
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    KHDetailViewController *Dvc =[[KHDetailViewController alloc]init];
+    [self.navigationController pushViewController:Dvc animated:NO];
+    
+}
+
+
+
+@end

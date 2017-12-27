@@ -1,0 +1,302 @@
+//
+//  WebRequest.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/3/18.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+#define DEVICE_HEIGHT  [UIScreen mainScreen].bounds.size.height
+#define DEVICE_WIDTH   [UIScreen mainScreen].bounds.size.width
+#define USERDEFAULTS  [NSUserDefaults standardUserDefaults]
+#define EQDCOLOR   [UIColor colorWithRed:0 green:116/255.0 blue:250/255.0 alpha:1]
+#define APPKEY_RongCloud  @"k51hidwqkl83b"
+#define APPKEY_SMS  @"17e1ba8f63685"
+#define SECRET_SMS  @"2a81e3d4a8c200d3bfb25a6aa0bb8748"
+#define AMAP_KEY @"e78b213b09f4d884a5483d0e9613d2d1"
+#define Y_first_Start @"first_Start"
+#define YQDCOLOR   [UIColor colorWithRed:0 green:157/255.0 blue:237/255.0 alpha:1]
+#define Y_USERINFO @"userInfo"
+#define Y_Company @"company"
+#define RC_TOKEN @"token"
+#define Z_U1 @"u1"
+#define Z_U2 @"u2"
+#define Z_TEMP @"temp"
+#define Z_TEMAIL  @"temail"
+#define Z_ANAME  @"aname"
+#define Z_APASS  @"apass"
+#define Z_RAN @"ran"
+#define Y_loginSuccess  @"success"
+#define Y_Zhanghao @"zhanghao"
+#define Y_STATUS @"status"
+#define Y_MSG @"msg"
+#define Y_MIMA @"Ymima"
+#define Y_ITEMS @"items"
+#define Z_USERID @"userid"
+#define Z_FRIENDID @"friendid"
+#define Z_CONTENT @"addcontent"
+#define Z_IPHOTO @"iphoto"
+#define Z_IDNUM @"idnum"
+#define Z_photoexplain @"photoexplain"
+#define Z_num @"num"
+#define Z_CID @"cid"
+#define Z_id @"id"
+#define Z_checkend @"checkend"
+#define Z_checkexplain @"checkexplain"
+#define Z_tname @"tname"
+#define Z_tparent @"tparent"
+#define Z_tdutyname @"tdutyname"
+#define Z_tdutynum @"tdutynum"
+#define Z_tassisname @"tassisname"
+#define Z_tassisnum @"tassisnum"
+#define Z_tinforname @"tinforname"
+#define Z_tinfonum @"tinfonum"
+#define Z_tbegintimes @"tbegintimes"
+#define Z_tendtimes @"tendtimes"
+#define Z_tcheckstandard @"tcheckstandard"
+#define Z_tduty @"tduty"
+#define Z_tcreateman @"tcreateman"
+#define Z_tcomid @"tcomid"
+#define Z_status @"status"
+#define Z_bossid @"bossid"
+#define Z_csec @"csec"
+#define Z_cpost @"cpost"
+#define Z_SEX @"sex"
+#define Z_age @"age"
+#define Z_heigh @"heigh"
+#define Z_weigh @"weigh"
+#define Z_blood @"blood"
+#define Z_czodia @"czodia"
+#define Z_belief @"belief"
+#define Z_politicstate @"politicstate"
+#define Z_interest @"interest"
+#define Z_padress @"padress"
+#define Z_marry @"marry"
+#define Z_contactname @"contactname"
+#define Z_scontact @"scontact"
+#define Z_scontactrelat @"scontactrelat"
+#define Z_qq @"qq"
+#define Z_wchat @"wchat"
+#define Z_careertype @"careertype"
+#define Z_careername @"careername"
+#define Z_postname @"postname"
+#define Z_postnum @"postnum"
+#define Z_grad @"grad"
+#define Z_edu @"edu"
+#define Z_pskill @"pskill"
+#define Z_foreignclass @"foreignclass"
+#define Z_socialsecuritynum @"socialsecuritynum"
+#define Z_date @"date"
+#define Z_rdate @"rdate"
+#define Z_NATION @"nation"
+#define Z_houseadress @"houseadress"
+#define Z_housetype @"housetype"
+#define Z_mail @"mail"
+#define Z_BRITH @"birth"
+#define Z_PNATIVE @"pnative"
+#define Z_EMAIL @"email"
+#define Z_UNAME @"uname"
+#define Z_NAME @"name"
+#define Z_UID @"uid"
+#define Z_pass @"pass"
+#define Z_major @"major"
+#define Z_PERSONID @"personid"
+#define Z_POSTNAME @"postname"
+#define Z_PPARENT @"pparent"
+#define Z_PDESCRIB @"pdescrib"
+#define Z_COMENAME @"comname"
+#define Z_CODECERTIFINUMB @"codecertifinumb"
+#define Z_BUSLICENSENUMB @"buslicensenumb"
+#define Z_productcertifinum @"productcertifinum"
+#define Z_maincustomer @"maincustomer"
+#define Z_registeredassets @"registeredassets"
+#define Z_busscope @"busscope"
+#define Z_bussetdate @"bussetdate"
+#define Z_busterm @"busterm"
+#define Z_mainbus @"mainbus"
+#define Z_mainbusadress @"mainbusadress"
+#define Z_staffnum @"staffnum"
+#define Z_COMID @"comid"
+#define Z_com @"com"
+#define Z_sec @"sec"
+#define Z_people @"people"
+#define Z_post @"post"
+#define Z_tel @"tel"
+#define Z_entel @"entel"
+#define Z_ensec @"ensec"
+#define Z_enpost @"enpost"
+#define Z_enpostnum @"enpostnum"
+#define Z_PID @"pid"
+#define Z_PNAME @"pname"
+#define  Z_COM_DUTYMAN @"comdutyman"
+#define Z_COM_DUTYIDNUM @"comdutyIDnum"
+#define Z_COM_DUTYTEL @"comdutytel"
+#define Z_COM_TYPE @"comtype"
+#define Z_COM_BUSI @"combusi"
+#define Z_COM_ADRES @"comadres"
+#define Z_COM_CONTACT @"comcontact"
+#define Z_COM_EMAI @"comemai"
+#define Z_GROUPID @"groupid"
+#define Z_SYM @"sym"
+#define Z_GROUPNAME @"groupname"
+#define Z_GROUPPHOTO @"groupphoto"
+#define Z_RES @"res"
+#define HTTP_HEAD @"http://192.168.1.107:80/"
+#define HTTP_PATH @"http://192.168.1.107:80"
+#define Y_com_user  @"Y_com_user"
+#import <Foundation/Foundation.h>
+#import "MBFadeAlertView.h"
+#import "FBLoadingEffectView.h"
+#import <AFNetworking.h>
+#import <MJExtension.h>
+#import <MJRefresh.h>
+#import <CommonCrypto/CommonDigest.h>
+#import "FBScanViewController.h"
+#import "UserModel.h"
+#import "ComModel.h"
+#import <MBProgressHUD.h>
+#import "Person_comModel.h"
+@interface WebRequest : NSObject
+///获取登录的用户信息
++(UserModel*)GetUserInfo;
+///获取公司的基本信息
++(ComModel*)getCompanyInfo;
+///获取个人在公司的基本信息
++(Person_comModel*)getPerson_comModel;
+
+///对字符串进行哈希加密
++ (NSString *)sha1:(NSString *)inputString;
+///注册
++(void)user_loginWithu1:(NSString*)u1 u2:(NSString*)u2 And:(void(^)(NSDictionary *dic))block;
+///登录
++(void)user_enterWithu1:(NSString*)u1 u2:(NSString*)u2 uid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///通过邮箱与手机号找回密码
++(void)user_backpassWithtemail:(NSString*)temail  aname:(NSString*)aname And:(void(^)(NSDictionary *dic))block;
+///邮箱找回的修改密码
++(void)user_cpassWithaname:(NSString*)aname apass:(NSString*)apass ran:(NSString*)ran And:(void(^)(NSDictionary *dic))block;
+///获取没有公司的个人信息
++(void)User_GetInfoWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+
+///添加好友申请
++(void)User_AddFriendWithuserid:(NSString*)userid friendid:(NSString*)friendid content:(NSString*)content iphoto:(NSString*)iphoto And:(void(^)(NSDictionary *dic))block;
+///同意或者拒绝好友  1 同意 0 拒绝
++(void)User_AddFriend_DealWithuid:(NSString*)uid friendid:(NSString*)friendid res:(NSInteger)res And:(void(^)(NSDictionary *dic))block;
+///好友申请列表
++(void)User_AddFriend_RequestWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///删除好友
++(void)User_DeleteFriendWithuid:(NSString*)uid friendid:(NSString*)friendid And:(void(^)(NSDictionary *dic))block;
+///获取好友列表
++(void)User_GetFriendListuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+
+///获取融云的token
++(void)User_RcHttpclientWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///个人实名认证
++(void)User_rname_authenWithiphoto:(UIImage*)iphoto idnum:(NSString*)idnum sex:(int)sex nation:(NSString*)nation brith:(NSString*)brith pnative:(NSString*)pnative email:(NSString*)email uname:(NSString*)uname name:(NSString*)name And:(void(^)(NSDictionary *dic))block;
+///修改个人信息
++(void)User_UpdateUserInfoWithiphoto:(UIImage *)iphoto name:(NSString*)name sex:(NSInteger)sex  idnum:(NSString*)idnum nation:(NSString*)nation birth:(NSString*)birth pnative:(NSString*)pnative email:(NSString*)email And:(void(^)(NSDictionary *dic))block;
+
+///根据身份证图片获取 个人信息
++(void)GetuserinfoWithimg:(UIImage *)img And:(void(^)(NSDictionary *dic))block;
+///创建群组
++(void)User_CreateGroupWithuid:(NSString*)uid groupid:(NSString*)groupid groupname:(NSString*)groupname And:(void(^)(NSDictionary *dic))block;
+///添加群成员
++(void)User_AddGroupWithuid:(NSString*)uid groupid:(NSString*)groupid groupname:(NSString*)groupname And:(void(^)(NSDictionary *dic))block;
+///退出群组
++(void)User_QuitGroupWithuid:(NSString*)uid groupid:(NSString*)groupid And:(void(^)(NSDictionary *dic))block;
+///解散群组
++(void)User_DismissGroupWithuid:(NSString*)uid groupid:(NSString*)groupid And:(void(^)(NSDictionary *dic))block;
+///查看群成员
++(void)User_SelectGroupMemberWithgroupid:(NSString*)groupid And:(void(^)(NSDictionary *dic))block;
+///修改群组信息
++(void)User_UpdateGroupInfoWithgroupid:(NSString*)groupid groupname:(NSString*)groupname groupphoto:(UIImage*)groupphoto And:(void(^)(NSDictionary *dic))block;
+//搜索群或者查询群信息
++(void)User_SelectGroupInfoWithgroupname:(NSString*)groupname groupid:(NSString*)groupid And:(void(^)(NSDictionary *dic))block;
+///查看某个人下的群列表
++(void)User_GetGroupsInfoWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+
+/**
+ 选择  1-民族 2-户口类型 3-婚配 4-政治面貌 5-文化程度 6-职业资格 7-工作性质 
+ 8-合同性质 9-终止合同原因 10-合同形式 11-合同类型 12-合同有效期
+ 13-合同续签次数 14-社保种类 15 公司类型 16 公司经营模式 17 公司员工规模 18 公司体系认证  19 公司年营业额 20 生肖
+ */
++(void)Option_contentWithsym:(NSInteger)sym And:(void(^)(NSDictionary *dic))block;
+///五级联动的地区
++(void)Option_AreasAnd:(void(^)(NSDictionary *dic))block;
+///行业分类接口
++(void)Option_HangYeAnd:(void(^)(NSDictionary *dic))block;
+///企业注册前需要验证的手机号逻辑
++(void)User_JudgeExistWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+
+///公司注册
++(void)Com_loginWithcomname:(NSString*)comname comdutyman:(NSString*)comdutyman comdutyIDnum:(NSString*)comdutyIDnum comdutytel:(NSString*)comdutytel comtype:(NSString*)comtype combusi:(NSString*)combusi comadres:(NSString*)comadres comcontact:(NSString*)comcontact comemai:(NSString*)comemai uid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///获取公司的基本信息
++(void)Com_GetSimpleInfoWithcid:(NSString*)cid And:(void(^)(NSDictionary *dic))block;
+///添加部门
++(void)Com_CreateSectionWithpersonid:(NSString*)personid postname:(NSString*)postname pparent:(NSString*)pparent pdescrib:(NSString*)pdescrib And:(void(^)(NSDictionary *dic))block;
+/// 查询该用户是否实名认证（公司入驻时判断） 参数：uid，完成后返回的参数为个人实名认证时的所有信息，放在入驻公司时填写的表格内，减少填写内容
++(void)Com_AddStaffWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+
+///企业实名认证
++(void)Com_rname_authenWithimgArr:(NSArray<UIImage*>*)img codecertifinumb:(NSString*)codecertifinumb buslicensenumb:(NSString*)buslicensenumb productcertifinum:(NSString*)productcertifinum maincustomer:(NSString*)maincustomer registeredassets:(NSString*)registeredassets busscope:(NSString*)busscope bussetdate:(NSString*)bussetdate  busterm:(NSString*)busterm mainbus:(NSString*)mainbus mainbusadress:(NSString*)mainbusadress  staffnum:(NSString*)staffnum comid:(NSString*)comid And:(void(^)(NSDictionary *dic))block;
+
+///查询公司的所有部门 (暂时废弃不用)
++(void)Com_SelectSectionWithpersonid:(NSString*)personid And:(void(^)(NSArray *arr))block;
+///修改部门信息
++(void)Com_UpdateSectionNameWithpid:(NSString*)pid pname:(NSString*)pname And:(void(^)(NSDictionary *dic))block;
+///添加员工至相应的部门
++(void)Com_InsertStaffWithuid:(NSString*)uid cid:(NSString*)cid csec:(NSString*)csec cpost:(NSString*)cpost And:(void(^)(NSDictionary *dic))block;
+///删除部门
++(void)Com_DeleteSectionWithpid:(NSString*)pid And:(void(^)(NSDictionary *dic))block;
+
+///个人实名认证
++(void)Com_InsertStaffInfoWithu1:(NSString*)u1  name:(NSString*)name imagearr:(NSArray<UIImage*>*)imageArr idnum:(NSString*)idnum sex:(NSString*)sex age:(NSString*)age date:(NSString*)date rdate:(NSString*)rdate pnative:(NSString*)pnative nation:(NSString*)nation mail:(NSString*)mail housetype:(NSString*)housetype houseadress:(NSString*)houseadress And:(void(^)(NSDictionary *dic))block;
+///查询查看某一类下的部门
++(void)Com_SelectSection_PartWithpparent:(NSString*)pparent And:(void(^)(NSArray *arr))block;
+
+///完善个人信息
++(void)Com_InsertStaffInfo_SupplementWithheigh:(NSString*)heigh weigh:(NSString*)weigh blood:(NSString*)blood czodia:(NSString*)czodia belief:(NSString*)belief  politicstate:(NSString*)politicstate interest:(NSString*)interest padress:(NSString*)padress marry:(NSString*)marry contactname:(NSString*)contactname scontact:(NSString*)scontact scontactrelat:(NSString*)scontactrelat qq:(NSString*)qq wchat:(NSString*)wchat grad:(NSString*)grad edu:(NSString*)edu pskill:(NSString*)pskill foreignclass:(NSString*)foreignclass socialsecuritynum:(NSString*)socialsecuritynum uid:(NSString*)uid major:(NSString*)major  And:(void(^)(NSDictionary *dic))block;
+///添加岗位
++(void)Com_CreateCareerWithcareertype:(NSString*)careertype careername:(NSString*)careername postname:(NSString*)postname postnum:(NSString*)postnum And:(void(^)(NSDictionary *dic))block;
+///获取公司下的岗位列表
++(void)Com_SelectCareerWithcid:(NSString*)cid And:(void(^)(NSDictionary *dic))block;
+///获取部门下的岗位列表
++(void)Com_SelectCareer_PartWithpid:(NSString*)pid And:(void(^)(NSDictionary *dic))block;
+///岗位选择 用于招聘
++(void)Option_JobTypeAnd:(void(^)(NSDictionary *dic))block;
+
+///修改个人档案的单独接口
++(void)Com_UpdateStaffInfoWithkey:(NSString*)key value:(NSString*)value And:(void(^)(NSDictionary *dic))block;
+///查询个人档案信息
++(void)Com_SelectStaffInfoWithuid:(NSString*)uid pass:(NSString*)pass And:(void(^)(NSDictionary *dic))block;
+///删除岗位
++(void)Com_DeleteCareerWithpid:(NSString*)pid careername:(NSString*)careername And:(void(^)(NSDictionary *dic))block;
+///更新岗位信息 只能更新一个
++(void)Com_UpdateCareercareertype:(NSString*)careertype careername:(NSString*)careername postname:(NSString*)postname postnum:(NSString*)postnum ID:(NSString*)ID And:(void(^)(NSDictionary *dic))block;
+///入职邀请  
++(void)Com_HR_InviteWithcomid:(NSString*)comid name:(NSString*)name uid:(NSString*)uid  entel:(NSString*)entel  ensec:(NSString*)ensec enpost:(NSString*)enpost enpostnum:(NSString*)enpostnum And:(void(^)(NSDictionary *dic))block;
+///设置公司老板
++(void)Com_AffirmBossbossid:(NSString*)bossid cid:(NSString*)cid And:(void(^)(NSDictionary *dic))block;
+///查询个人 在公司的信息
++(void)Com_SelectStaffWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///添加入驻公司的信息 status指该人的公司地位【例：主管，人事，老板】，参数见上次发送，post传其id   -1 ,1,2,3,4 表示的是权限
++(void)Com_SetPersonnelWithuid:(NSString*)uid cid:(NSString*)cid post:(NSString*)post status:(NSString*)status And:(void(^)(NSDictionary *dic))block;
+///查询自己是否被入驻邀请
++(void)Com_SelectInviteWithuid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///查询企业是否认证
++(void)Com_SelectAutherWithcid:(NSString*)cid And:(void(^)(NSDictionary *dic))block;
+///发布任务
++(void)Com_PublishTaskWithtname:(NSString*)tname tparent:(NSString*)tparent tdutyname:(NSString*)tdutyname tdutynum:(NSString*)tdutynum tassisname:(NSString*)tassisname tassisnum:(NSString*)tassisnum tinforname:(NSString*)tinforname tinfonum:(NSString*)tinfonum tbegintimes:(NSString*)tbegintimes tendtimes:(NSString*)tendtimes tcheckstandard:(NSString*)tcheckstandard tchecktimes:(NSString*)tchecktimes tduty:(NSString*)tduty tcreateman:(NSString*)tcreateman tcomid:(NSString*)tcomid And:(void(^)(NSDictionary *dic))block;
+///查询已同意且未完成任务
++(void)Com_SelectTaskWithID:(NSString*)ID uid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///完成任务
++(void)Com_CompletedTaskWithimgs:(NSArray<UIImage*>*)imgs photoexplain:(NSString*)photoexplain num:(NSString*)num And:(void(^)(NSDictionary *dic))block;
+///验收结果
++(void)Com_CheckTaskWithcheckend:(NSString*)checkend checkexplain:(NSString*)checkexplain num:(NSString*)num And:(void(^)(NSDictionary *dic))block;
+///查询待审核任务
++(void)Com_SelectTask_CompleteWithID:(NSString*)ID uid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///查询已完成任务
++(void)Com_SelectTask_CheckWithID:(NSString*)ID uid:(NSString*)uid And:(void(^)(NSDictionary *dic))block;
+///查询部门下相应的人员
++(void)Com_SelectSection_EmploymentWithpostnum:(NSString*)postnum And:(void(^)(NSDictionary *dic))block;
+
+
+@end

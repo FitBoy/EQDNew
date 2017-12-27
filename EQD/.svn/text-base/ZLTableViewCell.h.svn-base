@@ -1,0 +1,19 @@
+//
+//  ZLTableViewCell.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/19.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "FBIndexPathButton.h"
+@interface ZLTableViewCell : UITableViewCell
+@property (nonatomic,strong)  FBIndexPathButton *B_headimg;
+@property (nonatomic,strong) UILabel *L_name;
+@property (nonatomic,strong) UILabel *L_bumen;
+@property (nonatomic,strong)  UILabel *L_date;
+@property (nonatomic,strong) UILabel *L_gangwei;
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+
+@end

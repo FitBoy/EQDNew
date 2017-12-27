@@ -1,0 +1,14 @@
+//
+//  FBNCModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/30.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface FBNCModel : NSObject
+@property (nonatomic,copy) NSString* name;
+@property (nonatomic,copy) NSString* code;
+@end

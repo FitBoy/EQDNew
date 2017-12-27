@@ -1,0 +1,19 @@
+//
+//  SQChooseViewController.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/18.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBBaseViewController.h"
+
+@interface SQChooseViewController : FBBaseViewController
+@property (nonatomic,weak) id delegate;
+@end
+@protocol SQChooseViewControllerDelegate <NSObject>
+
+-(void)shenqingWithtitle:(NSString*)title indexPath:(NSIndexPath*)indexPath;
+
+
+@end

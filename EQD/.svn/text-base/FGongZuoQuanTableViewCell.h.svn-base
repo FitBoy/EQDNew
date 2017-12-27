@@ -1,0 +1,24 @@
+//
+//  FGongZuoQuanTableViewCell.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/3/20.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface FGongZuoQuanTableViewCell : UITableViewCell
+@property (nonatomic,strong) UIButton *B_headiamg;
+@property (nonatomic,strong)  UILabel *L_name;
+@property (nonatomic,strong)  UILabel *L_time;
+@property (nonatomic,strong) UIImageView *IV_sex;
+@property (nonatomic,strong)  UILabel *L_bumen;
+@property (nonatomic,strong)  UILabel *L_content;
+@property (nonatomic,strong)  UIButton *B_pinglun;
+@property (nonatomic,strong)  UILabel *L_numpinglun;
+@property (nonatomic,strong)  UIButton *B_zan;
+@property (nonatomic,strong)  UILabel *L_zan;
+@property (nonatomic,strong)  UIButton *B_queryAll;
+
+@end

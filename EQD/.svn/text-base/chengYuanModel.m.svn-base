@@ -1,0 +1,24 @@
+//
+//  chengYuanModel.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/12.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "chengYuanModel.h"
+#import <MJExtension.h>
+#import "WebRequest.h"
+@implementation chengYuanModel
++(NSDictionary*)mj_replacedKeyFromPropertyName
+{
+    return @{
+             @"ID":@"id"
+             };
+}
+
+-(NSString*)iphoto
+{
+    return [NSString stringWithFormat:@"%@%@",HTTP_PATH,_iphoto];
+}
+@end

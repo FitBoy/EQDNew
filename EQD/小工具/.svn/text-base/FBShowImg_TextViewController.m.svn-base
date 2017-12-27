@@ -1,0 +1,63 @@
+//
+//  FBShowImg_TextViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/5/25.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBShowImg_TextViewController.h"
+#import "NSString+FBString.h"
+#import "FBShowimg_moreViewController.h"
+#import "FBindexTapGestureRecognizer.h"
+@interface FBShowImg_TextViewController ()
+{
+    UIScrollView *SV_show;
+}
+
+@end
+
+@implementation FBShowImg_TextViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    SV_show =[[UIScrollView alloc]initWithFrame:CGRectMake(15, 64, DEVICE_WIDTH-30, DEVICE_HEIGHT-64)];
+    [self.view addSubview:SV_show];
+    self.navigationItem.title =self.contentTitle;
+    NSMutableParagraphStyle *para =[[NSMutableParagraphStyle alloc]init];
+    para.lineSpacing =5;
+    NSMutableAttributedString *muStr =[[NSMutableAttributedString alloc]initWithString:self.contents attributes:@{NSParagraphStyleAttributeName:para,NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+   CGSize size1=[muStr boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-31, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    float height = 0;
+    for (int i=0; i<self.arr_imgs.count; i++) {
+     CGSize size = [NSString getImageSizeWithURL2:[NSURL URLWithString:_arr_imgs[i]]];
+        float theight =size.height*(DEVICE_WIDTH-30)/size.width;
+        
+        UIImageView *timgV =[[UIImageView alloc]initWithFrame:CGRectMake(15, size1.height+5+(theight+5)*i, DEVICE_WIDTH-30,theight)];
+        [SV_show addSubview:timgV];
+        height =theight +height+5;
+        FBindexTapGestureRecognizer *tap =[[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick:)];
+        tap.index =i;
+        
+        [timgV addGestureRecognizer:tap];
+        
+        
+    }
+    
+    SV_show.contentSize = CGSizeMake(DEVICE_WIDTH-30, size1.height+height+100);
+    UILabel *tlabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, DEVICE_WIDTH-30, size1.height)];
+    [SV_show addSubview:tlabel];
+    tlabel.attributedText = muStr;
+}
+-(void)tapClick:(FBindexTapGestureRecognizer*)tap
+{
+    //展示图片
+    FBShowimg_moreViewController *SMvc =[[FBShowimg_moreViewController alloc]init];
+    SMvc.arr_imgs =self.arr_imgs;
+    SMvc.index = tap.index;
+    [self.navigationController pushViewController:SMvc animated:NO];
+    
+}
+
+@end

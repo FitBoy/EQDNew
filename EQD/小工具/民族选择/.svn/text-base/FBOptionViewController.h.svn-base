@@ -1,0 +1,25 @@
+//
+//  FBOptionViewController.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/4/10.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+/**
+ 选择  1-民族 2-户口类型 3-婚配 4-政治面貌 5-文化程度 6-职业资格 7-工作性质
+ 8-合同性质 9-终止合同原因 10-合同形式 11-合同类型 12-合同有效期
+ 13-合同续签次数 14-社保种类 15 公司类型 16 公司经营模式 17 公司员工规模 18 公司体系认证  19 公司年营业额 20 生肖
+ */
+#import "FBBaseViewController.h"
+@interface FBOptionViewController : FBBaseViewController
+@property (nonatomic,assign) NSInteger option;
+@property (nonatomic,copy) NSString* contentTitle;
+@property (nonatomic,assign) id delegate;
+@property (nonatomic,strong)  NSIndexPath *indexPath;
+
+@end
+@protocol FBOptionViewControllerDelegate <NSObject>
+
+-(void)option:(NSString*)option indexPath:(NSIndexPath*)indexPath;
+
+@end

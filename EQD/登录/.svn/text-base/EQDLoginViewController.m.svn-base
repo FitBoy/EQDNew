@@ -1,0 +1,258 @@
+//
+//  EQDLoginViewController.m
+//  EQD
+//
+//  Created by 梁新帅 on 2017/3/18.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "EQDLoginViewController.h"
+#import "LYangZhengViewController.h"
+#import "NSString+FBString.h"
+#import "LEmailViewController.h"
+#import "LIDCardViewController.h"
+#import <RongIMKit/RCKitUtility.h>
+#import "MyAboutUsViewController.h"
+#import "LTrueNameViewController.h"
+#import <JPUSHService.h>
+#import "FBButton.h"
+#import "LQiYeQianViewController.h"
+@interface EQDLoginViewController ()<UITextFieldDelegate>
+{
+    UITextField *TF_zhanghao;
+    UITextField *TF_mima;
+    UIButton *tbtn_login;
+    FBButton *B_renshi;
+    UILabel  *L_tishi;
+    FBButton *B_qiye;
+}
+
+@end
+
+@implementation EQDLoginViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden=YES;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    UIButton *tbtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    tbtn.frame = CGRectMake((DEVICE_WIDTH-210)/2.0, 65, 210, 70);
+    [tbtn setBackgroundImage:[UIImage imageNamed:@"yiqidian"] forState:UIControlStateNormal];
+    [self.view addSubview:tbtn];
+    [tbtn addTarget:self action:@selector(aboutUsClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    TF_zhanghao = [[UITextField alloc]initWithFrame:CGRectMake(15, 150, DEVICE_WIDTH-30, 45)];
+    [self.view addSubview:TF_zhanghao];
+    TF_zhanghao.placeholder= @"请输入手机号";
+    TF_zhanghao.borderStyle= UITextBorderStyleRoundedRect;
+    TF_zhanghao.clearButtonMode = UITextFieldViewModeAlways;
+    TF_zhanghao.delegate=self;
+    
+    TF_mima = [[UITextField alloc]initWithFrame:CGRectMake(15, 150+50, DEVICE_WIDTH-30, 45)];
+    TF_mima.placeholder= @"请输入密码";
+    TF_mima.borderStyle= UITextBorderStyleRoundedRect;
+    TF_mima.clearButtonMode = UITextFieldViewModeAlways;
+    TF_mima.secureTextEntry=YES;
+    [self.view addSubview:TF_mima];
+    
+  //提示框
+    L_tishi = [[UILabel alloc]initWithFrame:CGRectMake(15, 250, DEVICE_WIDTH-30, 15)];
+    [self.view addSubview:L_tishi];
+    L_tishi.textColor = [UIColor redColor];
+    L_tishi.font = [UIFont systemFontOfSize:12];
+    
+    
+  tbtn_login =[UIButton buttonWithType:UIButtonTypeSystem];
+    [self.view addSubview:tbtn_login];
+    tbtn_login.frame = CGRectMake(15, 270, DEVICE_WIDTH-30, 45);
+    [tbtn_login setBackgroundColor:EQDCOLOR];
+    [tbtn_login setTitle:@"登录" forState:UIControlStateNormal];
+    [tbtn_login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    tbtn_login.titleLabel.font = [UIFont systemFontOfSize:27];
+    [tbtn_login addTarget:self action:@selector(logingCLick) forControlEvents:UIControlEventTouchUpInside];
+    tbtn_login.layer.masksToBounds = YES;
+    tbtn_login.layer.cornerRadius = 6;
+    tbtn_login.enabled =NO;
+    
+    
+   
+    
+    UIButton *tbtn_zhuce = [UIButton buttonWithType:UIButtonTypeSystem];
+    tbtn_zhuce.frame = CGRectMake(15, 330, 80, 20);
+    [tbtn_zhuce setTitle:@"个人注册" forState:UIControlStateNormal];
+    [self.view addSubview:tbtn_zhuce];
+    [tbtn_zhuce addTarget:self action:@selector(zhuceClick) forControlEvents:UIControlEventTouchUpInside];
+    tbtn_zhuce.titleLabel.font = [UIFont systemFontOfSize:17];
+    
+    
+    B_qiye =[FBButton buttonWithType:UIButtonTypeSystem];
+    [B_qiye setTitle:@"企业注册" titleColor:nil backgroundColor:nil font:nil];
+    [self.view addSubview:B_qiye];
+    B_qiye.frame =CGRectMake(DEVICE_WIDTH-95, 330, 80, 20);
+    [B_qiye addTarget:self action:@selector(qiyezhuceClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    UIButton *tbtn_findMima = [UIButton buttonWithType:UIButtonTypeSystem];
+    tbtn_findMima.frame = CGRectMake((DEVICE_WIDTH-80)/2.0, DEVICE_HEIGHT-40, 80, 20);
+    [tbtn_findMima setTitle:@"找回密码" forState:UIControlStateNormal];
+    [self.view addSubview:tbtn_findMima];
+    [tbtn_findMima addTarget:self action:@selector(findMimaCLick) forControlEvents:UIControlEventTouchUpInside];
+    tbtn_findMima.titleLabel.font =[UIFont systemFontOfSize:17];
+    
+    [TF_zhanghao becomeFirstResponder];
+    
+    
+}
+-(void)qiyezhuceClick
+{
+    //企业注册
+    LQiYeQianViewController *Rvc =[[LQiYeQianViewController alloc]init];
+    [self.navigationController pushViewController:Rvc animated:NO];
+}
+
+
+-(void)findMimaCLick{
+    NSLog(@"找回密码");
+    
+    UIAlertController *alert = [[UIAlertController alloc]init];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"通过手机号找回密码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LYangZhengViewController  *YZvc =[[LYangZhengViewController alloc]init];
+        YZvc.isYanZheng = NO;
+        [self.navigationController pushViewController:YZvc animated:NO];
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"通过邮箱找回密码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LEmailViewController *EVvc =[[LEmailViewController alloc]init];
+        [self.navigationController pushViewController:EVvc animated:NO];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"通过身份证号申诉找回密码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LIDCardViewController *Cvc =[[LIDCardViewController alloc]init];
+        [self.navigationController pushViewController:Cvc animated:NO];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    [self presentViewController:alert animated:NO completion:nil];
+    
+    
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField ==TF_zhanghao) {
+        
+       if( [RCKitUtility validateCellPhoneNumber:textField.text])
+       {
+            tbtn_login.enabled =YES;
+            L_tishi.text = nil;
+        }
+        else
+        {
+            tbtn_login.enabled = NO;
+            L_tishi.text =@"请输入正确的手机号";
+            
+        }
+
+    }
+    
+    }
+-(void)zhuceClick{
+   NSLog(@"注册");
+    [self.view endEditing:YES];
+    LYangZhengViewController *YZvc =[[LYangZhengViewController alloc]init];
+    YZvc.isYanZheng = YES;
+    [self.navigationController pushViewController:YZvc animated:NO];
+    
+}
+-(void)aboutUsClick{
+    NSLog(@"关于我们");
+    [self.view endEditing:YES];
+    MyAboutUsViewController *MAvc =[[MyAboutUsViewController alloc]init];
+    [self.navigationController pushViewController:MAvc animated:NO];
+}
+
+-(void)logingCLick{
+    NSLog(@"登录");
+    /*
+     0 普通用户
+     1. 入驻公司职员
+     2. 公司部门主管
+     3.公司总经理
+     4.公司人事
+     */
+    [self.view endEditing:YES];
+    
+    if( [RCKitUtility validateCellPhoneNumber:TF_zhanghao.text]&&(TF_mima.text.length>7&&TF_mima.text.length<19)){
+        L_tishi.text = nil;
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        hud.mode = MBProgressHUDModeIndeterminate;
+        hud.label.text = @"正在登录";
+       [WebRequest user_enterWithu1:TF_zhanghao.text u2:TF_mima.text uid:TF_zhanghao.text And:^(NSDictionary *dic) {
+           [hud hideAnimated:NO];
+           [JPUSHService setTags:nil alias:TF_zhanghao.text fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+               NSLog(@"iResCode==%d=iAlias==%@",iResCode,iAlias);
+           }];
+           
+           [USERDEFAULTS setObject:TF_zhanghao.text forKey:Y_Zhanghao];
+           [USERDEFAULTS setObject:TF_mima.text forKey:Y_MIMA];
+            [USERDEFAULTS synchronize];
+           NSString *msg = dic[@"msg"];
+           NSNumber *number = dic[@"status"];
+           NSArray *items = dic[@"items"];
+           if ([number integerValue]==200) {
+               
+               
+               
+               NSDictionary *dic2 =items[0];
+               [USERDEFAULTS setObject:dic2 forKey:Y_USERINFO];
+               [USERDEFAULTS synchronize];
+               if ([dic2[@"authen"] integerValue]==0) {
+                   UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"游客不会记录登录信息" preferredStyle:UIAlertControllerStyleActionSheet];
+                   [alert addAction:[UIAlertAction actionWithTitle:@"个人实名认证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                       LTrueNameViewController *Tvc =[[LTrueNameViewController alloc]init];
+                       Tvc.isFirst =1;
+                       [self.navigationController pushViewController:Tvc animated:NO];
+                       
+                   }]];
+                   [alert addAction:[UIAlertAction actionWithTitle:@"游客" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                       [self mainJiemian];
+                   }]];
+                   [self presentViewController:alert animated:NO completion:nil];
+               }
+               else{
+               
+               dispatch_async(dispatch_get_main_queue(), ^{
+                   [USERDEFAULTS setObject:@"1"  forKey:Y_loginSuccess];
+                   [USERDEFAULTS synchronize];
+                   [self mainJiemian];
+               });
+               }
+           }
+           
+           MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+           hud.mode = MBProgressHUDModeText;
+           hud.label.text =msg;
+           dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+           dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+               [MBProgressHUD hideHUDForView:self.view.window animated:YES];
+           });
+           
+       }];
+        
+        
+    }
+    else
+    {
+        L_tishi.text =@"账号或密码不规范";
+        
+    }
+
+}
+
+
+
+@end

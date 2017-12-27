@@ -1,0 +1,212 @@
+//
+//  FBCreatQunZuViewController.m
+//  YiQiDian
+//
+//  Created by 梁新帅 on 2017/2/27.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import "FBCreatQunZuViewController.h"
+#import "FBHaoYouModel.h"
+#import "WebRequest.h"
+#import "FBCreateQunZuTableViewCell.h"
+#import <RongIMKit/RongIMKit.h>
+#import "WebRequest.h"
+#import "FBHaoYouModel.h"
+#import <UIImageView+AFNetworking.h>
+@interface FBCreatQunZuViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,RCIMGroupInfoDataSource>
+{
+    UITextField *TF_mingCheng;
+    UITableView *tableV;
+    NSMutableArray *arr_haoyou;
+   
+    NSMutableArray *tarr;
+    NSMutableArray *arr_add;
+}
+
+@end
+
+@implementation FBCreatQunZuViewController
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadRequestData];
+}
+-(void)loadRequestData{
+    NSString *uid = [USERDEFAULTS objectForKey:Y_Zhanghao];
+    
+    [WebRequest User_GetFriendListuid:uid And:^(NSDictionary *dic) {
+        [arr_haoyou removeAllObjects];
+        NSNumber *number =dic[@"status"];
+        NSArray *arr =dic[@"items"];
+        if ([number integerValue]==200 ) {
+            if(arr.count)
+            {
+                for (NSDictionary *dic1 in arr) {
+                    FBHaoYouModel *model = [FBHaoYouModel mj_objectWithKeyValues:dic1];
+                    [arr_haoyou addObject:model];
+                    [tarr addObject:model];
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableV.mj_header endRefreshing];
+                [tableV reloadData];
+            });
+        }
+    }];
+    
+
+    
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
+    self.title =@"创建群组";
+    arr_add =[NSMutableArray arrayWithCapacity:0];
+    
+    tarr = [NSMutableArray arrayWithCapacity:0];
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    arr_haoyou = [NSMutableArray arrayWithCapacity:0];
+    TF_mingCheng =[[UITextField alloc]initWithFrame:CGRectMake(10, 64, DEVICE_WIDTH-20, 50)];
+    [self.view addSubview:TF_mingCheng];
+    TF_mingCheng.placeholder= @"请输入群组名称";
+    UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithTitle:@"创建群组" style:UIBarButtonItemStylePlain target:self action:@selector(wanchengnClick)];
+    
+    [self.navigationItem setRightBarButtonItem:right];
+    
+    UISearchBar *searchBar =[[UISearchBar alloc]initWithFrame:CGRectMake(0, 114, DEVICE_WIDTH, 50)];
+    [self.view addSubview:searchBar];
+    searchBar.delegate=self;
+    searchBar.placeholder=@"搜索好友";
+    
+    
+    
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 170, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStylePlain];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=50;
+    tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
+    
+    [[RCIM sharedRCIM] setGroupInfoDataSource:self];
+    
+}
+-(void)getGroupInfoWithGroupId:(NSString *)groupId completion:(void (^)(RCGroup *))completion
+{
+    RCGroup *group = [[RCGroup alloc]initWithGroupId:groupId groupName:TF_mingCheng.text portraitUri:nil];
+    completion(group);
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    if (searchText.length==0) {
+        arr_haoyou =[NSMutableArray arrayWithArray:tarr];
+    }
+    else{
+        NSPredicate *predicate =[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@",searchText];
+        arr_haoyou = [NSMutableArray arrayWithArray:[tarr filteredArrayUsingPredicate:predicate]];
+    }
+    [tableV reloadData];
+    
+    
+}
+#pragma  mark - 表的数据源
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return arr_haoyou.count;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    FBCreateQunZuTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[FBCreateQunZuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    
+    FBHaoYouModel *model =arr_haoyou[indexPath.row];
+    if ([model.iphoto isEqualToString:@"0"]) {
+        cell.IV_headimg.image = [UIImage imageNamed:@"no_login_head"];
+    }
+    else
+    {
+        [cell.IV_headimg setImageWithURL:[NSURL URLWithString:model.iphoto]];
+    }
+    cell.L_name.text = [NSString stringWithFormat:@"%@(%@)",model.pname,model.uname];
+    if (cell.isChoose==NO) {
+        cell.IV_choose.image=[UIImage imageNamed:@"shequ_tluntan.png"];
+        model.ischoose=NO;
+    }
+    else
+    {
+        cell.IV_choose.image=[UIImage imageNamed:@"shequ_landui.png"];
+        model.ischoose=YES;
+    }
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FBCreateQunZuTableViewCell *cell =[tableView cellForRowAtIndexPath:indexPath];
+    cell.isChoose = !cell.isChoose;
+    [tableView reloadData];
+    
+}
+
+
+-(void)wanchengnClick{
+    NSLog(@"创建群组");
+    [arr_add removeAllObjects];
+    for(int i = 0;i<arr_haoyou.count;i++)
+    {
+        FBHaoYouModel *model = arr_haoyou[i];
+        if (model.ischoose==YES) {
+            
+            [arr_add addObject:model.uname];
+        }
+        }
+    
+    if (TF_mingCheng.text.length==0) {
+        MBFadeAlertView *alert =[[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"群组名称不能为空"];
+    }
+    else
+    {
+        NSString *uid = [USERDEFAULTS objectForKey:Y_Zhanghao];
+        NSMutableString  *str =[NSMutableString stringWithString:uid];
+        for (int i=0; i<arr_add.count; i++) {
+            [str appendFormat:@",%@",arr_add[i]];
+        }
+        NSDate *date = [NSDate date];
+        NSTimeInterval  groupid = date.timeIntervalSince1970;
+        FBLoadingEffectView *effectV =[[FBLoadingEffectView alloc]init];
+        effectV.L_title.text =@"正在创建群";
+        [self.view addSubview:effectV];
+        
+        NSString *groupid1 =[NSString stringWithFormat:@"%d%@",(int)groupid,uid];
+        [WebRequest User_CreateGroupWithuid:str groupid:groupid1 groupname:TF_mingCheng.text And:^(NSDictionary *dic) {
+            [effectV cancelView];
+            NSNumber *code = dic[@"code"];
+            if ([code integerValue]==200) {
+                [[RCIM sharedRCIM].groupInfoDataSource getGroupInfoWithGroupId:groupid1 completion:^(RCGroup *groupInfo) {
+                    
+                }];
+                
+                MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"创建群成功"];
+                [self.navigationController popViewControllerAnimated:NO];
+            }
+            else
+            {
+                MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"创建群失败"];
+            }
+        }];
+        
+    }
+}
+
+
+
+
+@end

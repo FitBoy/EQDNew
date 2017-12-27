@@ -1,0 +1,109 @@
+//
+//  UserModel.h
+//  EQD
+//
+//  Created by 梁新帅 on 2017/3/31.
+//  Copyright © 2017年 FitBoy. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface UserModel : NSObject
+///头像 基本信息
+@property (nonatomic,copy) NSString* iphoto;
+///身份证号
+@property (nonatomic,copy) NSString* idnum;
+///身高
+@property (nonatomic,copy) NSString* heigh;
+
+///体重
+@property (nonatomic,copy) NSString* weigh;
+///体重
+@property (nonatomic,copy) NSString* weight;
+///血型
+@property (nonatomic,copy) NSString* blood;
+///生肖
+@property (nonatomic,copy) NSString* czodia;
+///信仰
+@property (nonatomic,copy) NSString* belief;
+///政治面貌
+@property (nonatomic,copy) NSString* politic;
+///兴趣爱好
+@property (nonatomic,copy) NSString* intere;
+//
+@property (nonatomic,copy) NSString* pad;
+///用户名
+@property (nonatomic,copy) NSString* uname;
+///真是姓名
+@property (nonatomic,copy) NSString* name;
+///性别
+@property (nonatomic,copy) NSString* sex;
+///年龄
+@property (nonatomic,copy) NSString* age;
+///生日
+@property (nonatomic,copy) NSString* birth;
+///真实生日
+@property (nonatomic,copy) NSString* rbirth;
+/// 真实生日
+@property (nonatomic,copy) NSString* rdate;
+///
+@property (nonatomic,copy) NSString* bplace;
+///民族
+@property (nonatomic,copy) NSString* nation;
+///婚配
+@property (nonatomic,copy) NSString* marry;
+///紧急联系人姓名
+@property (nonatomic,copy) NSString* contactname;
+///紧急联系人关系
+@property (nonatomic,copy) NSString* contactrelat;
+///紧急联系人电话
+@property (nonatomic,copy) NSString* contacttel;
+//qq
+@property (nonatomic,copy) NSString* qq;
+///微信
+@property (nonatomic,copy) NSString* wchat;
+///邮箱
+@property (nonatomic,copy) NSString* email;
+///毕业院校
+@property (nonatomic,copy) NSString* sch;
+
+
+
+//出生日期
+@property (nonatomic,copy) NSString* date;
+///外语等级
+@property (nonatomic,copy) NSString* foreighclass;
+///学历
+@property (nonatomic,copy) NSString* edu;
+///毕业院校
+@property (nonatomic,copy) NSString* grad;
+///专业技能
+@property (nonatomic,copy) NSString* pskill;
+///是否实名认证
+@property (nonatomic,copy) NSString* authen;
+///昵称
+@property (nonatomic,copy) NSString* pname;
+///所在公司id
+@property (nonatomic,copy) NSString* comid;
+///户口地址
+@property (nonatomic,copy) NSString* housead;
+///户口类型
+@property (nonatomic,copy) NSString* housetype;
+///职业技能
+@property (nonatomic,copy) NSString* major;
+///现住址
+@property (nonatomic,copy) NSString* padress;
+///籍贯
+@property (nonatomic,copy) NSString* pnative;
+///政治面貌
+@property (nonatomic,copy) NSString* politicstate;
+///个人电话
+@property (nonatomic,copy) NSString* ptel;
+///社会保险号
+@property (nonatomic,copy) NSString* socialsecuritynum;
+///用户名
+@property (nonatomic,copy) NSString* uid;
+///兴趣爱好
+@property (nonatomic,copy) NSString* interests;
+-(NSString*)iphoto;
+@end
