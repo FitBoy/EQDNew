@@ -62,7 +62,10 @@
 
     self.text_ShowLabel.attributedText = textContet;
 }
-
+- (BOOL)prefersHomeIndicatorAutoHidden
+{
+    return NO;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadRequestData];
@@ -117,7 +120,7 @@
     user = [WebRequest GetUserInfo];
     arr_model  =[NSMutableArray arrayWithCapacity:0];
     self.navigationItem.title =@"评论详情";
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
@@ -400,6 +403,12 @@
     hud.label.text = @"正在评论";
     [WebRequest Articles_Add_ArtcielCommentWithuserGuid:user.Guid articleId:self.model.articleId     parentid:parentId content:text parentUserGuid:parentUserGuid firstCommentId:self.model.Id   And:^(NSDictionary *dic) {
         hud.label.text = dic[Y_MSG];
+        if([dic[Y_STATUS] integerValue]==200)
+        {
+            EQDR_pingLunModel *model = [EQDR_pingLunModel mj_objectWithKeyValues:dic[Y_ITEMS]];
+            [arr_model insertObject:model atIndex:0];
+            [tableV reloadData];
+        }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [hud hideAnimated:NO];
         });

@@ -1,15 +1,15 @@
 10
 
 dir
-3
-http://yiqidian@code.taobao.org/svn/iosEDQ/EQD/EQD.xcodeproj
+0
+http://yiqidian@code.taobao.org/svn/iosEDQ/EQD%202/EQD.xcodeproj
 http://yiqidian@code.taobao.org/svn/iosEDQ
+add
 
 
 
-2017-06-09T01:42:43.350918Z
-3
-yiqidian
+
+
 
 
 
@@ -25,41 +25,4 @@ yiqidian
 
 
 0116f5f4-7767-40a7-9f9c-f3f4d63a37b1
-
-project.pbxproj
-file
-6
-
-
-
-2017-06-07T10:28:39.000000Z
-d38dd4530ba7f8cce643f96ecf78c348
-2017-06-09T01:44:59.317088Z
-6
-yiqidian
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-258026
-
-project.xcworkspace
-dir
 

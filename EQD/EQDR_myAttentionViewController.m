@@ -9,6 +9,7 @@
 #import "EQDR_myAttentionViewController.h"
 #import "FBOneImg_LabelButtonTableViewCell.h"
 #import "PPersonCardViewController.h"
+#import "EQDR_MyArticleTwoViewController.h"
 @interface EQDR_myAttentionViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -127,6 +128,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EQDR_MyAttentionModel  *model =arr_model[indexPath.row];
+    
     PPersonCardViewController  *Pvc = [[PPersonCardViewController alloc]init];
     Pvc.userGuid =model.attention;
     [self.navigationController pushViewController:Pvc animated:NO];

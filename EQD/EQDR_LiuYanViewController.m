@@ -15,7 +15,8 @@
 #import <Masonry.h>
 #import "PPersonCardViewController.h"
 #import "EQDR_LiuYanDetailViewController.h"
-@interface EQDR_LiuYanViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,FB_OnlyForLiuYanViewControllerDlegate>
+#import "EQDR_JuBaoViewController.h"
+@interface EQDR_LiuYanViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,FB_OnlyForLiuYanViewControllerDlegate,EQDR_JuBaoViewControllerdelegate>
 {
     UITableView *tableV;
     UILabel  *L_liuyan;
@@ -25,12 +26,17 @@
     NSString *parentId;
     NSString *firstCommentId;
     NSString *parentUserGuid;
+    NSIndexPath *selectd_indexPath;
 }
 @property (nonatomic,strong)  UILabel *textView_show;
 
 @end
 
 @implementation EQDR_LiuYanViewController
+- (BOOL)prefersHomeIndicatorAutoHidden
+{
+    return NO;
+}
 -(UILabel*)textView_show
 {
     if (!_textView_show) {
@@ -111,14 +117,14 @@
     self.navigationItem.title = [NSString stringWithFormat:@"%@条评论",self.commentCount];
     arr_model = [NSMutableArray arrayWithCapacity:0];
     page =@"0";
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-40) style:UITableViewStylePlain];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-40-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
-    L_liuyan = [[UILabel alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-40, DEVICE_WIDTH, 40)];
+    L_liuyan = [[UILabel alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-40-kBottomSafeHeight, DEVICE_WIDTH, 40)];
     [self.view addSubview:L_liuyan];
     L_liuyan.text =@" 我要给文章评论";
     L_liuyan.textColor = [UIColor grayColor];
@@ -201,6 +207,7 @@
   
     [content yy_setTextHighlightRange:content.yy_rangeOfAll color:[UIColor grayColor] backgroundColor:[UIColor darkGrayColor] userInfo:@{} tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         //点击回复
+       
         self.textView_show.hidden =YES;
         UIAlertController  *alert = [[UIAlertController alloc]init];
         NSArray *tarr =@[@"回复",@"复制",@"赞一个",@"查看详情",@"举报"];
@@ -209,6 +216,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (i==0) {
                     //回复
+                    
                     parentId = model.Id;
                     firstCommentId=model.Id;
                     parentUserGuid=model.userGuid;
@@ -262,6 +270,14 @@
                 }else if (i==4)
                 {
                     //举报
+                    EQDR_JuBaoViewController  *JBvc =[[EQDR_JuBaoViewController alloc]init];
+                    JBvc.type =1;
+                    JBvc.delegate =self;
+                    JBvc.providesPresentationContextTransitionStyle = YES;
+                    JBvc.definesPresentationContext = YES;
+                    JBvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                    [self.navigationController presentViewController:JBvc animated:NO completion:nil];
+                    
                 }else
                 {
                     
@@ -350,6 +366,7 @@
             [all_pinglun appendAttributedString:parentUpname];
             NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@": %@\n",model2.content] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
             [content yy_setTextHighlightRange:content.yy_rangeOfAll color:[UIColor grayColor] backgroundColor:[UIColor whiteColor] userInfo:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+                 selectd_indexPath = indexPath;
                 self.textView_show.hidden =YES;
                 UIAlertController  *alert = [[UIAlertController alloc]init];
                 NSArray *tarr =@[@"回复",@"复制",@"赞一个",@"查看详情",@"举报"];
@@ -358,6 +375,7 @@
                     [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         if (i==0) {
                             //回复
+                            
                             parentId = model2.Id;
                             firstCommentId=model.Id;
                             parentUserGuid=model2.userGuid;
@@ -409,6 +427,14 @@
                         }else if (i==4)
                         {
                             //举报
+                            EQDR_JuBaoViewController *JBvc =[[EQDR_JuBaoViewController alloc]init];
+                            JBvc.delegate=self;
+                            JBvc.type=1;
+                            JBvc.providesPresentationContextTransitionStyle = YES;
+                            JBvc.definesPresentationContext = YES;
+                            JBvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                            [self.navigationController presentViewController:JBvc animated:NO completion:nil];
+                            
                         }else
                         {
                             
@@ -515,7 +541,7 @@
 }
 -(void)tap_liuyanClick:(FBindexTapGestureRecognizer*)tap
 {
-   
+    selectd_indexPath  =tap.indexPath;
     EQDR_pingLunModel *model = arr_model[tap.indexPath.row];
     parentId = model.Id;
     firstCommentId=model.Id;
@@ -542,12 +568,34 @@
     hud.label.text = @"正在评论";
     [WebRequest Articles_Add_ArtcielCommentWithuserGuid:user.Guid articleId:self.articleId parentid:parentId content:text parentUserGuid:parentUserGuid firstCommentId:firstCommentId   And:^(NSDictionary *dic) {
         hud.label.text = dic[Y_MSG];
+        if([dic[Y_STATUS] integerValue]==200)
+        {
+               EQDR_pingLunModel  *model = [EQDR_pingLunModel mj_objectWithKeyValues:dic[Y_ITEMS]];
+            if ([parentId integerValue]==0) {
+                //给文章评论
+                [arr_model insertObject:model atIndex:0];
+                [tableV reloadData];
+            }else
+            {
+                EQDR_pingLunModel *model2 = arr_model[selectd_indexPath.row];
+                NSMutableArray *tarr_list = [NSMutableArray arrayWithArray:model2.list];
+                [tarr_list insertObject:model atIndex:0];
+                model2.list = tarr_list;
+                [arr_model replaceObjectAtIndex:selectd_indexPath.row withObject:model2];
+                [tableV reloadRowsAtIndexPaths:@[selectd_indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [hud hideAnimated:NO];
+            
         });
     }];
     
 }
-
+#pragma  mark - 举报的协议代理
+-(void)getJuBaoType:(NSString *)type text:(NSString *)text
+{
+    
+}
 
 @end

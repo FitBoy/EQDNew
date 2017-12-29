@@ -8135,4 +8135,61 @@ Get_ChangeShift_ByCheckerWithtype:(NSString*)type userGuid:(NSString*)userGuid p
     }];
 
 }
+
++(void)Articles_Get_ArticleCommentsWithuserGuid:(NSString*)userGuid articleCommentId:(NSString*)articleCommentId And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Articles/Get_ArticleComments.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_articleCommentId:articleCommentId
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
+
++(void)Articles_Get_MyArticleWithuserGuid:(NSString*)userGuid page:(NSString*)page And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Articles/Get_MyArticle.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_page:page
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
+
++(void)Articles_Add_Article_Comment_ReportWithuserGuid:(NSString*)userGuid articleId:(NSString*)articleId articleCommentId:(NSString*)articleCommentId reason:(NSString*)reason reportType:(NSString*)reportType And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Articles/Add_Article_Comment_Report.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_articleId:articleId,
+                                 Z_articleCommentId:articleCommentId,
+                                 Z_reason:reason,
+                                 Z_reportType:reportType
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
 @end

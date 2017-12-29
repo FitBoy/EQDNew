@@ -1460,5 +1460,10 @@ _Pragma("clang diagnostic pop") \
 +(void)Articles_Add_Article_ReportWithuserGuid:(NSString*)userGuid articleId:(NSString*)articleId reason:(NSString*)reason reportType:(NSString*)reportType And:(void(^)(NSDictionary *dic))block;
 ///查看评论下的评论
 +(void)Articles_Get_ChildCommentWithuserGuid:(NSString*)userGuid articleId:(NSString*)articleId firstCommentId:(NSString*)firstCommentId page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
-
+///查看单条父级评论下的评论
++(void)Articles_Get_ArticleCommentsWithuserGuid:(NSString*)userGuid articleCommentId:(NSString*)articleCommentId And:(void(^)(NSDictionary *dic))block;
+//查看自己发布的文章
++(void)Articles_Get_MyArticleWithuserGuid:(NSString*)userGuid page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+///对文章评论进行举报
++(void)Articles_Add_Article_Comment_ReportWithuserGuid:(NSString*)userGuid articleId:(NSString*)articleId articleCommentId:(NSString*)articleCommentId reason:(NSString*)reason reportType:(NSString*)reportType And:(void(^)(NSDictionary *dic))block;
 @end

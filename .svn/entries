@@ -1,14 +1,14 @@
 10
 
 dir
-2
-http://yiqidian@code.taobao.org/svn/iosEDQ/EQD
+20
+http://yiqidian@code.taobao.org/svn/iosEDQ/EQD%202
 http://yiqidian@code.taobao.org/svn/iosEDQ
 
 
 
-2017-06-09T01:42:14.918413Z
-2
+2017-12-27T15:27:50.238035Z
+20
 yiqidian
 
 
@@ -28,87 +28,50 @@ yiqidian
 
 EQD.xcworkspace
 dir
+
+
+
+add
 
 Podfile
 file
-3
+0
 
 
-
-2017-05-22T03:14:02.000000Z
-5d80cdf3f7f8c0593b6da5049da18f60
-2017-06-09T01:42:43.350918Z
-3
-yiqidian
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-818
+add
 
 EQD.xcodeproj
 dir
+
+
+
+add
 
-EQD
+Pods
 dir
+
+
+
+add
 
 Podfile.lock
 file
-3
+0
 
 
-
-2017-05-23T01:39:09.000000Z
-ac92c452f296e80637fd794732e54a4d
-2017-06-09T01:42:43.350918Z
-3
-yiqidian
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2968
+add
 
 EQDUITests
 dir
+
+
+
+add
 
 EQDTests
 dir
-
-问题-参考
-dir
+
+
+
+add
 

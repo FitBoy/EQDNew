@@ -408,6 +408,7 @@
 		1844D8141F70C59E002B4A66 /* LianLuoBook_OtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1844D8131F70C59E002B4A66 /* LianLuoBook_OtherViewController.m */; };
 		1844D8181F70CF0C002B4A66 /* LLBook_OtherDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1844D8171F70CF0C002B4A66 /* LLBook_OtherDetailViewController.m */; };
 		184569B31F887FAF00F7519B /* EventCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 184569B21F887FAF00F7519B /* EventCalendar.m */; };
+		184B834E1FF4E0530038DDD6 /* EQDR_JuBaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B834D1FF4E0530038DDD6 /* EQDR_JuBaoViewController.m */; };
 		186604181E7F7AA500C69557 /* MimaRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186604171E7F7AA500C69557 /* MimaRegisterViewController.m */; };
 		1866041C1E7F7B6900C69557 /* LYangZhengViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866041B1E7F7B6900C69557 /* LYangZhengViewController.m */; };
 		186604201E7F7FA400C69557 /* NSString+FBString.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866041F1E7F7FA400C69557 /* NSString+FBString.m */; };
@@ -1377,6 +1378,8 @@
 		1844D8171F70CF0C002B4A66 /* LLBook_OtherDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLBook_OtherDetailViewController.m; sourceTree = "<group>"; };
 		184569B11F887FAF00F7519B /* EventCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCalendar.h; sourceTree = "<group>"; };
 		184569B21F887FAF00F7519B /* EventCalendar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCalendar.m; sourceTree = "<group>"; };
+		184B834C1FF4E0530038DDD6 /* EQDR_JuBaoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDR_JuBaoViewController.h; sourceTree = "<group>"; };
+		184B834D1FF4E0530038DDD6 /* EQDR_JuBaoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDR_JuBaoViewController.m; sourceTree = "<group>"; };
 		186604161E7F7AA500C69557 /* MimaRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MimaRegisterViewController.h; sourceTree = "<group>"; };
 		186604171E7F7AA500C69557 /* MimaRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MimaRegisterViewController.m; sourceTree = "<group>"; };
 		1866041A1E7F7B6900C69557 /* LYangZhengViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYangZhengViewController.h; sourceTree = "<group>"; };
@@ -4493,6 +4496,15 @@
 			name = "转到日历上面";
 			sourceTree = "<group>";
 		};
+		184B834B1FF4DF900038DDD6 /* 单独的举报页面 */ = {
+			isa = PBXGroup;
+			children = (
+				184B834C1FF4E0530038DDD6 /* EQDR_JuBaoViewController.h */,
+				184B834D1FF4E0530038DDD6 /* EQDR_JuBaoViewController.m */,
+			);
+			name = "单独的举报页面";
+			sourceTree = "<group>";
+		};
 		186604191E7F7AA900C69557 /* 注册 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5586,6 +5598,7 @@
 				18E102B71F96F9FA00C6A0E2 /* 获取通讯录里的联系人 */,
 				18AE79DC1FA703D20078B714 /* 录音与播放 */,
 				181B26C51FEC969F00A38BFC /* 单独的留言评论版 */,
+				184B834B1FF4DF900038DDD6 /* 单独的举报页面 */,
 			);
 			path = "小工具";
 			sourceTree = "<group>";
@@ -6847,6 +6860,7 @@
 				18074B361FDE1713006B2682 /* EQDR_MyViewController.m in Sources */,
 				18E465791EEB88E40018D72A /* FQSearchViewController.m in Sources */,
 				18074B151FDBD8C3006B2682 /* ZSSRichTextEditor.m in Sources */,
+				184B834E1FF4E0530038DDD6 /* EQDR_JuBaoViewController.m in Sources */,
 				183BBEEF1F3186F3007D4675 /* RWD_FuJiamodel.m in Sources */,
 				182F81A51E8CE1B200231A5F /* FBPeople.m in Sources */,
 				18E102BE1F973D4D00C6A0E2 /* GLLianXI_DetailViewController.m in Sources */,

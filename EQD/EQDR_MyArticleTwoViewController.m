@@ -29,7 +29,7 @@
 }
 -(void)loadRequestData{
     
-    [WebRequest Articles_Get_Article_ByAttentionWithuserGuid:self.userGuid page:@"0" And:^(NSDictionary *dic) {
+    [WebRequest  Articles_Get_MyArticleWithuserGuid:self.userGuid page:@"0" And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
         [tableV.mj_header endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
@@ -45,10 +45,12 @@
             [tableV reloadData];
         }
     }];
+    
+   
 }
 -(void)loadOtherData
 {
-    [WebRequest Articles_Get_Article_ByAttentionWithuserGuid:self.userGuid page:@"0" And:^(NSDictionary *dic) {
+    [WebRequest  Articles_Get_MyArticleWithuserGuid:self.userGuid page:page And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
         [tableV.mj_header endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
@@ -58,16 +60,18 @@
                 [tableV.mj_footer endRefreshingWithNoMoreData];
             }else
             {
-            page = tdic[@"page"];
-            for (int i=0; i<tarr.count; i++) {
-                EQDR_articleListModel *model = [EQDR_articleListModel mj_objectWithKeyValues:tarr[i]];
-                [arr_model addObject:model];
-                
-            }
-            [tableV reloadData];
+                page = tdic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDR_articleListModel *model = [EQDR_articleListModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                    
+                }
+                [tableV reloadData];
             }
         }
     }];
+    
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
