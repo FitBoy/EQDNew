@@ -12,7 +12,8 @@
 #import <Masonry.h>
 #import "PPersonCardViewController.h"
 #import "FB_OnlyForLiuYanViewController.h"
-@interface EQDR_LiuYanDetailViewController ()<UITableViewDelegate,UITableViewDataSource,FB_OnlyForLiuYanViewControllerDlegate>
+#import "EQDR_JuBaoViewController.h"
+@interface EQDR_LiuYanDetailViewController ()<UITableViewDelegate,UITableViewDataSource,FB_OnlyForLiuYanViewControllerDlegate,EQDR_JuBaoViewControllerdelegate>
 {
     UITableView *tableV;
     UserModel *user;
@@ -21,6 +22,7 @@
     NSString *parentId;
     NSString *parentUserGuid;
     EQDR_PingLunTableViewCell  *headView;
+    NSString *commentReportId;
 }
 @property (nonatomic,strong) YYLabel *text_ShowLabel;
 
@@ -127,7 +129,7 @@
     [self.view addSubview:tableV];
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
-    
+    commentReportId = @"0";
     UIBarButtonItem  *right = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"EQD_more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(menuClick)];
     [self.navigationItem setRightBarButtonItem:right];
     
@@ -337,6 +339,14 @@
                 }else if (i==3)
                 {
                     //举报
+                    commentReportId = model.Id;
+                    EQDR_JuBaoViewController  *JBvc =[[EQDR_JuBaoViewController alloc]init];
+                    JBvc.type =1;
+                    JBvc.delegate =self;
+                    JBvc.providesPresentationContextTransitionStyle = YES;
+                    JBvc.definesPresentationContext = YES;
+                    JBvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                    [self.navigationController presentViewController:JBvc animated:NO completion:nil];
                 }else
                 {
                     
@@ -415,6 +425,23 @@
     }];
 }
 
-
+#pragma  mark - 举报的协议代理
+-(void)getJuBaoType:(NSString *)type text:(NSString *)text
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在提交";
+    [WebRequest  Articles_Add_Article_Comment_ReportWithuserGuid:user.Guid articleId:self.model.articleId articleCommentId:commentReportId reason:text reportType:type And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            hud.label.text = @"感谢您的举报,我们会尽快处理";
+        }else
+        {
+            hud.label.text =@"网络问题，请重试";
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:NO];
+        });
+    }];
+}
 
 @end

@@ -76,7 +76,11 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     searchKey =searchBar.text;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在搜索,请稍等";
     [WebRequest Articles_Get_Article_BySearchWithpara:searchBar.text page:@"0" type:@"app" And:^(NSDictionary *dic) {
+        [hud hideAnimated:NO];
         [tableV.mj_footer endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
             [arr_model removeAllObjects];

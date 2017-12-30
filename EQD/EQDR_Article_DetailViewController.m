@@ -19,12 +19,14 @@
 #import "PPersonCardViewController.h"
 #import "EQDR_LiuYanViewController.h"
 #import "R_RichTextEditor_ViewController.h"
+#import "EQDR_JuBaoViewController.h"
+#import "FB_ShareEQDViewController.h"
 /**
 
  
     [webview_Detail loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" > <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"></head><body> %@ </body></html>",model_detail.content] baseURL:nil];
  */
-@interface EQDR_Article_DetailViewController ()<UIWebViewDelegate,UIScrollViewDelegate>
+@interface EQDR_Article_DetailViewController ()<UIWebViewDelegate,UIScrollViewDelegate,EQDR_JuBaoViewControllerdelegate>
 {
     EQDR_articleListModel  *model_detail;
     UIWebView  *webview_Detail;
@@ -116,8 +118,17 @@
 //    V_bottom.hidden=YES;
     [self.view addSubview:V_bottom];
       [self loadRequestData];
-    
+}
 
+-(void)test{
+/*  [WebRequest Articles_Get_Article_ByIdWitharticleId:self.articleId userGuid:user.Guid And:^(NSDictionary *dic) {
+        NSLog(@"111111111==%@",dic);
+    }];
+ */
+   
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self test];
+    });
 }
 
 -(void)setTop{
@@ -166,9 +177,23 @@ if( [model_detail.isAttention integerValue]==0)
             }else if (i==1)
             {
              //分享
+                FB_ShareEQDViewController  *Svc =[[FB_ShareEQDViewController alloc]init];
+                Svc.providesPresentationContextTransitionStyle = YES;
+                Svc.definesPresentationContext = YES;
+                Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                Svc.EQD_ShareType = EQD_ShareTypeText;
+                [self presentViewController:Svc animated:NO completion:nil];
+                
             }else if (i==2)
             {
               //举报
+                EQDR_JuBaoViewController  *JBvc =[[EQDR_JuBaoViewController alloc]init];
+                JBvc.type =0;
+                JBvc.delegate =self;
+                JBvc.providesPresentationContextTransitionStyle = YES;
+                JBvc.definesPresentationContext = YES;
+                JBvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                [self.navigationController presentViewController:JBvc animated:NO completion:nil];
             }else
             {
                 
@@ -307,8 +332,24 @@ if( [model_detail.isAttention integerValue]==0)
         });
     }
 }
-
-
+#pragma  mark - 举报的协议代理
+-(void)getJuBaoType:(NSString *)type text:(NSString *)text
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在提交";
+    [WebRequest Articles_Add_Article_ReportWithuserGuid:user.Guid articleId:self.articleId reason:text reportType:type And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            hud.label.text = @"感谢您的举报,我们会尽快处理";
+        }else
+        {
+            hud.label.text =@"网络问题，请重试";
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:NO];
+        });
+    }];
+}
 
 
 

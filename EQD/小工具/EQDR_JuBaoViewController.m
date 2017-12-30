@@ -98,7 +98,7 @@
     tableV.layer.masksToBounds =YES;
     tableV.layer.cornerRadius =6;
     tableV.rowHeight=60;
-     self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3];
+     self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.4];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     // 键盘将出现事件监听

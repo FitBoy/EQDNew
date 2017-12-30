@@ -472,6 +472,14 @@
 		18912D8E1EAAFEFC00565CA8 /* CYShuRuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18912D8D1EAAFEFC00565CA8 /* CYShuRuViewController.m */; };
 		18912D921EAB0F6E00565CA8 /* GSYaoQingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18912D911EAB0F6E00565CA8 /* GSYaoQingViewController.m */; };
 		18912D961EAB4F8100565CA8 /* GeRenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18912D951EAB4F8100565CA8 /* GeRenView.m */; };
+		18944F991FF63BA90022191B /* jshare-ios-1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18944F961FF63BA80022191B /* jshare-ios-1.3.0.a */; };
+		18944F9C1FF63C140022191B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18944F9B1FF63C130022191B /* Security.framework */; };
+		18944F9E1FF63C320022191B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18944F9D1FF63C320022191B /* CoreLocation.framework */; };
+		18944FA01FF63C510022191B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18944F9F1FF63C500022191B /* CoreFoundation.framework */; };
+		18944FA21FF63C740022191B /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18944FA11FF63C740022191B /* libresolv.tbd */; };
+		18944FA51FF723060022191B /* FB_ShareEQDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18944FA41FF723060022191B /* FB_ShareEQDViewController.m */; };
+		18944FA91FF743B60022191B /* FB_shareEQDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18944FA81FF743B60022191B /* FB_shareEQDCollectionViewCell.m */; };
+		18944FAC1FF77EC00022191B /* FB_ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18944FAB1FF77EC00022191B /* FB_ShareModel.m */; };
 		189A936F1F99C9E80049A919 /* GLRecord_detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A936E1F99C9E80049A919 /* GLRecord_detailViewController.m */; };
 		189A93731F99CE6A0049A919 /* GLRecodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A93721F99CE6A0049A919 /* GLRecodeModel.m */; };
 		189A937F1F9B3B820049A919 /* DLAddToDesktopHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A93771F9B3B820049A919 /* DLAddToDesktopHandler.m */; };
@@ -1504,6 +1512,18 @@
 		18912D911EAB0F6E00565CA8 /* GSYaoQingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSYaoQingViewController.m; sourceTree = "<group>"; };
 		18912D941EAB4F8100565CA8 /* GeRenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeRenView.h; sourceTree = "<group>"; };
 		18912D951EAB4F8100565CA8 /* GeRenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeRenView.m; sourceTree = "<group>"; };
+		18944F961FF63BA80022191B /* jshare-ios-1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jshare-ios-1.3.0.a"; sourceTree = "<group>"; };
+		18944F981FF63BA80022191B /* JSHAREService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSHAREService.h; sourceTree = "<group>"; };
+		18944F9B1FF63C130022191B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		18944F9D1FF63C320022191B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		18944F9F1FF63C500022191B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		18944FA11FF63C740022191B /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		18944FA31FF723050022191B /* FB_ShareEQDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_ShareEQDViewController.h; sourceTree = "<group>"; };
+		18944FA41FF723060022191B /* FB_ShareEQDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_ShareEQDViewController.m; sourceTree = "<group>"; };
+		18944FA71FF743B60022191B /* FB_shareEQDCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_shareEQDCollectionViewCell.h; sourceTree = "<group>"; };
+		18944FA81FF743B60022191B /* FB_shareEQDCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_shareEQDCollectionViewCell.m; sourceTree = "<group>"; };
+		18944FAA1FF77EC00022191B /* FB_ShareModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_ShareModel.h; sourceTree = "<group>"; };
+		18944FAB1FF77EC00022191B /* FB_ShareModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_ShareModel.m; sourceTree = "<group>"; };
 		189A936D1F99C9E80049A919 /* GLRecord_detailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLRecord_detailViewController.h; sourceTree = "<group>"; };
 		189A936E1F99C9E80049A919 /* GLRecord_detailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLRecord_detailViewController.m; sourceTree = "<group>"; };
 		189A93711F99CE6A0049A919 /* GLRecodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLRecodeModel.h; sourceTree = "<group>"; };
@@ -1825,6 +1845,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18944FA21FF63C740022191B /* libresolv.tbd in Frameworks */,
+				18944FA01FF63C510022191B /* CoreFoundation.framework in Frameworks */,
+				18944F9E1FF63C320022191B /* CoreLocation.framework in Frameworks */,
+				18944F9C1FF63C140022191B /* Security.framework in Frameworks */,
 				181E9A591FDB76E000F9B2ED /* StoreKit.framework in Frameworks */,
 				189B4A3F1F13D4E300073360 /* CFNetwork.framework in Frameworks */,
 				189B4A3D1F13D4D300073360 /* Foundation.framework in Frameworks */,
@@ -1838,6 +1862,7 @@
 				189B4A2F1F13D44500073360 /* libc++.tbd in Frameworks */,
 				189B4A211F136DD600073360 /* AlipaySDK.framework in Frameworks */,
 				189B4A1F1F13528700073360 /* CoreText.framework in Frameworks */,
+				18944F991FF63BA90022191B /* jshare-ios-1.3.0.a in Frameworks */,
 				189B4A1D1F13525500073360 /* CoreMotion.framework in Frameworks */,
 				188541AE1E8A12670051AF74 /* UserNotifications.framework in Frameworks */,
 				188541AC1E8A0E5F0051AF74 /* AdSupport.framework in Frameworks */,
@@ -5059,6 +5084,28 @@
 			name = "个人档案的头";
 			sourceTree = "<group>";
 		};
+		18944F951FF63BA80022191B /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				18944F961FF63BA80022191B /* jshare-ios-1.3.0.a */,
+				18944F981FF63BA80022191B /* JSHAREService.h */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		18944FA61FF7230B0022191B /* 分享 */ = {
+			isa = PBXGroup;
+			children = (
+				18944FA31FF723050022191B /* FB_ShareEQDViewController.h */,
+				18944FA41FF723060022191B /* FB_ShareEQDViewController.m */,
+				18944FA71FF743B60022191B /* FB_shareEQDCollectionViewCell.h */,
+				18944FA81FF743B60022191B /* FB_shareEQDCollectionViewCell.m */,
+				18944FAA1FF77EC00022191B /* FB_ShareModel.h */,
+				18944FAB1FF77EC00022191B /* FB_ShareModel.m */,
+			);
+			name = "分享";
+			sourceTree = "<group>";
+		};
 		189A93701F99C9F50049A919 /* 回访记录详情 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5564,6 +5611,7 @@
 		18CEC4211E7CE4F0008DCB46 /* 小工具 */ = {
 			isa = PBXGroup;
 			children = (
+				18944F951FF63BA80022191B /* Lib */,
 				18074A571FDBD8C2006B2682 /* Source */,
 				181378721FADC26900B7C964 /* SDLaunchImage */,
 				189A93751F9B3B820049A919 /* DLAddToDesktopLib */,
@@ -5599,6 +5647,7 @@
 				18AE79DC1FA703D20078B714 /* 录音与播放 */,
 				181B26C51FEC969F00A38BFC /* 单独的留言评论版 */,
 				184B834B1FF4DF900038DDD6 /* 单独的举报页面 */,
+				18944FA61FF7230B0022191B /* 分享 */,
 			);
 			path = "小工具";
 			sourceTree = "<group>";
@@ -6366,6 +6415,10 @@
 		20D9FA105D0DEE31CEB5715E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18944FA11FF63C740022191B /* libresolv.tbd */,
+				18944F9F1FF63C500022191B /* CoreFoundation.framework */,
+				18944F9D1FF63C320022191B /* CoreLocation.framework */,
+				18944F9B1FF63C130022191B /* Security.framework */,
 				181E9A581FDB76E000F9B2ED /* StoreKit.framework */,
 				189B4A3E1F13D4E300073360 /* CFNetwork.framework */,
 				189B4A3C1F13D4D300073360 /* Foundation.framework */,
@@ -6847,6 +6900,7 @@
 				180CFEBD1F5570250043C784 /* TiaoXiu_listModel.m in Sources */,
 				189B4A1B1F10EC7E00073360 /* FBOne_img2TableViewCell.m in Sources */,
 				180445AB1EDEA8F6003FFD88 /* ZZZhiZeDetailViewController.m in Sources */,
+				18944FAC1FF77EC00022191B /* FB_ShareModel.m in Sources */,
 				1844D7F81F6BDF8D002B4A66 /* TongZhi_addViewController.m in Sources */,
 				183BBE981F29E373007D4675 /* UITextField+Tool.m in Sources */,
 				180CFED51F57A9760043C784 /* JiaBan_ListModel.m in Sources */,
@@ -6919,6 +6973,7 @@
 				180AB0E91EDFF85500DFA1CA /* PZZhuanZhengViewController.m in Sources */,
 				180AB0E41EDFF3B900DFA1CA /* PZGangWeiDDViewController.m in Sources */,
 				181A9B951FD8F4EF00669989 /* CarUse_ListViewController.m in Sources */,
+				18944FA91FF743B60022191B /* FB_shareEQDCollectionViewCell.m in Sources */,
 				18D9D8C71FE11B6600D29185 /* EQDR_wenjiListModel.m in Sources */,
 				180BB2EE1ECA95E400F46072 /* FBCalendarViewController.m in Sources */,
 				180A272F1FB1AD3A00BC9B6E /* ShenPiPerson_addViewController.m in Sources */,
@@ -6985,6 +7040,7 @@
 				18103E951EB355AF00FA757F /* ZZXiuGaiViewController.m in Sources */,
 				186894921FA876EE003CBB50 /* ShouCang_GroupModel.m in Sources */,
 				183BBEB11F2C6E82007D4675 /* LZLDetailViewController.m in Sources */,
+				18944FA51FF723060022191B /* FB_ShareEQDViewController.m in Sources */,
 				1824CF5C1F4D887D0003237A /* BQ_AddViewController.m in Sources */,
 				180E3FBC1F3AA4EB00E29EB8 /* GongZuoQunModel.m in Sources */,
 				18103E991EB583C000FA757F /* FBGeRenCardMessageContent.m in Sources */,
@@ -7468,6 +7524,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EQD/小工具/lame",
+					"$(PROJECT_DIR)/EQD/小工具/Lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -7590,6 +7647,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EQD/小工具/lame",
+					"$(PROJECT_DIR)/EQD/小工具/Lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -27,6 +27,7 @@
     NSString *firstCommentId;
     NSString *parentUserGuid;
     NSIndexPath *selectd_indexPath;
+    NSString *commentReportId;
 }
 @property (nonatomic,strong)  UILabel *textView_show;
 
@@ -136,6 +137,7 @@
     parentId =@"0";
     firstCommentId=@"0";
     parentUserGuid=@" ";
+    commentReportId=@"0";
 }
 -(void)liuyanCLick
 {
@@ -270,6 +272,7 @@
                 }else if (i==4)
                 {
                     //举报
+                    commentReportId = model.Id;
                     EQDR_JuBaoViewController  *JBvc =[[EQDR_JuBaoViewController alloc]init];
                     JBvc.type =1;
                     JBvc.delegate =self;
@@ -427,6 +430,7 @@
                         }else if (i==4)
                         {
                             //举报
+                            commentReportId = model2.Id;
                             EQDR_JuBaoViewController *JBvc =[[EQDR_JuBaoViewController alloc]init];
                             JBvc.delegate=self;
                             JBvc.type=1;
@@ -595,7 +599,20 @@
 #pragma  mark - 举报的协议代理
 -(void)getJuBaoType:(NSString *)type text:(NSString *)text
 {
-    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在提交";
+    [WebRequest  Articles_Add_Article_Comment_ReportWithuserGuid:user.Guid articleId:self.articleId articleCommentId:commentReportId reason:text reportType:type And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            hud.label.text = @"感谢您的举报,我们会尽快处理";
+        }else
+        {
+            hud.label.text =@"网络问题，请重试";
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:NO];
+        });
+    }];
 }
 
 @end

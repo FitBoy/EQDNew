@@ -34,7 +34,7 @@
     TV_text.layer.borderColor=[UIColor grayColor].CGColor;
     TV_text.layer.masksToBounds = YES;
     TV_text.layer.cornerRadius =3;
-    self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3];
+    self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.4];
     [TV_text becomeFirstResponder];
 
     TV_text.font = [UIFont systemFontOfSize:17.f];

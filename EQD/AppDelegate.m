@@ -27,6 +27,7 @@
 #import "FBSocketTool.h"
 #import "TKaoQinViewController.h"
 #import "SDAdImageView.h"
+#import "JSHAREService.h"
 @interface AppDelegate ()<RCIMConnectionStatusDelegate,
 RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
 {
@@ -75,8 +76,28 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     
     
 }
+///极光分享用的
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    [JSHAREService handleOpenUrl:url];
+    return YES;
+}
+-(void)setUpJshareServer
+{
+    JSHARELaunchConfig *config = [[JSHARELaunchConfig alloc] init];
+    config.appKey = appKey;
+    config.SinaWeiboAppKey = @"3719457495";
+    config.SinaWeiboAppSecret = @"06de570974a5aa3568a19dbdeaae603d";
+    config.SinaRedirectUri = @"https://www.eqidd.com";
+    config.QQAppId = @"1106545812";
+    config.QQAppKey = @"2mH9J8txuUtg5YCL";
+    config.WeChatAppId = @"wxa2ea563906227379";
+    config.WeChatAppSecret = @"bb63c0a06bf0ee7f633a5bc44304d110";
+   
+    [JSHAREService setupWithConfig:config];
+    ///发布产品后改成NO 
+    [JSHAREService setDebug:YES];
 
-
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
