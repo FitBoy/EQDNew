@@ -181,7 +181,12 @@ if( [model_detail.isAttention integerValue]==0)
                 Svc.providesPresentationContextTransitionStyle = YES;
                 Svc.definesPresentationContext = YES;
                 Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                Svc.EQD_ShareType = EQD_ShareTypeText;
+                //url text title imageURL
+                Svc.url =[NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",model_detail.Id];
+                Svc.Stitle =model_detail.title;
+                Svc.text =model_detail.textContent;
+                Svc.imageURL = model_detail.image;
+                Svc.EQD_ShareType = EQD_ShareTypeLink;
                 [self presentViewController:Svc animated:NO completion:nil];
                 
             }else if (i==2)
@@ -295,7 +300,18 @@ if( [model_detail.isAttention integerValue]==0)
 }
 -(void)zhuanfaCLick
 {
-    //转发
+    //分享
+    FB_ShareEQDViewController  *Svc =[[FB_ShareEQDViewController alloc]init];
+    Svc.providesPresentationContextTransitionStyle = YES;
+    Svc.definesPresentationContext = YES;
+    Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    //url text title imageURL
+    Svc.url =[NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",model_detail.Id];
+    Svc.Stitle =model_detail.title;
+    Svc.text =model_detail.textContent;
+    Svc.imageURL = model_detail.image;
+    Svc.EQD_ShareType = EQD_ShareTypeLink;
+    [self presentViewController:Svc animated:NO completion:nil];
   
 }
 -(void)liuYanCLick

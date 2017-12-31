@@ -15,6 +15,9 @@
 #import "FB_ShareEQDViewController.h"
 #import "FB_shareEQDCollectionViewCell.h"
 #import <MJExtension.h>
+#import "JSHAREService.h"
+#import "MBFadeAlertView.h"
+#import "FBShareViewController.h"
 @interface FB_ShareEQDViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
     UICollectionView *CollectionV;
@@ -280,13 +283,22 @@
     
     return cell;
 }
+-(void)sendFriend{
+   
+    FBShareViewController  *Svc =[[FBShareViewController alloc]init];
+    Svc.messageContent = self.content;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
+    [self  presentViewController:nav animated:NO completion:nil];
+}
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    [self dismissViewControllerAnimated:NO completion:nil];
+//    [self dismissViewControllerAnimated:NO completion:nil];
     FB_ShareModel *model =arr_model[indexPath.row];
     switch ([model.biaoji integerValue]) {
         case 10:
             {
                 //发送到朋友
+              
+                [self sendFriend];
             }
             break;
         case 11:
@@ -302,36 +314,64 @@
         case 15:
         {
             //复制链接
+            UIPasteboard   *pasted = [UIPasteboard generalPasteboard];
+            pasted.string = self.url;
         }
             break;
         case 16:
         {
             //用safari打开
+            if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.url]])
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.url] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:^(BOOL success) {
+                    if (success == NO) {
+                        MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+                        [alert showAlertWith:@"服务器错误"];
+                    }
+                }];
+            }else
+            {
+                MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"无效的地址"];
+            }
         }
             break;
         case 20:
         {
             //微信
+            [self shareAutoWithPlatform:JSHAREPlatformWechatSession];
         }
             break;
         case 21:
         {
             //微信收藏
+            [self shareAutoWithPlatform:JSHAREPlatformWechatFavourite];
         }
             break;
         case 22:
         {
             //朋友圈
+            [self shareAutoWithPlatform:JSHAREPlatformWechatTimeLine];
         }
             break;
         case 30:
         {
             //QQ
+            [self shareAutoWithPlatform:JSHAREPlatformQQ];
         }
             break;
         case 31:
         {
             //qq空间
+            [self shareAutoWithPlatform:JSHAREPlatformQzone];
+            
+        }
+            break;
+        case 40:
+        {
+            //微博
+            [self shareAutoWithPlatform:JSHAREPlatformSinaWeibo];
+            
         }
             break;
         default:
@@ -339,8 +379,170 @@
     }
     
 }
--(void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+
+-(void)shareAutoWithPlatform:(JSHAREPlatform)platform
+{
+    if (self.EQD_ShareType ==EQD_ShareTypeText) {
+        [self shareTextWithPlatform:platform];
+    }else if (self.EQD_ShareType ==EQD_ShareTypeImage )
+    {
+        [self shareImageWithPlatform:platform];
+    }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
+    {
+        [self shareLinkWithPlatform:platform];
+    }else if (self.EQD_ShareType ==EQD_ShareTypeFile)
+    {
+        [self shareMusicWithPlatform:platform];
+    }else
+    {
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"暂不支持此类型的转发"];
+    }
+}
+
+- (void)shareTextWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.text = self.text;
+    message.platform = platform;
+    message.mediaType = JSHAREText;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
+}
+
+- (void)shareImageWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    NSString *imageURL = self.imageURL;
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
     
+    message.mediaType = JSHAREImage;
+    message.platform = platform;
+    message.image = imageData;
+    
+    /*QQ 空间 和 Facebook/Messenger 支持多张图片
+     1.QQ 空间图片数量限制为20张。若只分享单张图片使用 image 字段即可。
+     2.Facebook/Messenger 图片数量限制为6张。如果分享单张图片，图片大小建议不要超过12M；如果分享多张图片，图片大小建议不要超过700K，否则可能出现重启手机或者不能分享。*/
+    
+    //message.images = @[imageData,imageData];
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
+}
+- (void)shareLinkWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHARELink;
+    message.url = self.url;
+    message.text = self.text;
+    message.title = self.text;
+    message.platform = platform;
+    NSString *imageURL = self.imageURL;
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    
+    message.image = imageData;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
+}
+
+- (void)shareMusicWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHAREAudio;
+    message.url =  self.url;
+    message.text = self.text;
+    message.title = self.Stitle;
+    message.platform = platform;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
+}
+
+- (void)shareVideoWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHAREVideo;
+    message.url =self.url;
+    message.text = self.text;
+    message.title = self.Stitle;
+    message.platform = platform;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+    }];
+}
+
+- (void)shareAppWithPlatform:(JSHAREPlatform)platform {
+    Byte* pBuffer = (Byte *)malloc(10*1024*1024);
+    memset(pBuffer, 0, 10*1024);
+    NSData* data = [NSData dataWithBytes:pBuffer length:10*1024*1024];
+    free(pBuffer);
+    
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHAREApp;
+    message.url =self.url;
+    message.text = self.text;
+    message.title = self.Stitle;
+    message.extInfo = @"<xml>extend info</xml>";
+    message.fileData = data;
+    message.platform = platform;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
+}
+
+- (void)shareEmoticonWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHAREEmoticon;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res6" ofType:@"gif"];
+    NSData *emoticonData = [NSData dataWithContentsOfFile:filePath];
+    message.emoticonData = emoticonData;
+    message.platform = platform;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+    }];
+}
+
+- (void)shareFileWithPlatform:(JSHAREPlatform)platform {
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHAREFile;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"jiguang" ofType:@"mp4"];
+    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+    message.fileData = fileData;
+    message.fileExt = @"mp4";
+    message.platform = platform;
+    message.title = @"jiguang.mp4";
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
+}
+
+- (void)shareLinkToSinaWeiboContact{
+    JSHAREMessage *message = [JSHAREMessage message];
+    message.mediaType = JSHARELink;
+    message.url = self.url;
+    message.text = self.text;
+    message.title = self.Stitle;
+    message.platform = JSHAREPlatformSinaWeiboContact;
+    NSString *imageURL = self.imageURL;
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    
+    message.image = imageData;
+    [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
+        
+        NSLog(@"分享回调");
+        
+    }];
 }
 
 

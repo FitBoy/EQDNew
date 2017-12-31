@@ -14,9 +14,13 @@
   20 微信  21 微信收藏  22 朋友圈
  30 QQ  31 qq空间
  40 新浪微博
+ 
+ 只支持 文字  图片  链接 这3种分享
+ 分享 音乐视频 需要的字段 url text title
  */
 
 #import <UIKit/UIKit.h>
+#import <RongIMKit/RongIMKit.h>
 typedef NS_ENUM(NSInteger,EQD_ShareType)
 {
     EQD_ShareTypeText=0,
@@ -26,6 +30,20 @@ typedef NS_ENUM(NSInteger,EQD_ShareType)
     EQD_ShareTypeVideo
 };
 @interface FB_ShareEQDViewController : UIViewController
+
+@property (nonatomic,strong)  RCMessageContent *content;
 @property (nonatomic,assign) NSInteger EQD_ShareType;
+///文本需要的字段
+@property (nonatomic,copy) NSString* text;
+///分享图片需要的字段
+@property (nonatomic,copy) NSString* imageURL;
+///分享链接需要的字段 url text title imageURL
+@property (nonatomic,copy) NSString* url;
+@property (nonatomic,copy) NSString* Stitle;
+/*
+ 分享 音乐需要的字段 url text title
+ 分享视频 url text title
+ 分享文件 必须是本地的 
+ */
 
 @end
