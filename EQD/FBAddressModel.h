@@ -13,4 +13,6 @@
 @property (nonatomic,copy) NSString* code;
 @property (nonatomic,strong) NSArray *sub;
 @property (nonatomic,copy) NSString* qucode;
+@property (nonatomic,assign) float cellHeight;
+@property (nonatomic,assign) BOOL isChoose;
 @end

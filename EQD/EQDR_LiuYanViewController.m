@@ -125,6 +125,8 @@
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
+    tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
+    
     L_liuyan = [[UILabel alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-40-kBottomSafeHeight, DEVICE_WIDTH, 40)];
     [self.view addSubview:L_liuyan];
     L_liuyan.text =@" 我要给文章评论";

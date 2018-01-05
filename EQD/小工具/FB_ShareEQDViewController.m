@@ -23,6 +23,7 @@
     UICollectionView *CollectionV;
     NSMutableArray  *arr_model;
     NSArray  *arr_json;
+    MBProgressHUD *hud;
 }
 
 @end
@@ -291,7 +292,7 @@
     [self  presentViewController:nav animated:NO completion:nil];
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    [self dismissViewControllerAnimated:NO completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     FB_ShareModel *model =arr_model[indexPath.row];
     switch ([model.biaoji integerValue]) {
         case 10:
@@ -382,6 +383,10 @@
 
 -(void)shareAutoWithPlatform:(JSHAREPlatform)platform
 {
+    
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在跳转";
     if (self.EQD_ShareType ==EQD_ShareTypeText) {
         [self shareTextWithPlatform:platform];
     }else if (self.EQD_ShareType ==EQD_ShareTypeImage )
@@ -437,7 +442,7 @@
     message.mediaType = JSHARELink;
     message.url = self.url;
     message.text = self.text;
-    message.title = self.text;
+    message.title = self.Stitle;
     message.platform = platform;
     NSString *imageURL = self.imageURL;
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
@@ -446,6 +451,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
+        [hud hideAnimated:NO];
         
     }];
 }
@@ -460,6 +466,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
+        [hud hideAnimated:NO];
         
     }];
 }
@@ -474,6 +481,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
+        [hud hideAnimated:NO];
     }];
 }
 
@@ -494,7 +502,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
-        
+        [hud hideAnimated:NO];
     }];
 }
 
@@ -508,6 +516,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
+        [hud hideAnimated:NO];
     }];
 }
 
@@ -523,7 +532,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
-        
+        [hud hideAnimated:NO];
     }];
 }
 
@@ -541,7 +550,7 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
-        
+        [hud hideAnimated:NO];
     }];
 }
 

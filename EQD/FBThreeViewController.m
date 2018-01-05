@@ -223,7 +223,7 @@
     [self.view addSubview:CollectionV];
     
     [CollectionV registerClass:[GNBLCollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
-    [CollectionV registerClass:[GNBLCollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionViewCell"];
+    [CollectionV registerClass:[GNBLCollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionReusableView"];
      arr_img_name =[NSMutableArray arrayWithCapacity:0];
     NSMutableArray *tarr =[NSMutableArray arrayWithArray:@[@"人事",@"客户管理",@"打卡",@"车辆管理",@"车辆维修",@"易企阅"]];//
     NSArray  *timgArr =@[@"renShi",@"kehuguanli",@"dak",@"renShi",@"renShi",@"renShi"];
@@ -261,7 +261,7 @@
     
     if (kind == UICollectionElementKindSectionHeader){
         
-        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionViewCell" forIndexPath:indexPath];
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionReusableView" forIndexPath:indexPath];
         
         headerView.backgroundColor = [UIColor whiteColor];
         

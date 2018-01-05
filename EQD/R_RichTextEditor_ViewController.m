@@ -12,18 +12,18 @@
 #import "FBButton.h"
 #import "WebRequest.h"
 #import "EQDR_wenjiListModel.h"
-#import "EQDR_leibieViewController.h"
 #import "EQDR_MyWenJiViewController.h"
-@interface R_RichTextEditor_ViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,EQDR_leibieViewControllerDelegate,EQDR_MyWenJiViewControllerDelegate>
+#import "EQDR_LeiBieArticle2ViewController.h"
+@interface R_RichTextEditor_ViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,EQDR_MyWenJiViewControllerDelegate,EQDR_LeiBieArticle2ViewControllerDelegate>
 {
     FBTextField  *TF_title;
     FBButton  *B_title;
     UIImagePickerController  *picker;
     UserModel *user;
     NSString *menuId;
-    NSArray *arr_hanye;
     ///第一张图片的地址
     NSString *img_url;
+    NSArray *arr_articleLeibie;
 }
 
 @end
@@ -73,7 +73,7 @@
     [tbtn addTarget:self action:@selector(tbtnClick) forControlEvents:UIControlEventTouchUpInside];
     tbtn.frame =CGRectMake(CGRectGetMaxX(TF_title.frame)+5, DEVICE_TABBAR_Height+5, 120, 40);
 
-    [tbtn setTitle:@"推荐“行业”阅" titleColor:  [UIColor whiteColor] backgroundColor:EQDCOLOR font:[UIFont systemFontOfSize:15]];
+    [tbtn setTitle:@"文章分类" titleColor:  [UIColor whiteColor] backgroundColor:EQDCOLOR font:[UIFont systemFontOfSize:15]];
     
     [self.view addSubview:tbtn];
     
@@ -93,11 +93,11 @@
     NSArray *tarr  =[hanye componentsSeparatedByString:@","];
     NSMutableArray *tarr2 = [NSMutableArray arrayWithCapacity:0];
     for (int i=0; i<tarr.count; i++) {
-        FBHnagYeModel *modle = [[FBHnagYeModel alloc]init];
-        modle.name =tarr[i];
-        [tarr2 addObject:modle];
+        OptionModel  *model = [[OptionModel alloc]init];
+        model.name = tarr[i];
+        [tarr2 addObject:model];
     }
-    arr_hanye = tarr2;
+    arr_articleLeibie = tarr2;
     img_url = tdic[@"img"];
     NSString *thtml = tdic[@"content"];
     NSString *thtmlStr = [thtml stringByReplacingOccurrencesOfString:@"\\" withString:@""];
@@ -108,6 +108,14 @@
         B_title.userInteractionEnabled = NO;
         [B_title setTitle:self.model.title forState:UIControlStateNormal];
         [self setHTML:self.model.content];
+        NSArray *tarr  =[_model.lable componentsSeparatedByString:@","];
+        NSMutableArray *tarr2 = [NSMutableArray arrayWithCapacity:0];
+        for (int i=0; i<tarr.count; i++) {
+            OptionModel  *model = [[OptionModel alloc]init];
+            model.name = tarr[i];
+            [tarr2 addObject:model];
+        }
+        arr_articleLeibie = tarr2;
         right.title = @"更新";
         TF_title.text =self.model.title;
     }else if(self.menuid)
@@ -137,11 +145,12 @@
 }
 -(void)tbtnClick
 {
-    EQDR_leibieViewController  *Lvc =[[EQDR_leibieViewController alloc]init];
-    Lvc.delegate =self;
-    Lvc.arr_se_hangye =arr_hanye;
-    Lvc.hidesBottomBarWhenPushed =YES;
-    [self.navigationController pushViewController:Lvc animated:NO];
+    EQDR_LeiBieArticle2ViewController  *LBvc =[[EQDR_LeiBieArticle2ViewController alloc]init];
+    LBvc.delegate =self;
+    LBvc.arr_chooses = arr_articleLeibie;
+    LBvc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:LBvc animated:NO];
+  
    
 }
 -(void)titleClick
@@ -193,14 +202,13 @@
         content = [content substringWithRange:NSMakeRange(0, 60)];
     }
     NSMutableString  *label = [NSMutableString string];
-    if (arr_hanye.count==0) {
+    if (arr_articleLeibie.count==0) {
         [label appendString:@" "];
     }else
     {
-        for(int i=0;i<arr_hanye.count;i++)
-        {
-            FBHnagYeModel *model = arr_hanye[i];
-            if (i==arr_hanye.count-1) {
+        for (int i=0; i<arr_articleLeibie.count; i++) {
+            OptionModel  *model =arr_articleLeibie[i];
+            if (i==arr_articleLeibie.count-1) {
                 [label appendString:model.name];
             }else
             {
@@ -286,10 +294,7 @@
 }
 
 #pragma  mark - 自定义的协议代理
--(void)getSelectedarr:(NSArray *)arr_hangye
-{
-    arr_hanye  =arr_hangye;
-}
+
 -(void)getWenjiModel:(EQDR_wenjiListModel *)wenjiModel
 {
     menuId =wenjiModel.Id;
@@ -311,9 +316,20 @@
                           @"title":TF_title.text,
                           @"img":img_url
                           }];
-    if (arr_hanye.count!=0) {
-       
-        [tdic setObject:[self getWithHangye] forKey:@"leibie"];
+    if (arr_articleLeibie.count!=0) {
+       //少逻辑
+        NSMutableString  *tstr = [NSMutableString string];
+        for (int i=0; i<arr_articleLeibie.count; i++) {
+            OptionModel *model = arr_articleLeibie[i];
+            if (i==arr_articleLeibie.count-1) {
+                [tstr appendString:model.name];
+            }else
+            {
+                [tstr appendFormat:@"%@,",model.name];
+            }
+        }
+        [tdic setObject:tstr forKey:@"leibie"];
+        
     }else
     {
         
@@ -322,25 +338,11 @@
     [USERDEFAULTS synchronize];
     
 }
-
--(NSString*)getWithHangye
+#pragma  mark - 文章分类的协议代理
+-(void)getArticleWithModel:(NSArray<OptionModel *> *)mode
 {
-    if (arr_hanye.count==0) {
-        return @" ";
-    }else
-    {
-        NSMutableString  *tstr = [NSMutableString string];
-        for (int i=0; i<arr_hanye.count; i++) {
-            FBHnagYeModel *model =arr_hanye[i];
-            if (i==arr_hanye.count-1) {
-                [tstr appendString:model.name];
-            }else
-            {
-                [tstr appendFormat:@"%@,",model.name];
-            }
-        }
-        return tstr;
-    }
+    arr_articleLeibie = mode;
 }
+
 
 @end

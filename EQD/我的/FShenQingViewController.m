@@ -12,7 +12,6 @@
 #import "SQTiaoXiuViewController.h"
 #import "SQLiZhiListViewController.h"
 #import "SQXZWuZiViewController.h"
-#import "ZZZhuanZhengViewController.h"
 #import "ZZGangWeiDDViewController.h"
 #import "XuQiuPerson_listViewController.h"
 #import "SQ_tiaobanViewController.h"
@@ -23,6 +22,7 @@
 #import "RedTip_LabelTableViewCell.h"
 #import "LateLeaver_ListViewController.h"
 #import "CarUse_ListViewController.h"
+#import "FB_MyPeiXunListViewController.h"
 @interface FShenQingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *tableV;
@@ -50,7 +50,7 @@
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr =dic[Y_ITEMS];
             arr_one =[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
-            arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0"]];
+            arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0"]];
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary *dic2 = tarr[i];
                 if ([dic2[@"code"] integerValue]==102) {
@@ -110,9 +110,9 @@
     user =[WebRequest GetUserInfo];
     self.navigationItem.title=@"我的申请";
     //@[@"用车",@"报废",@"行政物资"],@[@"调薪",@"费用报销",@"福利",@"社保"],,@"转正",@"岗位异动",
-    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"联络书",@"离职申请",@"人力需求"]]];//
+    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"联络书",@"离职申请",@"人力需求",@"培训申请"]]];//
     arr_leibie = [NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStyleGrouped];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStyleGrouped];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
@@ -182,6 +182,10 @@
     }
     
     return cell;
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden{
+    return NO;
 }
 
 #pragma  mark - 表的协议代理
@@ -341,9 +345,9 @@
                     break;
                     case 4:
                 {
-                    //转正
-                    ZZZhuanZhengViewController *ZZvc =[[ZZZhuanZhengViewController alloc]init];
-                    [self.navigationController pushViewController:ZZvc animated:NO];
+                    //培训
+                    FB_MyPeiXunListViewController  *Lvc =[[FB_MyPeiXunListViewController alloc]init];
+                    [self.navigationController pushViewController:Lvc animated:NO];
                     
                 }
                     break;
@@ -385,6 +389,7 @@
                     [self.navigationController pushViewController:XQPvc animated:NO];
                 }
                     break;
+                 
                 default:
                     break;
             }

@@ -12,4 +12,6 @@
 @property (nonatomic,copy) NSString* name;
 @property (nonatomic,copy) NSString* ID;
 @property (nonatomic,assign) BOOL  isChoose;
+@property (nonatomic,copy) NSString* code;
+@property (nonatomic,assign) float cellHeight;
 @end

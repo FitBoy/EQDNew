@@ -160,6 +160,12 @@
            //考勤管理
             TRSKaoQinViewController *KQvc =[[TRSKaoQinViewController alloc]init];
             [self.navigationController pushViewController:KQvc animated:NO];
+        }else if (indexPath.row==2)
+        {
+            //招聘管理
+        }else if (indexPath.row==3)
+        {
+            //培训管理
         }
         else
         {

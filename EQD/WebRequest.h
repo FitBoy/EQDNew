@@ -318,6 +318,8 @@ _Pragma("clang diagnostic pop") \
 #define Z_staffnum @"staffnum"
 #define Z_comId @"comId"
 #define Z_comid @"comid"
+#define Z_applicantGuid @"applicantGuid"
+#define Z_applicantName @"applicantName"
 #define Z_applicationId @"applicationId"
 #define Z_vehicleId @"vehicleId"
 #define Z_givebackTime @"givebackTime"
@@ -448,6 +450,14 @@ _Pragma("clang diagnostic pop") \
 #define Z_postId @"postId"
 #define Z_postid @"postid"
 #define Z_postName @"postName"
+#define Z_trainees @"trainees"
+#define Z_theCategory @"theCategory"
+#define Z_theTheme @"theTheme"
+#define Z_recoDocentGuid @"recoDocentGuid"
+#define Z_budgetedExpense @"budgetedExpense"
+#define Z_thedateStart @"thedateStart"
+#define Z_thedateEnd @"thedateEnd"
+#define Z_theDemand @"theDemand"
 #define Z_depName @"depName"
 #define Z_jobNature @"jobNature"
 #define Z_salaryRange @"salaryRange"
@@ -1466,4 +1476,12 @@ _Pragma("clang diagnostic pop") \
 +(void)Articles_Get_MyArticleWithuserGuid:(NSString*)userGuid page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
 ///对文章评论进行举报
 +(void)Articles_Add_Article_Comment_ReportWithuserGuid:(NSString*)userGuid articleId:(NSString*)articleId articleCommentId:(NSString*)articleCommentId reason:(NSString*)reason reportType:(NSString*)reportType And:(void(^)(NSDictionary *dic))block;
+/// 收藏来自易企阅、易企学、易企创的文章 10：易企阅，11：易企学，12：易企创
++(void)Collection_Add_collectionowner:(NSString*)owner type:(NSString*)type title:(NSString*)title url:(NSString*)url source:(NSString*)source sourceOwner:(NSString*)sourceOwner And:(void(^)(NSDictionary *dic))block;
+///根据type获取收藏（文章，只针对易企阅、易企学、易企创）
++(void)Collection_Get_collectionsByTypeWithowner:(NSString*)owner type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+/// 培训申请
++(void)Training_Add_trainingApplyWithcomid:(NSString*)comid applicantGuid:(NSString*)applicantGuid applicantName:(NSString*)applicantName depid:(NSString*)depid depName:(NSString*)depName postid:(NSString*)postid postName:(NSString*)postName trainees:(NSString*)trainees theCategory:(NSString*)theCategory theTheme:(NSString*)theTheme recoDocentGuid:(NSString*)recoDocentGuid recoDocentName:(NSString*)recoDocentName budgetedExpense:(NSString*)budgetedExpense thedateStart:(NSString*)thedateStart thedateEnd:(NSString*)thedateEnd theDemand:(NSString*)theDemand theReason:(NSString*)theReason And:(void(^)(NSDictionary *dic))block;
+
+
 @end

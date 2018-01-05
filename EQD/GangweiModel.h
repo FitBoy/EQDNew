@@ -24,6 +24,8 @@
 ///职位id 入职邀请也有
 @property (nonatomic,copy) NSString* ID;
 
+@property (nonatomic,assign) BOOL isChoose;
+
 /*******专门为入职邀请添加的字段*********/
 /// 部门名称
 @property (nonatomic,copy) NSString* dename;

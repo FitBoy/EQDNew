@@ -14,6 +14,9 @@
 #import "EQDR_myAttentionViewController.h"
 #import "EQDR_FenSiViewController.h"
 #import "EQDR_MyArticleTwoViewController.h"
+#import "EQDR_MyShoucangViewController.h"
+#import "EQDR_LoveViewController.h"
+#import "FanKui_ListViewController.h"
 @interface EQDR_MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -135,9 +138,16 @@
         if(indexPath.row==0)
         {
             //收藏的文章
+            EQDR_MyShoucangViewController  *SCvc =[[EQDR_MyShoucangViewController alloc]init];
+            SCvc.type = @"10";
+            SCvc.hidesBottomBarWhenPushed =YES;
+            [self.navigationController pushViewController:SCvc animated:NO];
         }else if(indexPath.row==1)
         {
-            
+            //喜欢的文章
+            EQDR_LoveViewController *Lvc =[[EQDR_LoveViewController alloc]init];
+            Lvc.hidesBottomBarWhenPushed =YES;
+            [self.navigationController pushViewController:Lvc animated:NO];
         }else
         {
             
@@ -148,6 +158,8 @@
         if(indexPath.row==0)
         {
             //帮助与反馈
+            FanKui_ListViewController *Fvc =[[FanKui_ListViewController alloc]init];
+            [self.navigationController pushViewController:Fvc animated:NO];
         }else if (indexPath.row==1)
         {
             //设置

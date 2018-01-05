@@ -16,6 +16,7 @@
 #import <Masonry.h>
 #import "EQDR_Article_DetailViewController.h"
 #import "EQDR_ArticleSearchViewController.h"
+#import "EQDR_ArticleClassSearchViewController.h"
 @interface EQDR_ShouYeViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     EQDR_HeadView  *Hv ;
@@ -408,6 +409,11 @@ tableV2.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self r
             [tlabelStr yy_setTextHighlightRange:[tlabelStr yy_rangeOfAll] color:[UIColor greenColor] backgroundColor:[UIColor greenColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
                 
                 //标签的点击事件
+                
+                EQDR_ArticleClassSearchViewController  *Cvc =[[EQDR_ArticleClassSearchViewController alloc]init];
+                Cvc.searchKey = text.string;
+                Cvc.hidesBottomBarWhenPushed =YES;
+                [self.navigationController pushViewController:Cvc animated:NO];
             }];
             [label_str appendAttributedString:tlabelStr];
             NSMutableAttributedString  *kongge = [[NSMutableAttributedString alloc]initWithString:@"  " attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
@@ -432,6 +438,8 @@ tableV2.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self r
     [source_two yy_setTextBackgroundBorder:[YYTextBorder borderWithLineStyle:(YYTextLineStyleSingle) lineWidth:1 strokeColor:[UIColor greenColor]] range:source_two.yy_rangeOfAll];
     [source_two yy_setTextHighlightRange:[source_two yy_rangeOfAll] color:[UIColor greenColor] backgroundColor:[UIColor grayColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         ///点击来源跳转到相应的页面
+       
+        
     }];
     [soure appendAttributedString:source_two];
     cell.L_source.attributedText =soure;

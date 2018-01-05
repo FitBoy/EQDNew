@@ -92,7 +92,9 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     config.QQAppKey = @"2mH9J8txuUtg5YCL";
     config.WeChatAppId = @"wxa2ea563906227379";
     config.WeChatAppSecret = @"bb63c0a06bf0ee7f633a5bc44304d110";
-   
+    config.isProduction = NO;
+    config.isSupportWebSina = YES;
+    
     [JSHAREService setupWithConfig:config];
     ///发布产品后改成NO 
     [JSHAREService setDebug:YES];
@@ -184,6 +186,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
     
+    [self setUpJshareServer];
     /**********极光推送设置************/
     
     //融云的一些配置与设置
@@ -564,8 +567,11 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 
 - (void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber =
-    left;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].applicationIconBadgeNumber =
+        left;
+    });
+   
    
 }
 

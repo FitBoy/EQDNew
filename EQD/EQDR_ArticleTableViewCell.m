@@ -178,7 +178,8 @@
     if (!_IV_fenXiang) {
         _IV_fenXiang = [[UIImageView alloc]init];
         _IV_fenXiang.userInteractionEnabled=YES;
-        [self.V_top addSubview:_IV_fenXiang];
+//        [self.V_top addSubview:_IV_fenXiang];
+        _IV_fenXiang.hidden =YES;
         _IV_fenXiang.transform=CGAffineTransformMakeRotation(M_PI_2);
         [_IV_fenXiang mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(34, 34));

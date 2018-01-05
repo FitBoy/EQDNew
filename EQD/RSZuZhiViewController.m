@@ -9,7 +9,6 @@
 #import "RSZuZhiViewController.h"
 #import "TZuZhiViewController.h"
 #import "ZZZhiZeDetailViewController.h"
-#import "ZZZhuanZhengViewController.h"
 #import "ZZGangWeiDDViewController.h"
 @interface RSZuZhiViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

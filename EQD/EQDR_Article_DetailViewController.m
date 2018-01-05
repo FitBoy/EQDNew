@@ -21,6 +21,7 @@
 #import "R_RichTextEditor_ViewController.h"
 #import "EQDR_JuBaoViewController.h"
 #import "FB_ShareEQDViewController.h"
+#import "EQD_HtmlTool.h"
 /**
 
  
@@ -100,6 +101,8 @@
     currentX =0;
     user = [WebRequest GetUserInfo];
     webview_Detail= [[UIWebView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-50-kBottomSafeHeight)];
+
+    adjustsScrollViewInsets_NO(webview_Detail.scrollView, self);
     [self.view addSubview:webview_Detail];
     webview_Detail.delegate =self;
     webview_Detail.scrollView.delegate =self;
@@ -174,6 +177,14 @@ if( [model_detail.isAttention integerValue]==0)
             if(i==0)
             {
               //收藏
+                
+                [WebRequest Collection_Add_collectionowner:user.Guid type:@"10" title:model_detail.title url:[NSString stringWithFormat:@"%@;%@",model_detail.homeImage,[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id]] source:@"易企阅" sourceOwner:model_detail.userGuid And:^(NSDictionary *dic) {
+                    if ([dic[Y_STATUS] integerValue]==200) {
+                        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                        [alert showAlertWith:@"收藏成功"];
+                    }
+                }];
+                
             }else if (i==1)
             {
              //分享
@@ -182,10 +193,10 @@ if( [model_detail.isAttention integerValue]==0)
                 Svc.definesPresentationContext = YES;
                 Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 //url text title imageURL
-                Svc.url =[NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",model_detail.Id];
+                Svc.url =[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id];
                 Svc.Stitle =model_detail.title;
                 Svc.text =model_detail.textContent;
-                Svc.imageURL = model_detail.image;
+                Svc.imageURL = model_detail.homeImage;
                 Svc.EQD_ShareType = EQD_ShareTypeLink;
                 [self presentViewController:Svc animated:NO completion:nil];
                 
@@ -306,10 +317,10 @@ if( [model_detail.isAttention integerValue]==0)
     Svc.definesPresentationContext = YES;
     Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     //url text title imageURL
-    Svc.url =[NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",model_detail.Id];
+    Svc.url =[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id];
     Svc.Stitle =model_detail.title;
     Svc.text =model_detail.textContent;
-    Svc.imageURL = model_detail.image;
+    Svc.imageURL = model_detail.homeImage;
     Svc.EQD_ShareType = EQD_ShareTypeLink;
     [self presentViewController:Svc animated:NO completion:nil];
   

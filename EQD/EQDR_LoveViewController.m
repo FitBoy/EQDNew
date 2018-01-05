@@ -1,41 +1,40 @@
 //
-//  EQDR_ArticleClassSearchViewController.m
+//  EQDR_LoveViewController.m
 //  EQD
 //
-//  Created by 梁新帅 on 2017/12/27.
+//  Created by 梁新帅 on 2017/12/31.
 //  Copyright © 2017年 FitBoy. All rights reserved.
 //
 #define height_img  ([UIScreen mainScreen].bounds.size.width-40)/3.0
 
-#import "EQDR_ArticleClassSearchViewController.h"
-#import "FBButton.h"
+#import "EQDR_LoveViewController.h"
+#import "EQDR_articleListModel.h"
 #import "EQDR_ArticleTableViewCell.h"
 #import "EQDR_Article_DetailViewController.h"
 #import <Masonry.h>
 #import <UIImageView+WebCache.h>
-@interface EQDR_ArticleClassSearchViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface EQDR_LoveViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *tableV;
     NSMutableArray *arr_model;
     NSString *page;
-    FBButton *B_title;
+    UserModel *user;
 }
 
 @end
 
-@implementation EQDR_ArticleClassSearchViewController
+@implementation EQDR_LoveViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadRequestData];
 }
 -(void)loadRequestData{
-    
-    [WebRequest  Articles_Get_Article_ByLableWithlable:self.searchKey page:@"0" And:^(NSDictionary *dic) {
-        [tableV.mj_header endRefreshing];
+    [WebRequest Articles_Get_Article_ByZanWithuserGuid:user.Guid page:@"0" And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
+        [tableV.mj_header endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
             [arr_model removeAllObjects];
-            NSDictionary *tdic =dic[Y_ITEMS];
+            NSDictionary *tdic = dic[Y_ITEMS];
             NSArray *tarr = tdic[@"rows"];
             page =tdic[@"page"];
             for (int i=0; i<tarr.count; i++) {
@@ -45,15 +44,13 @@
             [tableV reloadData];
         }
     }];
-    
 }
--(void)loadOtherData
-{
-    [WebRequest  Articles_Get_Article_ByLableWithlable:self.searchKey page:page And:^(NSDictionary *dic) {
-        [tableV.mj_header endRefreshing];
+-(void)loadOtherData{
+    [WebRequest Articles_Get_Article_ByZanWithuserGuid:user.Guid page:page And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
+        [tableV.mj_header endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
-            NSDictionary *tdic =dic[Y_ITEMS];
+            NSDictionary *tdic = dic[Y_ITEMS];
             NSArray *tarr = tdic[@"rows"];
             if (tarr.count==0) {
                 [tableV.mj_footer endRefreshingWithNoMoreData];
@@ -71,6 +68,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title =@"喜欢的文章";
+    user = [WebRequest GetUserInfo];
+    page =@"0";
     arr_model = [NSMutableArray arrayWithCapacity:0];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
@@ -81,19 +81,13 @@
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
     
-    B_title = [FBButton buttonWithType:UIButtonTypeSystem];
-    [B_title setTitle:self.searchKey titleColor:EQDCOLOR backgroundColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:15]];
-    B_title.frame =CGRectMake(0, 0, 100, 30);
-    self.navigationItem.titleView = B_title;
-    [B_title addTarget:self action:@selector(titleCLick) forControlEvents:UIControlEventTouchUpInside];
-    
-
-}
--(void)titleCLick
-{
-    //点击
 }
 #pragma  mark - 表的数据源
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EQDR_articleListModel  *model =arr_model[indexPath.row];
+    return model.cellHeight;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return arr_model.count;
@@ -104,8 +98,9 @@
     if (!cell) {
         cell = [[EQDR_ArticleTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
     }
-    EQDR_articleListModel *model =arr_model[indexPath.row];
+    EQDR_articleListModel  *model =arr_model[indexPath.row];
     [cell setModel:model];
     float height_cell = 50;
     NSMutableAttributedString  *title = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@\n",model.title] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
@@ -197,16 +192,18 @@
     height_cell= height_cell+35;
     model.cellHeight =height_cell;
     return cell;
+    return cell;
 }
 
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EQDR_articleListModel  *model =arr_model[indexPath.row];
-    EQDR_Article_DetailViewController  *Dvc =[[EQDR_Article_DetailViewController alloc]init];
-    Dvc.articleId =model.Id;
+   EQDR_articleListModel  *model =arr_model[indexPath.row];
+    EQDR_Article_DetailViewController *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+    Dvc.articleId = model.Id;
     [self.navigationController pushViewController:Dvc animated:NO];
 }
+
 
 
 
