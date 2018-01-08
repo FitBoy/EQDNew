@@ -239,6 +239,8 @@
 		180EF72B1FFE09B500C90CF8 /* FB_My_PeiXunAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EF72A1FFE09B500C90CF8 /* FB_My_PeiXunAddViewController.m */; };
 		180EF72E1FFF02E700C90CF8 /* FB_PXChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EF72D1FFF02E700C90CF8 /* FB_PXChooseViewController.m */; };
 		180EF7311FFF2DB100C90CF8 /* FB_PXLeiBieChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EF7301FFF2DB100C90CF8 /* FB_PXLeiBieChooseViewController.m */; };
+		180EF7341FFF85B000C90CF8 /* FB_PeiXun_ListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EF7331FFF85B000C90CF8 /* FB_PeiXun_ListModel.m */; };
+		180EF738200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EF737200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m */; };
 		18103E831EB1AC8C00FA757F /* FBindexpathLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18103E821EB1AC8C00FA757F /* FBindexpathLongPressGestureRecognizer.m */; };
 		18103E861EB1CCAC00FA757F /* ZZAddGangWeiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18103E851EB1CCAC00FA757F /* ZZAddGangWeiViewController.m */; };
 		18103E901EB31CF300FA757F /* GangweiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18103E8F1EB31CF300FA757F /* GangweiModel.m */; };
@@ -1059,6 +1061,10 @@
 		180EF72D1FFF02E700C90CF8 /* FB_PXChooseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_PXChooseViewController.m; sourceTree = "<group>"; };
 		180EF72F1FFF2DB100C90CF8 /* FB_PXLeiBieChooseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_PXLeiBieChooseViewController.h; sourceTree = "<group>"; };
 		180EF7301FFF2DB100C90CF8 /* FB_PXLeiBieChooseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_PXLeiBieChooseViewController.m; sourceTree = "<group>"; };
+		180EF7321FFF85B000C90CF8 /* FB_PeiXun_ListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_PeiXun_ListModel.h; sourceTree = "<group>"; };
+		180EF7331FFF85B000C90CF8 /* FB_PeiXun_ListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_PeiXun_ListModel.m; sourceTree = "<group>"; };
+		180EF736200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_MyPXSQ_DetailViewController.h; sourceTree = "<group>"; };
+		180EF737200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_MyPXSQ_DetailViewController.m; sourceTree = "<group>"; };
 		18103E811EB1AC8C00FA757F /* FBindexpathLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBindexpathLongPressGestureRecognizer.h; sourceTree = "<group>"; };
 		18103E821EB1AC8C00FA757F /* FBindexpathLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBindexpathLongPressGestureRecognizer.m; sourceTree = "<group>"; };
 		18103E841EB1CCAC00FA757F /* ZZAddGangWeiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAddGangWeiViewController.h; sourceTree = "<group>"; };
@@ -3124,6 +3130,7 @@
 			children = (
 				180EF7251FFE05E900C90CF8 /* FB_MyPeiXunListViewController.h */,
 				180EF7261FFE05E900C90CF8 /* FB_MyPeiXunListViewController.m */,
+				180EF739200079EC00C90CF8 /* 培训申请详情 */,
 				180EF7291FFE09B500C90CF8 /* FB_My_PeiXunAddViewController.h */,
 				180EF72A1FFE09B500C90CF8 /* FB_My_PeiXunAddViewController.m */,
 				180EF72C1FFF02E700C90CF8 /* FB_PXChooseViewController.h */,
@@ -3132,6 +3139,24 @@
 				180EF7301FFF2DB100C90CF8 /* FB_PXLeiBieChooseViewController.m */,
 			);
 			name = "培训申请";
+			sourceTree = "<group>";
+		};
+		180EF7351FFF864500C90CF8 /* 培训管理 */ = {
+			isa = PBXGroup;
+			children = (
+				180EF7321FFF85B000C90CF8 /* FB_PeiXun_ListModel.h */,
+				180EF7331FFF85B000C90CF8 /* FB_PeiXun_ListModel.m */,
+			);
+			name = "培训管理";
+			sourceTree = "<group>";
+		};
+		180EF739200079EC00C90CF8 /* 培训申请详情 */ = {
+			isa = PBXGroup;
+			children = (
+				180EF736200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.h */,
+				180EF737200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m */,
+			);
+			name = "培训申请详情";
 			sourceTree = "<group>";
 		};
 		18103E911EB31CFC00FA757F /* 岗位model */ = {
@@ -5893,6 +5918,7 @@
 				18D9D8DA1FE507D500D29185 /* 文章列表 */,
 				181B26B21FEA6D3D00A38BFC /* 评论 */,
 				181B26D11FECF36000A38BFC /* 我的关注 */,
+				180EF7351FFF864500C90CF8 /* 培训管理 */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -6996,6 +7022,7 @@
 				1844D7F81F6BDF8D002B4A66 /* TongZhi_addViewController.m in Sources */,
 				183BBE981F29E373007D4675 /* UITextField+Tool.m in Sources */,
 				180CFED51F57A9760043C784 /* JiaBan_ListModel.m in Sources */,
+				180EF7341FFF85B000C90CF8 /* FB_PeiXun_ListModel.m in Sources */,
 				1804453B1ED52482003FFD88 /* GLFanKuiViewController.m in Sources */,
 				18CEC4901E7D09AD008DCB46 /* EQDLoginViewController.m in Sources */,
 				1824CF581F4D804F0003237A /* BQ_DetailViewController.m in Sources */,
@@ -7096,6 +7123,7 @@
 				183BBE9B1F29F054007D4675 /* SJieBangPhoneViewController.m in Sources */,
 				18CB8F771EA45A49000BABD2 /* FBHangYeViewController.m in Sources */,
 				18D9D8C31FE1100B00D29185 /* EQDR_MyWenJiViewController.m in Sources */,
+				180EF738200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m in Sources */,
 				1844D7EC1F6A7E3A002B4A66 /* TZGG_listViewController.m in Sources */,
 				18103EA21EB5BC7700FA757F /* FRenWuViewController.m in Sources */,
 				180820D41EE2A4EF000AB677 /* PZXuQiuPerson2ViewController.m in Sources */,

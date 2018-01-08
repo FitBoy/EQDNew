@@ -95,6 +95,7 @@
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *date_str = [formatter stringFromDate:[NSDate date]];
     [date_alert setDate3:date_str];
+    date_alert.picker.minimumDate = [NSDate date];
     date_alert.picker.datePickerMode =UIDatePickerModeDate;
     [date_alert.two_btn setleftname:@"取消" rightname:@"确定"];
     [date_alert.two_btn.B_left addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];

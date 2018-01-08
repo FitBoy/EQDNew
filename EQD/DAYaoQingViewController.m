@@ -60,12 +60,16 @@
     [self.view addSubview:searchBar];
     searchBar.delegate=self;
     searchBar.placeholder=@"搜索岗位";
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 40+DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-40-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 40+DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-40-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=50;
+}
+-(BOOL)prefersHomeIndicatorAutoHidden
+{
+    return NO;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     

@@ -129,6 +129,7 @@ _Pragma("clang diagnostic pop") \
 #define Z_UID @"uid"
 #define Z_account @"account"
 #define Z_userGuid @"userGuid"
+#define Z_checkerName @"checkerName"
 #define Z_author @"author"
 #define Z_attentionId @"attentionId"
 #define Z_attention @"attention"
@@ -454,6 +455,7 @@ _Pragma("clang diagnostic pop") \
 #define Z_theCategory @"theCategory"
 #define Z_theTheme @"theTheme"
 #define Z_recoDocentGuid @"recoDocentGuid"
+#define Z_recoDocentName @"recoDocentName"
 #define Z_budgetedExpense @"budgetedExpense"
 #define Z_thedateStart @"thedateStart"
 #define Z_thedateEnd @"thedateEnd"
@@ -1482,6 +1484,15 @@ _Pragma("clang diagnostic pop") \
 +(void)Collection_Get_collectionsByTypeWithowner:(NSString*)owner type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
 /// 培训申请
 +(void)Training_Add_trainingApplyWithcomid:(NSString*)comid applicantGuid:(NSString*)applicantGuid applicantName:(NSString*)applicantName depid:(NSString*)depid depName:(NSString*)depName postid:(NSString*)postid postName:(NSString*)postName trainees:(NSString*)trainees theCategory:(NSString*)theCategory theTheme:(NSString*)theTheme recoDocentGuid:(NSString*)recoDocentGuid recoDocentName:(NSString*)recoDocentName budgetedExpense:(NSString*)budgetedExpense thedateStart:(NSString*)thedateStart thedateEnd:(NSString*)thedateEnd theDemand:(NSString*)theDemand theReason:(NSString*)theReason And:(void(^)(NSDictionary *dic))block;
+///申请人查看培训申请
++(void)Training_Get_trainingApply_OwnerWithuserGuid:(NSString*)userGuid  type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+/// 部门领导查看培训申请
++(void)Training_Get_trainingApply_byLeaderWithuserGuid:(NSString*)userGuid comid:(NSString*)comid type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
 
-
+///人事查看培训申请
++(void)Training_Get_trainingApply_byHRWithuserGuid:(NSString*)userGuid comid:(NSString*)comid type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+///培训申请审批
++(void)Training_Check_trainingApplyWithuserGuid:(NSString*)userGuid checkerName:(NSString*)checkerName applicationId:(NSString*)applicationId option:(NSString*)option reason:(NSString*)reason And:(void(^)(NSDictionary *dic))block;
+///查看培训申请详情
++(void)Training_Get_trainingApplyDetailWithuserGuid:(NSString*)userGuid applicationId:(NSString*)applicationId And:(void(^)(NSDictionary *dic))block;
 @end

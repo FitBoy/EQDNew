@@ -8248,11 +8248,109 @@ Get_ChangeShift_ByCheckerWithtype:(NSString*)type userGuid:(NSString*)userGuid p
                                  Z_theCategory:theCategory,
                                  Z_theTheme:theTheme,
                                  Z_recoDocentGuid:recoDocentGuid,
+                                 Z_recoDocentName:recoDocentName,
                                  Z_budgetedExpense:budgetedExpense,
                                  Z_thedateStart:thedateStart,
                                  Z_thedateEnd:thedateEnd,
                                  Z_theDemand:theDemand,
                                  Z_theReason:theReason
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
+
++(void)Training_Get_trainingApply_OwnerWithuserGuid:(NSString*)userGuid  type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Training/Get_trainingApply_Owner.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_type:type,
+                                 Z_page:page
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
+
++(void)Training_Get_trainingApply_byLeaderWithuserGuid:(NSString*)userGuid comid:(NSString*)comid type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Training/Get_trainingApply_byLeader.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_type:type,
+                                 Z_comid:comid,
+                                 Z_page:page
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
+
++(void)Training_Get_trainingApply_byHRWithuserGuid:(NSString*)userGuid comid:(NSString*)comid type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Training/Get_trainingApply_byHR.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_comid:comid,
+                                 Z_type:type,
+                                 Z_page:page
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
+
++(void)Training_Check_trainingApplyWithuserGuid:(NSString*)userGuid checkerName:(NSString*)checkerName applicationId:(NSString*)applicationId option:(NSString*)option reason:(NSString*)reason And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Training/Check_trainingApply.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_checkerName:checkerName,
+                                 Z_applicationId:applicationId,
+                                 Z_option:option,
+                                 Z_reason:reason
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic1 =[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        block(dic1);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@{@"status":@"220",@"error":error});
+    }];
+
+}
++(void)Training_Get_trainingApplyDetailWithuserGuid:(NSString*)userGuid applicationId:(NSString*)applicationId And:(void(^)(NSDictionary *dic))block
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@Training/Get_trainingApplyDetail.ashx",HTTP_HEAD];
+    NSDictionary *parameters = @{
+                                 Z_userGuid:userGuid,
+                                 Z_applicationId:applicationId
                                  };
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

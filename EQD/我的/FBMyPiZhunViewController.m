@@ -24,6 +24,7 @@
 #import "LateLeaver_ListViewController.h"
 #import "RedTip_LabelTableViewCell.h"
 #import "CarUse_ListViewController.h"
+#import "FB_MyPeiXunListViewController.h"
 @interface FBMyPiZhunViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -49,7 +50,7 @@
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr = dic[Y_ITEMS];
             arr_one =[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
-            arr_four=[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0"]];
+            arr_four=[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0"]];
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary  *dic2 =tarr[i];
                 if ([dic2[@"code"] integerValue]==100) {
@@ -118,7 +119,7 @@
     user = [WebRequest GetUserInfo];
     self.navigationItem.title =@"我的批准";
     ///@[@"用车",@"报废",@"行政物资"],@[@"调薪",@"费用报销",@"福利",@"社保"],
-    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"公告",@"联络书",@"离职批准",@"劳动合同"]]];//@"转正",@"岗位异动",@"人力资源需求",
+    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"公告",@"联络书",@"离职批准",@"劳动合同",@"培训申请"]]];//@"转正",@"岗位异动",@"人力资源需求",
     arr_leibie = [NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
     tableV.delegate=self;
@@ -351,8 +352,11 @@
                 case 5:
                 {
                     //转正
-                    PZZhuanZhengViewController *ZZvc =[[PZZhuanZhengViewController alloc]init];
-                    [self.navigationController pushViewController:ZZvc animated:NO];
+                    FB_MyPeiXunListViewController  *Lvc=[[FB_MyPeiXunListViewController alloc]init];
+                    Lvc.isRenshi=2;
+                    [self.navigationController pushViewController:Lvc animated:NO];
+                  /*  PZZhuanZhengViewController *ZZvc =[[PZZhuanZhengViewController alloc]init];
+                    [self.navigationController pushViewController:ZZvc animated:NO];*/
                     
                 }
                     break;
@@ -389,6 +393,7 @@
                     
                 }
                     break;
+         
                     
                 default:
                     break;

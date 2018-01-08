@@ -9,5 +9,6 @@
 #import "FBBaseViewController.h"
 
 @interface FB_MyPeiXunListViewController : FBBaseViewController
-
+///1 是人事  2是领导  0 是申请
+@property (nonatomic,assign) NSInteger  isRenshi;
 @end
