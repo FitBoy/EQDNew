@@ -18,6 +18,7 @@
 #import "PPersonCardViewController.h"
 #import "Memo_AddViewController.h"
 #import "RWFaSongViewController.h"
+#import "FBShareUrlMessageCollectionViewCell.h"
 @interface FBQunChatViewController ()<RCIMGroupMemberDataSource>
 {
     
@@ -83,6 +84,9 @@
     [[RCIM sharedRCIM] registerMessageType:[FBGeRenCardMessageContent class]];
     [self.conversationMessageCollectionView registerClass:[FBMessageCell class] forCellWithReuseIdentifier:@"FBMessageBaseCell"];
     [self registerClass:[FBMessageCell class] forMessageClass:[FBGeRenCardMessageContent class]];
+    [[RCIM sharedRCIM] registerMessageType:[FBShareMessageContent class]];
+    [self.conversationMessageCollectionView registerClass:[FBShareUrlMessageCollectionViewCell class] forCellWithReuseIdentifier:@"FBShareMessageBaseCell"];
+    [self registerClass:[FBShareUrlMessageCollectionViewCell class] forMessageClass:[FBShareMessageContent class]];
     
 }
 //、扩展功能
@@ -371,7 +375,12 @@
     {
          [cell1 setDataModel:model];
     }
-   
+    FBMessageCell *cell2 = [collectionView dequeueReusableCellWithReuseIdentifier:@"FBShareMessageBaseCell" forIndexPath:indexPath];
+    RCMessageModel *model2 =self.conversationDataRepository[indexPath.row];
+    if([model.content isKindOfClass:[FBShareMessageContent class]])
+    {
+        [cell2 setDataModel:model2];
+    }
     
     
     return cell1;

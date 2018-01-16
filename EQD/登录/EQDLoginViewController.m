@@ -106,7 +106,7 @@
     
     
     UIButton *tbtn_findMima = [UIButton buttonWithType:UIButtonTypeSystem];
-    tbtn_findMima.frame = CGRectMake((DEVICE_WIDTH-80)/2.0, DEVICE_HEIGHT-40, 80, 20);
+    tbtn_findMima.frame = CGRectMake((DEVICE_WIDTH-80)/2.0, DEVICE_HEIGHT-40-kBottomSafeHeight, 80, 20);
     [tbtn_findMima setTitle:@"找回密码" forState:UIControlStateNormal];
     [self.view addSubview:tbtn_findMima];
     [tbtn_findMima addTarget:self action:@selector(findMimaCLick) forControlEvents:UIControlEventTouchUpInside];

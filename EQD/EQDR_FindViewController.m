@@ -26,7 +26,7 @@
 @implementation EQDR_FindViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadRequestData];
+//    [self loadRequestData];
 }
 -(void)loadRequestData{
   
@@ -87,7 +87,7 @@
     tableV.rowHeight=60;
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
-    
+    [self loadRequestData];
 }
 -(void)leftClick
 {

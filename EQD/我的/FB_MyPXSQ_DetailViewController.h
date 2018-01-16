@@ -10,4 +10,6 @@
 
 @interface FB_MyPXSQ_DetailViewController : FBBaseViewController
 @property (nonatomic,copy) NSString*  ID;
+/// 1 是人事审批  2是领导审批  其他是0
+@property (nonatomic,assign) NSInteger isRenshi;
 @end

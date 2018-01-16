@@ -14,7 +14,7 @@
     if (!_YL_label) {
         _YL_label = [[YYLabel alloc]init];
         [self addSubview:_YL_label];
-        _YL_label.numberOfLines =2;
+        _YL_label.numberOfLines =0;
         
     }
     return _YL_label;

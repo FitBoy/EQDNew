@@ -31,8 +31,40 @@
     
     if(self.isRenshi==2)
     {
+        [WebRequest  Training_Get_trainingApply_byLeaderWithuserGuid:user.Guid comid:user.companyId type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [arr_model removeAllObjects];
+                NSArray *tarr = dic[Y_ITEMS];
+                page =dic[@"nextpage"];
+                for (int i=0; i<tarr.count; i++) {
+                    FB_PeiXun_ListModel  *model =[FB_PeiXun_ListModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
         
-    }else
+        
+    }else if (self.isRenshi==1)
+    {
+        [WebRequest Training_Get_trainingApply_byHRWithuserGuid:user.Guid comid:user.companyId type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [arr_model removeAllObjects];
+                NSArray *tarr = dic[Y_ITEMS];
+                page =dic[@"nextpage"];
+                for (int i=0; i<tarr.count; i++) {
+                    FB_PeiXun_ListModel  *model =[FB_PeiXun_ListModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+    }
+    else
     [WebRequest Training_Get_trainingApply_OwnerWithuserGuid:user.Guid type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
         [tableV.mj_header endRefreshing];
         [tableV.mj_footer endRefreshing];
@@ -50,6 +82,47 @@
     
 }
 -(void)loadOtherData{
+    if (self.isRenshi==2) {
+        [WebRequest  Training_Get_trainingApply_byLeaderWithuserGuid:user.Guid comid:user.companyId type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:page And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if (tarr.count==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                    page =dic[@"nextpage"];
+                    for (int i=0; i<tarr.count; i++) {
+                        FB_PeiXun_ListModel  *model =[FB_PeiXun_ListModel mj_objectWithKeyValues:tarr[i]];
+                        [arr_model addObject:model];
+                    }
+                    [tableV reloadData];
+                }
+            }
+        }];
+    }else if (self.isRenshi==1)
+    {
+        [WebRequest Training_Get_trainingApply_byHRWithuserGuid:user.Guid comid:user.companyId type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:page And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if (tarr.count==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                    page =dic[@"nextpage"];
+                    for (int i=0; i<tarr.count; i++) {
+                        FB_PeiXun_ListModel  *model =[FB_PeiXun_ListModel mj_objectWithKeyValues:tarr[i]];
+                        [arr_model addObject:model];
+                    }
+                    [tableV reloadData];
+                }
+            }
+        }];
+    }else
+    {
     [WebRequest Training_Get_trainingApply_OwnerWithuserGuid:user.Guid type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:page And:^(NSDictionary *dic) {
         [tableV.mj_header endRefreshing];
         [tableV.mj_footer endRefreshing];
@@ -68,6 +141,7 @@
             }
         }
     }];
+    }
 }
 - (BOOL)prefersHomeIndicatorAutoHidden{
     return NO;
@@ -116,10 +190,15 @@
     FB_PeiXun_ListModel  *model = arr_model[indexPath.row];
     cell.L_left0.text = model.theTheme;
     cell.L_left1.text = [NSString stringWithFormat:@"申请培训时间段:%@ ~ %@",model.thedateStart,model.thedateEnd];
-    if([model.status integerValue] >0)
+    if([model.status integerValue] ==1)
+    {
+        cell.L_right1.text = @"等待人事审批";
+        
+    }else if ([model.status integerValue]==2)
     {
         cell.L_right1.text = @"已同意";
-    }else if ([model.status integerValue]<0)
+    }
+    else if ([model.status integerValue]==-1)
     {
         cell.L_right1.text = @"已拒绝";
     }else
@@ -135,6 +214,16 @@
     FB_PeiXun_ListModel  *model = arr_model[indexPath.row];
     FB_MyPXSQ_DetailViewController  *Dvc = [[FB_MyPXSQ_DetailViewController alloc]init];
     Dvc.ID = model.ID;
+    if (segmentC.selectedSegmentIndex==0 && self.isRenshi==2) {
+        Dvc.isRenshi = 2;
+    }else if (segmentC.selectedSegmentIndex==0 && self.isRenshi==1)
+    {
+        Dvc.isRenshi =1;
+    }
+    else
+    {
+        Dvc.isRenshi =0;
+    }
     [self.navigationController pushViewController:Dvc animated:NO];
 }
 

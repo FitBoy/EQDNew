@@ -10,7 +10,9 @@
 #import "FB_PeiXun_ListModel.h"
 #import "EQDR_labelTableViewCell.h"
 #import <Masonry.h>
-@interface FB_MyPXSQ_DetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "FBTwoButtonView.h"
+#import "FB_OnlyForLiuYanViewController.h"
+@interface FB_MyPXSQ_DetailViewController ()<UITableViewDelegate,UITableViewDataSource,FB_OnlyForLiuYanViewControllerDlegate>
 {
     UITableView *tableV;
     UserModel *user;
@@ -26,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title =@"培训申请详情";
     user = [WebRequest GetUserInfo];
     arr_height = [NSMutableArray arrayWithCapacity:0];
     arr_model =[NSMutableArray arrayWithCapacity:0];
@@ -57,15 +60,89 @@
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 1;
+    return 5;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (self.isRenshi >0 && section ==arr_model.count==0?0:1) {
+        return 50;
+    }else
+    {
+        return 1;
+    }
+}
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (self.isRenshi==0) {
+        return nil;
+    }else
+    {
+        if (section==arr_model.count==0?0:1) {
+            FBTwoButtonView  *tview = [[FBTwoButtonView alloc]init];
+            [tview setleftname:@"拒绝" rightname:@"同意"];
+            [tview.B_right addTarget:self action:@selector(rigthClcik) forControlEvents:UIControlEventTouchUpInside];
+            [tview.B_left addTarget:self action:@selector(lefClick) forControlEvents:UIControlEventTouchUpInside];
+            return tview;
+            
+        }else
+        {
+            return nil;
+        }
+    }
+}
+-(void)rigthClcik
+{
+    //同意
+    if(self.isRenshi>0)
+    {
+      //领导同意  人事 同事
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeAnnularDeterminate;
+        hud.label.text = @"正在同意";
+        [WebRequest Training_Check_trainingApplyWithuserGuid:user.Guid checkerName:user.username applicationId:self.ID option:@"1" reason:@" " And:^(NSDictionary *dic) {
+            hud.label.text = dic[Y_MSG];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hideAnimated:NO];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    [self.navigationController popViewControllerAnimated:NO];
+                }
+            });
+        }];
+   
+    }else
+    {
+        
+    }
+}
+-(void)lefClick
+{
+ //拒绝
+    if(self.isRenshi>0)
+    {
+        //领导拒绝//人事拒绝
+        FB_OnlyForLiuYanViewController  *LYvc =[[FB_OnlyForLiuYanViewController alloc]init];
+        LYvc.providesPresentationContextTransitionStyle = YES;
+        LYvc.definesPresentationContext = YES;
+        LYvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        LYvc.delegate =self;
+        LYvc.btnName = @"确定";
+        LYvc.placeHolder = @"请输入拒绝理由";
+        [self.navigationController presentViewController:LYvc animated:NO completion:nil];
+        
+    }else
+    {
+        
+    }
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
         return [arr_height[indexPath.row] integerValue];
     }else
     {
-        return 60;
+        ShenPIList2Model  *model2 = arr_model[indexPath.row];
+        return model2.cellHeight;
     }
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -110,13 +187,32 @@
     }else
     {
         static NSString *cellId=@"cellID1";
-        UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+            cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.textLabel.font = [UIFont systemFontOfSize:17];
-            cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
+           
         }
+        ShenPIList2Model  *model2 = arr_model[indexPath.row];
+        NSMutableAttributedString  *name = [[NSMutableAttributedString alloc]initWithString:model2.checkerName attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
+        NSString *Tstr = [NSString stringWithFormat:@"%@\n",[model2.theOperation integerValue]==1?@"-已同意":@"-已拒绝"];
+        NSMutableAttributedString  *status = [[NSMutableAttributedString alloc]initWithString:Tstr attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+        status.yy_alignment = NSTextAlignmentRight;
+        status.yy_color = [UIColor grayColor];
+      [name appendAttributedString:status];
+        NSMutableAttributedString  *remark = [[NSMutableAttributedString alloc]initWithString:model2.remark attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+    
+        remark.yy_lineSpacing =6;
+        [name appendAttributedString:remark];
+        CGSize  size = [name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        model2.cellHeight =size.height+20;
+        [cell.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(size.height+10);
+            make.centerY.mas_equalTo(cell.mas_centerY);
+            make.left.mas_equalTo(cell.mas_left).mas_offset(15);
+            make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
+        }];
+        cell.YL_label.attributedText =name;
         
         return cell;
     }
@@ -129,6 +225,23 @@
     
 }
 
+#pragma  mark - 自定义的协议代理
+-(void)getPresnetText:(NSString *)text
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在拒绝";
+    [WebRequest  Training_Check_trainingApplyWithuserGuid:user.Guid checkerName:user.username applicationId:self.ID option:@"-1" reason:text And:^(NSDictionary *dic) {
+        hud.label.text =dic[Y_MSG];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:NO];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [self.navigationController popViewControllerAnimated:NO];
+            }
+        });
+        
+    }];
+}
 
 
 

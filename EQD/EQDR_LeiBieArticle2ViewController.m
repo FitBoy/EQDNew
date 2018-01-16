@@ -92,12 +92,13 @@
     }
    
     cell.L_name.text = model.name;
-    [cell.L_name mas_makeConstraints:^(MASConstraintMaker *make) {
+    [cell.L_name mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(cell.mas_centerY);
         make.height.mas_equalTo(30);
         make.centerX.mas_equalTo(cell.mas_centerX);
         make.width.mas_equalTo(model.cellHeight+20);
     }];
+   
 
     
     

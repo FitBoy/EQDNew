@@ -31,6 +31,8 @@
     FBButton *B_fasong;
     GZQ_top_headView *top_view;
     NSIndexPath *indexPath_pinglun;
+    NSString *parentUserGuid;
+    NSString *firstcommentId;
 }
 
 @end
@@ -144,6 +146,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     Str_ID=@"0";
+    parentUserGuid = @" ";
+    firstcommentId = @"0";
      arr_gongzuoquan =[NSMutableArray arrayWithCapacity:0];
     user =[WebRequest GetUserInfo];
         self.navigationItem.title =@"工作圈";
@@ -292,7 +296,7 @@
     GongZuoQunModel *model =arr_gongzuoquan[indexPath_pinglun.row];
   
     
-    [WebRequest Add_WorkCircle_CommentWithcompanyId:user.companyId userGuid:user.Guid message:TF_text.text workCircleId:model.Id parentId:@"0" And:^(NSDictionary *dic) {
+    [WebRequest Add_WorkCircle_CommentWithcompanyId:user.companyId userGuid:user.Guid message:TF_text.text workCircleId:model.Id parentId:@"0" parentUserGuid:parentUserGuid firstCommentId:firstcommentId  And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             hud.label.text =@"评论成功";
             TF_text.text=nil;

@@ -18,7 +18,8 @@
 #import "FBImgShowViewController.h"
 #import "FBindexpathLongPressGestureRecognizer.h"
 #import "GZQ_ZanViewController.h"
-@interface GZQ_PingLunViewController ()<UITableViewDelegate,UITableViewDataSource,GZQ_PingLunTableViewCellDelegate,UITextFieldDelegate>
+#import <Masonry.h>
+@interface GZQ_PingLunViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     UITableView *tableV;
     NSString *ID_selected;
@@ -31,6 +32,9 @@
     NSString *ID_big;
     NSIndexPath *indexpath_selected;
     GZQ_top_DetailView *view_top;
+    NSString *parentUserGuid;
+    NSString *firstCommentId;
+    NSString *page;
 }
 
 @end
@@ -38,34 +42,29 @@
 @implementation GZQ_PingLunViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadRequestData];
+   
 }
 -(void)loadRequestData{
     
-   
-    [WebRequest Get_Comment_ByWorkCircleIdWithworkCircleId:self.model.Id ID:@"0" And:^(NSDictionary *dic) {
+    [WebRequest Get_WorkCircleCommentWithworkcircleId:self.model.Id page:@"0" And:^(NSDictionary *dic) {
+        [tableV.mj_header endRefreshing];
+        [tableV.mj_footer endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
             [arr_pinglun removeAllObjects];
-            NSArray *tarr =dic[Y_ITEMS];
-            if (tarr.count) {
-                for (int i=0; i<tarr.count; i++) {
-                    GZQ_PingLunModel *model =[GZQ_PingLunModel mj_objectWithKeyValues:tarr[i]];
-                    [arr_pinglun addObject:model];
-                    if (i==tarr.count-1) {
-                        ID_selected =model.Id;
-                    }
-                }
+            NSDictionary *tdic = dic[Y_ITEMS];
+            page =tdic[@"page"];
+            NSArray *tarr =tdic[@"rows"];
+            for (int i=0; i<tarr.count; i++) {
+                GZQ_PingLunModel  *model = [GZQ_PingLunModel mj_objectWithKeyValues:tarr[i]];
+                [arr_pinglun addObject:model];
             }
-           
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [tableV.mj_footer endRefreshing];
-            [tableV.mj_header endRefreshing];
             [tableV reloadData];
-        });
-
+        }
     }];
+    
+    
+   
+ 
     /// 获取说说详情
     
     [WebRequest Get_WorkCircle_ByIdWithworkCircleId:self.model.Id userGuid:user.Guid And:^(NSDictionary *dic) {
@@ -81,29 +80,27 @@
 -(void)loadOtherData
 {
     
-    
-    
-    [WebRequest Get_Comment_ByWorkCircleIdWithworkCircleId:self.model.Id ID:ID_selected And:^(NSDictionary *dic) {
-        [tableV.mj_footer endRefreshing];
+    [WebRequest Get_WorkCircleCommentWithworkcircleId:self.model.Id page:page And:^(NSDictionary *dic) {
         [tableV.mj_header endRefreshing];
+        [tableV.mj_footer endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
-            NSArray *tarr =dic[Y_ITEMS];
-            if (tarr.count==0)
-            {
+            NSDictionary *tdic = dic[Y_ITEMS];
+            page =tdic[@"page"];
+            NSArray *tarr =tdic[@"rows"];
+            if (tarr.count==0) {
                 [tableV.mj_footer endRefreshingWithNoMoreData];
-            }else{
-                for (int i=0; i<tarr.count; i++) {
-                    GZQ_PingLunModel *model =[GZQ_PingLunModel mj_objectWithKeyValues:tarr[i]];
-                    [arr_pinglun addObject:model];
-                    if (i==tarr.count-1) {
-                        ID_selected =model.Id;
-                    }
-                }
+            }else
+            {
+            for (int i=0; i<tarr.count; i++) {
+                GZQ_PingLunModel  *model = [GZQ_PingLunModel mj_objectWithKeyValues:tarr[i]];
+                [arr_pinglun addObject:model];
             }
-                [tableV reloadData];
+            [tableV reloadData];
+            }
         }
-        
     }];
+    
+ 
     
 }
 
@@ -114,7 +111,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     ID_selected=@"0";
-    self.navigationItem.title = @"说说详情";
+    self.navigationItem.title = @"详情";
     user =[WebRequest GetUserInfo];
     arr_pinglun=[NSMutableArray arrayWithCapacity:0];
     
@@ -204,6 +201,7 @@
     [view_top.IV_zan3 addGestureRecognizer:tap_zan3];
     FBindexTapGestureRecognizer  *tap_zan4 =[[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(zanCLickcell:)];
     [view_top.IV_zan4 addGestureRecognizer:tap_zan4];
+     [self loadRequestData];
     
 }
 -(void)zanCLickcell:(FBindexTapGestureRecognizer*)tap
@@ -220,6 +218,8 @@
 {
     [TF_text becomeFirstResponder];
     ID_huifu=@"0";
+    parentUserGuid =@" ";
+    firstCommentId = @"0";
    
 }
 -(void)tap_zanClick
@@ -274,6 +274,7 @@
     [self.navigationController pushViewController:Pvc animated:NO];
     
 }
+#pragma  mark - 发送
 -(void)fasongClick
 {
     [self.view endEditing:YES];
@@ -284,24 +285,17 @@
         hud.label.text = @"正在评论";
    
     
-    [WebRequest Add_WorkCircle_CommentWithcompanyId:user.companyId userGuid:user.Guid message:TF_text.text workCircleId:self.model.Id parentId:ID_huifu And:^(NSDictionary *dic) {
+    [WebRequest Add_WorkCircle_CommentWithcompanyId:user.companyId userGuid:user.Guid message:TF_text.text workCircleId:self.model.Id parentId:ID_huifu parentUserGuid:parentUserGuid firstCommentId:firstCommentId And:^(NSDictionary *dic) {
         
         NSNumber *number =dic[Y_STATUS];
         if ([number integerValue]==200) {
          hud.label.text =@"评论成功";
             if ([ID_huifu integerValue]!=0) {
-               [WebRequest Get_Comment_ByIdWithcommentId:ID_big And:^(NSDictionary *dic) {
-                   if ([dic[Y_STATUS] integerValue]==200) {
-                   NSDictionary *dic2 =dic[Y_ITEMS];
-                   GZQ_PingLunModel *model2 =[GZQ_PingLunModel mj_objectWithKeyValues:dic2];
-                   [arr_pinglun replaceObjectAtIndex:indexpath_selected.row withObject:model2];
-                   [tableV reloadRowsAtIndexPaths:@[indexpath_selected] withRowAnimation:UITableViewRowAnimationNone];
-                   }
-               }];
+            
             }
             else
             {
-                [self loadRequestData];
+//                [self loadRequestData];
             }
             [view_top updateliuyan];
             if([self.delegate respondsToSelector:@selector(liuyanWithIndexpath:Withnumber:)])
@@ -345,45 +339,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GZQ_PingLunModel *model =arr_pinglun[indexPath.row];
-   
-     CGSize size =[model.Message boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-73, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
-    NSMutableParagraphStyle *para =[[NSMutableParagraphStyle alloc]init];
-    para.lineSpacing=6;
-    NSMutableAttributedString *text =[[NSMutableAttributedString alloc]initWithString:@"" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-    if (model.children.count) {
-        for (int i=0; i<model.children.count; i++) {
-            GZQ_PingLunModel *model2 =model.children[i];
-            [ text appendAttributedString:[self getstringWithmodel:model2]];
-        }
-        CGSize size2 =[text boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-73, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-        
-        return 70+size.height+size2.height;
-
-    }
-    else
-    {
-        return 70+size.height;
-    }
-    
-   
-    }
-
--(NSMutableAttributedString*)getstringWithmodel:(GZQ_PingLunModel*)model
-{
-    NSMutableParagraphStyle *para =[[NSMutableParagraphStyle alloc]init];
-    para.lineSpacing=6;
-    NSMutableAttributedString *tstr =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@回复%@%@\n",model.beforeName,model.staffName,model.Message] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-    
-    ///获取所有子评论的内容
-    if (model.children.count) {
-        for (int i=0; i<model.children.count; i++) {
-            GZQ_PingLunModel *model2 =model.children[i];
-            [tstr appendAttributedString:[self getstringWithmodel:model2]];
-        }
-    }
-    return tstr;
-    
+    return model.cellHeight;
 }
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return arr_pinglun.count;
@@ -397,9 +356,87 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
     }
-    cell.indexPath =indexPath;
     [cell setModel:model];
-    cell.delegate=self;
+    float  height_cell = 50;
+    CGSize size =[model.Message boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-75, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont  systemFontOfSize:16]} context:nil].size;
+    [cell.L_contents mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+5);
+        make.left.mas_equalTo(cell.IV_head.mas_right).mas_offset(5);
+        make.right.mas_equalTo(cell.V_bg.mas_right);
+        make.top.mas_equalTo(cell.V_top.mas_bottom).mas_offset(5);
+    }];
+    height_cell = 50+size.height+15;
+    if ([model.commentCount  integerValue]==0) {
+        cell.yyL_fuwenben.attributedText =nil;
+        cell.L_more.hidden = YES;
+        cell.yyL_fuwenben.frame = CGRectZero;
+        model.cellHeight = height_cell;
+    }else
+    {
+    NSMutableAttributedString *pinglunMore = [[NSMutableAttributedString alloc]initWithString:@"" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+    for (int i=0; i<model.list.count; i++) {
+        GZQ_PingLunModel *model2 = model.list[i];
+        NSMutableAttributedString  *staffName = [[NSMutableAttributedString alloc]initWithString:model2.staffName attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+        [staffName yy_setTextHighlightRange:staffName.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+            //名字点击事件
+            PPersonCardViewController  *Pvc =[[PPersonCardViewController alloc]init];
+            Pvc.userGuid = model2.Creater;
+            [self.navigationController pushViewController:Pvc animated:NO];
+        }];
+        [pinglunMore appendAttributedString:staffName];
+        NSMutableAttributedString *huifu = [[NSMutableAttributedString alloc]initWithString:@"回复" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+        [pinglunMore appendAttributedString:huifu];
+        NSMutableAttributedString *parentUPname = [[NSMutableAttributedString alloc]initWithString:model2.parentUPname attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+        [parentUPname yy_setTextHighlightRange:parentUPname.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+         //第二个名字的点击事件
+            PPersonCardViewController  *Pvc =[[PPersonCardViewController alloc]init];
+            Pvc.userGuid = model2.parentUserGuid;
+            [self.navigationController pushViewController:Pvc animated:NO];
+        }];
+        [pinglunMore appendAttributedString:parentUPname];
+        NSMutableAttributedString *Message = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@":%@\n",model2.Message] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+                                                                                                                                                            
+    [Message yy_setTextHighlightRange:Message.yy_rangeOfAll color:[UIColor blackColor] backgroundColor:[UIColor whiteColor] userInfo:@{} tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+            //消息的点击事件
+        [self getContentId:model2.Id userGuid:model2.Creater name:model2.staffName thismodelId:model.Id indexpath:indexPath];
+        
+        } longPressAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+           //消息的长按事件
+            [self getmessage:model2.Message contentId:model2.Id creater:model2.Creater thismodelId:model.Id indexPath:indexPath];
+            
+        }];
+        [pinglunMore appendAttributedString:Message];
+        
+    }
+        pinglunMore.yy_lineSpacing=6;
+    CGSize sizepinglun = [pinglunMore boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-75, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    height_cell = height_cell+sizepinglun.height+10;
+        
+    cell.yyL_fuwenben.attributedText = pinglunMore;
+        [cell.yyL_fuwenben mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(sizepinglun.height+5);
+            make.left.mas_equalTo(cell.IV_head.mas_right).mas_offset(5);
+            make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
+            make.top.mas_equalTo(cell.L_contents.mas_bottom).mas_offset(5);
+        }];
+        
+    if ([model.commentCount integerValue]>3) {
+        cell.L_more.hidden=NO;
+        [cell.L_more mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(120, 20));
+            make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
+            make.bottom.mas_equalTo(cell.mas_bottom).mas_offset(5);
+        }];
+        height_cell = height_cell+30;
+       
+    }else
+    {
+        cell.L_more.hidden =YES;
+    }
+        model.cellHeight = height_cell;
+    }
+    
+    
     FBindexTapGestureRecognizer *tap_liuyan =[[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapliuyanClcik:)];
     tap_liuyan.index =indexPath.row;
     [cell.IV_liuyan addGestureRecognizer:tap_liuyan];
@@ -415,9 +452,6 @@
     FBindexTapGestureRecognizer *tap_name =[[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(headClickcell:)];
     tap_name.index =indexPath.row;
     [cell.L_name addGestureRecognizer:tap_name];
-    
-    
-    
     return cell;
 }
 -(void)headClickcell:(FBindexTapGestureRecognizer*)tap
@@ -467,10 +501,13 @@
 -(void)tapliuyanClcik:(FBindexTapGestureRecognizer*)tap
 {
     GZQ_PingLunModel *model =arr_pinglun[tap.index];
-    
+    parentUserGuid = model.Creater;
+    firstCommentId = model.Id;
     indexpath_selected =[NSIndexPath indexPathForRow:tap.index inSection:0];
     ID_huifu =model.Id;
     ID_big =model.Id;
+    firstCommentId = model.Id;
+    parentUserGuid = model.Creater;
     [TF_text becomeFirstResponder];
     
 }
@@ -481,22 +518,13 @@
     
     //评论
     ID_huifu =contentId;
+    parentUserGuid = userGuid;
+    firstCommentId =contentId;
         [TF_text  becomeFirstResponder];
         TF_text.placeholder=[NSString stringWithFormat:@"回复%@:",name];
     
 }
--(void)getuserGuid:(NSString *)userGuid
-{
-    PPersonCardViewController *Pvc =[[PPersonCardViewController alloc]init];
-    Pvc.userGuid=userGuid;
-    [self.navigationController pushViewController:Pvc animated:NO];
-}
--(void)getOtherGuid:(NSString *)otherGuid
-{
-    PPersonCardViewController *Pvc =[[PPersonCardViewController alloc]init];
-    Pvc.userGuid=otherGuid;
-    [self.navigationController pushViewController:Pvc animated:NO];
-}
+
 ///长按 内容的操作
 -(void)getmessage:(NSString *)message contentId:(NSString *)contentId creater:(NSString *)creater thismodelId:(NSString *)bigModelId indexPath:(NSIndexPath *)indexPath
 {

@@ -28,5 +28,4 @@
 -(NSArray <NSString*>*)getSearchableWords;
 + (RCMessagePersistent)persistentFlag;
 -(NSString*)conversationDigest;
-- (NSArray<NSString *> *)getSearchableWords;
 @end

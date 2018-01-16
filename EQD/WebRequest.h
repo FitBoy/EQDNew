@@ -101,6 +101,7 @@ _Pragma("clang diagnostic pop") \
 #define Z_scontact @"scontact"
 #define Z_scontactrelat @"scontactrelat"
 #define Z_qq @"qq"
+#define Z_otherDemand @"otherDemand"
 #define Z_wchat @"wchat"
 #define Z_careertype @"careertype"
 #define Z_careername @"careername"
@@ -226,6 +227,9 @@ _Pragma("clang diagnostic pop") \
 #define Z_theDriverName @"theDriverName"
 #define Z_personCount @"personCount"
 #define Z_theReason @"theReason"
+#define Z_betrainedPostId @"betrainedPostId"
+#define Z_courseId @"courseId"
+#define Z_courseName @"courseName"
 #define Z_isdone @"isdone"
 #define Z_theCustomer @"theCustomer"
 #define Z_theProject @"theProject"
@@ -256,6 +260,7 @@ _Pragma("clang diagnostic pop") \
 #define Z_message @"message"
 #define Z_friendCircleId @"friendCircleId"
 #define Z_workCircleId @"workCircleId"
+#define Z_workcircleId @"workcircleId"
 #define Z_quitType @"quitType"
 #define Z_joinNumber @"joinNumber"
 #define Z_oldPassword @"oldPassword"
@@ -280,6 +285,9 @@ _Pragma("clang diagnostic pop") \
 #define Z_revisitcontent @"revisitcontent"
 #define Z_cusid @"cusid"
 #define Z_contacts @"contacts"
+#define Z_handset @"handset"
+#define Z_phone @"phone"
+#define Z_comName @"comName"
 #define Z_interestproducts @"interestproducts"
 #define Z_createDate @"createDate"
 #define Z_exdateofcompletion @"exdateofcompletion"
@@ -296,6 +304,8 @@ _Pragma("clang diagnostic pop") \
 #define Z_entryId @"entryId"
 #define Z_userPhone @"userPhone"
 #define Z_username @"username"
+#define Z_userName @"userName"
+#define Z_siInfoId @"siInfoId"
 #define Z_ptel @"ptel"
 #define Z_friendGuid @"friendGuid"
 #define Z_type @"type"
@@ -319,6 +329,8 @@ _Pragma("clang diagnostic pop") \
 #define Z_staffnum @"staffnum"
 #define Z_comId @"comId"
 #define Z_comid @"comid"
+#define Z_planId @"planId"
+#define Z_thePlanId @"thePlanId"
 #define Z_applicantGuid @"applicantGuid"
 #define Z_applicantName @"applicantName"
 #define Z_applicationId @"applicationId"
@@ -338,6 +350,7 @@ _Pragma("clang diagnostic pop") \
 #define Z_cusName @"cusName"
 #define Z_cusType @"cusType"
 #define Y_TextFont [UIFont systemFontOfSize:17.f]
+#define Y_TextFontSmall  [UIFont systemFontOfSize:13.f]
 #define Z_salesTerritory @"salesTerritory"
 #define Z_simpleName @"simpleName"
 #define Z_companyId @"companyId"
@@ -450,15 +463,33 @@ _Pragma("clang diagnostic pop") \
 #define Z_phones @"phones"
 #define Z_postId @"postId"
 #define Z_postid @"postid"
+#define Z_postids @"postids"
 #define Z_postName @"postName"
+#define Z_signInPosition @"signInPosition"
+#define Z_macAddress @"macAddress"
+#define Z_wifiName @"wifiName"
+#define Z_phoneModel @"phoneModel"
+#define Z_uuid @"uuid"
 #define Z_trainees @"trainees"
+#define Z_personNumber @"personNumber"
+#define Z_teacherGuid @"teacherGuid"
+#define Z_teacherName @"teacherName"
+#define Z_teacherInfo @"teacherInfo"
+#define Z_aSyllabus  @"aSyllabus"
+#define Z_presetReleaseTime @"presetReleaseTime"
 #define Z_theCategory @"theCategory"
 #define Z_theTheme @"theTheme"
+#define Z_keywords @"keywords"
 #define Z_recoDocentGuid @"recoDocentGuid"
 #define Z_recoDocentName @"recoDocentName"
 #define Z_budgetedExpense @"budgetedExpense"
+#define Z_theTrainTime @"theTrainTime"
+#define Z_learningModality @"learningModality"
+#define Z_receTrainDepId @"receTrainDepId"
+#define Z_receTrainDepName @"receTrainDepName"
 #define Z_thedateStart @"thedateStart"
 #define Z_thedateEnd @"thedateEnd"
+#define Z_theplace @"theplace"
 #define Z_theDemand @"theDemand"
 #define Z_depName @"depName"
 #define Z_jobNature @"jobNature"
@@ -795,13 +826,15 @@ _Pragma("clang diagnostic pop") \
 ///发表工作圈
 +(void)Add_WorkCircleWithcompanyId:(NSString*)companyId userGuid:(NSString*)userGuid  message:(NSString*)message name:(NSString*)name location:(NSString*)location  imgarr:(NSArray*)imaArr And:(void(^)(NSDictionary *dic))block;
 ///工作圈评论
-+(void)Add_WorkCircle_CommentWithcompanyId:(NSString*)companyId userGuid:(NSString*)userGuid message:(NSString*)message workCircleId:(NSString*)workCircleId  parentId:(NSString*)parentId  And:(void(^)(NSDictionary *dic))block;
++(void)Add_WorkCircle_CommentWithcompanyId:(NSString*)companyId userGuid:(NSString*)userGuid message:(NSString*)message workCircleId:(NSString*)workCircleId  parentId:(NSString*)parentId parentUserGuid:(NSString*)parentUserGuid firstCommentId:(NSString*)firstCommentId And:(void(^)(NSDictionary *dic))block;
 ///工作圈点赞
 +(void)Add_WorkCircle_ZanWithcompanyId:(NSString*)companyId userGuid:(NSString*)userGuid  workCircleId:(NSString*)workCircleId And:(void(^)(NSDictionary *dic))block;
 ///查看工作圈
 +(void)Get_WorkCircle_ByCompanyWithcompanyId:(NSString*)companyId userGuid:(NSString*)userGuid ID:(NSString*)ID And:(void(^)(NSDictionary *dic))block;
-///查看工作圈的评论
+///查看工作圈的评论 被废弃了
 +(void)Get_Comment_ByWorkCircleIdWithworkCircleId:(NSString*)workCircleId ID:(NSString*)ID And:(void(^)(NSDictionary *dic))block;
+///查看工作圈评论
++(void)Get_WorkCircleCommentWithworkcircleId:(NSString*)workcircleId page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
 ///删除工作圈
 +(void)Delete_WorkCircleWithworkCircleId:(NSString*)workCircleId userGuid:(NSString*)userGuid And:(void(^)(NSDictionary *dic))block;
 ///查看点赞的人
@@ -1483,7 +1516,7 @@ _Pragma("clang diagnostic pop") \
 ///根据type获取收藏（文章，只针对易企阅、易企学、易企创）
 +(void)Collection_Get_collectionsByTypeWithowner:(NSString*)owner type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
 /// 培训申请
-+(void)Training_Add_trainingApplyWithcomid:(NSString*)comid applicantGuid:(NSString*)applicantGuid applicantName:(NSString*)applicantName depid:(NSString*)depid depName:(NSString*)depName postid:(NSString*)postid postName:(NSString*)postName trainees:(NSString*)trainees theCategory:(NSString*)theCategory theTheme:(NSString*)theTheme recoDocentGuid:(NSString*)recoDocentGuid recoDocentName:(NSString*)recoDocentName budgetedExpense:(NSString*)budgetedExpense thedateStart:(NSString*)thedateStart thedateEnd:(NSString*)thedateEnd theDemand:(NSString*)theDemand theReason:(NSString*)theReason And:(void(^)(NSDictionary *dic))block;
++(void)Training_Add_trainingApplyWithcomid:(NSString*)comid applicantGuid:(NSString*)applicantGuid applicantName:(NSString*)applicantName depid:(NSString*)depid depName:(NSString*)depName postid:(NSString*)postid postName:(NSString*)postName trainees:(NSString*)trainees theCategory:(NSString*)theCategory theTheme:(NSString*)theTheme recoDocentGuid:(NSString*)recoDocentGuid recoDocentName:(NSString*)recoDocentName budgetedExpense:(NSString*)budgetedExpense thedateStart:(NSString*)thedateStart thedateEnd:(NSString*)thedateEnd theDemand:(NSString*)theDemand theReason:(NSString*)theReason betrainedPostId:(NSString*)betrainedPostId And:(void(^)(NSDictionary *dic))block;
 ///申请人查看培训申请
 +(void)Training_Get_trainingApply_OwnerWithuserGuid:(NSString*)userGuid  type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
 /// 部门领导查看培训申请
@@ -1495,4 +1528,35 @@ _Pragma("clang diagnostic pop") \
 +(void)Training_Check_trainingApplyWithuserGuid:(NSString*)userGuid checkerName:(NSString*)checkerName applicationId:(NSString*)applicationId option:(NSString*)option reason:(NSString*)reason And:(void(^)(NSDictionary *dic))block;
 ///查看培训申请详情
 +(void)Training_Get_trainingApplyDetailWithuserGuid:(NSString*)userGuid applicationId:(NSString*)applicationId And:(void(^)(NSDictionary *dic))block;
+///添加培训需求
++(void)Training_Add_trainingDemandWithuserGuid:(NSString*)userGuid comid:(NSString*)comid theCategory:(NSString*)theCategory theTheme:(NSString*)theTheme keywords:(NSString*)keywords trainees:(NSString*)trainees thedateStart:(NSString*)thedateStart thedateEnd:(NSString*)thedateEnd theplace:(NSString*)theplace comName:(NSString*)comName contacts:(NSString*)contacts contactsName:(NSString*)contactsName phone:(NSString*)phone handset:(NSString*)handset qq:(NSString*)qq otherDemand:(NSString*)otherDemand budgetedExpense:(NSString*)budgetedExpense applyId:(NSString*)applyId betrainedPostId:(NSString*)betrainedPostId And:(void(^)(NSDictionary *dic))block;
+
+///添加培训计划
++(void)Training_Add_trainingPlanWithuserGuid:(NSString*)userGuid comid:(NSString*)comid theCategory:(NSString*)theCategory theTheme:(NSString*)theTheme trainees:(NSString*)trainees personNumber:(NSString*)personNumber teacherGuid:(NSString*)teacherGuid teacherName:(NSString*)teacherName budgetedExpense:(NSString*)budgetedExpense theTrainTime:(NSString*)theTrainTime learningModality:(NSString*)learningModality receTrainDepId:(NSString*)receTrainDepId receTrainDepName:(NSString*)receTrainDepName applyId:(NSString*)applyId betrainedPostId:(NSString*)betrainedPostId And:(void(^)(NSDictionary *dic))block;
+/// 添加培训通知
++(void)Training_Add_trainingNoticeWithuserGuid:(NSString*)userGuid comid:(NSString*)comid thePlanId:(NSString*)thePlanId theplace:(NSString*)theplace teacherGuid:(NSString*)teacherGuid teacherName:(NSString*)teacherName teacherInfo:(NSString*)teacherInfo aSyllabus:(NSString*)aSyllabus presetReleaseTime:(NSString*)presetReleaseTime And:(void(^)(NSDictionary *dic))block;
+/// 查看培训计划  全部
++(void)Training_Get_trainingPlanListWithuserGuid:(NSString*)userGuid comid:(NSString*)comid type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+///查看培训计划详情
++(void)Training_Get_trainingPlanDetailWithuserGuid:(NSString*)userGuid comid:(NSString*)comid planId:(NSString*)planId And:(void(^)(NSDictionary *dic))block;
+///查看培训通知列表
++(void)Training_Get_trainNoticeListWithuserGuid:(NSString*)userGuid page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+/// 查看培训通知详情
++(void)Training_Get_trainNoticeDetailWithuserGuid:(NSString*)userGuid comid:(NSString*)comid noticeId:(NSString*)noticeId And:(void(^)(NSDictionary *dic))block;
+/// 发起新的签到
++(void)Training_Launch_newSignInWithuserGuid:(NSString*)userGuid comid:(NSString*)comid comName:(NSString*)comName noticeId:(NSString*)noticeId trainees:(NSString*)trainees betrainedPostId:(NSString*)betrainedPostId courseId:(NSString*)courseId courseName:(NSString*)courseName startTime:(NSString*)startTime endTime:(NSString*)endTime And:(void(^)(NSDictionary *dic))block;
+///受训人员签到
++(void)Training_Training_signInWithuserGuid:(NSString*)userGuid userName:(NSString*)userName siInfoId:(NSString*)siInfoId depid:(NSString*)depid depName:(NSString*)depName postid:(NSString*)postid postName:(NSString*)postName signInPosition:(NSString*)signInPosition macAddress:(NSString*)macAddress wifiName:(NSString*)wifiName  phoneModel:(NSString*)phoneModel uuid:(NSString*)uuid And:(void(^)(NSDictionary *dic))block;
+///根据培训通知获取签到信息集合
++(void)Training_Get_signInfo_noticeIdWithuserGuid:(NSString*)userGuid noticeId:(NSString*)noticeId And:(void(^)(NSDictionary *dic))block;
+///根据课程id获取签到信息集合
++(void)Training_Get_signInfo_noticeIdWithuserGuid:(NSString*)userGuid courseId:(NSString*)courseId And:(void(^)(NSDictionary *dic))block;
+///查看人员签到情况
++(void)Training_Get_signInDetailsWithuserGuid:(NSString*)userGuid siInfoId:(NSString*)siInfoId page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+///获取某些岗位下的全部员工
++(void)Training_Get_postStaffsWithuserGuid:(NSString*)userGuid comid:(NSString*)comid postids:(NSString*)postids  page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+///查看待签到和已完成的通知 1待签到 2已完成
++(void)Training_Get_trainNotiLi_SSWithuserGuid:(NSString*)userGuid comid:(NSString*)comid type:(NSString*)type page:(NSString*)page And:(void(^)(NSDictionary *dic))block;
+///将通知设置为已完成
++(void)Training_CloseTrainNotice_HRWithuserGuid:(NSString*)userGuid comid:(NSString*)comid noticeId:(NSString*)noticeId And:(void(^)(NSDictionary *dic))block;
 @end

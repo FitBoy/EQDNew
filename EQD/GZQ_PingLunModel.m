@@ -8,9 +8,14 @@
 
 #import "GZQ_PingLunModel.h"
 #import <MJExtension.h>
+#import "NSString+FBString.h"
 @implementation GZQ_PingLunModel
 +(NSDictionary*)mj_objectClassInArray
 {
-    return @{@"children":@"GZQ_PingLunModel"};
+    return @{@"list":@"GZQ_PingLunModel"};
+}
+-(NSString*)CreateTime
+{
+    return [_CreateTime datefromDatestring];
 }
 @end

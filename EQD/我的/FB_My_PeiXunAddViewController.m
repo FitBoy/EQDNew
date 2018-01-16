@@ -117,7 +117,17 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeAnnularDeterminate;
         hud.label.text = @"正在提交";
-        [WebRequest Training_Add_trainingApplyWithcomid:user.companyId applicantGuid:user.Guid applicantName:user.username depid:user.departId depName:user.department postid:user.postId postName:user.post trainees:arr_contents[3] theCategory:arr_contents[4] theTheme:arr_contents[5] recoDocentGuid:@" " recoDocentName:arr_contents[6] budgetedExpense:arr_contents[7] thedateStart:arr_contents[8] thedateEnd:arr_contents[9] theDemand:arr_contents[10] theReason:arr_contents[11] And:^(NSDictionary *dic) {
+        NSMutableString  *IdStr = [NSMutableString string];
+        for (int i=0; i<arr_chooseModel.count; i++) {
+            GangweiModel  *model2 = arr_chooseModel[i];
+            if (i==arr_chooseModel.count-1) {
+                [IdStr appendString:model2.ID];
+            }else
+            {
+            [IdStr appendFormat:@"%@,",model2.ID];
+            }
+        }
+        [WebRequest Training_Add_trainingApplyWithcomid:user.companyId applicantGuid:user.Guid applicantName:user.username depid:user.departId depName:user.department postid:user.postId postName:user.post trainees:arr_contents[3] theCategory:arr_contents[4] theTheme:arr_contents[5] recoDocentGuid:@" " recoDocentName:arr_contents[6] budgetedExpense:arr_contents[7] thedateStart:arr_contents[8] thedateEnd:arr_contents[9] theDemand:arr_contents[10] theReason:arr_contents[11] betrainedPostId:IdStr And:^(NSDictionary *dic) {
             hud.label.text = dic[Y_MSG];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [hud hideAnimated:NO];
@@ -187,7 +197,7 @@
      if (indexPath.row==3)
     {
         //培训对象
-        if (user.isAdmin>0 || user.isleader>0) {
+        if ([user.isAdmin integerValue]>0 || [user.isleader integerValue]>0) {
             FB_PXChooseViewController   *Pvc =[[FB_PXChooseViewController alloc]init];
             Pvc.arr_choseModel = arr_chooseModel;
             Pvc.delegate =self;

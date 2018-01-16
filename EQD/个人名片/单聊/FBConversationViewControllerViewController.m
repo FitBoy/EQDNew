@@ -22,6 +22,7 @@
 #import "FBMessage_SearchViewController.h"
 #import "Memo_AddViewController.h"
 #import "RWFaSongViewController.h"
+#import "FBShareUrlMessageCollectionViewCell.h"
 @interface FBConversationViewControllerViewController ()<UIActionSheetDelegate, RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate, UIAlertViewDelegate,
 RCMessageCellDelegate>
@@ -56,6 +57,11 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[RCIM sharedRCIM] registerMessageType:[FBShareMessageContent class]];
+    [self.conversationMessageCollectionView registerClass:[FBShareUrlMessageCollectionViewCell class] forCellWithReuseIdentifier:@"FBShareMessageBaseCell"];
+    [self registerClass:[FBShareUrlMessageCollectionViewCell class] forMessageClass:[FBShareMessageContent class]];
+    
     [[RCIM sharedRCIM] registerMessageType:[FBGeRenCardMessageContent class]];
     [self.conversationMessageCollectionView registerClass:[FBMessageCell class] forCellWithReuseIdentifier:@"FBMessageBaseCell"];
     [self registerClass:[FBMessageCell class] forMessageClass:[FBGeRenCardMessageContent class]];
@@ -640,6 +646,12 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     RCMessageModel *model =self.conversationDataRepository[indexPath.row];
     if ([model.content isKindOfClass:[FBGeRenCardMessageContent class]]) {
          [cell1 setDataModel:model];
+    }
+    
+    FBMessageCell *cell2 = [collectionView dequeueReusableCellWithReuseIdentifier:@"FBShareMessageBaseCell" forIndexPath:indexPath];
+    RCMessageModel *model2 =self.conversationDataRepository[indexPath.row];
+    if ([model.content isKindOfClass:[FBShareMessageContent class]]) {
+        [cell2 setDataModel:model2];
     }
    
     

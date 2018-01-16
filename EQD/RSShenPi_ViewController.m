@@ -16,6 +16,8 @@
 #import "PZLiZhiViewController.h"
 #import "RedTip_LabelTableViewCell.h"
 #import "XuQiuPerson_listViewController.h"
+#import "FB_MyPeiXunListViewController.h"
+
 @interface RSShenPi_ViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -41,7 +43,7 @@
         if([dic[Y_STATUS] integerValue]==200){
             NSArray *tarr = dic[Y_ITEMS];
             arr_one = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
-            arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0"]];
+            arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0"]];
             for(int i=0;i<tarr.count;i++)
             {
                 NSDictionary *dic2 =tarr[i];
@@ -93,7 +95,7 @@
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
     self.navigationItem.title =@"人事的审批";
-    arr_shenpi =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[],@[],@[@"离职审批",@"人力资源"]]];//@"转正",@"岗位异动",
+    arr_shenpi =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[],@[],@[@"离职审批",@"人力资源",@"培训申请"]]];//@"转正",@"岗位异动",
     arr_titles =[NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
     tableV.delegate=self;
@@ -270,7 +272,10 @@
             }
             else if (indexPath.row==2)
             {
-                //转正
+                //培训申请
+                FB_MyPeiXunListViewController  *Lvc =[[FB_MyPeiXunListViewController alloc]init];
+                Lvc.isRenshi =1;
+                [self.navigationController pushViewController:Lvc animated:NO];
               
             }
             else

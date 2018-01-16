@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ShenPIList2Model.h"
 @interface FB_PeiXun_ListModel : NSObject
 @property (nonatomic,copy) NSString* applicantGuid;
 @property (nonatomic,copy) NSString* applicantName;
@@ -23,9 +23,12 @@
 @property (nonatomic,copy) NSString* thedateEnd;
 @property (nonatomic,copy) NSString*thedateStart;
 @property (nonatomic,copy) NSString*trainees;
+
+@property (nonatomic,assign) float cellHeight;
 -(NSString*)thedateStart;
 -(NSString*)thedateEnd;
 
+@property (nonatomic,copy) NSString* betrainedPostId;
 /*******培训详情******/
 
 @property (nonatomic,copy) NSString* Id;

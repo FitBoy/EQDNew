@@ -21,6 +21,7 @@
 #import "TRSGongGaoViewController.h"
 #import "RSShenPi_ViewController.h"
 #import "RedTip_LabelTableViewCell.h"
+#import "FB_PeiXunManagerViewController.h"
 @interface ThreeRenShiViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -39,6 +40,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self message_recieved];
+}
+-(BOOL)prefersHomeIndicatorAutoHidden
+{
+    return NO;
 }
 -(void)message_recieved
 {
@@ -78,7 +83,8 @@
     user = [WebRequest GetUserInfo];
     self.navigationItem.title =@"人事";
     arr_names =[NSMutableArray arrayWithArray:@[@[@"人事的审批"],@[@"组织管理",@"考勤管理",@"招聘管理",@"培训管理"],@[@"员工档案管理",@"劳动合同管理"],@[@"权限设置",@"公告-小喇叭管理",@"企业文化"]]];//
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStyleGrouped];
+    adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
@@ -166,6 +172,8 @@
         }else if (indexPath.row==3)
         {
             //培训管理
+            FB_PeiXunManagerViewController  *Mvc =[[FB_PeiXunManagerViewController alloc]init];
+            [self.navigationController pushViewController:Mvc animated:NO];
         }
         else
         {

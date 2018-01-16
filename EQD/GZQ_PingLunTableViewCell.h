@@ -26,24 +26,11 @@
 @property (nonatomic,strong)  UILabel *L_time;
 @property (nonatomic,strong)  UIImageView *IV_liuyan;
 
-@property (nonatomic,strong)  NSIndexPath *indexPath;
-@property (nonatomic,weak) id delegate;
+@property (nonatomic,strong) UILabel *L_more;
 ///模型类
 @property (nonatomic,strong)  GZQ_PingLunModel *model;
 -(void)setModel:(GZQ_PingLunModel *)model;
-/// 更新 点赞
--(NSAttributedString*)updatefuwenbenWithmodel:(GZQ_PingLunModel*)model userGuid:(NSString*)userGuid;
-@end
-
-@protocol GZQ_PingLunTableViewCellDelegate <NSObject>
-
-///点击的回复人的Guid
--(void)getuserGuid:(NSString*)userGuid;
-///被回复人的Guid
--(void)getOtherGuid:(NSString*)otherGuid;
-///点击内容需要回复的评论id
--(void)getContentId:(NSString*)contentId userGuid:(NSString*)userGuid name:(NSString*)name thismodelId:(NSString*)thisModelId indexpath:(NSIndexPath *)indexpath;
-///长按的操作
--(void)getmessage:(NSString*)message contentId:(NSString*)contentId  creater:(NSString*)creater thismodelId:(NSString*)bigModelId indexPath:(NSIndexPath*)indexPath;
 
 @end
+
+

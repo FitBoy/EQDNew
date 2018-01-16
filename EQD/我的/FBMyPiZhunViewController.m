@@ -351,7 +351,7 @@
                     
                 case 5:
                 {
-                    //转正
+                    // 培训申请
                     FB_MyPeiXunListViewController  *Lvc=[[FB_MyPeiXunListViewController alloc]init];
                     Lvc.isRenshi=2;
                     [self.navigationController pushViewController:Lvc animated:NO];

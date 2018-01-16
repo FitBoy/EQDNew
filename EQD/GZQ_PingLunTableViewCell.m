@@ -14,6 +14,18 @@
 #import <UIImageView+WebCache.h>
 #import "NSString+FBString.h"
 @implementation GZQ_PingLunTableViewCell
+-(UILabel*)L_more
+{
+    if (!_L_more) {
+        _L_more = [[UILabel alloc]init];
+        _L_more.text = @"查看更多评论";
+        _L_more.textColor = EQDCOLOR;
+        _L_more.textAlignment = NSTextAlignmentRight;
+        _L_more.userInteractionEnabled =YES;
+        [self addSubview:_L_more];
+    }
+    return _L_more;
+}
 -(YYLabel*)yyL_fuwenben
 {
     if (!_yyL_fuwenben) {
@@ -154,106 +166,21 @@
 -(void)setModel:(GZQ_PingLunModel *)model{
     _model=model;
     [self.IV_head sd_setImageWithURL:[NSURL URLWithString:model.iphoto] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
-    self.L_name.text =model.staffName==nil?model.upname:model.upname;
+    self.L_name.text =model.staffName==nil?model.upname:model.staffName;
     if (model.departName==nil) {
         self.L_bumen.text = nil;
     }else
     {
     self.L_bumen.text =[NSString stringWithFormat:@"%@-%@",model.departName,model.postName];
     }
-    self.L_time.text =[model.CreateTime datefromDatestring];
+    self.L_time.text =model.CreateTime;
     self.L_contents.text =model.Message;
-    CGSize size =[model.Message boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-75, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont  systemFontOfSize:16]} context:nil].size;
-    [self.L_contents mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(size.height);
-        make.left.mas_equalTo(self.IV_head.mas_right).mas_offset(5);
-        make.right.mas_equalTo(self.V_bg.mas_right);
-        make.top.mas_equalTo(self.V_top.mas_bottom).mas_offset(5);
-    }];
-    
-    ///更新富文本
-    NSMutableParagraphStyle *para =[[NSMutableParagraphStyle alloc]init];
-    para.lineSpacing=6;
-    NSMutableAttributedString *text =[[NSMutableAttributedString  alloc]initWithString:@"" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
    
-    if (model.children.count) {
-        for (int i=0; i<model.children.count; i++) {
-            GZQ_PingLunModel *model2 =model.children[i];
-          [text appendAttributedString:[self updatefuwenbenWithmodel:model2 userGuid:model.Creater]];
-        }
-        
-        CGSize size2 =[text boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-75, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.yyL_fuwenben.attributedText =text;
-            self.yyL_fuwenben.numberOfLines=0;
-            [self.yyL_fuwenben mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(size2.height);
-                make.right.mas_equalTo(self.V_bg.mas_right);
-                make.top.mas_equalTo(self.L_contents.mas_bottom).mas_offset(5);
-                make.left.mas_equalTo(self.IV_head.mas_right).mas_offset(5);
-            }];
-        });
-    }
-    else
-    {
-        self.yyL_fuwenben.attributedText=nil;
-        self.yyL_fuwenben.frame =CGRectZero;
-    }
-    
+    self.yyL_fuwenben.attributedText =nil;
+    self.L_more.hidden =YES;
 }
 
--(NSAttributedString*)updatefuwenbenWithmodel:(GZQ_PingLunModel*)model userGuid:(NSString*)userGuid
-{
-    NSMutableParagraphStyle *para =[[NSMutableParagraphStyle alloc]init];
-    para.lineSpacing=6;
-    NSMutableAttributedString *tstr =[[NSMutableAttributedString alloc]initWithString:@"" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-    NSMutableAttributedString *name1 =[[NSMutableAttributedString alloc]initWithString:model.staffName==nil?model.upname:model.staffName attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-    name1.yy_font=[UIFont systemFontOfSize:13];
-        name1.yy_color =EQDCOLOR;
-        [name1 yy_setTextHighlightRange:name1.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor grayColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-            if ([self.delegate respondsToSelector:@selector(getuserGuid:)]) {
-                [self.delegate getuserGuid:model.Creater];
-            }
-        }];
-        [tstr appendAttributedString:name1];
-        NSMutableAttributedString  *huifu =[[NSMutableAttributedString alloc]initWithString:@"回复" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-        
-        [tstr appendAttributedString:huifu];
-        
-    NSMutableAttributedString *name2 =[[NSMutableAttributedString alloc]initWithString:model.beforeName==nil?model.before:model.beforeName attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-        name2.yy_font =[UIFont systemFontOfSize:13];
-        [name2 yy_setTextHighlightRange:name2.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-            if ([self.delegate respondsToSelector:@selector(getOtherGuid:)]) {
-                [self.delegate getOtherGuid:userGuid];
-            }
-        }];
-        [tstr appendAttributedString:name2];
-        
-        NSMutableAttributedString *message =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@":%@\n",model.Message] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSParagraphStyleAttributeName:para}];
-        message.yy_font =[UIFont systemFontOfSize:13];
-    
-    [message yy_setTextHighlightRange:message.yy_rangeOfAll color:[UIColor blackColor] backgroundColor:[UIColor whiteColor]  userInfo:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-        if ([self.delegate respondsToSelector:@selector(getContentId:userGuid:name:thismodelId:indexpath:)]) {
-            [self.delegate getContentId:model.Id userGuid:model.Creater name:model.staffName==nil?model.upname:model.staffName thismodelId:self.model.Id indexpath:self.indexPath];
-        }
-    } longPressAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-        if ([self.delegate respondsToSelector:@selector(getmessage:contentId:creater:thismodelId:indexPath:)]) {
-            [self.delegate getmessage:message.string contentId:model.Id creater:model.Creater thismodelId:self.model.Id indexPath:self.indexPath];
-        }
-    }];
-    
-    
-        [tstr appendAttributedString:message];
-        if (model.children.count) {
-            for (int i=0; i<model.children.count; i++) {
-                GZQ_PingLunModel *model2 =model.children[i];
-              [tstr appendAttributedString: [self updatefuwenbenWithmodel:model2  userGuid:model2.Creater]];
-            }
-        }
-    return tstr;
-    
-}
+
+
 
 @end
