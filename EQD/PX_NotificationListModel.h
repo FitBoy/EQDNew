@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PX_NotificationListModel : NSObject
+@interface PX_NotificationListModel : NSObject <NSMutableCopying>
 @property (nonatomic,copy) NSString* createTime;
 @property (nonatomic,copy) NSString* ID;
 @property (nonatomic,copy) NSString* personNumber;
@@ -46,6 +46,6 @@
  */
 @property (nonatomic,copy) NSString* Id;
 @property (nonatomic,copy) NSString* betrainedPostId;
-
-
+@property (nonatomic,copy) NSString* signstatus;
+-(id)mutableCopyWithZone:(NSZone *)zone;
 @end

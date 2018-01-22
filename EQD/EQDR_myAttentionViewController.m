@@ -26,7 +26,7 @@
     [self loadRequestData];
 }
 -(void)loadRequestData{
-    [WebRequest Articles_Get_Article_AttentionWithuserGuid:user.Guid page:@"0" And:^(NSDictionary *dic) {
+    [WebRequest Articles_Get_Article_AttentionWithuserGuid:user.Guid page:@"0" loginUserGuid:user.Guid  And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
         [tableV.mj_header endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
@@ -46,7 +46,7 @@
 }
 -(void)loadOtherData
 {
-    [WebRequest Articles_Get_Article_AttentionWithuserGuid:user.Guid page:page And:^(NSDictionary *dic) {
+    [WebRequest Articles_Get_Article_AttentionWithuserGuid:user.Guid page:page loginUserGuid:user.Guid And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
         [tableV.mj_header endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
@@ -79,7 +79,7 @@
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
-
+    tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
 }
 #pragma  mark - 表的数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

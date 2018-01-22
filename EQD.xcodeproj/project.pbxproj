@@ -555,6 +555,18 @@
 		18B6C071200C4516005876B2 /* FBAnyWayDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C070200C4516005876B2 /* FBAnyWayDetailViewController.m */; };
 		18B6C075200C47A1005876B2 /* AnyWayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C074200C47A1005876B2 /* AnyWayModel.m */; };
 		18B6C078200CAB5E005876B2 /* PXKaoQinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C077200CAB5E005876B2 /* PXKaoQinListViewController.m */; };
+		18B6C07C200EDA23005876B2 /* GZQ_PlinLunDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C07B200EDA23005876B2 /* GZQ_PlinLunDetailViewController.m */; };
+		18B6C07F200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C07E200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.m */; };
+		18B6C083201098BA005876B2 /* ChuangKeLabelChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C082201098BA005876B2 /* ChuangKeLabelChooseViewController.m */; };
+		18B6C08720119412005876B2 /* FBTableVIVLabelHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C08620119412005876B2 /* FBTableVIVLabelHeaderFooterView.m */; };
+		18B6C0912011E6A2005876B2 /* FBtabBarOnlyTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C0902011E6A2005876B2 /* FBtabBarOnlyTitleViewController.m */; };
+		18B6C0942011E6C3005876B2 /* FBtabbarTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C0932011E6C3005876B2 /* FBtabbarTitleView.m */; };
+		18B6C0982011F996005876B2 /* EQDM_AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C0972011F996005876B2 /* EQDM_AppViewController.m */; };
+		18B6C09B2012CD55005876B2 /* EQDM_ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C09A2012CD55005876B2 /* EQDM_ArticleViewController.m */; };
+		18B6C09E2012CD71005876B2 /* EQDM_VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C09D2012CD71005876B2 /* EQDM_VideoViewController.m */; };
+		18B6C0A12012CD95005876B2 /* EQDM_NeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C0A02012CD95005876B2 /* EQDM_NeedViewController.m */; };
+		18B6C0A42012CDB3005876B2 /* EQDMMy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C0A32012CDB3005876B2 /* EQDMMy_ViewController.m */; };
+		18B6C0AB201315B1005876B2 /* FB_CollectionLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C0AA201315B1005876B2 /* FB_CollectionLinkTableViewCell.m */; };
 		18B7AD5D1EC5638800E29AF2 /* FFaQiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B7AD5C1EC5638800E29AF2 /* FFaQiViewController.m */; };
 		18B7AD611EC563AC00E29AF2 /* FCanYuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B7AD601EC563AC00E29AF2 /* FCanYuViewController.m */; };
 		18B7AD651EC563C400E29AF2 /* FYanShouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B7AD641EC563C400E29AF2 /* FYanShouViewController.m */; };
@@ -1689,6 +1701,30 @@
 		18B6C074200C47A1005876B2 /* AnyWayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnyWayModel.m; sourceTree = "<group>"; };
 		18B6C076200CAB5E005876B2 /* PXKaoQinListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXKaoQinListViewController.h; sourceTree = "<group>"; };
 		18B6C077200CAB5E005876B2 /* PXKaoQinListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXKaoQinListViewController.m; sourceTree = "<group>"; };
+		18B6C07A200EDA22005876B2 /* GZQ_PlinLunDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GZQ_PlinLunDetailViewController.h; sourceTree = "<group>"; };
+		18B6C07B200EDA23005876B2 /* GZQ_PlinLunDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GZQ_PlinLunDetailViewController.m; sourceTree = "<group>"; };
+		18B6C07D200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PX_KaoQinLabelBtnTableViewCell.h; sourceTree = "<group>"; };
+		18B6C07E200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PX_KaoQinLabelBtnTableViewCell.m; sourceTree = "<group>"; };
+		18B6C081201098BA005876B2 /* ChuangKeLabelChooseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChuangKeLabelChooseViewController.h; sourceTree = "<group>"; };
+		18B6C082201098BA005876B2 /* ChuangKeLabelChooseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChuangKeLabelChooseViewController.m; sourceTree = "<group>"; };
+		18B6C08520119412005876B2 /* FBTableVIVLabelHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBTableVIVLabelHeaderFooterView.h; sourceTree = "<group>"; };
+		18B6C08620119412005876B2 /* FBTableVIVLabelHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBTableVIVLabelHeaderFooterView.m; sourceTree = "<group>"; };
+		18B6C08F2011E6A2005876B2 /* FBtabBarOnlyTitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBtabBarOnlyTitleViewController.h; sourceTree = "<group>"; };
+		18B6C0902011E6A2005876B2 /* FBtabBarOnlyTitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBtabBarOnlyTitleViewController.m; sourceTree = "<group>"; };
+		18B6C0922011E6C3005876B2 /* FBtabbarTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBtabbarTitleView.h; sourceTree = "<group>"; };
+		18B6C0932011E6C3005876B2 /* FBtabbarTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBtabbarTitleView.m; sourceTree = "<group>"; };
+		18B6C0962011F996005876B2 /* EQDM_AppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDM_AppViewController.h; sourceTree = "<group>"; };
+		18B6C0972011F996005876B2 /* EQDM_AppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDM_AppViewController.m; sourceTree = "<group>"; };
+		18B6C0992012CD55005876B2 /* EQDM_ArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDM_ArticleViewController.h; sourceTree = "<group>"; };
+		18B6C09A2012CD55005876B2 /* EQDM_ArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDM_ArticleViewController.m; sourceTree = "<group>"; };
+		18B6C09C2012CD71005876B2 /* EQDM_VideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDM_VideoViewController.h; sourceTree = "<group>"; };
+		18B6C09D2012CD71005876B2 /* EQDM_VideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDM_VideoViewController.m; sourceTree = "<group>"; };
+		18B6C09F2012CD95005876B2 /* EQDM_NeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDM_NeedViewController.h; sourceTree = "<group>"; };
+		18B6C0A02012CD95005876B2 /* EQDM_NeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDM_NeedViewController.m; sourceTree = "<group>"; };
+		18B6C0A22012CDB3005876B2 /* EQDMMy_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDMMy_ViewController.h; sourceTree = "<group>"; };
+		18B6C0A32012CDB3005876B2 /* EQDMMy_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDMMy_ViewController.m; sourceTree = "<group>"; };
+		18B6C0A9201315B1005876B2 /* FB_CollectionLinkTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_CollectionLinkTableViewCell.h; sourceTree = "<group>"; };
+		18B6C0AA201315B1005876B2 /* FB_CollectionLinkTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_CollectionLinkTableViewCell.m; sourceTree = "<group>"; };
 		18B7AD5B1EC5638800E29AF2 /* FFaQiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFaQiViewController.h; sourceTree = "<group>"; };
 		18B7AD5C1EC5638800E29AF2 /* FFaQiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFaQiViewController.m; sourceTree = "<group>"; };
 		18B7AD5F1EC563AC00E29AF2 /* FCanYuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCanYuViewController.h; sourceTree = "<group>"; };
@@ -3117,6 +3153,8 @@
 			children = (
 				180E3FC81F3D609500E29EB8 /* GZQ_PingLunViewController.h */,
 				180E3FC91F3D609500E29EB8 /* GZQ_PingLunViewController.m */,
+				18B6C07A200EDA22005876B2 /* GZQ_PlinLunDetailViewController.h */,
+				18B6C07B200EDA23005876B2 /* GZQ_PlinLunDetailViewController.m */,
 			);
 			name = "评论详情";
 			sourceTree = "<group>";
@@ -5522,6 +5560,96 @@
 			name = "培训考勤";
 			sourceTree = "<group>";
 		};
+		18B6C080200F2999005876B2 /* 有操作的labelBtn */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C07D200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.h */,
+				18B6C07E200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.m */,
+			);
+			name = "有操作的labelBtn";
+			sourceTree = "<group>";
+		};
+		18B6C08420109A7F005876B2 /* 创客的职位分类 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C081201098BA005876B2 /* ChuangKeLabelChooseViewController.h */,
+				18B6C082201098BA005876B2 /* ChuangKeLabelChooseViewController.m */,
+				18B6C08520119412005876B2 /* FBTableVIVLabelHeaderFooterView.h */,
+				18B6C08620119412005876B2 /* FBTableVIVLabelHeaderFooterView.m */,
+			);
+			name = "创客的职位分类";
+			sourceTree = "<group>";
+		};
+		18B6C08E2011E095005876B2 /* 易企创 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C0962011F996005876B2 /* EQDM_AppViewController.h */,
+				18B6C0972011F996005876B2 /* EQDM_AppViewController.m */,
+				18B6C0A52012DBD2005876B2 /* 创文圈 */,
+				18B6C0A62012DBEA005876B2 /* 视频圈 */,
+				18B6C0A72012DBF3005876B2 /* 需求广场 */,
+				18B6C0A82012DBFE005876B2 /* 我的 */,
+			);
+			name = "易企创";
+			sourceTree = "<group>";
+		};
+		18B6C0952011E7A8005876B2 /* 封装的tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C08F2011E6A2005876B2 /* FBtabBarOnlyTitleViewController.h */,
+				18B6C0902011E6A2005876B2 /* FBtabBarOnlyTitleViewController.m */,
+				18B6C0922011E6C3005876B2 /* FBtabbarTitleView.h */,
+				18B6C0932011E6C3005876B2 /* FBtabbarTitleView.m */,
+			);
+			name = "封装的tabbar";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		18B6C0A52012DBD2005876B2 /* 创文圈 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C0992012CD55005876B2 /* EQDM_ArticleViewController.h */,
+				18B6C09A2012CD55005876B2 /* EQDM_ArticleViewController.m */,
+			);
+			name = "创文圈";
+			sourceTree = "<group>";
+		};
+		18B6C0A62012DBEA005876B2 /* 视频圈 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C09C2012CD71005876B2 /* EQDM_VideoViewController.h */,
+				18B6C09D2012CD71005876B2 /* EQDM_VideoViewController.m */,
+			);
+			name = "视频圈";
+			sourceTree = "<group>";
+		};
+		18B6C0A72012DBF3005876B2 /* 需求广场 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C09F2012CD95005876B2 /* EQDM_NeedViewController.h */,
+				18B6C0A02012CD95005876B2 /* EQDM_NeedViewController.m */,
+			);
+			name = "需求广场";
+			sourceTree = "<group>";
+		};
+		18B6C0A82012DBFE005876B2 /* 我的 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C0A22012CDB3005876B2 /* EQDMMy_ViewController.h */,
+				18B6C0A32012CDB3005876B2 /* EQDMMy_ViewController.m */,
+			);
+			name = "我的";
+			sourceTree = "<group>";
+		};
+		18B6C0AC201315B8005876B2 /* 收藏的连接 */ = {
+			isa = PBXGroup;
+			children = (
+				18B6C0A9201315B1005876B2 /* FB_CollectionLinkTableViewCell.h */,
+				18B6C0AA201315B1005876B2 /* FB_CollectionLinkTableViewCell.m */,
+			);
+			name = "收藏的连接";
+			sourceTree = "<group>";
+		};
 		18B7AD5E1EC5638C00E29AF2 /* 我发起的任务 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5883,6 +6011,7 @@
 		18CEC4211E7CE4F0008DCB46 /* 小工具 */ = {
 			isa = PBXGroup;
 			children = (
+				18B6C0952011E7A8005876B2 /* 封装的tabbar */,
 				18944F951FF63BA80022191B /* Lib */,
 				18074A571FDBD8C2006B2682 /* Source */,
 				181378721FADC26900B7C964 /* SDLaunchImage */,
@@ -5923,6 +6052,7 @@
 				18944FEE1FF889690022191B /* 跳转地址的汇总 */,
 				1833E1322006F37500F37B02 /* 时间段的选择 */,
 				18B6C072200C451B005876B2 /* 各种详情 */,
+				18B6C08420109A7F005876B2 /* 创客的职位分类 */,
 			);
 			path = "小工具";
 			sourceTree = "<group>";
@@ -6121,6 +6251,8 @@
 				181C35D21F8F41DA005E753B /* 工作经历列表 */,
 				1815934C1FA4620E00650BF8 /* 我的收藏 */,
 				18D9D8D51FE4B4B000D29185 /* 易企阅 */,
+				18B6C080200F2999005876B2 /* 有操作的labelBtn */,
+				18B6C0AC201315B8005876B2 /* 收藏的连接 */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -6138,6 +6270,7 @@
 				18CEC4791E7CE7CF008DCB46 /* 消息 */,
 				18CEC48D1E7D0635008DCB46 /* 网络请求类 */,
 				18074A541FDBC6AD006B2682 /* 易企阅 */,
+				18B6C08E2011E095005876B2 /* 易企创 */,
 			);
 			name = viewController;
 			sourceTree = "<group>";
@@ -7130,6 +7263,7 @@
 				180CFF1B1F60066B0043C784 /* RedTipTableViewCell.m in Sources */,
 				18CEC44F1E7CE4F1008DCB46 /* BMChineseSort.m in Sources */,
 				189B4A481F18A7F100073360 /* BeforeYaoQingViewController.m in Sources */,
+				18B6C0AB201315B1005876B2 /* FB_CollectionLinkTableViewCell.m in Sources */,
 				181B26B51FEB62FD00A38BFC /* EQDR_PingLunTableViewCell.m in Sources */,
 				180AB0E01EDFECF200DFA1CA /* GangWeiChooseViewController.m in Sources */,
 				180CFF401F63EFE10043C784 /* QuanXianSheZhiTableViewCell.m in Sources */,
@@ -7197,6 +7331,7 @@
 				18B6C06320088BBF005876B2 /* FB_notificationAddViewController.m in Sources */,
 				180CFEB51F5500750043C784 /* TX_AddViewController.m in Sources */,
 				181B26AB1FEA09B400A38BFC /* EQDR_IVLView.m in Sources */,
+				18B6C07C200EDA23005876B2 /* GZQ_PlinLunDetailViewController.m in Sources */,
 				18CEC48C1E7D0630008DCB46 /* WebRequest.m in Sources */,
 				188CF3F01F46C7E5007CF87C /* BB_choosebcViewController.m in Sources */,
 				18074B361FDE1713006B2682 /* EQDR_MyViewController.m in Sources */,
@@ -7205,6 +7340,7 @@
 				184B834E1FF4E0530038DDD6 /* EQDR_JuBaoViewController.m in Sources */,
 				183BBEEF1F3186F3007D4675 /* RWD_FuJiamodel.m in Sources */,
 				182F81A51E8CE1B200231A5F /* FBPeople.m in Sources */,
+				18B6C09B2012CD55005876B2 /* EQDM_ArticleViewController.m in Sources */,
 				18E102BE1F973D4D00C6A0E2 /* GLLianXI_DetailViewController.m in Sources */,
 				18CB8F1F1E9B763A000BABD2 /* FBQunChatViewController.m in Sources */,
 				18103E861EB1CCAC00FA757F /* ZZAddGangWeiViewController.m in Sources */,
@@ -7241,6 +7377,7 @@
 				1824CF511F4D2A750003237A /* FBOne_imgChooseTableViewCell.m in Sources */,
 				186CA6931F2354D30069A5EB /* FBAddressTwoViewController.m in Sources */,
 				180445891EDD1684003FFD88 /* MyUUIDManager.m in Sources */,
+				18B6C09E2012CD71005876B2 /* EQDM_VideoViewController.m in Sources */,
 				183BBF071F345676007D4675 /* commonRenwuModel.m in Sources */,
 				182F81BD1E8E588100231A5F /* SDetailViewController.m in Sources */,
 				183BBEA31F2B2053007D4675 /* LZYuanYinViewController.m in Sources */,
@@ -7305,11 +7442,14 @@
 				183BFFEA1FD279AF00C70988 /* CarManager_DetailViewController.m in Sources */,
 				18201DD31EA74D0300075C6E /* YuanGongViewController.m in Sources */,
 				18FC4E361F78ACCA00028B69 /* Com_ImgModel.m in Sources */,
+				18B6C07F200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.m in Sources */,
+				18B6C0A42012CDB3005876B2 /* EQDMMy_ViewController.m in Sources */,
 				18D9D8D41FE4AF9F00D29185 /* EQDR_ArticleTableViewCell.m in Sources */,
 				180CFECD1F56BC470043C784 /* JB_AddViewController.m in Sources */,
 				18074B1D1FDBD8C3006B2682 /* CYRLayoutManager.m in Sources */,
 				180445761ED816B7003FFD88 /* SXChooseViewController.m in Sources */,
 				181B26B11FEA6D3300A38BFC /* EQDR_pingLunModel.m in Sources */,
+				18B6C0942011E6C3005876B2 /* FBtabbarTitleView.m in Sources */,
 				180E3FC01F3AA94700E29EB8 /* ZanModel.m in Sources */,
 				18FC4E1B1F72744A00028B69 /* LateLeaver_AddViewController.m in Sources */,
 				18AE79E31FA706900078B714 /* MakeVoiceNoticeController.m in Sources */,
@@ -7354,6 +7494,7 @@
 				18B7AD691EC591E900E29AF2 /* RWListTableViewCell.m in Sources */,
 				18074B181FDBD8C3006B2682 /* ZSSFontsViewController.m in Sources */,
 				183BBE821F288450007D4675 /* FBImgShowViewController.m in Sources */,
+				18B6C083201098BA005876B2 /* ChuangKeLabelChooseViewController.m in Sources */,
 				180CFF601F6940A00043C784 /* Bumen_ChooseViewController.m in Sources */,
 				189B4A121F0CF65A00073360 /* FBOne_img1TableViewCell.m in Sources */,
 				18CB8F271E9C8543000BABD2 /* FBShareViewController.m in Sources */,
@@ -7442,6 +7583,7 @@
 				181B26E51FF3973200A38BFC /* EQDR_ArticleClassSearchViewController.m in Sources */,
 				181C35B61F8DFA65005E753B /* FanKui_ListViewController.m in Sources */,
 				18AFFE9B1F0B5AC300CB74CB /* SDetailModel.m in Sources */,
+				18B6C0A12012CD95005876B2 /* EQDM_NeedViewController.m in Sources */,
 				1844D7E41F6A2959002B4A66 /* GongGao_ListModel.m in Sources */,
 				186604231E7F8C7B00C69557 /* FBForgetViewController.m in Sources */,
 				183BBEBD1F2C8ABF007D4675 /* FBTwoButtonView.m in Sources */,
@@ -7520,6 +7662,7 @@
 				183BBED71F3053E3007D4675 /* MoreBaseModel.m in Sources */,
 				18912D7A1EA9A6D000565CA8 /* GSQiYeRenZhengViewController.m in Sources */,
 				18FC4E491F7A5BF000028B69 /* Memo_DetailModel.m in Sources */,
+				18B6C0912011E6A2005876B2 /* FBtabBarOnlyTitleViewController.m in Sources */,
 				181512321F038F01004738CE /* KQDaKaView.m in Sources */,
 				18103EAA1EB5D3C600FA757F /* MyRenWuViewController.m in Sources */,
 				18287E4C1FC90D1500836186 /* FBBuMenChooseViewController.m in Sources */,
@@ -7552,7 +7695,9 @@
 				181C35DC1F8F58F9005E753B /* ProjectExproence_AddViewController.m in Sources */,
 				1844D8101F6F6668002B4A66 /* LianLuoBook_ListModel.m in Sources */,
 				188CF3DB1F45456A007CF87C /* BanCiModel.m in Sources */,
+				18B6C0982011F996005876B2 /* EQDM_AppViewController.m in Sources */,
 				181593431FA4238A00650BF8 /* IVLabeltableHeadView.m in Sources */,
+				18B6C08720119412005876B2 /* FBTableVIVLabelHeaderFooterView.m in Sources */,
 				1804459F1EDD7E8E003FFD88 /* PZLiZhiViewController.m in Sources */,
 				18074B1A1FDBD8C3006B2682 /* HRColorPickerViewController.m in Sources */,
 				183BFFE21FD2458700C70988 /* Car_managerOnlyViewController.m in Sources */,

@@ -62,6 +62,26 @@
     }
     return _picker;
 }
+-(UILabel*)L_title
+{
+    if (!_L_title) {
+        _L_title = [[UILabel alloc]init];
+        _L_title.font = [UIFont systemFontOfSize:13];
+//        _L_title.textColor = [UIColor grayColor];
+        _L_title.backgroundColor = [UIColor whiteColor];
+        _L_title.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_L_title];
+        [_L_title mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(50);
+            make.bottom.mas_equalTo(self.picker.mas_top);
+            make.left.mas_equalTo(self.mas_left).mas_offset(5);
+            make.right.mas_equalTo(self.mas_right).mas_equalTo(-5);
+        }];
+        
+        [self addSubview:_L_title];
+    }
+    return _L_title;
+}
 
 -(FBTwoButtonView*)two_btn
 {

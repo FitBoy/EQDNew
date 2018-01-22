@@ -65,6 +65,7 @@
         }];
     }
     else
+    {
     [WebRequest Training_Get_trainingApply_OwnerWithuserGuid:user.Guid type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
         [tableV.mj_header endRefreshing];
         [tableV.mj_footer endRefreshing];
@@ -79,6 +80,7 @@
             [tableV reloadData];
         }
     }];
+    }
     
 }
 -(void)loadOtherData{

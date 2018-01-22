@@ -178,7 +178,7 @@ if( [model_detail.isAttention integerValue]==0)
             {
               //收藏
                 
-                [WebRequest Collection_Add_collectionowner:user.Guid type:@"10" title:model_detail.title url:[NSString stringWithFormat:@"%@;%@",model_detail.homeImage,[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id]] source:@"易企阅" sourceOwner:model_detail.userGuid And:^(NSDictionary *dic) {
+                [WebRequest Collection_Add_collectionowner:user.Guid type:@"10" title:model_detail.title url:[NSString stringWithFormat:@"%@;%@",model_detail.homeImage,[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id]] source:@"易企阅" sourceOwner:model_detail.userGuid articleId:model_detail.Id And:^(NSDictionary *dic) {
                     if ([dic[Y_STATUS] integerValue]==200) {
                         MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
                         [alert showAlertWith:@"收藏成功"];

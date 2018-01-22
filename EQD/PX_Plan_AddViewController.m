@@ -83,10 +83,10 @@
     for (int i=0; i<arr_CthreeSectionModel.count; i++) {
         ThreeSectionModel  *model = arr_CthreeSectionModel[i];
         if (i==arr_CthreeSectionModel.count-1) {
-            [Tstr appendString:[NSString stringWithFormat:@"%@ %@-%@",model.date,model.time1,model.time2]];
+            [Tstr appendString:[NSString stringWithFormat:@"%@ %@~%@",model.date,model.time1,model.time2]];
         }else
         {
-              [Tstr appendString:[NSString stringWithFormat:@"%@ %@-%@,",model.date,model.time1,model.time2]];
+              [Tstr appendString:[NSString stringWithFormat:@"%@ %@~%@,",model.date,model.time1,model.time2]];
         }
     }
     if (temp==0) {
@@ -137,7 +137,7 @@
         NSMutableAttributedString  *name = [[NSMutableAttributedString alloc]initWithString:@"培训时间" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
             for (int i=0; i<arr_CthreeSectionModel.count; i++) {
                 ThreeSectionModel *model = arr_CthreeSectionModel[i];
-                NSMutableAttributedString *content =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@   %@ - %@",model.date,model.time1,model.time2] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+                NSMutableAttributedString *content =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@   %@~%@",model.date,model.time1,model.time2] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
                 [name appendAttributedString:content];
                 content.yy_lineSpacing = 6;
                 

@@ -21,6 +21,8 @@
 #import <AVKit/AVKit.h>
 #import "FBindexpathLongPressGestureRecognizer.h"
 #import "UISearchBar+ToolDone.h"
+#import "FB_CollectionLinkTableViewCell.h"
+#import "EQDR_Article_DetailViewController.h"
 @interface MyShouCangViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextvImgViewControllerDelegate,FBSearchMapViewControllerDelegate,MakeVoiceNoticeControllerDelegate,UISearchBarDelegate,ShouCangGroupViewControllerDelegate>
 {
     UITableView *tableV;
@@ -38,7 +40,7 @@
 @implementation MyShouCangViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadRequestData];
+//    [self loadRequestData];
 }
 -(void)loadRequestData{
     
@@ -114,6 +116,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     group =@"0";
     searchText=nil;
 //    self.navigationItem.title =@"我的收藏";
@@ -142,6 +145,7 @@
     [self.view addSubview:tableV];
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
+     [self loadRequestData];
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -255,8 +259,13 @@
 }*/
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+        MyShouCangModel *model =arr_model[indexPath.row];
+    if ([model.Collection.type integerValue]>9) {
+        return 120;
+    }else
+    {
     float width =(DEVICE_WIDTH-40)/3.0;
-    MyShouCangModel *model =arr_model[indexPath.row];
+
     if ([model.Collection.type integerValue]==5 || [model.Collection.type integerValue]==6) {
         return 40+40+25;
     }else if ([model.Collection.type integerValue]==2)
@@ -268,12 +277,33 @@
     
     return width+65;
     }
+    }
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return arr_model.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+      MyShouCangModel *model =arr_model[indexPath.row];
+    
+    if ([model.Collection.type integerValue] >9) {
+        static NSString *cellId=@"cellID1";
+        FB_CollectionLinkTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[FB_CollectionLinkTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        [cell setModel2:model];
+        FBindexpathLongPressGestureRecognizer  *longPress = [[FBindexpathLongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressClick:)];
+        longPress.indexPath =indexPath;
+        [cell addGestureRecognizer:longPress];
+        return cell;
+        
+    }else
+    {
+    
+    
+    
     static NSString *cellId=@"cellID";
     MyShouCangTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
@@ -281,13 +311,14 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.font = [UIFont systemFontOfSize:18];
     }
-    MyShouCangModel *model =arr_model[indexPath.row];
+  
     [cell setModel:model];
     FBindexpathLongPressGestureRecognizer  *longPress = [[FBindexpathLongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressClick:)];
     longPress.indexPath =indexPath;
     [cell addGestureRecognizer:longPress];
     
     return cell;
+    }
 }
 
 -(void)longPressClick:(FBindexpathLongPressGestureRecognizer*)longPress
@@ -363,6 +394,17 @@
         Mvc.coor2d = CLLocationCoordinate2DMake([tarr[0] doubleValue], [tarr[1] doubleValue]);
         
         [self.navigationController pushViewController:Mvc animated:NO];
+    }else if ([model.Collection.type integerValue]==10)
+    {
+        //易企阅
+        EQDR_Article_DetailViewController *Dvc =[[EQDR_Article_DetailViewController alloc]init];
+        Dvc.articleId = model.Collection.dataid;
+        [self.navigationController pushViewController:Dvc animated:NO];
+        
+        
+    }else
+    {
+        
     }
     
 }
