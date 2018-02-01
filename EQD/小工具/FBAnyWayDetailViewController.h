@@ -8,7 +8,7 @@
 /*
  全部都是文字的详情
  1 text
-
+2. html 标签对
  */
 
 #import "FBBaseViewController.h"

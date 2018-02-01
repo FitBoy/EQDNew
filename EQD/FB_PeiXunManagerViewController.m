@@ -11,6 +11,7 @@
 #import "PX_PlanViewController.h"
 #import "FB_notificationListViewController.h"
 #import "PXKaoQinListViewController.h"
+#import "PX_CourseManagerViewController.h"
 @interface FB_PeiXunManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -64,6 +65,10 @@
             break;
         case 1:
         {
+            //课程管理
+            PX_CourseManagerViewController *CMvc =[[PX_CourseManagerViewController alloc]init];
+            [self.navigationController pushViewController:CMvc animated:NO];
+            
          
         }
             break;

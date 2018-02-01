@@ -51,5 +51,5 @@
 @property (nonatomic,copy) NSString* uname;
 @property (nonatomic,copy) NSString* isZan;
 @property (nonatomic,copy) NSString* isAttention;
-
+-(NSString*)content;
 @end

@@ -13,5 +13,4 @@
 @property (nonatomic,assign) BOOL isOther;
 @property (nonatomic,strong)  Com_UserModel *C_user;
 
-
 @end

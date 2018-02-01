@@ -59,7 +59,7 @@
         [self addSubview:_IV_Link];
         [_IV_Link mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(50, 50));
-            make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+            make.left.mas_equalTo(self.mas_left).mas_offset(15);
             make.top.mas_equalTo(self.IV_head.mas_bottom).mas_offset(5);
         }];
         
@@ -109,8 +109,8 @@
         [self addSubview:_L_content];
         [_L_content mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(50);
-            make.right.mas_equalTo(self.IV_Link.mas_left).mas_offset(-5);
-            make.left.mas_equalTo(self.mas_left).mas_offset(15);
+            make.left.mas_equalTo(self.IV_Link.mas_right).mas_offset(5);
+            make.right.mas_equalTo(self.mas_right).mas_offset(-15);
             make.top.mas_equalTo(self.IV_head.mas_bottom).mas_offset(5);
         }];
     }

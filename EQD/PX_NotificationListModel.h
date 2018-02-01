@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "PXQianDaoModel.h"
 @interface PX_NotificationListModel : NSObject <NSMutableCopying>
 @property (nonatomic,copy) NSString* createTime;
 @property (nonatomic,copy) NSString* ID;
@@ -29,7 +29,7 @@
 @property (nonatomic,copy) NSString* teacherGuid;
 @property (nonatomic,copy) NSString* teacherInfo;
 @property (nonatomic,copy) NSString* thePlanId;
-@property (nonatomic,copy) NSString* theTrainTime;
+@property (nonatomic,strong) NSArray * theTrainTime;
 /*培训考勤
  Id = 3;
  betrainedPostId = "25,26";
@@ -42,10 +42,14 @@
  theTheme = "\U4e16\U754c\U548c\U5e73";
  theplace = "\U57f9\U8bad\U5730\U70b9";
  trainees =
- 
+ courseId
  */
 @property (nonatomic,copy) NSString* Id;
 @property (nonatomic,copy) NSString* betrainedPostId;
 @property (nonatomic,copy) NSString* signstatus;
+@property (nonatomic,copy) NSString* courseId;
+
 -(id)mutableCopyWithZone:(NSZone *)zone;
+
+-(NSArray*)getStartTimeAndEndTime;
 @end

@@ -279,7 +279,9 @@
             if ([dic[Y_STATUS] integerValue]==200) {
                     NSString *tstr = dic[Y_ITEMS];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if(!img_url)
+                    
+                    if(img_url.length >1)
+                    {}else
                     {
                         img_url =[tstr  stringByReplacingOccurrencesOfString:HTTP_PATH withString:@""];
                     }

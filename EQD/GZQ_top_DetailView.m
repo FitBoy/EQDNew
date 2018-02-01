@@ -74,7 +74,7 @@
                 else
                 {
                     self.IV_img1.frame=CGRectMake(0,60+size.height,image.size.width*(DEVICE_WIDTH-30)*3/4/image.size.height, (DEVICE_WIDTH-30)*3/4.0);
-                    self.height_view=120+(DEVICE_WIDTH-30)*3/4.0+25;
+                    self.height_view=120+(DEVICE_WIDTH-30)*3/4.0+25+size.height;
                 }
                
                 

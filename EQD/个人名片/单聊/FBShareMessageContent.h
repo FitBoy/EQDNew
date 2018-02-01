@@ -12,6 +12,7 @@
  String imgUrl;
  String source;
  String sourceOwner;
+  articleId
  */
 
 #import <RongIMLib/RongIMLib.h>

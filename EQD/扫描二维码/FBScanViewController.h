@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FBScanViewController : UIViewController
+///从手机上直接识别二维码的图片
+@property (nonatomic,strong)  UIImage *image;
 
 @end

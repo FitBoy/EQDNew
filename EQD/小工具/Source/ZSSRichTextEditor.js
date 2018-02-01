@@ -469,7 +469,8 @@ zss_editor.prepareInsert = function() {
 
 zss_editor.insertImage = function(url, alt) {
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" alt="'+alt+'"  style=max-width:100% />'+'<hr>';//
+    var html = '<img src="'+url+'" alt="'+alt+'"  style=max-width:100%  />'+'</hr>';
+//    var html = '<img src="'+url+'" alt="'+alt+'" />' + '</hr>';
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
 }

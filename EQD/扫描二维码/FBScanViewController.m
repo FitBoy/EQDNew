@@ -12,6 +12,8 @@
 #import "WebRequest.h"
 #import "EWMModel.h"
 #import "FBWebUrlViewController.h"
+#import "FBWifiManager.h"
+#import "MyUUIDManager.h"
 @interface FBScanViewController ()<AVCaptureMetadataOutputObjectsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     UserModel *user;
@@ -46,7 +48,9 @@
     self.first_push = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册" style:(UIBarButtonItemStyleDone) target:self action:@selector(rightBarButtonItenAction)];
     
-    
+    if (self.image) {
+        [self scanQRCodeFromPhotosInTheAlbum:self.image];
+    }
     
 }
 
@@ -159,6 +163,10 @@
                 [self presentViewController:alert animated:NO completion:nil];
 
                 
+            }else if ([model.type integerValue]==3)
+            {
+                [self setQianDaoWithModel:model];
+                
             }
             else
             {
@@ -174,7 +182,60 @@
     }
 }
 
-
+-(void)setQianDaoWithModel:(EWMModel*)model{
+    //考勤签到
+    
+   
+    NSDateFormatter *dateFromatter = [[NSDateFormatter alloc]init];
+    [dateFromatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *signStart  = [dateFromatter dateFromString:model.data.signStartTime];
+    NSDate *endDate = [dateFromatter dateFromString:model.data.courseEndTime];
+    if ([[endDate laterDate:[NSDate date]] isEqualToDate:endDate] && [[signStart earlierDate:[NSDate date]] isEqualToDate:signStart]) {
+        //可以签到
+        NSString*  phone_name =[[UIDevice currentDevice] name];
+        NSString *wifiname=nil;
+        NSString *macadress=nil;
+        NSArray *tarr =[FBWifiManager getWifiName];
+        if (tarr.count==2) {
+            wifiname =tarr[0];
+            macadress =tarr[1];
+        }else
+        {
+            wifiname =@"未知";
+            macadress =@"未知";
+        }
+        NSString* UUID=[MyUUIDManager getUUID];
+        NSString *address =[USERDEFAULTS objectForKey:Y_AMAP_address];
+        [WebRequest Training_Training_signInWithuserGuid:user.Guid userName:user.username siInfoId:model.data.Id depid:user.departId depName:user.department postid:user.postId postName:user.post signInPosition:address macAddress:macadress wifiName:wifiname phoneModel:phone_name uuid:UUID And:^(NSDictionary *dic) {
+             if ([dic[Y_STATUS] integerValue]==200) {
+                    NSString  *message  =[NSString stringWithFormat:@"当前课程:%@\n 讲师:%@\n 受训对象:%@\n 培训地点:%@\n 培训时间:%@\n",model.data.theTheme,model.data.teacherName,model.data.trainees,model.data.thplace,model.data.theTrainTime];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"课程信息" message:message preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [self dismissViewControllerAnimated:NO completion:^{
+                            [self.navigationController popViewControllerAnimated:NO];
+                        }];
+                    }]];
+                    [self presentViewController:alert animated:NO completion:^{
+                    }];
+                    
+                }else
+                {
+                    MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                    [alert showAlertWith:@"签到失败，请重试"];
+                }
+       
+            
+        }];
+        
+    }else
+    {
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"不在签到的时间内"];
+    }
+    
+    
+  
+}
 #pragma mark - - - 二维码扫描
 - (void)setupScanningQRCode {
     // 1、获取摄像设备
@@ -301,6 +362,9 @@
             [self presentViewController:alert animated:NO completion:nil];
             
             
+        }else if ([model.type integerValue]==3)
+        {
+            [self setQianDaoWithModel:model];
         }
         else
         {

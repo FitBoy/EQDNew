@@ -36,6 +36,7 @@
     model.signstatus = self.signstatus;
     model.betrainedPostId = self.betrainedPostId;
     model.Id = self.Id;
+    model.courseId =self.courseId;
     
     return model;
     
@@ -44,8 +45,16 @@
 {
     return @{@"ID":@"id"};
 }
++(NSDictionary*)mj_objectClassInArray
+{
+    return @{@"theTrainTime":@"PXQianDaoModel"};
+}
 -(NSString*)createTime
 {
     return [_createTime formatDateString];
+}
+-(NSArray*)getStartTimeAndEndTime
+{
+    return nil;
 }
 @end

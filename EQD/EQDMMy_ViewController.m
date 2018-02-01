@@ -13,6 +13,8 @@
 #import "FanKui_ListViewController.h"
 #import "PPersonCardViewController.h"
 #import "EQDR_MyShoucangViewController.h"
+#import "EQDR_MyWenJiViewController.h"
+#import "EQDM_AppViewController.h"
 @interface EQDMMy_ViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -23,7 +25,11 @@
 @end
 
 @implementation EQDMMy_ViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self settabbarViewShow];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
@@ -99,6 +105,10 @@
         if(indexPath.row==0)
         {
             //我的文集
+            EQDR_MyWenJiViewController *Mvc=[[EQDR_MyWenJiViewController alloc]init];
+            Mvc.isOther =1;
+            [self settabbarViewHidden];
+            [self.navigationController pushViewController:Mvc animated:NO];
           
         }else if (indexPath.row==1)
         {

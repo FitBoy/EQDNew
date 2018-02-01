@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "QianDaoModel.h"
 @interface EWMModel : NSObject
 @property (nonatomic,copy) NSString* type;
 @property (nonatomic,copy) NSString* ugid;
 @property (nonatomic,copy) NSString* name;
+@property (nonatomic,strong) QianDaoModel *data;
 @end
+
+
+

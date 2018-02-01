@@ -13,6 +13,11 @@
 {
     return [_createTime datefromDatestring];
 }
+-(NSString*)content
+{
+    NSString *tstr =  [_content stringByReplacingOccurrencesOfString:@"<pre>" withString:@""];
+    return [tstr stringByReplacingOccurrencesOfString:@"</pre>" withString:@""];
+}
 -(NSString*)source
 {
     if ([_source integerValue]==0) {

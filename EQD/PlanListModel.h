@@ -15,7 +15,7 @@
 @property (nonatomic,copy) NSString*publishTime;
 @property (nonatomic,copy) NSString* theCategory;
 @property (nonatomic,copy) NSString* theTheme;
-
+@property (nonatomic,copy) NSString* courseId;
 -(NSString*)finishTime;
 -(NSString*)publishTime;
 /**详情增加字段***/

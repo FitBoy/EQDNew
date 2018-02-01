@@ -85,5 +85,23 @@
     self.L_left0.text = model.left0;
     self.L_left1.text = model.left1;
 }
-
+-(void)setModel_techerInfo:(EQDS_teacherInfoModel *)model_techerInfo
+{
+    _model_techerInfo = model_techerInfo;
+    [self.IV_img sd_setImageWithURL:[NSURL URLWithString:model_techerInfo.headimage] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+    self.L_left0.text = [NSString stringWithFormat:@"%@ [%@]",model_techerInfo.realname,model_techerInfo.city];
+    NSArray *tarr = [model_techerInfo.ResearchField componentsSeparatedByString:@","];
+    NSMutableAttributedString *label = [[NSMutableAttributedString alloc]initWithString:@""];
+    for (int i=0; i<tarr.count; i++) {
+        NSMutableAttributedString  *tlabel=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"[%@]",tarr[i]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+    
+        NSMutableAttributedString *kong = [[NSMutableAttributedString alloc]initWithString:@"  "];
+        [tlabel appendAttributedString:kong];
+        [label appendAttributedString:tlabel];
+    }
+    self.L_left1.numberOfLines =2;
+    self.L_left1.attributedText = label;
+    model_techerInfo.cellHeight =60;
+    
+}
 @end

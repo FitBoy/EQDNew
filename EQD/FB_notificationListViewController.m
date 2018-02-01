@@ -140,12 +140,28 @@
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray  *tarr_name =@[@"培训主题",@"受训对象",@"受训人数",@"培训时间",@"培训地点",@"主讲老师",@"讲师介绍",@"课程大纲",@"创建时间"];
             PX_NotificationListModel *model_detail = [PX_NotificationListModel mj_objectWithKeyValues:dic[Y_ITEMS]];
-            NSArray  *tarr_content = @[model_detail.theTheme,model_detail.trainees,model_detail.personNumber,model_detail.theTrainTime,model_detail.theplace,model_detail.teacherName,model_detail.teacherInfo,model_detail.aSyllabus,model_detail.createTime];
+            NSMutableString  *Tstr = [NSMutableString string];
+            for (int i=0; i<model_detail.theTrainTime.count; i++) {
+                PXQianDaoModel *model3 =model_detail.theTrainTime[i];
+                if (i==model_detail.theTrainTime.count-1) {
+                    [Tstr appendString:model3.theTrainTime];
+                }else
+                {
+                    [Tstr appendFormat:@"%@\n",model3.theTrainTime];
+                }
+            }
+            NSArray  *tarr_content = @[model_detail.theTheme,model_detail.trainees,model_detail.personNumber,Tstr,model_detail.theplace,model_detail.teacherName,model_detail.teacherInfo,model_detail.aSyllabus,model_detail.createTime];
             NSMutableArray *tarr_model = [NSMutableArray arrayWithCapacity:0];
             for (int i=0; i<tarr_content.count; i++) {
                 AnyWayModel *model2 = [[AnyWayModel alloc]init];
                 model2.name =tarr_name[i];
                 model2.contents = tarr_content[i];
+                if (i==7) {
+                    model2.type = @"2";
+                }else
+                {
+                    model2.type = @"1";
+                }
                 [tarr_model addObject:model2];
             }
             dispatch_async(dispatch_get_main_queue(), ^{

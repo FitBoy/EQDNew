@@ -22,6 +22,7 @@
 #import "EQDR_JuBaoViewController.h"
 #import "FB_ShareEQDViewController.h"
 #import "EQD_HtmlTool.h"
+#import "EQDM_ArticleModel.h"
 /**
 
  
@@ -35,11 +36,16 @@
     UIView *V_top; // 返回 关注 更多（收藏，分享，举报）
     UIView *V_bottom; // 留言  点赞  转发(分享)（数目写在下面）
     UserModel *user;
-    float  currentX;
     EQDR_IVLView  *V_zan;
     EQDR_IVLView  *V_liuyan;
     EQDR_IVLView  *V_zhuanfa;
-    FBButton  *B_guanZhu ;
+   /* FBButton  *B_guanZhu ;
+    FBButton *B_head;*/
+    UIImageView *IV_head;
+    UILabel *L_guanzhu;
+  // 易企创的模型
+    EQDM_ArticleModel *model_MDetail;
+    
     
 }
 
@@ -60,29 +66,28 @@
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.label.text = @"正在加载中";
 }
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    if (scrollView.contentOffset.y-currentX >0) {
-//        self.navigationController.navigationBar.frame = CGRectMake(0, -DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_TABBAR_Height);
-//        V_bottom.hidden=NO;
-//        scrollView.frame = CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_TABBAR_Height-50);
-//        currentX =scrollView.contentOffset.y;
-//    }else
-//    {
-//
-//        V_bottom.hidden=YES;
-//        scrollView.frame = CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_TABBAR_Height);
-//        currentX =scrollView.contentOffset.y;
-//    }
-//}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-  
 }
 
 -(void)loadRequestData{
-    
+    if (self.temp == EQDArticle_typeMade) {
+        [WebRequest Makerspace_Get_MakerArticleDetailWitharticleId:self.articleId userGuid:user.Guid And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                model_MDetail  = [EQDM_ArticleModel mj_objectWithKeyValues:dic[Y_ITEMS]];
+               
+                [webview_Detail loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" > <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"></head><body><h2 style=\" text-align:center\"> %@</h2><small style=\"color:#C0C0C0\"> %@ 评论 • %@ 喜欢</small><small style=\"color:#C0C0C0; float:right\" >%@</small><br> %@ </body></html>", model_MDetail.title,model_MDetail.commentCount,model_MDetail.praiseCount, model_MDetail.postTime,model_MDetail.ArticleContent] baseURL:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setTop];
+                    [self setBottom];
+                });
+            }
+        }];
+        
+    }else
+    {
     [WebRequest Articles_Get_Article_ByIdWitharticleId:self.articleId userGuid:user.Guid And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             model_detail = [EQDR_articleListModel mj_objectWithKeyValues:dic[Y_ITEMS]];
@@ -94,14 +99,14 @@
          
         }
     }];
+    }
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    currentX =0;
     user = [WebRequest GetUserInfo];
-    webview_Detail= [[UIWebView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-50-kBottomSafeHeight)];
 
+    webview_Detail= [[UIWebView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-50-kBottomSafeHeight)];
     adjustsScrollViewInsets_NO(webview_Detail.scrollView, self);
     [self.view addSubview:webview_Detail];
     webview_Detail.delegate =self;
@@ -123,47 +128,69 @@
       [self loadRequestData];
 }
 
--(void)test{
-/*  [WebRequest Articles_Get_Article_ByIdWitharticleId:self.articleId userGuid:user.Guid And:^(NSDictionary *dic) {
-        NSLog(@"111111111==%@",dic);
-    }];
- */
-   
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self test];
-    });
-}
+
 
 -(void)setTop{
-   
-    FBButton *B_head = [FBButton buttonWithType:UIButtonTypeSystem];
-    [V_top addSubview:B_head];
-    [B_head addTarget:self action:@selector(headClick) forControlEvents:UIControlEventTouchUpInside];
-    [B_head mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(30, 30));
-        make.centerX.mas_equalTo(V_top.mas_centerX);
-        make.centerY.mas_equalTo(V_top.mas_centerY);
-    }];
-    [B_head sd_setBackgroundImageWithURL:[NSURL URLWithString:model_detail.iphoto] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"no_login_head"]];
-    
-    
-    B_guanZhu = [FBButton buttonWithType:UIButtonTypeSystem];
-    [V_top addSubview:B_guanZhu];
-    [B_guanZhu addTarget:self action:@selector(guanZhuClick) forControlEvents:UIControlEventTouchUpInside];
-    
-if( [model_detail.isAttention integerValue]==0)
-{
-    [B_guanZhu setTitle:@"+ 关注" titleColor:[UIColor whiteColor] backgroundColor:[UIColor greenColor] font:[UIFont systemFontOfSize:15]];
-}else
-{
-    
-  [B_guanZhu setTitle:@"已关注" titleColor:[UIColor darkGrayColor] backgroundColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:15]];
+    if (!IV_head) {
+        IV_head = [[UIImageView alloc]init];
+        IV_head.userInteractionEnabled =YES;
+        [V_top addSubview:IV_head];
+        UITapGestureRecognizer  *tap_head = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headClick)];
+        [IV_head addGestureRecognizer:tap_head];
+        [IV_head mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(30, 30));
+            make.centerX.mas_equalTo(V_top.mas_centerX);
+            make.centerY.mas_equalTo(V_top.mas_centerY);
+        }];
+        
+        if (self.temp ==EQDArticle_typeMade) {
+            [IV_head sd_setImageWithURL:[NSURL URLWithString:model_MDetail.avatar] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+        }else
+        {
+        [IV_head sd_setImageWithURL:[NSURL URLWithString:model_detail.iphoto] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+        }
+        
 }
-    [B_guanZhu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(60, 30));
-        make.centerY.mas_equalTo(V_top.mas_centerY);
-        make.left.mas_equalTo(B_head.mas_right).mas_offset(5);
-    }];
+ 
+    
+    if (!L_guanzhu) {
+        L_guanzhu = [[UILabel alloc]init];
+        L_guanzhu.textAlignment =NSTextAlignmentCenter;
+        L_guanzhu.font=[UIFont systemFontOfSize:15];
+        L_guanzhu.userInteractionEnabled =YES;
+        [V_top addSubview:L_guanzhu];
+        UITapGestureRecognizer  *tap_guanzhu = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(guanZhuClick)];
+        [L_guanzhu addGestureRecognizer:tap_guanzhu];
+        
+        if (self.temp ==EQDArticle_typeMade) {
+            if( [model_MDetail.isAttention integerValue]==0)
+            {
+                L_guanzhu.text = @"+ 关注";
+                L_guanzhu.textColor = [UIColor orangeColor];
+            }else
+            {
+                L_guanzhu.text = @"已关注";
+                L_guanzhu.textColor = [UIColor grayColor];
+            }
+        }else
+        {
+        if( [model_detail.isAttention integerValue]==0)
+        {
+            L_guanzhu.text = @"+ 关注";
+            L_guanzhu.textColor = [UIColor orangeColor];
+        }else
+        {
+             L_guanzhu.text = @"已关注";
+            L_guanzhu.textColor = [UIColor grayColor];
+        }
+        }
+        [L_guanzhu mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(60, 30));
+            make.centerY.mas_equalTo(V_top.mas_centerY);
+            make.left.mas_equalTo(IV_head.mas_right).mas_offset(5);
+        }];
+    }
+   
     
     
 }
@@ -177,14 +204,23 @@ if( [model_detail.isAttention integerValue]==0)
             if(i==0)
             {
               //收藏
-                
+                if(self.temp ==1)
+                {
+                    [WebRequest Collection_Add_collectionowner:user.Guid type:@"12" title:model_detail.title url:[NSString stringWithFormat:@"%@;%@",model_MDetail.picUrl,[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_MDetail.Id]] source:@"易企创" sourceOwner:model_MDetail.userGuid articleId:model_MDetail.Id And:^(NSDictionary *dic) {
+                        if ([dic[Y_STATUS] integerValue]==200) {
+                            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                            [alert showAlertWith:@"收藏成功"];
+                        }
+                    }];
+                }else
+                {
                 [WebRequest Collection_Add_collectionowner:user.Guid type:@"10" title:model_detail.title url:[NSString stringWithFormat:@"%@;%@",model_detail.homeImage,[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id]] source:@"易企阅" sourceOwner:model_detail.userGuid articleId:model_detail.Id And:^(NSDictionary *dic) {
                     if ([dic[Y_STATUS] integerValue]==200) {
                         MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
                         [alert showAlertWith:@"收藏成功"];
                     }
                 }];
-                
+                }
             }else if (i==1)
             {
              //分享
@@ -193,10 +229,24 @@ if( [model_detail.isAttention integerValue]==0)
                 Svc.definesPresentationContext = YES;
                 Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 //url text title imageURL
+                if(self.temp ==1)
+                {
+                    //易企创
+                    Svc.url =[EQD_HtmlTool getEQDM_ArticleDetailWithId:model_MDetail.Id];
+                    Svc.Stitle =model_MDetail.title;
+                    Svc.text =model_MDetail.ArticleContent;
+                    Svc.imageURL = model_MDetail.picUrl;
+                    Svc.articleId = self.articleId;
+                    Svc.type=1;
+                }else
+                {
                 Svc.url =[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id];
                 Svc.Stitle =model_detail.title;
                 Svc.text =model_detail.textContent;
                 Svc.imageURL = model_detail.homeImage;
+                    Svc.articleId = self.articleId;
+                    Svc.type=0;
+                }
                 Svc.EQD_ShareType = EQD_ShareTypeLink;
                 [self presentViewController:Svc animated:NO completion:nil];
                 
@@ -234,12 +284,39 @@ if( [model_detail.isAttention integerValue]==0)
 -(void)guanZhuClick
 {
     //关注
+    
+    if (self.temp ==EQDArticle_typeMade) {
+        if ([model_MDetail.isPraised integerValue]==0) {
+            [WebRequest  Articles_Add_Article_AttentionWithuserGuid:user.Guid attention:model_MDetail.userGuid And:^(NSDictionary *dic) {
+                if ([dic[Y_STATUS] integerValue]==200) {
+                   model_MDetail.isPraised=@"1";
+                    
+                    L_guanzhu.text =@"已关注";
+                    L_guanzhu.textColor = [UIColor grayColor];
+                }
+            }];
+            
+        }else
+        {
+            [WebRequest  Articles_Cancle_ArticleAttentionWithuserGuid:user.Guid author:model_MDetail.userGuid And:^(NSDictionary *dic) {
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    model_MDetail.isPraised =@"0";
+                    L_guanzhu.text = @"+ 关注";
+                    L_guanzhu.textColor = [UIColor orangeColor];
+                }
+            }];
+            
+            
+        }
+    }else
+    {
     if ([model_detail.isAttention integerValue]==0) {
         [WebRequest  Articles_Add_Article_AttentionWithuserGuid:user.Guid attention:model_detail.userGuid And:^(NSDictionary *dic) {
             if ([dic[Y_STATUS] integerValue]==200) {
                 model_detail.isAttention =@"1";
                
-                [B_guanZhu setTitle:@"已关注" titleColor:[UIColor darkGrayColor] backgroundColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:15]];
+                L_guanzhu.text =@"已关注";
+                L_guanzhu.textColor = [UIColor grayColor];
             }
         }];
         
@@ -248,11 +325,13 @@ if( [model_detail.isAttention integerValue]==0)
         [WebRequest  Articles_Cancle_ArticleAttentionWithuserGuid:user.Guid author:model_detail.userGuid And:^(NSDictionary *dic) {
             if ([dic[Y_STATUS] integerValue]==200) {
                 model_detail.isAttention =@"0";
-                [B_guanZhu setTitle:@"+ 关注" titleColor:[UIColor whiteColor] backgroundColor:[UIColor greenColor] font:[UIFont systemFontOfSize:15]];
+                L_guanzhu.text = @"+ 关注";
+                L_guanzhu.textColor = [UIColor orangeColor];
             }
         }];
 
         
+    }
     }
 }
 -(void)headClick
@@ -266,12 +345,7 @@ if( [model_detail.isAttention integerValue]==0)
 -(void)setBottom{
     
     V_zan = [[EQDR_IVLView alloc]init];
-    NSString  *imgName =@"zan_false";
-    if ([model_detail.isZan integerValue]==1) {
-        imgName = @"zan_true";
-    }
-    
-    [V_zan setImg:imgName name:model_detail.zanCount];
+   
     
     [V_bottom addSubview:V_zan];
     UITapGestureRecognizer  *tap_zan = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ZanClick)];
@@ -287,7 +361,7 @@ if( [model_detail.isAttention integerValue]==0)
     [V_bottom addSubview:V_liuyan];
     UITapGestureRecognizer *tap_liuyan = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(liuYanCLick)];
     [V_liuyan.IV_img addGestureRecognizer:tap_liuyan];
-    [V_liuyan setImg:@"pinglun" name:model_detail.commentCount];
+  
     
     [V_liuyan mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(50, 50));
@@ -305,8 +379,26 @@ if( [model_detail.isAttention integerValue]==0)
         make.centerY.mas_equalTo(V_bottom.mas_centerY);
         make.right.mas_equalTo(V_bottom.mas_right).mas_offset(-twidth);
     }];
-    [V_zhuanfa setImg:@"share_cion" name:model_detail.reprintCount];
-    
+   
+    if (self.temp ==EQDArticle_typeMade) {
+         [V_zhuanfa setImg:@"share_cion" name:model_MDetail.forwardedCount];
+          [V_liuyan setImg:@"pinglun" name:model_MDetail.commentCount];
+        //剩下一个点赞的
+         NSString  *imgName =@"zan_false";
+        if ([model_MDetail.isPraised integerValue]==1) {
+             imgName = @"zan_true";
+        }
+          [V_zan setImg:imgName name:model_MDetail.praiseCount];
+    }else
+    {
+        NSString  *imgName =@"zan_false";
+        if ([model_detail.isZan integerValue]==1) {
+            imgName = @"zan_true";
+        }
+        [V_zan setImg:imgName name:model_detail.zanCount];
+         [V_zhuanfa setImg:@"share_cion" name:model_detail.reprintCount];
+          [V_liuyan setImg:@"pinglun" name:model_detail.commentCount];
+    }
     
 }
 -(void)zhuanfaCLick
@@ -316,11 +408,24 @@ if( [model_detail.isAttention integerValue]==0)
     Svc.providesPresentationContextTransitionStyle = YES;
     Svc.definesPresentationContext = YES;
     Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    if (self.temp ==EQDArticle_typeMade) {
+        //易企创
+        Svc.url =[EQD_HtmlTool getEQDM_ArticleDetailWithId:model_MDetail.Id];
+        Svc.Stitle =model_MDetail.title;
+        Svc.text =model_MDetail.splendidContent;
+        Svc.imageURL = model_MDetail.picUrl;
+        Svc.articleId = model_MDetail.Id;
+        Svc.type =1;
+    }else
+    {
     //url text title imageURL
     Svc.url =[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id];
     Svc.Stitle =model_detail.title;
     Svc.text =model_detail.textContent;
     Svc.imageURL = model_detail.homeImage;
+    Svc.articleId = model_detail.Id;
+        Svc.type =0;
+    }
     Svc.EQD_ShareType = EQD_ShareTypeLink;
     [self presentViewController:Svc animated:NO completion:nil];
   
@@ -329,8 +434,16 @@ if( [model_detail.isAttention integerValue]==0)
 {
     //留言
     EQDR_LiuYanViewController  *Lvc =[[EQDR_LiuYanViewController alloc]init];
+    if (self.temp ==EQDArticle_typeMade) {
+        Lvc.articleId = self.articleId;
+        Lvc.commentCount = model_MDetail.commentCount;
+        Lvc.temp = self.temp;
+    }else
+    {
     Lvc.articleId =model_detail.Id;
     Lvc.commentCount = model_detail.commentCount;
+        Lvc.temp = self.temp;
+    }
     [self.navigationController pushViewController:Lvc animated:NO];
  
 }
@@ -340,11 +453,49 @@ if( [model_detail.isAttention integerValue]==0)
 -(void)ZanClick
 {
  //点赞
+    if (self.temp == EQDArticle_typeMade) {
+        if ([model_MDetail.isPraised integerValue]==1) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeAnnularDeterminate;
+            hud.label.text = @"正在取消点赞";
+            [WebRequest Makerspace_MakerArtiExtend_MakerArtiPraiseWithuserGuid:user.Guid type:@"1" itemId:self.articleId operation:@"-1" And:^(NSDictionary *dic) {
+                hud.label.text =dic[Y_MSG];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:NO];
+                    if ([dic[Y_STATUS] integerValue]==200) {
+                        [V_zan setImg:@"zan_false" name:[NSString stringWithFormat:@"%ld",[model_MDetail.praiseCount integerValue] -1]];
+                        model_MDetail.praiseCount = [NSString stringWithFormat:@"%ld",[model_MDetail.praiseCount integerValue] -1];
+                        model_MDetail.isPraised=@"0";
+                    }
+                });
+            }];
+            
+        }else
+        {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeAnnularDeterminate;
+            hud.label.text = @"正在点赞";
+            [WebRequest Makerspace_MakerArtiExtend_MakerArtiPraiseWithuserGuid:user.Guid type:@"1" itemId:self.articleId operation:@"1" And:^(NSDictionary *dic) {
+                hud.label.text =dic[Y_MSG];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:NO];
+                    if ([dic[Y_STATUS] integerValue]==200) {
+                        [V_zan setImg:@"zan_true" name:[NSString stringWithFormat:@"%ld",[model_MDetail.praiseCount integerValue] +1]];
+                        model_MDetail.praiseCount =[NSString stringWithFormat:@"%ld",[model_MDetail.praiseCount integerValue] +1];
+                        model_MDetail.isPraised=@"1";
+                    }
+                });
+            }];
+        }
+        
+    }else
+    {
     if ([model_detail.isZan integerValue]==0) {
         [WebRequest Articles_Add_Article_ZanWitharticleId:model_detail.Id userGuid:user.Guid And:^(NSDictionary *dic) {
          if([dic[Y_STATUS] integerValue]==200)
          {
              [V_zan setImg:@"zan_true" name:[NSString stringWithFormat:@"%ld",[model_detail.zanCount integerValue] +1]];
+             model_detail.zanCount =[NSString stringWithFormat:@"%ld",[model_detail.zanCount integerValue] +1];
              model_detail.isZan=@"1";
          }
         }];
@@ -358,6 +509,7 @@ if( [model_detail.isAttention integerValue]==0)
             [MBProgressHUD hideHUDForView:self.view  animated:YES];
         });
     }
+    }
 }
 #pragma  mark - 举报的协议代理
 -(void)getJuBaoType:(NSString *)type text:(NSString *)text
@@ -365,6 +517,20 @@ if( [model_detail.isAttention integerValue]==0)
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.label.text = @"正在提交";
+    if (self.temp ==1) {
+        [WebRequest Makerspace_MakerArtiExtend_MakerArtiTipOffWithuserGuid:user.Guid itemType:@"1" itemId:self.articleId tipOffType:type theContent:text And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                hud.label.text = @"感谢您的举报,我们会尽快处理";
+            }else
+            {
+                hud.label.text =@"网络问题，请重试";
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hideAnimated:NO];
+            });
+        }];
+    }else
+    {
     [WebRequest Articles_Add_Article_ReportWithuserGuid:user.Guid articleId:self.articleId reason:text reportType:type And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             hud.label.text = @"感谢您的举报,我们会尽快处理";
@@ -376,6 +542,7 @@ if( [model_detail.isAttention integerValue]==0)
             [hud hideAnimated:NO];
         });
     }];
+    }
 }
 
 

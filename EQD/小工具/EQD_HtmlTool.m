@@ -13,4 +13,8 @@
 {
     return [NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
 }
++(NSString*)getEQDM_ArticleDetailWithId:(NSString*)Id
+{
+ return [NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
+}
 @end

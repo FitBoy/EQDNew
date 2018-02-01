@@ -46,10 +46,19 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     AnyWayModel *model =self.arr_json[indexPath.row];
-   
+    
     NSMutableAttributedString  *name =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@:",model.name] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    
+    if ([model.type integerValue]==2) {
+        NSString * htmlString =[NSString stringWithFormat:@"<html><body> %@</body></html>",model.contents];
+        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+        [name appendAttributedString:attrStr];
+    }else
+    {
+        //这里是对text的处理 0或者1 都可以 type
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:model.contents attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
     [name appendAttributedString:content];
+    }
 //name.yy_lineSpacing =6;
     cell.YL_label.attributedText = name;
     CGSize size = [name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;

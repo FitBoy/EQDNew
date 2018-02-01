@@ -74,7 +74,7 @@
     //确定
     if ([self.delegate respondsToSelector:@selector(birthDayWithcontent:indexPath:)]) {
         
-        NSString *date =[NSString stringWithFormat:@"%@-%@",L_date.text,str_name];
+        NSString *date =[NSString stringWithFormat:@"%@-%@",str_name,L_date.text];
         [self.delegate birthDayWithcontent:date indexPath:self.indexpath];
         [self.navigationController popViewControllerAnimated:NO];
     }
@@ -86,7 +86,7 @@
       NSCalendar *calender = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
         NSDateComponents  *componets = [calender components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:picjer.date];
         
-        L_date.text = [NSString stringWithFormat:@"%ld/%ld",(long)componets.month,(long)componets.day];
+        L_date.text = [NSString stringWithFormat:@"%ld-%ld",(long)componets.month,(long)componets.day];
         
     }
     else
@@ -106,7 +106,7 @@
         NSCalendar *calender = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
         NSDateComponents  *componets = [calender components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:picjer.date];
         
-        L_date.text = [NSString stringWithFormat:@"%ld/%ld",(long)componets.month,(long)componets.day];
+        L_date.text = [NSString stringWithFormat:@"%ld-%ld",(long)componets.month,(long)componets.day];
         
     }
     else

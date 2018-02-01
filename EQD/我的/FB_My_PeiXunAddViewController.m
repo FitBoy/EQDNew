@@ -12,7 +12,10 @@
 #import "FBTextFieldViewController.h"
 #import "DatePicer_AlertView.h"
 #import "FBTextVViewController.h"
-@interface FB_My_PeiXunAddViewController ()<UITableViewDelegate,UITableViewDataSource,FB_PXChooseViewControllerDelegate,FB_PXLeiBieChooseViewControllerdelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate>
+
+#import "FBOneChoose_TongShiViewController.h"
+#import "EQDS_SearchViewController.h"
+@interface FB_My_PeiXunAddViewController ()<UITableViewDelegate,UITableViewDataSource,FB_PXChooseViewControllerDelegate,FB_PXLeiBieChooseViewControllerdelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate,FBOneChoose_TongShiViewControllerDelegate,EQDS_SearchViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names;
@@ -21,6 +24,7 @@
     NSMutableArray  *arr_chooseModel;
     NSArray  *arr_techerModel;
     DatePicer_AlertView  *date_alert;
+    NSString *teacherGuid;
 }
 
 @end
@@ -45,6 +49,21 @@
     [arr_contents replaceObjectAtIndex:4 withObject:Tstr];
     [tableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
+#pragma  mark - 选择同事
+-(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+{
+    teacherGuid = model.userGuid;
+    [arr_contents replaceObjectAtIndex:indepPath.row withObject:model.username];
+    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+#pragma  mark - 易企学的讲师选择
+-(void)getTeacherInfo:(EQDS_teacherInfoModel *)model
+{
+    teacherGuid = model.userGuid;
+    [arr_contents replaceObjectAtIndex:6 withObject:model.realname];
+    [tableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
 -(void)getGangweiModel:(NSArray<GangweiModel *> *)arr_gangwei
 {
     NSMutableString  *Tstr = [NSMutableString string];
@@ -63,6 +82,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    teacherGuid =@" ";
     arr_chooseModel = [NSMutableArray arrayWithCapacity:0];
     self.navigationItem.title = @"培训申请";
     user = [WebRequest GetUserInfo];
@@ -221,16 +241,58 @@
         Lvc.delegate =self;
         Lvc.arr_chosemodel = arr_techerModel;
         [self.navigationController pushViewController:Lvc animated:NO];
-    }else if (indexPath.row==5 || indexPath.row==6 || indexPath.row==7)
+    }else if (indexPath.row==5  || indexPath.row==7)
     {
-        //培训主题   讲师推荐 费用预算
+        //培训主题    费用预算
         FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];
         TFvc.delegate =self;
         TFvc.indexPath =indexPath;
         TFvc.content =arr_contents[indexPath.row];
         TFvc.contentTitle =arr_names[indexPath.row];
         [self.navigationController pushViewController:TFvc animated:NO];
-    }else if (indexPath.row==8|| indexPath.row==9)
+    }else if (indexPath.row==6)
+    {
+       //讲师推荐
+        UIAlertController  *alert = [UIAlertController alertControllerWithTitle:@"讲师来自？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        NSArray *tarr = @[@"易企学",@"企业内部",@"其他"];
+        for(int i=0;i<tarr.count;i++ )
+        {
+            [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                if (i==0) {
+                    //易企学
+                    EQDS_SearchViewController  *Svc = [[EQDS_SearchViewController alloc]init];
+                    Svc.delegate =self;
+                    [self.navigationController pushViewController:Svc animated:NO];
+                    
+                }else if (i==1)
+                {
+                    // 企业内部
+                    FBOneChoose_TongShiViewController *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
+                    TSvc.delegate =self;
+                    TSvc.indexpath =indexPath;
+                    [self.navigationController pushViewController:TSvc animated:NO];
+                    
+                }else
+                {
+                    //其他
+                    FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];
+                    TFvc.delegate =self;
+                    TFvc.indexPath =indexPath;
+                    TFvc.content =arr_contents[indexPath.row];
+                    TFvc.contentTitle =@"请输入讲师姓名";
+                    [self.navigationController pushViewController:TFvc animated:NO];
+                }
+                
+            }]];
+            
+        }
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        
+        [self presentViewController:alert animated:NO completion:nil];
+    }
+    else if (indexPath.row==8|| indexPath.row==9)
     {
         //培训时间
          date_alert.two_btn.B_right.indexpath =indexPath;
@@ -251,6 +313,9 @@
 #pragma  mark - 自定义的协议代理
 -(void)content:(NSString *)content WithindexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row==6) {
+        teacherGuid = @" ";
+    }
     [arr_contents replaceObjectAtIndex:indexPath.row withObject:content];
     [tableV  reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }

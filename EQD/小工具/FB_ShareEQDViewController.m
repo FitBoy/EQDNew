@@ -18,6 +18,8 @@
 #import "JSHAREService.h"
 #import "MBFadeAlertView.h"
 #import "FBShareViewController.h"
+#import "FBShareMessageContent.h"
+#import "FBGeRenCardMessageContent.h"
 @interface FB_ShareEQDViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
     UICollectionView *CollectionV;
@@ -91,7 +93,7 @@
                          @"name":@"新浪微博"
                          },
                      ];
-    }else if (self.EQD_ShareType ==EQD_ShareTypeImage)
+    }else if (self.EQD_ShareType ==EQD_ShareTypeImage || self.EQD_ShareType ==EQD_ShareTypeImage2)
     {
         arr_json = @[
                      @{
@@ -245,7 +247,17 @@
                          @"name":@"qq空间"
                          }
                      ];
-    }else
+    }else if (self.EQD_ShareType ==EQD_ShareTypeGerenCard)
+    {
+        arr_json = @[
+                     @{
+                         @"img":@"share_friend",
+                         @"biaoji":@"10",
+                         @"name":@"发送给好友"
+                         }
+                     ];
+    }
+    else
     {
         arr_json = nil;
     }
@@ -257,7 +269,7 @@
     flowL.minimumLineSpacing=5;
     flowL.minimumInteritemSpacing=5;
 //    flowL.headerReferenceSize = CGSizeMake(DEVICE_WIDTH, 40);
-    CollectionV =[[UICollectionView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-(width_cell+40)*(arr_json.count/4+1), DEVICE_WIDTH, (width_cell+40)*(arr_json.count/4+1)) collectionViewLayout:flowL];
+    CollectionV =[[UICollectionView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-(width_cell+40)*(arr_json.count/4+1)-kBottomSafeHeight, DEVICE_WIDTH, (width_cell+40)*(arr_json.count/4+1)) collectionViewLayout:flowL];
     CollectionV.delegate=self;
     CollectionV.dataSource=self;
     [self.view addSubview:CollectionV];
@@ -287,9 +299,134 @@
 -(void)sendFriend{
    
     FBShareViewController  *Svc =[[FBShareViewController alloc]init];
+    NSInteger temp =0;
+    if(self.content)
+    {
+        //消息体
     Svc.messageContent = self.content;
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
-    [self  presentViewController:nav animated:NO completion:nil];
+        temp =0;
+    }else
+    {
+        temp =0;
+        //纯文本
+        if (self.EQD_ShareType ==EQD_ShareTypeText) {
+            RCTextMessage *textMessage = [RCTextMessage messageWithContent:self.text];
+            Svc.messageContent = textMessage;
+        }else if (self.EQD_ShareType ==EQD_ShareTypeImage)
+        {
+            
+            NSData *dataUrl = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.imageURL]];
+            
+            RCImageMessage  *imgMessage = [RCImageMessage messageWithImageData:dataUrl];
+            Svc.messageContent = imgMessage;
+        }else if (self.EQD_ShareType == EQD_ShareTypeImage2)
+        {
+            RCImageMessage  *imgMessage = [RCImageMessage messageWithImage:self.image_local];
+            Svc.messageContent = imgMessage;
+        }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
+        {
+            /*String title;
+            String content;
+            String url;
+            String imgUrl;
+            String source;
+            String sourceOwner;
+            articleId*/
+            NSDictionary  *dic = @{
+                                   @"title":self.Stitle,
+                                   @"content":self.text,
+                                   @"url":self.url,
+                                   @"imgUrl":self.imageURL,
+                                   @"sourceOwner":self.sourceOwner,
+                                   @"source":self.source,
+                                   @"articleId":self.articleId
+                                   };
+            FBShareMessageContent *message=[[FBShareMessageContent alloc]initWithgeRenCardWithcontent:dic];
+            Svc.messageContent =message;
+        }else if (self.EQD_ShareType ==EQD_ShareTypeGerenCard)
+        {
+            NSDictionary *dic = @{
+                                  @"imgurl":self.imgurl,
+                                  @"name":self.name,
+                                  @"bumen":self.bumen,
+                                  @"gangwei":self.gangwei,
+                                  @"company":self.company,
+                                  @"uid":self.uid,
+                                  @"comid":self.comid
+                                  };
+            FBGeRenCardMessageContent  *gerenMessage = [[FBGeRenCardMessageContent alloc]initWithgeRenCardWithcontent:dic];
+            Svc.messageContent =gerenMessage;
+            
+        }else if (self.EQD_ShareType == EQD_ShareTypeFile)
+        {
+            RCFileMessage  *fileMessage = [RCFileMessage messageWithFile:self.fileLocalPath];
+            Svc.messageContent =fileMessage;
+        }
+        else
+        {
+            temp =1;
+        }
+    }
+    if (temp==0) {
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
+        [self  presentViewController:nav animated:NO completion:nil];
+    }else
+    {
+        MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"暂不支持此类型的消息"];
+    }
+    
+}
+#pragma  mark - 发送到工作圈
+-(void)sendWorkCircle{
+    ///文字 ，图片 ，链接
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在后台运行";
+    UserModel *user = [WebRequest GetUserInfo];
+    NSString *address = [USERDEFAULTS objectForKey:Y_AMAP_address];
+    if (self.EQD_ShareType ==EQD_ShareTypeText) {
+        [WebRequest Add_WorkCircleWithcompanyId:user.companyId userGuid:user.Guid message:self.text name:user.upname location:address imgarr:nil And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                hud.label.text = @"分享成功";
+            }else
+            {
+                hud.label.text =@"分享失败,请重试";
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hideAnimated:NO];
+            });
+        }];
+    }else if (self.EQD_ShareType ==EQD_ShareTypeImage2)
+    {
+        [WebRequest Add_WorkCircleWithcompanyId:user.companyId userGuid:user.Guid message:@" " name:user.upname location:address imgarr:@[self.image_local] And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                hud.label.text = @"分享成功";
+            }else
+            {
+                hud.label.text =@"分享失败,请重试";
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hideAnimated:NO];
+            });
+        }];
+    }else if (self.EQD_ShareType == EQD_ShareTypeImage)
+    {
+        //图片的连接
+    }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
+    {
+        //纯连接
+    }else
+    {
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"暂不支持此类文件"];
+    }
+}
+#pragma  mark - 我的收藏
+-(void)sendMyShouCang{
+   
+    
+    
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -305,11 +442,13 @@
         case 11:
         {
             //工作圈
+            [self sendWorkCircle];
         }
             break;
         case 13:
         {
             //我的收藏
+            [self sendMyShouCang];
         }
             break;
         case 15:
@@ -389,7 +528,7 @@
     hud.label.text = @"正在跳转";
     if (self.EQD_ShareType ==EQD_ShareTypeText) {
         [self shareTextWithPlatform:platform];
-    }else if (self.EQD_ShareType ==EQD_ShareTypeImage )
+    }else if (self.EQD_ShareType ==EQD_ShareTypeImage|| self.EQD_ShareType ==EQD_ShareTypeImage2)
     {
         [self shareImageWithPlatform:platform];
     }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
@@ -419,8 +558,18 @@
 
 - (void)shareImageWithPlatform:(JSHAREPlatform)platform {
     JSHAREMessage *message = [JSHAREMessage message];
-    NSString *imageURL = self.imageURL;
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    NSData *imageData =nil;
+    if (self.EQD_ShareType == EQD_ShareTypeImage) {
+        NSString *imageURL = self.imageURL;
+      imageData  = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    }else if (self.EQD_ShareType == EQD_ShareTypeImage2)
+    {
+        imageData = UIImagePNGRepresentation(self.image_local);
+    }else
+    {
+        
+    }
+   
     
     message.mediaType = JSHAREImage;
     message.platform = platform;
