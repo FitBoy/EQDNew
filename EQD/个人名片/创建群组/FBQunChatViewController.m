@@ -19,6 +19,8 @@
 #import "Memo_AddViewController.h"
 #import "RWFaSongViewController.h"
 #import "FBShareUrlMessageCollectionViewCell.h"
+#import "EQDR_Article_DetailViewController.h"
+#import "FB_ShareEQDViewController.h"
 @interface FBQunChatViewController ()<RCIMGroupMemberDataSource>
 {
     
@@ -75,7 +77,7 @@
 
    
     [RCIM sharedRCIM].groupMemberDataSource=self;
-    
+//    [RCIM sharedRCIM].userInfoDataSource =self;
 //    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"renwu.png"] title:@"发任务" atIndex:5 tag:4001];
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[RCKitUtility imageNamed:@"card.png" ofBundle:@"RongCloud.bundle"] title:@"个人名片" atIndex:6 tag:4002];
     [self notifyUpdateUnreadMessageCount];
@@ -172,7 +174,7 @@
     NSMutableArray<UIMenuItem *> *menuList =
     [[super getLongTouchMessageCellMenuList:model] mutableCopy];
     M_model = model;
-    if([M_model.content isKindOfClass:[RCTextMessage class]]||[M_model.content isKindOfClass:[RCImageMessage class]]||[M_model.content isKindOfClass:[RCFileMessage class]]||[M_model.content isKindOfClass:[FBGeRenCardMessageContent class]])
+    if([M_model.content isKindOfClass:[RCTextMessage class]]||[M_model.content isKindOfClass:[RCImageMessage class]]||[M_model.content isKindOfClass:[RCFileMessage class]]||[M_model.content isKindOfClass:[FBGeRenCardMessageContent class]]|| [M_model.content isKindOfClass:[FBShareMessageContent class]])
     {
         [menuList addObject:[[UIMenuItem alloc] initWithTitle:@"转发"
                                                        action:@selector(zhuanfaClick)]];
@@ -185,7 +187,7 @@
                                                        action:@selector(renwuClick)]];
     }
   
-    if([model.content isKindOfClass:[RCTextMessage class]]||[model.content isKindOfClass:[RCImageMessage class]] || [model.content isKindOfClass:[RCLocationMessage class]] ||[model.content isKindOfClass:[RCRichContentMessage class]])
+    if([model.content isKindOfClass:[RCTextMessage class]]||[model.content isKindOfClass:[RCImageMessage class]] || [model.content isKindOfClass:[RCLocationMessage class]] ||[model.content isKindOfClass:[RCRichContentMessage class]] || [M_model.content isKindOfClass:[FBShareMessageContent class]])
     {
         [menuList addObject:[[UIMenuItem alloc] initWithTitle:@"收藏"
                                                        action:@selector(shoucangClick)]];
@@ -197,45 +199,48 @@
 -(void)zhuanfaClick
 {
     //转发
-    //  RCVoiceMessage RCTextMessage RCImageMessage RCFileMessage
+    FB_ShareEQDViewController  *Svc = [[FB_ShareEQDViewController alloc]init];
     
-    ExActivity *activity = [[ExActivity alloc]init];
-    activity.messageContent = M_model.content;
     
     if ([M_model.content isKindOfClass:[RCTextMessage class]]) {
         RCTextMessage *message =(RCTextMessage*) M_model.content;
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[message.content] applicationActivities:@[activity]];
-        
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        Svc.content = message;
+        Svc.EQD_ShareType = EQD_ShareTypeText;
+        Svc.text = message.content;
     }
     else if([M_model.content isKindOfClass:[RCImageMessage class]])
     {
         RCImageMessage *message =(RCImageMessage*) M_model.content;
-        UIImage *image =[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:message.imageUrl]]];
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:@[activity]];
-        
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        Svc.EQD_ShareType = EQD_ShareTypeImage2;
+        Svc.image_local = message.originalImage;
+        Svc.content =message;
     }
     else if([M_model.content isKindOfClass:[RCFileMessage class]])
     {
         RCFileMessage *message =(RCFileMessage*) M_model.content;
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[[NSURL URLWithString:message.fileUrl]] applicationActivities:@[activity]];
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        Svc.content =message;
+        Svc.EQD_ShareType =EQD_ShareTypeFile;
+        Svc.url = message.fileUrl;
+        Svc.fileExt =message.type;
+        
     }
-        else if([M_model.content isKindOfClass:[RCVoiceMessage class]])
-        {
-            RCVoiceMessage *message =(RCVoiceMessage*) M_model.content;
-            FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[message.wavAudioData] applicationActivities:@[activity]];
-            [self  presentViewController:ACvc animated:NO completion:nil];
-        }
+    else if([M_model.content isKindOfClass:[RCVoiceMessage class]])
+    {
+        RCVoiceMessage *message =(RCVoiceMessage*) M_model.content;
+        Svc.content =message;
+        Svc.EQD_ShareType = EQD_ShareTypeVoice;
+    }
     else
     {
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[@"易企点暂时不支持此消息转发"] applicationActivities:@[activity]];
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"易企点暂不支持该消息类转发"];
     }
-    
-    
+    Svc.providesPresentationContextTransitionStyle = YES;
+    Svc.definesPresentationContext = YES;
+    Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:Svc animated:NO completion:nil];
 }
+
 -(void)jishibenClick
 {
     //转入备忘录
@@ -332,6 +337,7 @@
     Pvc.userGuid =userId;
     [self.navigationController pushViewController:Pvc animated:NO];
 }
+#pragma  mark - 点击cell的事件
 - (void)didTapMessageCell:(RCMessageModel *)model {
     [super didTapMessageCell:model];
     if([model.content isKindOfClass:[FBGeRenCardMessageContent class]])
@@ -340,7 +346,24 @@
         PPersonCardViewController  *Pvc =[[PPersonCardViewController alloc]init];
         Pvc.userGuid =contet.content[@"uid"];
         [self.navigationController pushViewController:Pvc animated:NO];
-    }else
+    }else if ([model.content isKindOfClass:[FBShareMessageContent class]])
+    {
+        FBShareMessageContent  *content = (FBShareMessageContent*)model.content;
+        NSDictionary *dic = content.content;
+        EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+        Dvc.articleId = dic[@"articleId"];
+        if([dic[@"source"] isEqualToString:@"易企创"])
+        {
+            Dvc.temp =1;
+        }else if ([dic[@"source"] isEqualToString:@"易企阅"])
+        {
+            Dvc.temp =0;
+        }
+        
+        [self.navigationController pushViewController:Dvc animated:NO];
+    }
+    
+    else
     {
         
     }

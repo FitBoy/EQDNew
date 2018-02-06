@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    TF_content = [[UITextField alloc]initWithFrame:CGRectMake(15, DEVICE_TABBAR_Height, DEVICE_WIDTH-30, 45)];
+    TF_content = [[UITextField alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height+5, DEVICE_WIDTH, 45)];
     [self.view addSubview:TF_content];
     TF_content.clearButtonMode = UITextFieldViewModeAlways;
     TF_content.borderStyle = UITextBorderStyleRoundedRect;

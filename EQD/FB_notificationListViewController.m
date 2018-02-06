@@ -36,6 +36,7 @@
             NSArray *tarr = dic[Y_ITEMS];
             for (int i=0; i<tarr.count; i++) {
                 PX_NotificationListModel *model = [PX_NotificationListModel mj_objectWithKeyValues:tarr[i]];
+                model.cellHeight =60;
                 [arr_model addObject:model];
             }
             [tableV reloadData];
@@ -56,6 +57,7 @@
                  page =dic[@"nextpage"];
             for (int i=0; i<tarr.count; i++) {
                 PX_NotificationListModel *model = [PX_NotificationListModel mj_objectWithKeyValues:tarr[i]];
+                model.cellHeight =60;
                 [arr_model addObject:model];
             }
             [tableV reloadData];

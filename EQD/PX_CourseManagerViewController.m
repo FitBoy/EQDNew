@@ -8,6 +8,8 @@
 
 #import "PX_CourseManagerViewController.h"
 #import "EQDR_labelTableViewCell.h"
+#import "PX_CourseAddViewController.h"
+#import "PXCourseDetailViewController.h"
 @interface PX_CourseManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -80,7 +82,17 @@
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
     [tableV.mj_header beginRefreshing];
+    
+    UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"add_eqd2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(tianjiaClick)];
+    [self.navigationItem setRightBarButtonItem:right];
 //    [self loadRequestData];
+}
+#pragma  mark - 添加课程
+-(void)tianjiaClick
+{
+    PX_CourseAddViewController  *Avc =[[PX_CourseAddViewController alloc]init];
+    [self.navigationController pushViewController:Avc animated:NO];
+    
 }
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,6 +126,9 @@
     }else
     {
         //查看详情
+        PXCourseDetailViewController  *Dvc = [[PXCourseDetailViewController alloc]init];
+        Dvc.courseId = model.Id;
+        [self.navigationController pushViewController:Dvc animated:NO];
     }
 }
 

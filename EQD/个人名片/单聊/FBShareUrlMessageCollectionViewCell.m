@@ -10,9 +10,38 @@
 #import <Masonry.h>
 #import <UIImageView+WebCache.h>
 @implementation FBShareUrlMessageCollectionViewCell
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+       
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+       
+    }
+    return self;
+}
 -(void)setDataModel:(RCMessageModel *)model
 {
     [super  setDataModel:model];
+    
+    self.bubbleBackgroundView.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer *longPress =
+    [[UILongPressGestureRecognizer alloc]
+     initWithTarget:self
+     action:@selector(longPressed:)];
+    [self.bubbleBackgroundView addGestureRecognizer:longPress];
+    
+    UITapGestureRecognizer *textMessageTap = [[UITapGestureRecognizer alloc]
+                                              initWithTarget:self
+                                              action:@selector(tapTextMessage:)];
+    textMessageTap.numberOfTapsRequired = 1;
+    textMessageTap.numberOfTouchesRequired = 1;
+    [self.bubbleBackgroundView addGestureRecognizer:textMessageTap];
     CGRect rect =self.messageContentView.frame;
     CGSize size =rect.size;
     FBShareMessageContent *content = (FBShareMessageContent*)model.content;
@@ -102,7 +131,7 @@
          }];
          [self.L_Source mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.size.mas_equalTo(CGSizeMake(100, 16));
-             make.left.mas_equalTo(self.bubbleBackgroundView.mas_left).mas_equalTo(25);
+             make.left.mas_equalTo(self.bubbleBackgroundView.mas_left).mas_equalTo(20);
              make.top.mas_equalTo(self.V_view.mas_bottom).mas_offset(1);
          }];
      }

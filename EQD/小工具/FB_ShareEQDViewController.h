@@ -29,7 +29,8 @@ typedef NS_ENUM(NSInteger,EQD_ShareType)
     EQD_ShareTypeFile,
     EQD_ShareTypeVideo,
     EQD_ShareTypeImage2,  //本地图片
-    EQD_ShareTypeGerenCard
+    EQD_ShareTypeGerenCard,
+    EQD_ShareTypeVoice
 };
 @interface FB_ShareEQDViewController : UIViewController
 
@@ -43,16 +44,19 @@ typedef NS_ENUM(NSInteger,EQD_ShareType)
 @property (nonatomic,copy) NSString* url;
 @property (nonatomic,copy) NSString* Stitle;
 @property (nonatomic,copy) NSString* articleId;
-@property (nonatomic,copy) NSString* source;
-@property (nonatomic,copy) NSString* sourceOwner;
+@property (nonatomic,copy) NSString* source; // 收藏中也可以用
+@property (nonatomic,copy) NSString* sourceOwner; //收藏中也可以用
 
-///0 易企阅  1 易企创
+///收藏的链接的type说明  10 易企阅  12 易企创  11 易企学  
 @property (nonatomic,assign) NSInteger type;
 /*
- 分享 音乐需要的字段 url text title
- 分享视频 url text title
- 分享文件 必须是本地的 
+ 分享 音乐需要的字段 url text Stitle
+ 分享视频 url text Stitle
+ 分享文件 必须是本地的  url, fileExt  Stitle
+ url是视频的网络地址
  */
+@property (nonatomic,copy) NSString* filePath;
+@property (nonatomic,copy) NSString* fileExt;
 
 /**分享一张图片的字段*/
 @property (nonatomic,strong)  UIImage *image_local;

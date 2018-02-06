@@ -82,7 +82,7 @@
                   @"signStartTime":self.model_qiandao.signStartTime,
                   @"courseStartTime":self.model_qiandao.courseStartTime,
                   @"courseEndTime":self.model_qiandao.courseEndTime,
-                  @"thplace":self.model_qiandao.theplace,
+                  @"theplace":self.model_qiandao.theplace,
                   @"theTheme":self.model_qiandao.theTheme,
                   @"comName":self.model_qiandao.comName,
                   @"trainees":self.model_qiandao.trainees,

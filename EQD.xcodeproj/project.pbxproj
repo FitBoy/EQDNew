@@ -303,6 +303,7 @@
 		181C35DC1F8F58F9005E753B /* ProjectExproence_AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C35DB1F8F58F9005E753B /* ProjectExproence_AddViewController.m */; };
 		181C35E01F8F7BF1005E753B /* projectExprienceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C35DF1F8F7BF1005E753B /* projectExprienceModel.m */; };
 		181E9A591FDB76E000F9B2ED /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181E9A581FDB76E000F9B2ED /* StoreKit.framework */; };
+		181F75D82029A28400AC8440 /* PXCourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75D72029A28400AC8440 /* PXCourseDetailViewController.m */; };
 		18201DC31EA7373100075C6E /* GNBLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DC21EA7373100075C6E /* GNBLCollectionViewCell.m */; };
 		18201DC71EA73B9E00075C6E /* GNmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DC61EA73B9E00075C6E /* GNmodel.m */; };
 		18201DCB1EA7413F00075C6E /* ThreeRenShiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DCA1EA7413F00075C6E /* ThreeRenShiViewController.m */; };
@@ -505,6 +506,7 @@
 		18944FF11FF8B0F60022191B /* EQDR_MyShoucangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18944FF01FF8B0F60022191B /* EQDR_MyShoucangViewController.m */; };
 		18944FF51FF8B1330022191B /* EQDR_LoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18944FF41FF8B1330022191B /* EQDR_LoveViewController.m */; };
 		18944FF91FF8CD190022191B /* EQDR_LeiBieArticle2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18944FF81FF8CD190022191B /* EQDR_LeiBieArticle2ViewController.m */; };
+		1897071520284F1E005DE165 /* FBComPanyStudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1897071420284F1E005DE165 /* FBComPanyStudyViewController.m */; };
 		189A936F1F99C9E80049A919 /* GLRecord_detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A936E1F99C9E80049A919 /* GLRecord_detailViewController.m */; };
 		189A93731F99CE6A0049A919 /* GLRecodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A93721F99CE6A0049A919 /* GLRecodeModel.m */; };
 		189A937F1F9B3B820049A919 /* DLAddToDesktopHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A93771F9B3B820049A919 /* DLAddToDesktopHandler.m */; };
@@ -585,6 +587,10 @@
 		18C0D82A2021524A00CA2F5F /* PXQianDaoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D8292021524A00CA2F5F /* PXQianDaoModel.m */; };
 		18C0D82E2021A59600CA2F5F /* QianDaoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D82D2021A59600CA2F5F /* QianDaoModel.m */; };
 		18C0D8312021C28E00CA2F5F /* PXKaoQingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D8302021C28E00CA2F5F /* PXKaoQingDetailViewController.m */; };
+		18C0D83420230D3300CA2F5F /* PXQianDaoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D83320230D3200CA2F5F /* PXQianDaoListTableViewCell.m */; };
+		18C0D8382023F37200CA2F5F /* PXKaoQinListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D8372023F37100CA2F5F /* PXKaoQinListModel.m */; };
+		18C0D83B20258B8600CA2F5F /* PX_CourseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D83A20258B8600CA2F5F /* PX_CourseAddViewController.m */; };
+		18C0D83E20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D83D20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m */; };
 		18CB8F0E1E9B1844000BABD2 /* FBOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB8F0D1E9B1844000BABD2 /* FBOptionViewController.m */; };
 		18CB8F111E9B1EE0000BABD2 /* OptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB8F101E9B1EE0000BABD2 /* OptionModel.m */; };
 		18CB8F151E9B2BD5000BABD2 /* FBAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB8F141E9B2BD5000BABD2 /* FBAddressViewController.m */; };
@@ -1231,6 +1237,8 @@
 		181C35DE1F8F7BF1005E753B /* projectExprienceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = projectExprienceModel.h; sourceTree = "<group>"; };
 		181C35DF1F8F7BF1005E753B /* projectExprienceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = projectExprienceModel.m; sourceTree = "<group>"; };
 		181E9A581FDB76E000F9B2ED /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		181F75D62029A28400AC8440 /* PXCourseDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXCourseDetailViewController.h; sourceTree = "<group>"; };
+		181F75D72029A28400AC8440 /* PXCourseDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXCourseDetailViewController.m; sourceTree = "<group>"; };
 		18201DC11EA7373100075C6E /* GNBLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNBLCollectionViewCell.h; sourceTree = "<group>"; };
 		18201DC21EA7373100075C6E /* GNBLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNBLCollectionViewCell.m; sourceTree = "<group>"; };
 		18201DC51EA73B9E00075C6E /* GNmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNmodel.h; sourceTree = "<group>"; };
@@ -1629,6 +1637,8 @@
 		18944FF41FF8B1330022191B /* EQDR_LoveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDR_LoveViewController.m; sourceTree = "<group>"; };
 		18944FF71FF8CD190022191B /* EQDR_LeiBieArticle2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDR_LeiBieArticle2ViewController.h; sourceTree = "<group>"; };
 		18944FF81FF8CD190022191B /* EQDR_LeiBieArticle2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDR_LeiBieArticle2ViewController.m; sourceTree = "<group>"; };
+		1897071320284F1E005DE165 /* FBComPanyStudyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBComPanyStudyViewController.h; sourceTree = "<group>"; };
+		1897071420284F1E005DE165 /* FBComPanyStudyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBComPanyStudyViewController.m; sourceTree = "<group>"; };
 		189A936D1F99C9E80049A919 /* GLRecord_detailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLRecord_detailViewController.h; sourceTree = "<group>"; };
 		189A936E1F99C9E80049A919 /* GLRecord_detailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLRecord_detailViewController.m; sourceTree = "<group>"; };
 		189A93711F99CE6A0049A919 /* GLRecodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLRecodeModel.h; sourceTree = "<group>"; };
@@ -1775,6 +1785,14 @@
 		18C0D82D2021A59600CA2F5F /* QianDaoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QianDaoModel.m; sourceTree = "<group>"; };
 		18C0D82F2021C28E00CA2F5F /* PXKaoQingDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXKaoQingDetailViewController.h; sourceTree = "<group>"; };
 		18C0D8302021C28E00CA2F5F /* PXKaoQingDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXKaoQingDetailViewController.m; sourceTree = "<group>"; };
+		18C0D83220230D3200CA2F5F /* PXQianDaoListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXQianDaoListTableViewCell.h; sourceTree = "<group>"; };
+		18C0D83320230D3200CA2F5F /* PXQianDaoListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXQianDaoListTableViewCell.m; sourceTree = "<group>"; };
+		18C0D8362023F37100CA2F5F /* PXKaoQinListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXKaoQinListModel.h; sourceTree = "<group>"; };
+		18C0D8372023F37100CA2F5F /* PXKaoQinListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXKaoQinListModel.m; sourceTree = "<group>"; };
+		18C0D83920258B8600CA2F5F /* PX_CourseAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PX_CourseAddViewController.h; sourceTree = "<group>"; };
+		18C0D83A20258B8600CA2F5F /* PX_CourseAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PX_CourseAddViewController.m; sourceTree = "<group>"; };
+		18C0D83C20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBLabel_YYAddTableViewCell.h; sourceTree = "<group>"; };
+		18C0D83D20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBLabel_YYAddTableViewCell.m; sourceTree = "<group>"; };
 		18CB8F0C1E9B1844000BABD2 /* FBOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOptionViewController.h; sourceTree = "<group>"; };
 		18CB8F0D1E9B1844000BABD2 /* FBOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBOptionViewController.m; sourceTree = "<group>"; };
 		18CB8F0F1E9B1EE0000BABD2 /* OptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionModel.h; sourceTree = "<group>"; };
@@ -5750,6 +5768,10 @@
 			children = (
 				18B6C0B42016CDAD005876B2 /* PX_CourseManagerViewController.h */,
 				18B6C0B52016CDAD005876B2 /* PX_CourseManagerViewController.m */,
+				181F75D62029A28400AC8440 /* PXCourseDetailViewController.h */,
+				181F75D72029A28400AC8440 /* PXCourseDetailViewController.m */,
+				18C0D83920258B8600CA2F5F /* PX_CourseAddViewController.h */,
+				18C0D83A20258B8600CA2F5F /* PX_CourseAddViewController.m */,
 			);
 			name = "课程管理";
 			sourceTree = "<group>";
@@ -5827,6 +5849,24 @@
 				18C0D8292021524A00CA2F5F /* PXQianDaoModel.m */,
 			);
 			name = "签到";
+			sourceTree = "<group>";
+		};
+		18C0D83520230D3800CA2F5F /* 签到信息 */ = {
+			isa = PBXGroup;
+			children = (
+				18C0D83220230D3200CA2F5F /* PXQianDaoListTableViewCell.h */,
+				18C0D83320230D3200CA2F5F /* PXQianDaoListTableViewCell.m */,
+			);
+			name = "签到信息";
+			sourceTree = "<group>";
+		};
+		18C0D83F2025AFBE00CA2F5F /* 统一添加的cell */ = {
+			isa = PBXGroup;
+			children = (
+				18C0D83C20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.h */,
+				18C0D83D20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m */,
+			);
+			name = "统一添加的cell";
 			sourceTree = "<group>";
 		};
 		18CB8F121E9B1EE4000BABD2 /* 选择器的model */ = {
@@ -6272,6 +6312,8 @@
 			children = (
 				1866043A1E7FD2EB00C69557 /* FBFourViewController.h */,
 				1866043B1E7FD2EB00C69557 /* FBFourViewController.m */,
+				1897071320284F1E005DE165 /* FBComPanyStudyViewController.h */,
+				1897071420284F1E005DE165 /* FBComPanyStudyViewController.m */,
 				1844D7ED1F6A7E3F002B4A66 /* 通知公告 */,
 				180E3FCF1F3D813000E29EB8 /* 企业空间 */,
 				186604401E7FD50500C69557 /* 工作圈 */,
@@ -6362,6 +6404,8 @@
 				1818CDB52019D06200371D22 /* 讲师模型 */,
 				18C0D827201EFABD00CA2F5F /* 易企创评论model */,
 				18C0D82B2021525000CA2F5F /* 签到 */,
+				18C0D8362023F37100CA2F5F /* PXKaoQinListModel.h */,
+				18C0D8372023F37100CA2F5F /* PXKaoQinListModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -6402,6 +6446,8 @@
 				18B6C080200F2999005876B2 /* 有操作的labelBtn */,
 				18B6C0AC201315B8005876B2 /* 收藏的连接 */,
 				1818CDB9201AC0F600371D22 /* 易企学讲师列表 */,
+				18C0D83520230D3800CA2F5F /* 签到信息 */,
+				18C0D83F2025AFBE00CA2F5F /* 统一添加的cell */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -7524,6 +7570,7 @@
 				18CB8F731EA453D3000BABD2 /* GSRegisterViewController.m in Sources */,
 				180CFF2E1F627EFC0043C784 /* HeTong_ListModel.m in Sources */,
 				18FBDA771EAD8D0C000AB668 /* TZuZhiViewController.m in Sources */,
+				18C0D83B20258B8600CA2F5F /* PX_CourseAddViewController.m in Sources */,
 				181A9B9C1FD91D9800669989 /* Car_ChooseByTimeViewController.m in Sources */,
 				180445821ED83385003FFD88 /* FBWifiManager.m in Sources */,
 				1824CF491F4D20BE0003237A /* Two_BiaoQian_ViewController.m in Sources */,
@@ -7582,6 +7629,7 @@
 				180A272B1FB1A54900BC9B6E /* Bumen_MutableViewController.m in Sources */,
 				1833E1102003089F00F37B02 /* ShenPIList2Model.m in Sources */,
 				183BBE9B1F29F054007D4675 /* SJieBangPhoneViewController.m in Sources */,
+				18C0D83420230D3300CA2F5F /* PXQianDaoListTableViewCell.m in Sources */,
 				18CB8F771EA45A49000BABD2 /* FBHangYeViewController.m in Sources */,
 				18D9D8C31FE1100B00D29185 /* EQDR_MyWenJiViewController.m in Sources */,
 				180EF738200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m in Sources */,
@@ -7609,6 +7657,7 @@
 				18FC4E1B1F72744A00028B69 /* LateLeaver_AddViewController.m in Sources */,
 				18AE79E31FA706900078B714 /* MakeVoiceNoticeController.m in Sources */,
 				18CB8F181E9B2FE1000BABD2 /* FBAddressModel.m in Sources */,
+				18C0D83E20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m in Sources */,
 				1802ECCD1EC0724400B9270C /* RealTimeLocationStatusView.m in Sources */,
 				18B6C078200CAB5E005876B2 /* PXKaoQinListViewController.m in Sources */,
 				18074B231FDBD8C3006B2682 /* ZSSTextView.m in Sources */,
@@ -7666,6 +7715,7 @@
 				18F1BDEE1EC40C6C0012AAB0 /* JobModel.m in Sources */,
 				181B26AE1FEA607800A38BFC /* EQDR_LiuYanViewController.m in Sources */,
 				1804452B1ED44999003FFD88 /* DGuanLiViewController.m in Sources */,
+				1897071520284F1E005DE165 /* FBComPanyStudyViewController.m in Sources */,
 				18F1BDE21EC2EF9A0012AAB0 /* YQDetailViewController.m in Sources */,
 				183BBEEB1F31788C007D4675 /* LoadWordViewController.m in Sources */,
 				189A937F1F9B3B820049A919 /* DLAddToDesktopHandler.m in Sources */,
@@ -7797,6 +7847,7 @@
 				18944FF91FF8CD190022191B /* EQDR_LeiBieArticle2ViewController.m in Sources */,
 				180CFEE11F58EC4B0043C784 /* ChuChai_ListModel.m in Sources */,
 				181B26E11FF385E700A38BFC /* EQDR_ArticleSearchViewController.m in Sources */,
+				181F75D82029A28400AC8440 /* PXCourseDetailViewController.m in Sources */,
 				183BBE761F274E71007D4675 /* RuZhiSPModel.m in Sources */,
 				189B4A451F177BCC00073360 /* FBone_SwitchTableViewCell.m in Sources */,
 				183BBE7A1F27504E007D4675 /* SPDetailViewController.m in Sources */,
@@ -7851,6 +7902,7 @@
 				180AB0ED1EE00D3D00DFA1CA /* PZZhuanZhengTwoViewController.m in Sources */,
 				18CEC4161E7CE3F6008DCB46 /* FBBaseViewController.m in Sources */,
 				1866045F1E80BD3700C69557 /* MGongSiViewController.m in Sources */,
+				18C0D8382023F37200CA2F5F /* PXKaoQinListModel.m in Sources */,
 				180CFF441F668C120043C784 /* SheZhi_QJ_CCViewController.m in Sources */,
 				18FBDA921EAF344E000AB668 /* TrueBrthdayViewController.m in Sources */,
 				18201DEA1EA7738100075C6E /* RSZuZhiViewController.m in Sources */,

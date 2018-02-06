@@ -68,12 +68,14 @@
         [self setHTML:self.editor_htmlText];
     }else
     {
+        if(key)
+        {
         NSDictionary *dic = [USERDEFAULTS objectForKey:key];
         TF_title.text = dic[@"title"];
         NSString *thtml =dic[@"html"];
         NSString *thtmlStr = [thtml stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-        
         [self setHTML:thtmlStr];
+        }
     }
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(quedingClick)];

@@ -23,6 +23,8 @@
 #import "Memo_AddViewController.h"
 #import "RWFaSongViewController.h"
 #import "FBShareUrlMessageCollectionViewCell.h"
+#import "EQDR_Article_DetailViewController.h"
+#import "FB_ShareEQDViewController.h"
 @interface FBConversationViewControllerViewController ()<UIActionSheetDelegate, RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate, UIAlertViewDelegate,
 RCMessageCellDelegate>
@@ -30,6 +32,8 @@ RCMessageCellDelegate>
     RCMessageModel  *M_model;
     FBGeRenCardMessageContent *content ;
     UserModel *user;
+    RCUserInfo *userinfo1;
+    RCUserInfo *userinfo2;
 }
 @property(nonatomic, weak) id<RCRealTimeLocationProxy> realTimeLocation;
 @property(nonatomic, strong)
@@ -107,6 +111,7 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     
   
 }
+
 -(void)searchClick
 {
     FBMessage_SearchViewController  *Svc =[[FBMessage_SearchViewController alloc]init];
@@ -236,7 +241,7 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     return message;
 }
 
-#pragma mark override
+#pragma mark override cell的点击事件
 - (void)didTapMessageCell:(RCMessageModel *)model {
     [super didTapMessageCell:model];
     if ([model.content isKindOfClass:[RCRealTimeLocationStartMessage class]]) {
@@ -247,7 +252,23 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
         PPersonCardViewController  *Pvc =[[PPersonCardViewController alloc]init];
         Pvc.userGuid =contet.content[@"uid"];
         [self.navigationController pushViewController:Pvc animated:NO];
-    }else
+    }else if ([model.content isKindOfClass:[FBShareMessageContent class]])
+    {
+        FBShareMessageContent  *content = (FBShareMessageContent*)model.content;
+        NSDictionary *dic = content.content;
+        EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+        Dvc.articleId = dic[@"articleId"];
+        if([dic[@"source"] isEqualToString:@"易企创"])
+        {
+            Dvc.temp =1;
+        }else if ([dic[@"source"] isEqualToString:@"易企阅"])
+        {
+            Dvc.temp =0;
+        }
+        
+        [self.navigationController pushViewController:Dvc animated:NO];
+    }
+    else
     {
         
     }
@@ -375,14 +396,14 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
 }
 
 
-//长按的列表显示
+ #pragma  mark - 长按的列表显示
 - (NSArray<UIMenuItem *> *)getLongTouchMessageCellMenuList:(RCMessageModel *)model
 {
     
     NSMutableArray<UIMenuItem *> *menuList =
     [[super getLongTouchMessageCellMenuList:model] mutableCopy];
     M_model = model;
-    if([M_model.content isKindOfClass:[RCTextMessage class]]||[M_model.content isKindOfClass:[RCImageMessage class]]||[M_model.content isKindOfClass:[RCFileMessage class]]||[M_model.content isKindOfClass:[FBGeRenCardMessageContent class]] ||[M_model.content isKindOfClass:[RCLocationMessage class]] )
+    if([M_model.content isKindOfClass:[RCTextMessage class]]||[M_model.content isKindOfClass:[RCImageMessage class]]||[M_model.content isKindOfClass:[RCFileMessage class]]||[M_model.content isKindOfClass:[FBGeRenCardMessageContent class]] ||[M_model.content isKindOfClass:[RCLocationMessage class]] || [M_model.content isKindOfClass:[FBShareMessageContent class]])
     {
     [menuList addObject:[[UIMenuItem alloc] initWithTitle:@"转发"
                                                    action:@selector(zhuanfaClick)]];
@@ -395,7 +416,7 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
                                                        action:@selector(renwuClick)]];
     }
   
-    if([model.content isKindOfClass:[RCTextMessage class]]||[model.content isKindOfClass:[RCImageMessage class]] || [model.content isKindOfClass:[RCLocationMessage class]] ||[model.content isKindOfClass:[RCRichContentMessage class]])
+    if([model.content isKindOfClass:[RCTextMessage class]]||[model.content isKindOfClass:[RCImageMessage class]] || [model.content isKindOfClass:[RCLocationMessage class]] ||[model.content isKindOfClass:[RCRichContentMessage class]] || [model.content isKindOfClass:[FBShareMessageContent class]])
     {
     [menuList addObject:[[UIMenuItem alloc] initWithTitle:@"收藏"
                                                    action:@selector(shoucangClick)]];
@@ -409,49 +430,50 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     //转发
    //  RCVoiceMessage RCTextMessage RCImageMessage RCFileMessage
     
-    ExActivity *activity = [[ExActivity alloc]init];
+ /*   ExActivity *activity = [[ExActivity alloc]init];
     activity.messageContent = M_model.content;
+  //        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[message.content] applicationActivities:@[activity]];
+  */
+    FB_ShareEQDViewController  *Svc = [[FB_ShareEQDViewController alloc]init];
+    
     
     if ([M_model.content isKindOfClass:[RCTextMessage class]]) {
         RCTextMessage *message =(RCTextMessage*) M_model.content;
-        
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[message.content] applicationActivities:@[activity]];
-        
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        Svc.content = message;
+        Svc.EQD_ShareType = EQD_ShareTypeText;
+        Svc.text = message.content;
     }
     else if([M_model.content isKindOfClass:[RCImageMessage class]])
     {
         RCImageMessage *message =(RCImageMessage*) M_model.content;
-        
-        UIImage *image =[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:message.imageUrl]]];
-        if (image==nil) {
-            image=message.thumbnailImage;
-        }
-        
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:@[activity]];
-       
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        Svc.EQD_ShareType = EQD_ShareTypeImage2;
+        Svc.image_local = message.originalImage;
+        Svc.content =message;
     }
     else if([M_model.content isKindOfClass:[RCFileMessage class]])
     {
         RCFileMessage *message =(RCFileMessage*) M_model.content;
+        Svc.content =message;
+        Svc.EQD_ShareType =EQD_ShareTypeFile;
+        Svc.url = message.fileUrl;
+        Svc.fileExt =message.type;
 
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[message.fileUrl] applicationActivities:@[activity]];
-        [self  presentViewController:ACvc animated:NO completion:nil];
     }
     else if([M_model.content isKindOfClass:[RCVoiceMessage class]])
     {
         RCVoiceMessage *message =(RCVoiceMessage*) M_model.content;
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[message.wavAudioData] applicationActivities:@[activity]];
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        Svc.content =message;
+        Svc.EQD_ShareType = EQD_ShareTypeVoice;
     }
     else
     {
-        FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[@"易企点暂时不支持此消息转发"] applicationActivities:@[activity]];
-        [self  presentViewController:ACvc animated:NO completion:nil];
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"易企点暂不支持该消息类转发"];
     }
-    
-    
+    Svc.providesPresentationContextTransitionStyle = YES;
+    Svc.definesPresentationContext = YES;
+    Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:Svc animated:NO completion:nil];
 }
 -(void)jishibenClick
 {

@@ -35,6 +35,7 @@
             page =dic[@"nextpage"];
             for (int i=0; i<tarr.count; i++) {
                 PlanListModel  *model = [PlanListModel mj_objectWithKeyValues:tarr[i]];
+                
                 [arr_model addObject:model];
             }
             [tableV reloadData];

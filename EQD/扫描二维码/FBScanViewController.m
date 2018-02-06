@@ -207,13 +207,11 @@
         NSString* UUID=[MyUUIDManager getUUID];
         NSString *address =[USERDEFAULTS objectForKey:Y_AMAP_address];
         [WebRequest Training_Training_signInWithuserGuid:user.Guid userName:user.username siInfoId:model.data.Id depid:user.departId depName:user.department postid:user.postId postName:user.post signInPosition:address macAddress:macadress wifiName:wifiname phoneModel:phone_name uuid:UUID And:^(NSDictionary *dic) {
-             if ([dic[Y_STATUS] integerValue]==200) {
-                    NSString  *message  =[NSString stringWithFormat:@"当前课程:%@\n 讲师:%@\n 受训对象:%@\n 培训地点:%@\n 培训时间:%@\n",model.data.theTheme,model.data.teacherName,model.data.trainees,model.data.thplace,model.data.theTrainTime];
+             if ([dic[Y_STATUS] integerValue]==200 ||[dic[Y_STATUS] integerValue]==208) {
+                    NSString  *message  =[NSString stringWithFormat:@"当前课程:%@\n 讲师:%@\n 受训对象:%@\n 培训地点:%@\n 培训时间:%@\n",model.data.theTheme,model.data.teacherName,model.data.trainees,model.data.theplace,model.data.theTrainTime];
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"课程信息" message:message preferredStyle:UIAlertControllerStyleAlert];
                     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [self dismissViewControllerAnimated:NO completion:^{
                             [self.navigationController popViewControllerAnimated:NO];
-                        }];
                     }]];
                     [self presentViewController:alert animated:NO completion:^{
                     }];
@@ -221,7 +219,7 @@
                 }else
                 {
                     MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
-                    [alert showAlertWith:@"签到失败，请重试"];
+                    [alert showAlertWith:dic[Y_MSG]];
                 }
        
             

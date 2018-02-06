@@ -77,11 +77,11 @@
 }
 -(NSString*)conversationDigest
 {
-    return @"易企阅链接";
+    return @"易企点平台的链接";
 }
 -(NSArray <NSString*>*)getSearchableWords
 {
-    return @[@"易企阅链接"];
+    return @[@"易企点平台的链接"];
 }
 + (RCMessagePersistent)persistentFlag
 {

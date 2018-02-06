@@ -234,10 +234,11 @@
                     //易企创
                     Svc.url =[EQD_HtmlTool getEQDM_ArticleDetailWithId:model_MDetail.Id];
                     Svc.Stitle =model_MDetail.title;
-                    Svc.text =model_MDetail.ArticleContent;
-                    Svc.imageURL = model_MDetail.picUrl;
+                    Svc.text =model_MDetail.splendidContent;
+                    Svc.imageURL = [NSString stringWithFormat:@"%@%@",HTTP_PATH,model_MDetail.picUrl];
                     Svc.articleId = self.articleId;
-                    Svc.type=1;
+                    Svc.source = @"易企创";
+                    Svc.sourceOwner=model_MDetail.userGuid;
                 }else
                 {
                 Svc.url =[EQD_HtmlTool getEQDR_ArticleDetailWithId:model_detail.Id];
@@ -245,7 +246,8 @@
                 Svc.text =model_detail.textContent;
                 Svc.imageURL = model_detail.homeImage;
                     Svc.articleId = self.articleId;
-                    Svc.type=0;
+                    Svc.source = @"易企阅";
+                    Svc.sourceOwner = model_detail.userGuid;
                 }
                 Svc.EQD_ShareType = EQD_ShareTypeLink;
                 [self presentViewController:Svc animated:NO completion:nil];

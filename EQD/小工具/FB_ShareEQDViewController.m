@@ -247,7 +247,7 @@
                          @"name":@"qq空间"
                          }
                      ];
-    }else if (self.EQD_ShareType ==EQD_ShareTypeGerenCard)
+    }else if (self.EQD_ShareType ==EQD_ShareTypeGerenCard || self.EQD_ShareType ==EQD_ShareTypeVoice)
     {
         arr_json = @[
                      @{
@@ -368,8 +368,12 @@
         }
     }
     if (temp==0) {
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
-        [self  presentViewController:nav animated:NO completion:nil];
+        
+        
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
+                [self  presentViewController:nav animated:NO completion:nil];
+      
+       
     }else
     {
         MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
@@ -424,12 +428,66 @@
 }
 #pragma  mark - 我的收藏
 -(void)sendMyShouCang{
-   
+
+    UserModel *user = [WebRequest GetUserInfo];
+    if (self.EQD_ShareType ==EQD_ShareTypeText) {
+        [WebRequest Collection_Add_collectionWithowner:user.Guid title:@"我的收藏" ccontent:self.text tel:user.uname sourceOwner:self.sourceOwner source:self.source And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                MBFadeAlertView  *alert =[[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"收藏成功"];
+            }else
+            {
+                MBFadeAlertView  *alert =[[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"收藏失败,请重试"];
+            }
+        }];
+        
+    }else if (self.EQD_ShareType ==EQD_ShareTypeImage)
+    {
+        [WebRequest Collection_Add_collectionWithowner:user.Guid url:self.imageURL source:self.source sourceOwner:self.sourceOwner And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                MBFadeAlertView  *alert =[[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"收藏成功"];
+            }else
+            {
+                MBFadeAlertView  *alert =[[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"收藏失败,请重试"];
+            }
+        }];
+    }else if (self.EQD_ShareType ==EQD_ShareTypeImage2)
+    {
+        [WebRequest Collection_Add_collectionWithowner:user.Guid type:@"3" title:@"我的收藏" ccontent:@" " imgArr:@[self.image_local] tel:user.uname And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                MBFadeAlertView  *alert =[[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"收藏成功"];
+            }else
+            {
+                MBFadeAlertView  *alert =[[MBFadeAlertView alloc]init];
+                [alert showAlertWith:@"收藏失败,请重试"];
+            }
+        }];
+        
+    }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
+    {
+        [WebRequest Collection_Add_collectionowner:user.Guid type:[NSString stringWithFormat:@"%ld",self.type] title:self.Stitle url:self.url source:self.source sourceOwner:self.sourceOwner articleId:self.articleId And:^(NSDictionary *dic) {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [alert showAlertWith:@"收藏成功"];
+            }else
+            {
+                [alert showAlertWith:@"收藏失败，请重试"];
+            }
+        }];
+        
+    }else
+    {
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+         [alert showAlertWith:@"暂不支持此类型"];
+    }
     
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    [self dismissViewControllerAnimated:NO completion:nil];
     FB_ShareModel *model =arr_model[indexPath.row];
     switch ([model.biaoji integerValue]) {
         case 10:
@@ -552,6 +610,8 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
+        [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
         
     }];
 }
@@ -581,8 +641,9 @@
     
     //message.images = @[imageData,imageData];
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
-        
+        [hud hideAnimated:NO];
         NSLog(@"分享回调");
+        [self dismissViewControllerAnimated:NO completion:nil];
         
     }];
 }
@@ -601,6 +662,7 @@
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
         
     }];
 }
@@ -616,7 +678,7 @@
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
-        
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 
@@ -631,6 +693,7 @@
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 
@@ -652,6 +715,7 @@
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 
@@ -666,22 +730,31 @@
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 
 - (void)shareFileWithPlatform:(JSHAREPlatform)platform {
     JSHAREMessage *message = [JSHAREMessage message];
     message.mediaType = JSHAREFile;
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"jiguang" ofType:@"mp4"];
-    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+    NSData *fileData=nil;
+    if (self.filePath) {
+      
+       fileData = [NSData dataWithContentsOfFile:self.filePath];
+    }else
+    {
+        fileData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
+    }
+   
     message.fileData = fileData;
-    message.fileExt = @"mp4";
+    message.fileExt = self.fileExt;
     message.platform = platform;
-    message.title = @"jiguang.mp4";
+    message.title = [NSString stringWithFormat:@"ios_file%@",self.fileExt];
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 
@@ -700,6 +773,7 @@
         
         NSLog(@"分享回调");
         [hud hideAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 

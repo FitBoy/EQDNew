@@ -11,6 +11,7 @@
 #import "FBCreateQunZuTableViewCell.h"
 #import <UIImageView+WebCache.h>
 #import "FBGeRenCardMessageContent.h"
+#import "FBShareMessageContent.h"
 @interface ShareQunViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
     UITableView *tableV;
@@ -106,7 +107,7 @@
     hud.label.text = @"发送有延迟，若失败请重发";
     right.enabled = NO;
     for (qunListModel *model in arr_qun_small) {
-        if([self.messageContent isKindOfClass:[RCTextMessage class]]|| [self.messageContent isKindOfClass:[RCVoiceMessage class]]||[self.messageContent isKindOfClass:[RCRichContentMessage class]]|| [self.messageContent isKindOfClass:[RCLocationMessage class]] || [self.messageContent isKindOfClass:[FBGeRenCardMessageContent class]])
+        if([self.messageContent isKindOfClass:[RCTextMessage class]]|| [self.messageContent isKindOfClass:[RCVoiceMessage class]]||[self.messageContent isKindOfClass:[RCRichContentMessage class]]|| [self.messageContent isKindOfClass:[RCLocationMessage class]] || [self.messageContent isKindOfClass:[FBGeRenCardMessageContent class]]|| [self.messageContent isKindOfClass:[FBShareMessageContent class]])
         {
             [[RCIM sharedRCIM ]sendMessage:ConversationType_GROUP targetId:model.groupid content:self.messageContent pushContent:nil pushData:nil success:^(long messageId) {
                

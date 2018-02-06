@@ -28,6 +28,7 @@
 #import "TKaoQinViewController.h"
 #import "SDAdImageView.h"
 #import "JSHAREService.h"
+#import "FBShareMessageContent.h"
 @interface AppDelegate ()<RCIMConnectionStatusDelegate,
 RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
 {
@@ -105,7 +106,9 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UIViewController alloc]init];
     [self.window makeKeyAndVisible];
-
+//    if (@available(iOS 11.0, *)) {
+//       [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    }
    
     [self addnotification];
 //    [FBSocketTool sharedInstance].socketHost =@"47.94.173.253";
@@ -215,7 +218,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     
     //注册自定义的消息
     [[RCIM sharedRCIM] registerMessageType:[FBGeRenCardMessageContent class]];
-    
+    [[RCIM sharedRCIM] registerMessageType:[FBShareMessageContent class]];
     //开启发送已读回执
     [RCIM sharedRCIM].enabledReadReceiptConversationTypeList = @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION),@(ConversationType_GROUP)];
     
