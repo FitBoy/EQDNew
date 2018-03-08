@@ -174,7 +174,7 @@
             }
         }];
         
-        UIAlertController *alert =[[UIAlertController alloc]init];
+      /*  UIAlertController *alert =[[UIAlertController alloc]init];
         [alert addAction:[UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             
@@ -200,7 +200,7 @@
             
         }]];
         
-//        [self presentViewController:alert animated:NO completion:nil];
+       [self presentViewController:alert animated:NO completion:nil];*/
         
         
     

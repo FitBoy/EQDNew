@@ -17,4 +17,8 @@
 {
  return [NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
 }
++(NSString*)getEQD_TrainJiLv
+{
+    return @"https://www.eqidd.com/html/peixun.html";
+}
 @end

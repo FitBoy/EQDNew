@@ -18,6 +18,7 @@
 #import "FB_TimeSectionViewController.h"
 #import "Bumen_ChooseViewController.h"
 #import "FBWebUrlViewController.h"
+#import "EQD_HtmlTool.h"
 @interface FB_notificationAddViewController ()<UITableViewDelegate,UITableViewDataSource,PX_PlanViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,FBOneChoose_TongShiViewControllerDelegate,EQDS_SearchViewControllerDelegate,FB_TimeSectionViewControllerdelegate,Bumen_ChooseViewControllerDelegate>
 {
     UITableView *tableV;
@@ -333,7 +334,7 @@
     {
        //培训的纪律要求
         FBWebUrlViewController   *Wvc =[[FBWebUrlViewController alloc]init];
-        Wvc.url =@"https://www.eqidd.com/html/peixun.html";
+        Wvc.url =[EQD_HtmlTool  getEQD_TrainJiLv];
         Wvc.contentTitle = @"纪律要求";
         [self.navigationController pushViewController:Wvc animated:NO];
     }

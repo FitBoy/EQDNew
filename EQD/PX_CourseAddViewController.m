@@ -123,7 +123,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"添加企业课程";
     user = [WebRequest GetUserInfo];
-    arr_names=@[@[@"课程主题",@"课程类别",@"课程时长/h",@"适合人群",@"课程大纲"],@[@"讲师",@"讲师介绍",@"受训对象",@"费用预算/元"]];
+    arr_names=@[@[@"课程主题",@"课程类别",@"课程时长/天",@"适合人群",@"课程大纲"],@[@"讲师",@"讲师介绍",@"受训对象",@"费用预算/元"]];
     arr_contents1= [NSMutableArray arrayWithArray:@[@"请输入",@"请选择",@"请输入",@"请输入",@"请输入"]];
     arr_height1 = [NSMutableArray arrayWithArray:@[@"60",@"60",@"60",@"60",@"60"]];
     arr_contents2=[NSMutableArray arrayWithArray:@[@"请选择",@"请输入",@"请选择",@"请输入"]];
@@ -189,7 +189,7 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [MBProgressHUD hideHUDForView:self.view  animated:YES];
         });
-        [WebRequest Courses_Add_CourseWithuserGuid:user.Guid companyId:user.companyId courseType:courseType courseTheme:arr_contents1[0] courseTimes:arr_contents1[2] courseOutlint:arr_contents1[4] sourceCourse:@"2" objecter:arr_contents1[3] Sourcelecturer: Sourcelecturer Lecture:Guid_teacher TrainingId:@"0" LectureIntroduce:arr_contents2[1] MatchType:@"1" MatchIds:MatchIds Costbudget:arr_contents2[3] LectureRealName:arr_contents2[0] And:^(NSDictionary *dic) {
+        [WebRequest Courses_Add_CourseWithuserGuid:user.Guid companyId:user.companyId courseType:courseType courseTheme:arr_contents1[0] courseTimes:arr_contents1[2] courseOutlint:html_editor sourceCourse:@"2" objecter:arr_contents1[3] Sourcelecturer: Sourcelecturer Lecture:Guid_teacher TrainingId:@"0" LectureIntroduce:arr_contents2[1] MatchType:@"1" MatchIds:MatchIds Costbudget:arr_contents2[3] LectureRealName:arr_contents2[0] And:^(NSDictionary *dic) {
             hud.label.text = dic[Y_MSG];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [hud hideAnimated:NO];

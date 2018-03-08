@@ -264,6 +264,8 @@
 		1818CDB42019D05D00371D22 /* EQDS_teacherInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818CDB32019D05D00371D22 /* EQDS_teacherInfoModel.m */; };
 		1818CDB8201ABDAE00371D22 /* FBImg_YYlabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818CDB7201ABDAE00371D22 /* FBImg_YYlabelTableViewCell.m */; };
 		1818CDBC201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818CDBB201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.m */; };
+		181A498D204FC67400C436EE /* EQDS_videoChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A498C204FC67400C436EE /* EQDS_videoChooseViewController.m */; };
+		181A4990204FE88B00C436EE /* EQDS_CourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A498F204FE88B00C436EE /* EQDS_CourseDetailViewController.m */; };
 		181A9B7E1FD7BC6B00669989 /* Accident_ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A9B7D1FD7BC6A00669989 /* Accident_ListViewController.m */; };
 		181A9B821FD7BF2F00669989 /* Accident_AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A9B811FD7BF2F00669989 /* Accident_AddViewController.m */; };
 		181A9B861FD7DF6B00669989 /* AccidentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A9B851FD7DF6B00669989 /* AccidentModel.m */; };
@@ -304,6 +306,14 @@
 		181C35E01F8F7BF1005E753B /* projectExprienceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C35DF1F8F7BF1005E753B /* projectExprienceModel.m */; };
 		181E9A591FDB76E000F9B2ED /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181E9A581FDB76E000F9B2ED /* StoreKit.framework */; };
 		181F75D82029A28400AC8440 /* PXCourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75D72029A28400AC8440 /* PXCourseDetailViewController.m */; };
+		181F75DB202AFE8900AC8440 /* PXChooseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75D9202AFE8800AC8440 /* PXChooseListViewController.m */; };
+		181F75DE202BE61D00AC8440 /* PXNeedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75DD202BE61D00AC8440 /* PXNeedModel.m */; };
+		181F75E2202BF7FD00AC8440 /* PXNeedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75E1202BF7FD00AC8440 /* PXNeedDetailViewController.m */; };
+		181F75E8202BFFE200AC8440 /* FBHeadScrollTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75E7202BFFE200AC8440 /* FBHeadScrollTitleView.m */; };
+		181F75EC202C144F00AC8440 /* EQDS_appViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75EB202C144F00AC8440 /* EQDS_appViewController.m */; };
+		181F75F1202C49FF00AC8440 /* EQD_SearchAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75F0202C49FF00AC8440 /* EQD_SearchAllViewController.m */; };
+		181F75F5202D36C400AC8440 /* TeacherInfo_EQDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75F4202D36C400AC8440 /* TeacherInfo_EQDS.m */; };
+		181F75F8202D3D3000AC8440 /* EQDS_myViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75F7202D3D3000AC8440 /* EQDS_myViewController.m */; };
 		18201DC31EA7373100075C6E /* GNBLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DC21EA7373100075C6E /* GNBLCollectionViewCell.m */; };
 		18201DC71EA73B9E00075C6E /* GNmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DC61EA73B9E00075C6E /* GNmodel.m */; };
 		18201DCB1EA7413F00075C6E /* ThreeRenShiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DCA1EA7413F00075C6E /* ThreeRenShiViewController.m */; };
@@ -357,7 +367,6 @@
 		1833E1182003407F00F37B02 /* FBShareUrlMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E1172003407F00F37B02 /* FBShareUrlMessageCollectionViewCell.m */; };
 		1833E11C200451EE00F37B02 /* PXNeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E11B200451EE00F37B02 /* PXNeedListViewController.m */; };
 		1833E120200452FB00F37B02 /* Need_AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E11F200452FB00F37B02 /* Need_AddViewController.m */; };
-		1833E12320048F5000F37B02 /* PXChooseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E12220048F5000F37B02 /* PXChooseListViewController.m */; };
 		1833E1262005C46700F37B02 /* PX_PlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E1252005C46700F37B02 /* PX_PlanViewController.m */; };
 		1833E12A2005C63C00F37B02 /* PX_Plan_AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E1292005C63B00F37B02 /* PX_Plan_AddViewController.m */; };
 		1833E1312006F36F00F37B02 /* FB_TimeSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833E1302006F36F00F37B02 /* FB_TimeSectionViewController.m */; };
@@ -453,6 +462,50 @@
 		1868948E1FA86485003CBB50 /* ShouCangGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868948D1FA86485003CBB50 /* ShouCangGroupViewController.m */; };
 		186894921FA876EE003CBB50 /* ShouCang_GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186894911FA876EE003CBB50 /* ShouCang_GroupModel.m */; };
 		186CA6931F2354D30069A5EB /* FBAddressTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186CA6921F2354D30069A5EB /* FBAddressTwoViewController.m */; };
+		186FCE612042535500203E6F /* EQDS_AddArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE602042535500203E6F /* EQDS_AddArticleViewController.m */; };
+		186FCE642042849F00203E6F /* EQDS_addVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE632042849F00203E6F /* EQDS_addVideoViewController.m */; };
+		186FCE672042B7E300203E6F /* EQDS_addCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE662042B7E300203E6F /* EQDS_addCourseViewController.m */; };
+		186FCE6A2043FB5400203E6F /* EQDS_CourseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE692043FB5400203E6F /* EQDS_CourseModel.m */; };
+		186FCE6D2043FC0D00203E6F /* eQDS_teacherAndSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE6C2043FC0D00203E6F /* eQDS_teacherAndSearchModel.m */; };
+		186FCE702044069A00203E6F /* EQDS_TeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE6F2044069900203E6F /* EQDS_TeacherTableViewCell.m */; };
+		186FCE732045296F00203E6F /* EQDS_VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE722045296E00203E6F /* EQDS_VideoModel.m */; };
+		186FCE7720452B3000203E6F /* EQDS_VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE7620452B3000203E6F /* EQDS_VideoTableViewCell.m */; };
+		186FCE7B20454BD500203E6F /* EQDS_articleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE7A20454BD500203E6F /* EQDS_articleModel.m */; };
+		186FCE7F2047AA3000203E6F /* EQDS_searchHighViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE7E2047AA3000203E6F /* EQDS_searchHighViewController.m */; };
+		186FCE832048DFB500203E6F /* EQDS_ArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE822048DFB500203E6F /* EQDS_ArticleDetailViewController.m */; };
+		186FCE982049176F00203E6F /* libYouTuMediaPlayerEngineYouku.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCE862049176F00203E6F /* libYouTuMediaPlayerEngineYouku.a */; };
+		186FCE992049176F00203E6F /* cloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 186FCE872049176F00203E6F /* cloud.bundle */; };
+		186FCE9A2049176F00203E6F /* yw_1222_0335_mwua.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 186FCE882049176F00203E6F /* yw_1222_0335_mwua.jpg */; };
+		186FCE9C204917DA00203E6F /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCE9B204917DA00203E6F /* ModelIO.framework */; };
+		186FCE9E2049180000203E6F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCE9D204917FF00203E6F /* VideoToolbox.framework */; };
+		186FCEA02049182400203E6F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCE9F2049182400203E6F /* MobileCoreServices.framework */; };
+		186FCEA22049184200203E6F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEA12049184200203E6F /* Social.framework */; };
+		186FCEA42049185E00203E6F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEA32049185E00203E6F /* MessageUI.framework */; };
+		186FCEA62049187100203E6F /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEA52049187100203E6F /* EventKit.framework */; };
+		186FCEA8204918A600203E6F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEA7204918A600203E6F /* MediaPlayer.framework */; };
+		186FCEAA204918CB00203E6F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEA9204918CB00203E6F /* OpenGLES.framework */; };
+		186FCEAC204918F800203E6F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEAB204918F700203E6F /* CoreMedia.framework */; };
+		186FCEAE2049190F00203E6F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEAD2049190F00203E6F /* AudioToolbox.framework */; };
+		186FCEB02049193F00203E6F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEAF2049193F00203E6F /* libsqlite3.tbd */; };
+		186FCEB22049195700203E6F /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEB12049195700203E6F /* libc++.1.tbd */; };
+		186FCEB42049197300203E6F /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEB32049197300203E6F /* libbz2.1.0.tbd */; };
+		186FCEB62049198500203E6F /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEB52049198500203E6F /* libxml2.2.tbd */; };
+		186FCEB82049199900203E6F /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEB72049199900203E6F /* libiconv.2.tbd */; };
+		186FCEBA204919AE00203E6F /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEB9204919AE00203E6F /* libresolv.9.tbd */; };
+		186FCEBC204919BA00203E6F /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEBB204919BA00203E6F /* libz.1.tbd */; };
+		186FCEC1204939B700203E6F /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCEBE204939B600203E6F /* PlayerViewController.m */; };
+		186FCEC2204939B700203E6F /* PorxyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCEC0204939B700203E6F /* PorxyNavigationController.m */; };
+		186FCED620493EA400203E6F /* SGSecurityBody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEC720493EA300203E6F /* SGSecurityBody.framework */; };
+		186FCED720493EA400203E6F /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCEC920493EA300203E6F /* UTMini.framework */; };
+		186FCED820493EA400203E6F /* SGAVMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCECB20493EA300203E6F /* SGAVMP.framework */; };
+		186FCED920493EA400203E6F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCECD20493EA300203E6F /* Reachability.m */; };
+		186FCEDA20493EA400203E6F /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 186FCECE20493EA300203E6F /* LICENCE.txt */; };
+		186FCEDB20493EA400203E6F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 186FCECF20493EA300203E6F /* README.md */; };
+		186FCEDC20493EA400203E6F /* SecurityGuardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCED220493EA300203E6F /* SecurityGuardSDK.framework */; };
+		186FCEDD20493EA400203E6F /* SGMain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FCED420493EA300203E6F /* SGMain.framework */; };
+		186FCEE1204A7C3A00203E6F /* PhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCEE0204A7C3A00203E6F /* PhotoModel.m */; };
+		186FCEE5204D413300203E6F /* EQDS_PhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCEE4204D413300203E6F /* EQDS_PhotoDetailViewController.m */; };
+		186FCEE8204E37F400203E6F /* EQD_photoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCEE7204E37F400203E6F /* EQD_photoCollectionViewCell.m */; };
 		188541AC1E8A0E5F0051AF74 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188541AB1E8A0E5F0051AF74 /* AdSupport.framework */; };
 		188541AE1E8A12670051AF74 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188541AD1E8A12670051AF74 /* UserNotifications.framework */; };
 		188541B11E8A13E50051AF74 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188541B01E8A13E50051AF74 /* MapKit.framework */; };
@@ -1160,6 +1213,10 @@
 		1818CDB7201ABDAE00371D22 /* FBImg_YYlabelTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBImg_YYlabelTableViewCell.m; sourceTree = "<group>"; };
 		1818CDBA201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXKaoQin_ErWeiMaViewController.h; sourceTree = "<group>"; };
 		1818CDBB201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXKaoQin_ErWeiMaViewController.m; sourceTree = "<group>"; };
+		181A498B204FC67400C436EE /* EQDS_videoChooseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_videoChooseViewController.h; sourceTree = "<group>"; };
+		181A498C204FC67400C436EE /* EQDS_videoChooseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_videoChooseViewController.m; sourceTree = "<group>"; };
+		181A498E204FE88B00C436EE /* EQDS_CourseDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_CourseDetailViewController.h; sourceTree = "<group>"; };
+		181A498F204FE88B00C436EE /* EQDS_CourseDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_CourseDetailViewController.m; sourceTree = "<group>"; };
 		181A9B7C1FD7BC6A00669989 /* Accident_ListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Accident_ListViewController.h; sourceTree = "<group>"; };
 		181A9B7D1FD7BC6A00669989 /* Accident_ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Accident_ListViewController.m; sourceTree = "<group>"; };
 		181A9B801FD7BF2F00669989 /* Accident_AddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Accident_AddViewController.h; sourceTree = "<group>"; };
@@ -1239,6 +1296,22 @@
 		181E9A581FDB76E000F9B2ED /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		181F75D62029A28400AC8440 /* PXCourseDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXCourseDetailViewController.h; sourceTree = "<group>"; };
 		181F75D72029A28400AC8440 /* PXCourseDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXCourseDetailViewController.m; sourceTree = "<group>"; };
+		181F75D9202AFE8800AC8440 /* PXChooseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXChooseListViewController.m; sourceTree = "<group>"; };
+		181F75DA202AFE8800AC8440 /* PXChooseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXChooseListViewController.h; sourceTree = "<group>"; };
+		181F75DC202BE61D00AC8440 /* PXNeedModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXNeedModel.h; sourceTree = "<group>"; };
+		181F75DD202BE61D00AC8440 /* PXNeedModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXNeedModel.m; sourceTree = "<group>"; };
+		181F75E0202BF7FD00AC8440 /* PXNeedDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXNeedDetailViewController.h; sourceTree = "<group>"; };
+		181F75E1202BF7FD00AC8440 /* PXNeedDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXNeedDetailViewController.m; sourceTree = "<group>"; };
+		181F75E6202BFFE200AC8440 /* FBHeadScrollTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBHeadScrollTitleView.h; sourceTree = "<group>"; };
+		181F75E7202BFFE200AC8440 /* FBHeadScrollTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBHeadScrollTitleView.m; sourceTree = "<group>"; };
+		181F75EA202C144F00AC8440 /* EQDS_appViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_appViewController.h; sourceTree = "<group>"; };
+		181F75EB202C144F00AC8440 /* EQDS_appViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_appViewController.m; sourceTree = "<group>"; };
+		181F75EF202C49FF00AC8440 /* EQD_SearchAllViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQD_SearchAllViewController.h; sourceTree = "<group>"; };
+		181F75F0202C49FF00AC8440 /* EQD_SearchAllViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQD_SearchAllViewController.m; sourceTree = "<group>"; };
+		181F75F3202D36C400AC8440 /* TeacherInfo_EQDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherInfo_EQDS.h; sourceTree = "<group>"; };
+		181F75F4202D36C400AC8440 /* TeacherInfo_EQDS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherInfo_EQDS.m; sourceTree = "<group>"; };
+		181F75F6202D3D3000AC8440 /* EQDS_myViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_myViewController.h; sourceTree = "<group>"; };
+		181F75F7202D3D3000AC8440 /* EQDS_myViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_myViewController.m; sourceTree = "<group>"; };
 		18201DC11EA7373100075C6E /* GNBLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNBLCollectionViewCell.h; sourceTree = "<group>"; };
 		18201DC21EA7373100075C6E /* GNBLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNBLCollectionViewCell.m; sourceTree = "<group>"; };
 		18201DC51EA73B9E00075C6E /* GNmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNmodel.h; sourceTree = "<group>"; };
@@ -1345,8 +1418,6 @@
 		1833E11B200451EE00F37B02 /* PXNeedListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXNeedListViewController.m; sourceTree = "<group>"; };
 		1833E11E200452FB00F37B02 /* Need_AddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Need_AddViewController.h; sourceTree = "<group>"; };
 		1833E11F200452FB00F37B02 /* Need_AddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Need_AddViewController.m; sourceTree = "<group>"; };
-		1833E12120048F5000F37B02 /* PXChooseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXChooseListViewController.h; sourceTree = "<group>"; };
-		1833E12220048F5000F37B02 /* PXChooseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXChooseListViewController.m; sourceTree = "<group>"; };
 		1833E1242005C46700F37B02 /* PX_PlanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PX_PlanViewController.h; sourceTree = "<group>"; };
 		1833E1252005C46700F37B02 /* PX_PlanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PX_PlanViewController.m; sourceTree = "<group>"; };
 		1833E1282005C63B00F37B02 /* PX_Plan_AddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PX_Plan_AddViewController.h; sourceTree = "<group>"; };
@@ -1537,6 +1608,81 @@
 		186894911FA876EE003CBB50 /* ShouCang_GroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShouCang_GroupModel.m; sourceTree = "<group>"; };
 		186CA6911F2354D30069A5EB /* FBAddressTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAddressTwoViewController.h; sourceTree = "<group>"; };
 		186CA6921F2354D30069A5EB /* FBAddressTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAddressTwoViewController.m; sourceTree = "<group>"; };
+		186FCE5F2042535500203E6F /* EQDS_AddArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_AddArticleViewController.h; sourceTree = "<group>"; };
+		186FCE602042535500203E6F /* EQDS_AddArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_AddArticleViewController.m; sourceTree = "<group>"; };
+		186FCE622042849F00203E6F /* EQDS_addVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_addVideoViewController.h; sourceTree = "<group>"; };
+		186FCE632042849F00203E6F /* EQDS_addVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_addVideoViewController.m; sourceTree = "<group>"; };
+		186FCE652042B7E300203E6F /* EQDS_addCourseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_addCourseViewController.h; sourceTree = "<group>"; };
+		186FCE662042B7E300203E6F /* EQDS_addCourseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_addCourseViewController.m; sourceTree = "<group>"; };
+		186FCE682043FB5400203E6F /* EQDS_CourseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_CourseModel.h; sourceTree = "<group>"; };
+		186FCE692043FB5400203E6F /* EQDS_CourseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_CourseModel.m; sourceTree = "<group>"; };
+		186FCE6B2043FC0D00203E6F /* eQDS_teacherAndSearchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eQDS_teacherAndSearchModel.h; sourceTree = "<group>"; };
+		186FCE6C2043FC0D00203E6F /* eQDS_teacherAndSearchModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eQDS_teacherAndSearchModel.m; sourceTree = "<group>"; };
+		186FCE6E2044069900203E6F /* EQDS_TeacherTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_TeacherTableViewCell.h; sourceTree = "<group>"; };
+		186FCE6F2044069900203E6F /* EQDS_TeacherTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_TeacherTableViewCell.m; sourceTree = "<group>"; };
+		186FCE712045296E00203E6F /* EQDS_VideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_VideoModel.h; sourceTree = "<group>"; };
+		186FCE722045296E00203E6F /* EQDS_VideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_VideoModel.m; sourceTree = "<group>"; };
+		186FCE7520452B3000203E6F /* EQDS_VideoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_VideoTableViewCell.h; sourceTree = "<group>"; };
+		186FCE7620452B3000203E6F /* EQDS_VideoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_VideoTableViewCell.m; sourceTree = "<group>"; };
+		186FCE7920454BD500203E6F /* EQDS_articleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_articleModel.h; sourceTree = "<group>"; };
+		186FCE7A20454BD500203E6F /* EQDS_articleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_articleModel.m; sourceTree = "<group>"; };
+		186FCE7D2047AA3000203E6F /* EQDS_searchHighViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_searchHighViewController.h; sourceTree = "<group>"; };
+		186FCE7E2047AA3000203E6F /* EQDS_searchHighViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_searchHighViewController.m; sourceTree = "<group>"; };
+		186FCE812048DFB500203E6F /* EQDS_ArticleDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_ArticleDetailViewController.h; sourceTree = "<group>"; };
+		186FCE822048DFB500203E6F /* EQDS_ArticleDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_ArticleDetailViewController.m; sourceTree = "<group>"; };
+		186FCE862049176F00203E6F /* libYouTuMediaPlayerEngineYouku.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYouTuMediaPlayerEngineYouku.a; sourceTree = "<group>"; };
+		186FCE872049176F00203E6F /* cloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = cloud.bundle; sourceTree = "<group>"; };
+		186FCE882049176F00203E6F /* yw_1222_0335_mwua.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222_0335_mwua.jpg; sourceTree = "<group>"; };
+		186FCE8A2049176F00203E6F /* YYMediaPlayerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayerItem.h; sourceTree = "<group>"; };
+		186FCE8B2049176F00203E6F /* YTEngineOpenViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTEngineOpenViewManager.h; sourceTree = "<group>"; };
+		186FCE8C2049176F00203E6F /* YYMediaPlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayerEvents.h; sourceTree = "<group>"; };
+		186FCE8D2049176F00203E6F /* YoukuMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoukuMediaPlayer.h; sourceTree = "<group>"; };
+		186FCE8E2049176F00203E6F /* YTLocalMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTLocalMedia.h; sourceTree = "<group>"; };
+		186FCE8F2049176F00203E6F /* YTDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadManager.h; sourceTree = "<group>"; };
+		186FCE902049176F00203E6F /* YYMediaPlayerBackgroundModeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayerBackgroundModeManager.h; sourceTree = "<group>"; };
+		186FCE912049176F00203E6F /* YYMediaPlayerDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayerDefines.h; sourceTree = "<group>"; };
+		186FCE922049176F00203E6F /* YYMediaPlayerHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayerHistory.h; sourceTree = "<group>"; };
+		186FCE932049176F00203E6F /* YTDownloadTaskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadTaskModel.h; sourceTree = "<group>"; };
+		186FCE942049176F00203E6F /* YYMediaPlayerException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayerException.h; sourceTree = "<group>"; };
+		186FCE952049176F00203E6F /* YTSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTSequence.h; sourceTree = "<group>"; };
+		186FCE962049176F00203E6F /* YTDownloadDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadDefine.h; sourceTree = "<group>"; };
+		186FCE972049176F00203E6F /* YYMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMediaPlayer.h; sourceTree = "<group>"; };
+		186FCE9B204917DA00203E6F /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
+		186FCE9D204917FF00203E6F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		186FCE9F2049182400203E6F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		186FCEA12049184200203E6F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		186FCEA32049185E00203E6F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		186FCEA52049187100203E6F /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		186FCEA7204918A600203E6F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		186FCEA9204918CB00203E6F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		186FCEAB204918F700203E6F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		186FCEAD2049190F00203E6F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		186FCEAF2049193F00203E6F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		186FCEB12049195700203E6F /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		186FCEB32049197300203E6F /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
+		186FCEB52049198500203E6F /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		186FCEB72049199900203E6F /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
+		186FCEB9204919AE00203E6F /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = usr/lib/libresolv.9.tbd; sourceTree = SDKROOT; };
+		186FCEBB204919BA00203E6F /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
+		186FCEBD204939B600203E6F /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		186FCEBE204939B600203E6F /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		186FCEBF204939B600203E6F /* PorxyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PorxyNavigationController.h; sourceTree = "<group>"; };
+		186FCEC0204939B700203E6F /* PorxyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PorxyNavigationController.m; sourceTree = "<group>"; };
+		186FCEC720493EA300203E6F /* SGSecurityBody.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGSecurityBody.framework; sourceTree = "<group>"; };
+		186FCEC920493EA300203E6F /* UTMini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTMini.framework; sourceTree = "<group>"; };
+		186FCECB20493EA300203E6F /* SGAVMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGAVMP.framework; sourceTree = "<group>"; };
+		186FCECD20493EA300203E6F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		186FCECE20493EA300203E6F /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
+		186FCECF20493EA300203E6F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		186FCED020493EA300203E6F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		186FCED220493EA300203E6F /* SecurityGuardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SecurityGuardSDK.framework; sourceTree = "<group>"; };
+		186FCED420493EA300203E6F /* SGMain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGMain.framework; sourceTree = "<group>"; };
+		186FCEDF204A7C3A00203E6F /* PhotoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoModel.h; sourceTree = "<group>"; };
+		186FCEE0204A7C3A00203E6F /* PhotoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoModel.m; sourceTree = "<group>"; };
+		186FCEE3204D413300203E6F /* EQDS_PhotoDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_PhotoDetailViewController.h; sourceTree = "<group>"; };
+		186FCEE4204D413300203E6F /* EQDS_PhotoDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_PhotoDetailViewController.m; sourceTree = "<group>"; };
+		186FCEE6204E37F400203E6F /* EQD_photoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQD_photoCollectionViewCell.h; sourceTree = "<group>"; };
+		186FCEE7204E37F400203E6F /* EQD_photoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQD_photoCollectionViewCell.m; sourceTree = "<group>"; };
 		188541AB1E8A0E5F0051AF74 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		188541AD1E8A12670051AF74 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188541AF1E8A13D80051AF74 /* EQD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EQD.entitlements; sourceTree = "<group>"; };
@@ -2028,16 +2174,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186FCEBC204919BA00203E6F /* libz.1.tbd in Frameworks */,
+				186FCEBA204919AE00203E6F /* libresolv.9.tbd in Frameworks */,
+				186FCEB82049199900203E6F /* libiconv.2.tbd in Frameworks */,
+				186FCEB62049198500203E6F /* libxml2.2.tbd in Frameworks */,
+				186FCEB42049197300203E6F /* libbz2.1.0.tbd in Frameworks */,
+				186FCEB22049195700203E6F /* libc++.1.tbd in Frameworks */,
+				186FCEB02049193F00203E6F /* libsqlite3.tbd in Frameworks */,
+				186FCEAE2049190F00203E6F /* AudioToolbox.framework in Frameworks */,
+				186FCEAC204918F800203E6F /* CoreMedia.framework in Frameworks */,
+				189B4A371F13D49D00073360 /* QuartzCore.framework in Frameworks */,
+				186FCEAA204918CB00203E6F /* OpenGLES.framework in Frameworks */,
+				186FCED720493EA400203E6F /* UTMini.framework in Frameworks */,
+				186FCEA8204918A600203E6F /* MediaPlayer.framework in Frameworks */,
+				186FCEA62049187100203E6F /* EventKit.framework in Frameworks */,
+				186FCEA42049185E00203E6F /* MessageUI.framework in Frameworks */,
+				186FCEA22049184200203E6F /* Social.framework in Frameworks */,
+				186FCEA02049182400203E6F /* MobileCoreServices.framework in Frameworks */,
+				186FCE9E2049180000203E6F /* VideoToolbox.framework in Frameworks */,
+				186FCE9C204917DA00203E6F /* ModelIO.framework in Frameworks */,
 				18944FA21FF63C740022191B /* libresolv.tbd in Frameworks */,
 				18944FA01FF63C510022191B /* CoreFoundation.framework in Frameworks */,
 				18944F9E1FF63C320022191B /* CoreLocation.framework in Frameworks */,
 				18944F9C1FF63C140022191B /* Security.framework in Frameworks */,
 				181E9A591FDB76E000F9B2ED /* StoreKit.framework in Frameworks */,
+				186FCE982049176F00203E6F /* libYouTuMediaPlayerEngineYouku.a in Frameworks */,
 				189B4A3F1F13D4E300073360 /* CFNetwork.framework in Frameworks */,
 				189B4A3D1F13D4D300073360 /* Foundation.framework in Frameworks */,
 				189B4A3B1F13D4C400073360 /* UIKit.framework in Frameworks */,
+				186FCEDC20493EA400203E6F /* SecurityGuardSDK.framework in Frameworks */,
 				189B4A391F13D4B200073360 /* CoreGraphics.framework in Frameworks */,
-				189B4A371F13D49D00073360 /* QuartzCore.framework in Frameworks */,
 				18AE79E01FA703F50078B714 /* libmp3lame.a in Frameworks */,
 				189B4A351F13D48400073360 /* CoreTelephony.framework in Frameworks */,
 				189B4A331F13D46900073360 /* SystemConfiguration.framework in Frameworks */,
@@ -2046,11 +2212,14 @@
 				189B4A211F136DD600073360 /* AlipaySDK.framework in Frameworks */,
 				189B4A1F1F13528700073360 /* CoreText.framework in Frameworks */,
 				18944F991FF63BA90022191B /* jshare-ios-1.3.0.a in Frameworks */,
+				186FCEDD20493EA400203E6F /* SGMain.framework in Frameworks */,
 				189B4A1D1F13525500073360 /* CoreMotion.framework in Frameworks */,
 				188541AE1E8A12670051AF74 /* UserNotifications.framework in Frameworks */,
 				188541AC1E8A0E5F0051AF74 /* AdSupport.framework in Frameworks */,
 				18CEC4611E7CE4F1008DCB46 /* JrmfWalletKit.framework in Frameworks */,
+				186FCED820493EA400203E6F /* SGAVMP.framework in Frameworks */,
 				188541B11E8A13E50051AF74 /* MapKit.framework in Frameworks */,
+				186FCED620493EA400203E6F /* SGSecurityBody.framework in Frameworks */,
 				1804457F1ED832BC003FFD88 /* CloudKit.framework in Frameworks */,
 				18CEC4621E7CE4F1008DCB46 /* JYangToolKit.framework in Frameworks */,
 				1E903387556D7F90BF8580D4 /* libPods-EQD.a in Frameworks */,
@@ -3432,6 +3601,7 @@
 			isa = PBXGroup;
 			children = (
 				1818CDB12019B8BB00371D22 /* 讲师的搜索 */,
+				181F75ED202C145300AC8440 /* 易企学 */,
 			);
 			name = "易企学";
 			sourceTree = "<group>";
@@ -3450,6 +3620,8 @@
 			children = (
 				1818CDB22019D05D00371D22 /* EQDS_teacherInfoModel.h */,
 				1818CDB32019D05D00371D22 /* EQDS_teacherInfoModel.m */,
+				186FCE6B2043FC0D00203E6F /* eQDS_teacherAndSearchModel.h */,
+				186FCE6C2043FC0D00203E6F /* eQDS_teacherAndSearchModel.m */,
 			);
 			name = "讲师模型";
 			sourceTree = "<group>";
@@ -3461,6 +3633,15 @@
 				1818CDB7201ABDAE00371D22 /* FBImg_YYlabelTableViewCell.m */,
 			);
 			name = "易企学讲师列表";
+			sourceTree = "<group>";
+		};
+		181A4991204FE88F00C436EE /* 课程详情 */ = {
+			isa = PBXGroup;
+			children = (
+				181A498E204FE88B00C436EE /* EQDS_CourseDetailViewController.h */,
+				181A498F204FE88B00C436EE /* EQDS_CourseDetailViewController.m */,
+			);
+			name = "课程详情";
 			sourceTree = "<group>";
 		};
 		181A9B7F1FD7BC6E00669989 /* 事故记录 */ = {
@@ -3712,6 +3893,86 @@
 				181C35DF1F8F7BF1005E753B /* projectExprienceModel.m */,
 			);
 			name = "项目经验";
+			sourceTree = "<group>";
+		};
+		181F75DF202BE62200AC8440 /* 培训需求 */ = {
+			isa = PBXGroup;
+			children = (
+				181F75DC202BE61D00AC8440 /* PXNeedModel.h */,
+				181F75DD202BE61D00AC8440 /* PXNeedModel.m */,
+			);
+			name = "培训需求";
+			sourceTree = "<group>";
+		};
+		181F75E9202C012500AC8440 /* 滚动的标题头 */ = {
+			isa = PBXGroup;
+			children = (
+				181F75E6202BFFE200AC8440 /* FBHeadScrollTitleView.h */,
+				181F75E7202BFFE200AC8440 /* FBHeadScrollTitleView.m */,
+				186FCE6E2044069900203E6F /* EQDS_TeacherTableViewCell.h */,
+				186FCE6F2044069900203E6F /* EQDS_TeacherTableViewCell.m */,
+			);
+			name = "滚动的标题头";
+			sourceTree = "<group>";
+		};
+		181F75ED202C145300AC8440 /* 易企学 */ = {
+			isa = PBXGroup;
+			children = (
+				181F75EA202C144F00AC8440 /* EQDS_appViewController.h */,
+				181F75EB202C144F00AC8440 /* EQDS_appViewController.m */,
+				186FCE652042B7E300203E6F /* EQDS_addCourseViewController.h */,
+				186FCE662042B7E300203E6F /* EQDS_addCourseViewController.m */,
+				186FCE622042849F00203E6F /* EQDS_addVideoViewController.h */,
+				186FCE632042849F00203E6F /* EQDS_addVideoViewController.m */,
+				186FCE5F2042535500203E6F /* EQDS_AddArticleViewController.h */,
+				186FCE602042535500203E6F /* EQDS_AddArticleViewController.m */,
+				186FCE842048DFB900203E6F /* 文章的详情 */,
+				186FCE802047AA3700203E6F /* 易企学的高级搜索 */,
+				181F75F9202D3D3500AC8440 /* 个人中心 */,
+				181F75F2202C4A0400AC8440 /* 易企学全部搜索 */,
+			);
+			name = "易企学";
+			sourceTree = "<group>";
+		};
+		181F75EE202C147200AC8440 /* 企业商学院 */ = {
+			isa = PBXGroup;
+			children = (
+				1897071320284F1E005DE165 /* FBComPanyStudyViewController.h */,
+				1897071420284F1E005DE165 /* FBComPanyStudyViewController.m */,
+			);
+			name = "企业商学院";
+			sourceTree = "<group>";
+		};
+		181F75F2202C4A0400AC8440 /* 易企学全部搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				181F75EF202C49FF00AC8440 /* EQD_SearchAllViewController.h */,
+				181F75F0202C49FF00AC8440 /* EQD_SearchAllViewController.m */,
+			);
+			name = "易企学全部搜索";
+			sourceTree = "<group>";
+		};
+		181F75F9202D3D3500AC8440 /* 个人中心 */ = {
+			isa = PBXGroup;
+			children = (
+				181F75F6202D3D3000AC8440 /* EQDS_myViewController.h */,
+				181F75F7202D3D3000AC8440 /* EQDS_myViewController.m */,
+				181A4991204FE88F00C436EE /* 课程详情 */,
+				181A498B204FC67400C436EE /* EQDS_videoChooseViewController.h */,
+				181A498C204FC67400C436EE /* EQDS_videoChooseViewController.m */,
+				186FCEE3204D413300203E6F /* EQDS_PhotoDetailViewController.h */,
+				186FCEE4204D413300203E6F /* EQDS_PhotoDetailViewController.m */,
+			);
+			name = "个人中心";
+			sourceTree = "<group>";
+		};
+		181F75FA202D6C3300AC8440 /* 讲师的个人信息 */ = {
+			isa = PBXGroup;
+			children = (
+				181F75F3202D36C400AC8440 /* TeacherInfo_EQDS.h */,
+				181F75F4202D36C400AC8440 /* TeacherInfo_EQDS.m */,
+			);
+			name = "讲师的个人信息";
 			sourceTree = "<group>";
 		};
 		18201DC41EA7373500075C6E /* 首页的cell显示 */ = {
@@ -4243,10 +4504,12 @@
 		1833E11D200451F100F37B02 /* 培训需求 */ = {
 			isa = PBXGroup;
 			children = (
+				181F75DA202AFE8800AC8440 /* PXChooseListViewController.h */,
+				181F75D9202AFE8800AC8440 /* PXChooseListViewController.m */,
 				1833E11A200451EE00F37B02 /* PXNeedListViewController.h */,
 				1833E11B200451EE00F37B02 /* PXNeedListViewController.m */,
-				1833E12120048F5000F37B02 /* PXChooseListViewController.h */,
-				1833E12220048F5000F37B02 /* PXChooseListViewController.m */,
+				181F75E0202BF7FD00AC8440 /* PXNeedDetailViewController.h */,
+				181F75E1202BF7FD00AC8440 /* PXNeedDetailViewController.m */,
 				1833E11E200452FB00F37B02 /* Need_AddViewController.h */,
 				1833E11F200452FB00F37B02 /* Need_AddViewController.m */,
 			);
@@ -5085,6 +5348,169 @@
 			name = "二级联动";
 			sourceTree = "<group>";
 		};
+		186FCE742045297300203E6F /* 视频 */ = {
+			isa = PBXGroup;
+			children = (
+				186FCE712045296E00203E6F /* EQDS_VideoModel.h */,
+				186FCE722045296E00203E6F /* EQDS_VideoModel.m */,
+			);
+			name = "视频";
+			sourceTree = "<group>";
+		};
+		186FCE7820452C7900203E6F /* 视频 */ = {
+			isa = PBXGroup;
+			children = (
+				186FCE7520452B3000203E6F /* EQDS_VideoTableViewCell.h */,
+				186FCE7620452B3000203E6F /* EQDS_VideoTableViewCell.m */,
+			);
+			name = "视频";
+			sourceTree = "<group>";
+		};
+		186FCE7C20454BDB00203E6F /* 易企学文章 */ = {
+			isa = PBXGroup;
+			children = (
+				186FCE7920454BD500203E6F /* EQDS_articleModel.h */,
+				186FCE7A20454BD500203E6F /* EQDS_articleModel.m */,
+			);
+			name = "易企学文章";
+			sourceTree = "<group>";
+		};
+		186FCE802047AA3700203E6F /* 易企学的高级搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				186FCE7D2047AA3000203E6F /* EQDS_searchHighViewController.h */,
+				186FCE7E2047AA3000203E6F /* EQDS_searchHighViewController.m */,
+			);
+			name = "易企学的高级搜索";
+			sourceTree = "<group>";
+		};
+		186FCE842048DFB900203E6F /* 文章的详情 */ = {
+			isa = PBXGroup;
+			children = (
+				186FCE812048DFB500203E6F /* EQDS_ArticleDetailViewController.h */,
+				186FCE822048DFB500203E6F /* EQDS_ArticleDetailViewController.m */,
+			);
+			name = "文章的详情";
+			sourceTree = "<group>";
+		};
+		186FCE852049176F00203E6F /* YouTuEngineMediaPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				186FCEBD204939B600203E6F /* PlayerViewController.h */,
+				186FCEBE204939B600203E6F /* PlayerViewController.m */,
+				186FCEBF204939B600203E6F /* PorxyNavigationController.h */,
+				186FCEC0204939B700203E6F /* PorxyNavigationController.m */,
+				186FCE862049176F00203E6F /* libYouTuMediaPlayerEngineYouku.a */,
+				186FCE872049176F00203E6F /* cloud.bundle */,
+				186FCE882049176F00203E6F /* yw_1222_0335_mwua.jpg */,
+				186FCE892049176F00203E6F /* YouTuMediaPlayerEngineYoukuHeaders */,
+			);
+			path = YouTuEngineMediaPlayer;
+			sourceTree = "<group>";
+		};
+		186FCE892049176F00203E6F /* YouTuMediaPlayerEngineYoukuHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				186FCE8A2049176F00203E6F /* YYMediaPlayerItem.h */,
+				186FCE8B2049176F00203E6F /* YTEngineOpenViewManager.h */,
+				186FCE8C2049176F00203E6F /* YYMediaPlayerEvents.h */,
+				186FCE8D2049176F00203E6F /* YoukuMediaPlayer.h */,
+				186FCE8E2049176F00203E6F /* YTLocalMedia.h */,
+				186FCE8F2049176F00203E6F /* YTDownloadManager.h */,
+				186FCE902049176F00203E6F /* YYMediaPlayerBackgroundModeManager.h */,
+				186FCE912049176F00203E6F /* YYMediaPlayerDefines.h */,
+				186FCE922049176F00203E6F /* YYMediaPlayerHistory.h */,
+				186FCE932049176F00203E6F /* YTDownloadTaskModel.h */,
+				186FCE942049176F00203E6F /* YYMediaPlayerException.h */,
+				186FCE952049176F00203E6F /* YTSequence.h */,
+				186FCE962049176F00203E6F /* YTDownloadDefine.h */,
+				186FCE972049176F00203E6F /* YYMediaPlayer.h */,
+			);
+			path = YouTuMediaPlayerEngineYoukuHeaders;
+			sourceTree = "<group>";
+		};
+		186FCEC320493EA300203E6F /* library */ = {
+			isa = PBXGroup;
+			children = (
+				186FCEC620493EA300203E6F /* SGSecurityBody */,
+				186FCEC820493EA300203E6F /* BCUserTrack */,
+				186FCECA20493EA300203E6F /* SGAVMP */,
+				186FCECC20493EA300203E6F /* Reachability */,
+				186FCED120493EA300203E6F /* SecurityGuardSDK */,
+				186FCED320493EA300203E6F /* SGMain */,
+			);
+			path = library;
+			sourceTree = "<group>";
+		};
+		186FCEC620493EA300203E6F /* SGSecurityBody */ = {
+			isa = PBXGroup;
+			children = (
+				186FCEC720493EA300203E6F /* SGSecurityBody.framework */,
+			);
+			path = SGSecurityBody;
+			sourceTree = "<group>";
+		};
+		186FCEC820493EA300203E6F /* BCUserTrack */ = {
+			isa = PBXGroup;
+			children = (
+				186FCEC920493EA300203E6F /* UTMini.framework */,
+			);
+			path = BCUserTrack;
+			sourceTree = "<group>";
+		};
+		186FCECA20493EA300203E6F /* SGAVMP */ = {
+			isa = PBXGroup;
+			children = (
+				186FCECB20493EA300203E6F /* SGAVMP.framework */,
+			);
+			path = SGAVMP;
+			sourceTree = "<group>";
+		};
+		186FCECC20493EA300203E6F /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				186FCECD20493EA300203E6F /* Reachability.m */,
+				186FCECE20493EA300203E6F /* LICENCE.txt */,
+				186FCECF20493EA300203E6F /* README.md */,
+				186FCED020493EA300203E6F /* Reachability.h */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+		186FCED120493EA300203E6F /* SecurityGuardSDK */ = {
+			isa = PBXGroup;
+			children = (
+				186FCED220493EA300203E6F /* SecurityGuardSDK.framework */,
+			);
+			path = SecurityGuardSDK;
+			sourceTree = "<group>";
+		};
+		186FCED320493EA300203E6F /* SGMain */ = {
+			isa = PBXGroup;
+			children = (
+				186FCED420493EA300203E6F /* SGMain.framework */,
+			);
+			path = SGMain;
+			sourceTree = "<group>";
+		};
+		186FCEDE204A7B8000203E6F /* 考勤 */ = {
+			isa = PBXGroup;
+			children = (
+				18C0D8362023F37100CA2F5F /* PXKaoQinListModel.h */,
+				18C0D8372023F37100CA2F5F /* PXKaoQinListModel.m */,
+			);
+			name = "考勤";
+			sourceTree = "<group>";
+		};
+		186FCEE2204A7C4000203E6F /* 相册Model */ = {
+			isa = PBXGroup;
+			children = (
+				186FCEDF204A7C3A00203E6F /* PhotoModel.h */,
+				186FCEE0204A7C3A00203E6F /* PhotoModel.m */,
+			);
+			name = "相册Model";
+			sourceTree = "<group>";
+		};
 		188542111E8BB4A40051AF74 /* 个人实名认证 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5781,6 +6207,8 @@
 			children = (
 				18B6C0B82016DCAD005876B2 /* PX_courseManageModel.h */,
 				18B6C0B92016DCAD005876B2 /* PX_courseManageModel.m */,
+				186FCE682043FB5400203E6F /* EQDS_CourseModel.h */,
+				186FCE692043FB5400203E6F /* EQDS_CourseModel.m */,
 			);
 			name = "课程管理";
 			sourceTree = "<group>";
@@ -6193,6 +6621,8 @@
 		18CEC4211E7CE4F0008DCB46 /* 小工具 */ = {
 			isa = PBXGroup;
 			children = (
+				186FCEC320493EA300203E6F /* library */,
+				186FCE852049176F00203E6F /* YouTuEngineMediaPlayer */,
 				18B6C0952011E7A8005876B2 /* 封装的tabbar */,
 				18944F951FF63BA80022191B /* Lib */,
 				18074A571FDBD8C2006B2682 /* Source */,
@@ -6312,8 +6742,7 @@
 			children = (
 				1866043A1E7FD2EB00C69557 /* FBFourViewController.h */,
 				1866043B1E7FD2EB00C69557 /* FBFourViewController.m */,
-				1897071320284F1E005DE165 /* FBComPanyStudyViewController.h */,
-				1897071420284F1E005DE165 /* FBComPanyStudyViewController.m */,
+				181F75EE202C147200AC8440 /* 企业商学院 */,
 				1844D7ED1F6A7E3F002B4A66 /* 通知公告 */,
 				180E3FCF1F3D813000E29EB8 /* 企业空间 */,
 				186604401E7FD50500C69557 /* 工作圈 */,
@@ -6404,8 +6833,12 @@
 				1818CDB52019D06200371D22 /* 讲师模型 */,
 				18C0D827201EFABD00CA2F5F /* 易企创评论model */,
 				18C0D82B2021525000CA2F5F /* 签到 */,
-				18C0D8362023F37100CA2F5F /* PXKaoQinListModel.h */,
-				18C0D8372023F37100CA2F5F /* PXKaoQinListModel.m */,
+				186FCEDE204A7B8000203E6F /* 考勤 */,
+				181F75DF202BE62200AC8440 /* 培训需求 */,
+				181F75FA202D6C3300AC8440 /* 讲师的个人信息 */,
+				186FCE742045297300203E6F /* 视频 */,
+				186FCE7C20454BDB00203E6F /* 易企学文章 */,
+				186FCEE2204A7C4000203E6F /* 相册Model */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -6448,6 +6881,8 @@
 				1818CDB9201AC0F600371D22 /* 易企学讲师列表 */,
 				18C0D83520230D3800CA2F5F /* 签到信息 */,
 				18C0D83F2025AFBE00CA2F5F /* 统一添加的cell */,
+				181F75E9202C012500AC8440 /* 滚动的标题头 */,
+				186FCE7820452C7900203E6F /* 视频 */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -6991,6 +7426,8 @@
 			children = (
 				18FC4E3C1F78B2B600028B69 /* FBImgeOnlyTableViewCell.h */,
 				18FC4E3D1F78B2B600028B69 /* FBImgeOnlyTableViewCell.m */,
+				186FCEE6204E37F400203E6F /* EQD_photoCollectionViewCell.h */,
+				186FCEE7204E37F400203E6F /* EQD_photoCollectionViewCell.m */,
 			);
 			name = "一张图片";
 			sourceTree = "<group>";
@@ -7025,6 +7462,23 @@
 		20D9FA105D0DEE31CEB5715E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				186FCEBB204919BA00203E6F /* libz.1.tbd */,
+				186FCEB9204919AE00203E6F /* libresolv.9.tbd */,
+				186FCEB72049199900203E6F /* libiconv.2.tbd */,
+				186FCEB52049198500203E6F /* libxml2.2.tbd */,
+				186FCEB32049197300203E6F /* libbz2.1.0.tbd */,
+				186FCEB12049195700203E6F /* libc++.1.tbd */,
+				186FCEAF2049193F00203E6F /* libsqlite3.tbd */,
+				186FCEAD2049190F00203E6F /* AudioToolbox.framework */,
+				186FCEAB204918F700203E6F /* CoreMedia.framework */,
+				186FCEA9204918CB00203E6F /* OpenGLES.framework */,
+				186FCEA7204918A600203E6F /* MediaPlayer.framework */,
+				186FCEA52049187100203E6F /* EventKit.framework */,
+				186FCEA32049185E00203E6F /* MessageUI.framework */,
+				186FCEA12049184200203E6F /* Social.framework */,
+				186FCE9F2049182400203E6F /* MobileCoreServices.framework */,
+				186FCE9D204917FF00203E6F /* VideoToolbox.framework */,
+				186FCE9B204917DA00203E6F /* ModelIO.framework */,
 				18944FA11FF63C740022191B /* libresolv.tbd */,
 				18944F9F1FF63C500022191B /* CoreFoundation.framework */,
 				18944F9D1FF63C320022191B /* CoreLocation.framework */,
@@ -7212,6 +7666,7 @@
 				18074AF71FDBD8C3006B2682 /* ZSSfonts.png in Resources */,
 				18074B111FDBD8C3006B2682 /* ZSSforcejustify.png in Resources */,
 				18074B001FDBD8C3006B2682 /* ZSSforcejustify@2x.png in Resources */,
+				186FCE992049176F00203E6F /* cloud.bundle in Resources */,
 				18074B0D1FDBD8C3006B2682 /* ZSSquicklink.png in Resources */,
 				18CEC45D1E7CE4F1008DCB46 /* JrmfInfo.strings in Resources */,
 				18074AC91FDBD8C2006B2682 /* ZSSoutdent@2x.png in Resources */,
@@ -7231,6 +7686,7 @@
 				18074ADA1FDBD8C3006B2682 /* ZSSparagraph.png in Resources */,
 				18074AEA1FDBD8C3006B2682 /* ZSSclearstyle@2x.png in Resources */,
 				18074B021FDBD8C3006B2682 /* ZSScenterjustify@2x.png in Resources */,
+				186FCE9A2049176F00203E6F /* yw_1222_0335_mwua.jpg in Resources */,
 				18074AD41FDBD8C2006B2682 /* ZSSsubscript.png in Resources */,
 				18074AD81FDBD8C2006B2682 /* ZSSundo.png in Resources */,
 				18074B091FDBD8C3006B2682 /* ZSSstrikethrough.png in Resources */,
@@ -7255,6 +7711,7 @@
 				18CEC45E1E7CE4F1008DCB46 /* JResource.bundle in Resources */,
 				18CEC45F1E7CE4F1008DCB46 /* jrmf.cer in Resources */,
 				18074ACD1FDBD8C2006B2682 /* ZSShorizontalrule@2x.png in Resources */,
+				186FCEDB20493EA400203E6F /* README.md in Resources */,
 				18074ACB1FDBD8C2006B2682 /* ZSSsubscript@2x.png in Resources */,
 				18074ACE1FDBD8C2006B2682 /* ZSSviewsource.png in Resources */,
 				18074AE71FDBD8C3006B2682 /* ZSSinsertkeyword.png in Resources */,
@@ -7281,6 +7738,7 @@
 				18074B061FDBD8C3006B2682 /* ZSSquicklink@2x.png in Resources */,
 				18074AE91FDBD8C3006B2682 /* ZSSstrikethrough@2x.png in Resources */,
 				18074AF01FDBD8C3006B2682 /* ZSSh3.png in Resources */,
+				186FCEDA20493EA400203E6F /* LICENCE.txt in Resources */,
 				18074ADF1FDBD8C3006B2682 /* ZSSh6.png in Resources */,
 				18074AE81FDBD8C3006B2682 /* ZSSh1.png in Resources */,
 				18074ADD1FDBD8C3006B2682 /* ZSSunlink@2x.png in Resources */,
@@ -7457,8 +7915,10 @@
 				188CF3E91F45AEA4007CF87C /* DatePicer_AlertView.m in Sources */,
 				183BBEAD1F2C62B6007D4675 /* LiZhiModel.m in Sources */,
 				180CFF1B1F60066B0043C784 /* RedTipTableViewCell.m in Sources */,
+				186FCE7B20454BD500203E6F /* EQDS_articleModel.m in Sources */,
 				18CEC44F1E7CE4F1008DCB46 /* BMChineseSort.m in Sources */,
 				189B4A481F18A7F100073360 /* BeforeYaoQingViewController.m in Sources */,
+				186FCE7720452B3000203E6F /* EQDS_VideoTableViewCell.m in Sources */,
 				18B6C0C220185D29005876B2 /* EQDM_ArticleDetailViewController.m in Sources */,
 				18B6C0AB201315B1005876B2 /* FB_CollectionLinkTableViewCell.m in Sources */,
 				181B26B51FEB62FD00A38BFC /* EQDR_PingLunTableViewCell.m in Sources */,
@@ -7476,15 +7936,16 @@
 				1866043C1E7FD2EB00C69557 /* FBFourViewController.m in Sources */,
 				18FBDA7B1EAD91CD000AB668 /* ComModel.m in Sources */,
 				18EE65561F510F760096DCE9 /* PBanBieModel.m in Sources */,
-				1833E12320048F5000F37B02 /* PXChooseListViewController.m in Sources */,
 				181A9B821FD7BF2F00669989 /* Accident_AddViewController.m in Sources */,
 				18074B221FDBD8C3006B2682 /* HRColorCursor.m in Sources */,
 				1866043F1E7FD41300C69557 /* FGongZuoQuanViewController.m in Sources */,
 				18EE65621F53A65C0096DCE9 /* TiaoBan_ListModel.m in Sources */,
 				18D9D8CB1FE21AC600D29185 /* EQDR_articlesViewController.m in Sources */,
 				189020F71EEE4A61008A7B6F /* TRSGongGaoViewController.m in Sources */,
+				186FCEE1204A7C3A00203E6F /* PhotoModel.m in Sources */,
 				18CEC4781E7CE79C008DCB46 /* FBOneViewController.m in Sources */,
 				180E3FCE1F3D812A00E29EB8 /* F_ComZoneViewController.m in Sources */,
+				186FCE702044069A00203E6F /* EQDS_TeacherTableViewCell.m in Sources */,
 				1804451B1ED3D331003FFD88 /* TKeHuGuanLiViewController.m in Sources */,
 				18074B1B1FDBD8C3006B2682 /* HRColorPickerView.m in Sources */,
 				18FC4E171F72742600028B69 /* LateLeaver_ListViewController.m in Sources */,
@@ -7506,11 +7967,14 @@
 				180445431ED5379F003FFD88 /* RAddViewController.m in Sources */,
 				1802ECDB1EC075F600B9270C /* RCAnnotation.m in Sources */,
 				18CB8F0E1E9B1844000BABD2 /* FBOptionViewController.m in Sources */,
+				186FCEC1204939B700203E6F /* PlayerViewController.m in Sources */,
 				188CF3D31F43F0DD007CF87C /* KQ_BanCiViewController.m in Sources */,
+				186FCE642042849F00203E6F /* EQDS_addVideoViewController.m in Sources */,
 				183BBE891F2988DF007D4675 /* Com_UserModel.m in Sources */,
 				1804458D1EDD43A0003FFD88 /* SQLiZhiViewController.m in Sources */,
 				189A93AD1FA0A2220049A919 /* SetPerson_QuanXianViewController.m in Sources */,
 				180E3FB91F399F5000E29EB8 /* FBGongZuo_img_textTableViewCell.m in Sources */,
+				186FCE7F2047AA3000203E6F /* EQDS_searchHighViewController.m in Sources */,
 				18201DCF1EA7446200075C6E /* RSDangAnViewController.m in Sources */,
 				18912D8A1EAAFB5B00565CA8 /* YQChengYuanViewController.m in Sources */,
 				189020FF1EEFCD29008A7B6F /* BBAddViewController.m in Sources */,
@@ -7534,6 +7998,7 @@
 				18CEC48C1E7D0630008DCB46 /* WebRequest.m in Sources */,
 				188CF3F01F46C7E5007CF87C /* BB_choosebcViewController.m in Sources */,
 				18074B361FDE1713006B2682 /* EQDR_MyViewController.m in Sources */,
+				181F75E2202BF7FD00AC8440 /* PXNeedDetailViewController.m in Sources */,
 				18B6C0AF2015B2D9005876B2 /* FBEQDEditer_AllViewController.m in Sources */,
 				18E465791EEB88E40018D72A /* FQSearchViewController.m in Sources */,
 				18074B151FDBD8C3006B2682 /* ZSSRichTextEditor.m in Sources */,
@@ -7549,6 +8014,7 @@
 				186604671E80C67D00C69557 /* FBMyErWeiMaViewController.m in Sources */,
 				183BBEFE1F32D06D007D4675 /* YSDetailViewController.m in Sources */,
 				186604271E7FAAEF00C69557 /* LEmailViewController.m in Sources */,
+				186FCE6D2043FC0D00203E6F /* eQDS_teacherAndSearchModel.m in Sources */,
 				183BBEDD1F308823007D4675 /* RenWuListModel.m in Sources */,
 				189A93801F9B3B820049A919 /* DLBase64.m in Sources */,
 				180963EF1ED019FA007FAF8C /* STImageVIew.m in Sources */,
@@ -7562,10 +8028,12 @@
 				189B4A531F1A016100073360 /* FBTextFieldTableViewCell.m in Sources */,
 				18074B201FDBD8C3006B2682 /* CYRTextView.m in Sources */,
 				18EE656D1F53CBF50096DCE9 /* RuleTime4Model.m in Sources */,
+				181F75F1202C49FF00AC8440 /* EQD_SearchAllViewController.m in Sources */,
 				181B26DD1FF23C8D00A38BFC /* EQDR_MyArticleTwoViewController.m in Sources */,
 				183BFFFA1FD2B02D00C70988 /* Repair_AddViewController.m in Sources */,
 				180CFEF91F5AB4BD0043C784 /* DaKaJiLuModel.m in Sources */,
 				188CF4091F481524007CF87C /* BB_DetailViewController.m in Sources */,
+				186FCE6A2043FB5400203E6F /* EQDS_CourseModel.m in Sources */,
 				180445231ED42934003FFD88 /* KHDetailViewController.m in Sources */,
 				18CB8F731EA453D3000BABD2 /* GSRegisterViewController.m in Sources */,
 				180CFF2E1F627EFC0043C784 /* HeTong_ListModel.m in Sources */,
@@ -7591,10 +8059,12 @@
 				18074B161FDBD8C3006B2682 /* ZSSBarButtonItem.m in Sources */,
 				180820D01EE2673A000AB677 /* PZXuQiuPersonViewController.m in Sources */,
 				18FBDA8A1EAE0365000AB668 /* FBTextVTableViewCell.m in Sources */,
+				181F75E8202BFFE200AC8440 /* FBHeadScrollTitleView.m in Sources */,
 				183BBE6E1F26F18E007D4675 /* InviteModel.m in Sources */,
 				18FC4E231F73560300028B69 /* Late_leave_ChooseViewController.m in Sources */,
 				183BBE7E1F283C5B007D4675 /* FBImgView.m in Sources */,
 				180445601ED6B982003FFD88 /* FKDetailViewController.m in Sources */,
+				186FCED920493EA400203E6F /* Reachability.m in Sources */,
 				180CFEE91F58F63F0043C784 /* ChuChaiDetailModel.m in Sources */,
 				18FC4E2F1F76377F00028B69 /* TimeChild.m in Sources */,
 				180AB0E91EDFF85500DFA1CA /* PZZhuanZhengViewController.m in Sources */,
@@ -7634,6 +8104,7 @@
 				18D9D8C31FE1100B00D29185 /* EQDR_MyWenJiViewController.m in Sources */,
 				180EF738200079E800C90CF8 /* FB_MyPXSQ_DetailViewController.m in Sources */,
 				1844D7EC1F6A7E3A002B4A66 /* TZGG_listViewController.m in Sources */,
+				186FCEC2204939B700203E6F /* PorxyNavigationController.m in Sources */,
 				18103EA21EB5BC7700FA757F /* FRenWuViewController.m in Sources */,
 				180820D41EE2A4EF000AB677 /* PZXuQiuPerson2ViewController.m in Sources */,
 				18CEC45C1E7CE4F1008DCB46 /* MBFadeAlertView.m in Sources */,
@@ -7648,6 +8119,7 @@
 				18B6C07F200F2992005876B2 /* PX_KaoQinLabelBtnTableViewCell.m in Sources */,
 				18B6C0A42012CDB3005876B2 /* EQDMMy_ViewController.m in Sources */,
 				18D9D8D41FE4AF9F00D29185 /* EQDR_ArticleTableViewCell.m in Sources */,
+				181A4990204FE88B00C436EE /* EQDS_CourseDetailViewController.m in Sources */,
 				180CFECD1F56BC470043C784 /* JB_AddViewController.m in Sources */,
 				18074B1D1FDBD8C3006B2682 /* CYRLayoutManager.m in Sources */,
 				180445761ED816B7003FFD88 /* SXChooseViewController.m in Sources */,
@@ -7659,6 +8131,7 @@
 				18CB8F181E9B2FE1000BABD2 /* FBAddressModel.m in Sources */,
 				18C0D83E20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m in Sources */,
 				1802ECCD1EC0724400B9270C /* RealTimeLocationStatusView.m in Sources */,
+				181F75DB202AFE8900AC8440 /* PXChooseListViewController.m in Sources */,
 				18B6C078200CAB5E005876B2 /* PXKaoQinListViewController.m in Sources */,
 				18074B231FDBD8C3006B2682 /* ZSSTextView.m in Sources */,
 				1824CF4D1F4D231A0003237A /* BQ_New_ViewController.m in Sources */,
@@ -7676,6 +8149,7 @@
 				18103E951EB355AF00FA757F /* ZZXiuGaiViewController.m in Sources */,
 				186894921FA876EE003CBB50 /* ShouCang_GroupModel.m in Sources */,
 				183BBEB11F2C6E82007D4675 /* LZLDetailViewController.m in Sources */,
+				181F75DE202BE61D00AC8440 /* PXNeedModel.m in Sources */,
 				18944FA51FF723060022191B /* FB_ShareEQDViewController.m in Sources */,
 				1824CF5C1F4D887D0003237A /* BQ_AddViewController.m in Sources */,
 				18C0D8312021C28E00CA2F5F /* PXKaoQingDetailViewController.m in Sources */,
@@ -7692,6 +8166,7 @@
 				189B4A681F1DE65D00073360 /* FBindexPathTextField.m in Sources */,
 				183BBE861F28AA54007D4675 /* FBFour_imgTableViewCell.m in Sources */,
 				18EE655E1F5180FE0096DCE9 /* BB_List_DetailViewController.m in Sources */,
+				181A498D204FC67400C436EE /* EQDS_videoChooseViewController.m in Sources */,
 				18227E331ECD7D8200309DDD /* SQQingJiaViewController.m in Sources */,
 				1833E1382006FA9800F37B02 /* ThreeSectionModel.m in Sources */,
 				18912D961EAB4F8100565CA8 /* GeRenView.m in Sources */,
@@ -7762,6 +8237,7 @@
 				181B26D71FF0B40A00A38BFC /* EQDR_LiuYanDetailViewController.m in Sources */,
 				188CF4151F4A7EB3007CF87C /* GZQ_top_headView.m in Sources */,
 				188CF3FE1F46EABC007CF87C /* FBOneChooseTableViewCell.m in Sources */,
+				186FCEE5204D413300203E6F /* EQDS_PhotoDetailViewController.m in Sources */,
 				18CB8F541E9F79E1000BABD2 /* DQunChengYuanViewController.m in Sources */,
 				1802ECDC1EC075F600B9270C /* RCAnnotationView.m in Sources */,
 				180EF72E1FFF02E700C90CF8 /* FB_PXChooseViewController.m in Sources */,
@@ -7823,6 +8299,7 @@
 				181C35E01F8F7BF1005E753B /* projectExprienceModel.m in Sources */,
 				18F30FED1EE7DDBD00FA070E /* ZPLaoDongHeTongViewController.m in Sources */,
 				1815122F1F038D0E004738CE /* CalendarModel.m in Sources */,
+				186FCEE8204E37F400203E6F /* EQD_photoCollectionViewCell.m in Sources */,
 				188CF40D1F482286007CF87C /* BB_PeopleViewController.m in Sources */,
 				18201DD71EA74FE000075C6E /* YGZaiZhiViewController.m in Sources */,
 				180CFF261F60FEFA0043C784 /* Manager_LaoDongHeTongViewController.m in Sources */,
@@ -7883,6 +8360,7 @@
 				181B26DA1FF0BDC400A38BFC /* EQDR_PinglunTextTableViewCell.m in Sources */,
 				18912D921EAB0F6E00565CA8 /* GSYaoQingViewController.m in Sources */,
 				18FC4E451F7A357C00028B69 /* Memo_AddViewController.m in Sources */,
+				181F75EC202C144F00AC8440 /* EQDS_appViewController.m in Sources */,
 				18CEC4131E7CE2D7008DCB46 /* FBTabBarViewController.m in Sources */,
 				1818CDB42019D05D00371D22 /* EQDS_teacherInfoModel.m in Sources */,
 				188CF3F41F46C98D007CF87C /* FBTwoChoose_noimg_TableViewCell.m in Sources */,
@@ -7899,6 +8377,7 @@
 				18E465751EEA4CC90018D72A /* JLLJianLiViewController.m in Sources */,
 				181C35AA1F8B7A11005E753B /* WorkExprienceViewController.m in Sources */,
 				181C35AE1F8B7A34005E753B /* ProjectExprienceViewController.m in Sources */,
+				186FCE832048DFB500203E6F /* EQDS_ArticleDetailViewController.m in Sources */,
 				180AB0ED1EE00D3D00DFA1CA /* PZZhuanZhengTwoViewController.m in Sources */,
 				18CEC4161E7CE3F6008DCB46 /* FBBaseViewController.m in Sources */,
 				1866045F1E80BD3700C69557 /* MGongSiViewController.m in Sources */,
@@ -7939,6 +8418,7 @@
 				183BBEFA1F31E4B5007D4675 /* UITextView+Tool.m in Sources */,
 				18E102C61F98509700C6A0E2 /* GLChance_DetailViewController.m in Sources */,
 				181C35BA1F8DFA87005E753B /* FanKui_AddViewController.m in Sources */,
+				181F75F8202D3D3000AC8440 /* EQDS_myViewController.m in Sources */,
 				183BFFFE1FD67DFC00C70988 /* RepairRecord_DetailViewController.m in Sources */,
 				1818CDBC201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.m in Sources */,
 				1833E12A2005C63C00F37B02 /* PX_Plan_AddViewController.m in Sources */,
@@ -7968,6 +8448,7 @@
 				183B00071FD694E000C70988 /* TrafficListModel.m in Sources */,
 				183B00021FD68EB600C70988 /* Traffic_ListViewController.m in Sources */,
 				180A27271FB1630F00BC9B6E /* SheZhi_LizhiViewController.m in Sources */,
+				186FCE672042B7E300203E6F /* EQDS_addCourseViewController.m in Sources */,
 				186604591E80BD3700C69557 /* FBFiveViewController.m in Sources */,
 				1802ECCC1EC0724400B9270C /* RealTimeLocationStartCell.m in Sources */,
 				1824CF361F4C027D0003237A /* FBSocketTool.m in Sources */,
@@ -7984,6 +8465,7 @@
 				189B4A2D1F1387D400073360 /* FBTwoChoose_img11TableViewCell.m in Sources */,
 				18FC4E3E1F78B2B600028B69 /* FBImgeOnlyTableViewCell.m in Sources */,
 				189B4A291F13840200073360 /* GLTiRenViewController.m in Sources */,
+				186FCE732045296F00203E6F /* EQDS_VideoModel.m in Sources */,
 				1804457A1ED82F63003FFD88 /* TKaoQinViewController.m in Sources */,
 				18B6C05F200886C5005876B2 /* FB_notificationListViewController.m in Sources */,
 				18F1BDE61EC314AA0012AAB0 /* FBeiWangLuViewController.m in Sources */,
@@ -8017,6 +8499,7 @@
 				180A27391FB590D600BC9B6E /* CheckerBumenModel.m in Sources */,
 				181B26A81FE919A400A38BFC /* EQDR_labelTableViewCell.m in Sources */,
 				1802ECCB1EC0724400B9270C /* RealTimeLocationEndCell.m in Sources */,
+				181F75F5202D36C400AC8440 /* TeacherInfo_EQDS.m in Sources */,
 				180CFF2A1F6241930043C784 /* HeTong_DetailModel.m in Sources */,
 				18EE656A1F53C8170096DCE9 /* Tiaoban_DetailModel.m in Sources */,
 				188542151E8BBB790051AF74 /* FBTextField.m in Sources */,
@@ -8027,6 +8510,7 @@
 				18074B1E1FDBD8C3006B2682 /* CYRToken.m in Sources */,
 				180963D91ECECA53007FAF8C /* FBTextvImgViewController.m in Sources */,
 				18CEC44E1E7CE4F1008DCB46 /* SGQRCodeTool.m in Sources */,
+				186FCE612042535500203E6F /* EQDS_AddArticleViewController.m in Sources */,
 				1824CF641F4E773A0003237A /* QingJiaDetailModel.m in Sources */,
 				180CFF231F60E69B0043C784 /* VPImageCropperViewController.m in Sources */,
 				18B7AD611EC563AC00E29AF2 /* FCanYuViewController.m in Sources */,
@@ -8188,6 +8672,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/EQD/JrmfIMLib",
 					"$(PROJECT_DIR)/EQD/小工具",
+					"$(PROJECT_DIR)/EQD/小工具/library/UTDID",
+					"$(PROJECT_DIR)/EQD/小工具/library/SGSecurityBody",
+					"$(PROJECT_DIR)/EQD/小工具/library/BCUserTrack",
+					"$(PROJECT_DIR)/EQD/小工具/library/SGAVMP",
+					"$(PROJECT_DIR)/EQD/小工具/library/SecurityGuardSDK",
+					"$(PROJECT_DIR)/EQD/小工具/library/SGMain",
 				);
 				INFOPLIST_FILE = EQD/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -8196,6 +8686,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/EQD/小工具/lame",
 					"$(PROJECT_DIR)/EQD/小工具/Lib",
+					"$(PROJECT_DIR)/EQD/小工具/YouTuEngineMediaPlayer",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8289,6 +8780,8 @@
 					"\"VideoToolbox\"",
 					"-weak_framework",
 					"\"UserNotifications\"",
+					"-force_load",
+					"\"$(SRCROOT)/EQD/小工具/YouTuEngineMediaPlayer/libYouTuMediaPlayerEngineYouku.a\"",
 					"-all_load",
 				);
 				OTHER_LIBTOOLFLAGS = "";
@@ -8311,6 +8804,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/EQD/JrmfIMLib",
 					"$(PROJECT_DIR)/EQD/小工具",
+					"$(PROJECT_DIR)/EQD/小工具/library/UTDID",
+					"$(PROJECT_DIR)/EQD/小工具/library/SGSecurityBody",
+					"$(PROJECT_DIR)/EQD/小工具/library/BCUserTrack",
+					"$(PROJECT_DIR)/EQD/小工具/library/SGAVMP",
+					"$(PROJECT_DIR)/EQD/小工具/library/SecurityGuardSDK",
+					"$(PROJECT_DIR)/EQD/小工具/library/SGMain",
 				);
 				INFOPLIST_FILE = EQD/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -8319,6 +8818,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/EQD/小工具/lame",
 					"$(PROJECT_DIR)/EQD/小工具/Lib",
+					"$(PROJECT_DIR)/EQD/小工具/YouTuEngineMediaPlayer",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8412,6 +8912,8 @@
 					"\"VideoToolbox\"",
 					"-weak_framework",
 					"\"UserNotifications\"",
+					"-force_load",
+					"\"$(SRCROOT)/EQD/小工具/YouTuEngineMediaPlayer/libYouTuMediaPlayerEngineYouku.a\"",
 					"-all_load",
 				);
 				OTHER_LIBTOOLFLAGS = "";

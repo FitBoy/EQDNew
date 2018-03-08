@@ -9,7 +9,7 @@
 #import "ZSSRichTextEditor.h"
 
 @interface FBEQDEditer_AllViewController : ZSSRichTextEditor
-///1 是易企创  0是易企阅 10 是课程大纲，没有标题
+///1 是易企创  0是易企阅 10 是课程大纲，没有标题 2 是易企学
 @property (nonatomic,assign) NSInteger temp;
 @property (nonatomic,copy) NSString* editor_title;
 @property (nonatomic,copy) NSString* editor_htmlText;

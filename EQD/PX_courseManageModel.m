@@ -8,9 +8,14 @@
 
 #import "PX_courseManageModel.h"
 #import "NSString+FBString.h"
+#import <MJExtension.h>
 @implementation PX_courseManageModel
 -(NSString*)createTime
 {
     return  [_createTime formatDateString];
+}
++(NSDictionary*)mj_replacedKeyFromPropertyName
+{
+    return @{@"posts2":@"posts"};
 }
 @end

@@ -11,4 +11,8 @@
 @interface LoadWordViewController : FBBaseViewController
 @property (nonatomic,copy) NSString* contentTitle;
 @property (nonatomic,copy) NSString* content;
+
+@property (nonatomic,copy) NSString* html;
+
+
 @end

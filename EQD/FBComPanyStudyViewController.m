@@ -7,7 +7,8 @@
 //
 
 #import "FBComPanyStudyViewController.h"
-
+#import "EQDS_appViewController.h"
+#import "PorxyNavigationController.h"
 @interface FBComPanyStudyViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -94,6 +95,9 @@
         case 8:
         {
             //易企学
+            EQDS_appViewController  *Svc =[[EQDS_appViewController alloc]init];
+            [self.navigationController pushViewController:Svc animated:NO];
+            
         }
             break;
             

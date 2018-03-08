@@ -13,4 +13,6 @@
 +(NSString*)getEQDR_ArticleDetailWithId:(NSString*)Id;
 ///易企创文章详情
 +(NSString*)getEQDM_ArticleDetailWithId:(NSString*)Id;
+///易企点培训纪律公约
++(NSString*)getEQD_TrainJiLv;
 @end

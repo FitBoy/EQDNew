@@ -12,7 +12,7 @@ static NSString *appKey = @"bf6b9fb37f1cd64ef457901c";
 static NSString *channel = @"EQD";
 static BOOL isProduction = TRUE;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
+/*** 是否允许横屏的标记 */@property (nonatomic,assign)BOOL allowRotation;
 @property (strong, nonatomic) UIWindow *window;
 
 

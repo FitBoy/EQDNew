@@ -59,6 +59,12 @@
         TF_title.hidden =YES;
         self.placeholder = @"请填写课程大纲";
         key = @"HR_CourceManage";
+    }else if (self.temp ==2 )
+    {
+        self.navigationItem.title = @"易企学文章";
+        TF_title.placeholder = @"文章标题";
+        self.placeholder = @"文章将会发布在易企学";
+        key = @"EQDS_article";
     }
     
     if (self.editor_htmlText) {
