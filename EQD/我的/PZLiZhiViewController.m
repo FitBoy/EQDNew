@@ -135,7 +135,7 @@
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     segmentC =[[UISegmentedControl alloc]initWithItems:@[@"审批中",@"已通过",@"未通过"]];
     [self.view addSubview:segmentC];
     segmentC.frame =CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 40);

@@ -12,7 +12,6 @@
 #import "LEmailViewController.h"
 #import "LIDCardViewController.h"
 #import <RongIMKit/RCKitUtility.h>
-#import "MyAboutUsViewController.h"
 #import "LTrueNameViewController.h"
 #import <JPUSHService.h>
 #import "FBButton.h"
@@ -20,6 +19,7 @@
 #import "NSString+FBString.h"
 #import "FBForgetViewController.h"
 #import "UITextField+Tool.h"
+#import "FBWebUrlViewController.h"
 @interface EQDLoginViewController ()<UITextFieldDelegate>
 {
     UITextField *TF_zhanghao;
@@ -36,6 +36,17 @@
 {
     [super viewWillAppear:animated];
     tbtn_login.enabled =YES;
+    BOOL  isquit = [USERDEFAULTS boolForKey:Y_quit];
+    if (isquit==NO) {
+        
+    }else
+    {
+        UIAlertController  *alert = [UIAlertController alertControllerWithTitle:@"提醒" message:@"您的账号在其他设备登录，若非本人操作，建议立刻修改密码" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [self presentViewController:alert animated:NO completion:nil];
+    }
     
 }
 - (void)viewDidLoad {
@@ -171,8 +182,11 @@
 -(void)aboutUsClick{
     NSLog(@"关于我们");
     [self.view endEditing:YES];
-    MyAboutUsViewController *MAvc =[[MyAboutUsViewController alloc]init];
-    [self.navigationController pushViewController:MAvc animated:NO];
+    FBWebUrlViewController  *Uvc = [[FBWebUrlViewController alloc]init];
+    Uvc.url =@"https://www.eqidd.com/relatedLink/related.html";
+    Uvc.contentTitle = @"易企点";
+    [self.navigationController pushViewController:Uvc animated:NO];
+  
 }
 
 -(void)logingCLick{
@@ -195,7 +209,9 @@
                [USERDEFAULTS setObject:TF_mima.text forKey:Y_MIMA];
                [USERDEFAULTS setObject:TF_zhanghao.text forKey:Y_zhanghao];
                [USERDEFAULTS setObject:items forKey:Y_USERINFO];
+               [USERDEFAULTS setBool:NO forKey:Y_quit];
                [USERDEFAULTS synchronize];
+               
                if ([items[@"authen"] integerValue]==0) {
                    UIAlertController *alert =[[UIAlertController alloc]init];
                    [alert addAction:[UIAlertAction actionWithTitle:@"个人实名认证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -215,6 +231,12 @@
                    [self mainJiemian];
                });
                }
+           }else if ([number integerValue]==220)
+           {
+               hud.label.text = @"暂无网络";
+           }else
+           {
+               
            }
            
            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

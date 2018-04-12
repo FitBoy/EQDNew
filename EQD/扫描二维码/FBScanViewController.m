@@ -142,12 +142,9 @@
                 UIAlertAction *action_queding =[UIAlertAction actionWithTitle:@"确定发送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     NSString *userGuid = [NSString stringWithFormat:@";%@",user.Guid];
                   [WebRequest User_AddgroupWithuserGuid:userGuid Groupid:model.ugid GroupName:model.name And:^(NSDictionary *dic) {
-                      MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
-                      hud.mode = MBProgressHUDModeText;
-                      hud.label.text =dic[Y_MSG];
-                      dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-                      dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                          [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                      MBFadeAlertView  *alertV = [[MBFadeAlertView  alloc]init];
+                      [alertV showAlertWith:dic[Y_MSG]];
+                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                           [self.navigationController popViewControllerAnimated:NO];
                       });
                   }];
@@ -342,10 +339,10 @@
                     
                     MBFadeAlertView  *alertV = [[MBFadeAlertView  alloc]init];
                     [alertV showAlertWith:dic[Y_MSG]];
-                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self.navigationController popViewControllerAnimated:NO];
                     });
+                   
                 }];
                 
             }];

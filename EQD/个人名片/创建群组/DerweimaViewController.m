@@ -11,6 +11,7 @@
 #import <UIImageView+AFNetworking.h>
 #import "FBActivityViewController.h"
 #import "ExActivity.h"
+#import "FB_ShareEQDViewController.h"
 @interface DerweimaViewController ()
 {
     UIImage *image_share;
@@ -83,6 +84,15 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"分享二维码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         temp =1;
          [self snapshotScreenInView:V_bg];
+        
+        FB_ShareEQDViewController  *Svc = [[FB_ShareEQDViewController alloc]init];
+        Svc.image_local =image_share;
+        Svc.EQD_ShareType = EQD_ShareTypeImage2;
+        Svc.providesPresentationContextTransitionStyle = YES;
+        Svc.definesPresentationContext = YES;
+        Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        [self presentViewController:Svc animated:NO completion:nil];
+        /*
         ExActivity *activity =[[ExActivity alloc]init];
         RCImageMessage *content = [RCImageMessage messageWithImage:image_share];
         activity.messageContent =content;
@@ -90,7 +100,7 @@
         FBActivityViewController *Avc =[[FBActivityViewController alloc]initWithActivityItems:@[image_share] applicationActivities:@[activity]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:Avc animated:NO completion:nil];
-        });
+        });*/
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"保存到手机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         temp=2;
@@ -102,6 +112,14 @@
         
         [self.navigationController pushViewController:FSvc animated:NO];
         
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"识别图中二维码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self snapshotScreenInView:V_bg];
+        if (image_share) {
+            FBScanViewController *Fvc =[[FBScanViewController alloc]init];
+            Fvc.image = image_share;
+            [self.navigationController pushViewController:Fvc animated:NO];
+        }
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         

@@ -115,7 +115,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     
     if (self.isyanshou==NO) {
         UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithTitle:@"'验收" style:UIBarButtonItemStylePlain target:self action:@selector(yanshouClick)];
@@ -232,9 +232,20 @@
         else if(indexPath.row==3)
         {
             //关联父项目
+            if([D_model.ParentTaskId integerValue]!=0){
             CY_DetailViewController *Dvc =[[CY_DetailViewController alloc]init];
             Dvc.renwuID =D_model.ParentTaskId;
             [self.navigationController pushViewController:Dvc animated:NO];
+            }else
+            {
+                MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text =@"暂无父项目关联";
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                });
+            }
         }
         else if(indexPath.row==4)
         {

@@ -29,6 +29,9 @@
 #import "FBindexpathLongPressGestureRecognizer.h"
 #import "EQDS_videoChooseViewController.h"
 #import "EQDS_CourseDetailViewController.h"
+#import "PlayerViewController.h"
+#import "PXNeedModel.h"
+#import "EQDS_needDetailViewController.h"
 @interface EQDS_myViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate,FBHeadScrollTitleViewDelegate,UIScrollViewDelegate,EQDR_ArticleTableViewCellDelegate,EQDR_labelTableViewCellDelegate,EQDS_videoChooseViewControllerDelegate>
 {
     TeacherInfo_EQDS   *teacherInfo;
@@ -43,10 +46,12 @@
     NSMutableArray *arr_model2;
     NSMutableArray *arr_model3;
     NSMutableArray *arr_model4;
+    NSMutableArray *arr_model5;
     NSString *page1;
     NSString *page2;
     NSString *page3;
     NSString *page4;
+    NSString *page5;
     NSString *courseId;
     
 }
@@ -167,7 +172,32 @@
                 [tableV reloadData];
             }
         }];
-    }else
+    }else if (temp ==5)
+    {
+        NSTimeInterval time = -30*24*60*60;
+        NSDate *before30 = [[NSDate alloc]initWithTimeInterval:time sinceDate:[NSDate date]];
+        NSDateFormatter  *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *date = [formatter stringFromDate:before30];
+        [WebRequest Training_Get_TrainingDemand_BySearchWithpage:@"0" para:teacherInfo.ResearchField date:@"2019-02-03" And:^(NSDictionary *dic) {
+            [hud hideAnimated:NO];
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                [arr_model5 removeAllObjects];
+                page5 = dic[@"nextpage"];
+                for (int i=0; i<tarr.count; i++) {
+                    PXNeedModel *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                    model.cellHeight=60;
+                    [arr_model5 addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+        
+    }
+    else
     {
         
     }
@@ -269,7 +299,38 @@
                 }
             }
         }];
-    }else
+    }else if (temp ==5)
+    {
+        NSTimeInterval time = -30*24*60*60;
+        NSDate *before30 = [[NSDate alloc]initWithTimeInterval:time sinceDate:[NSDate date]];
+        NSDateFormatter  *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *date = [formatter stringFromDate:before30];
+        [WebRequest Training_Get_TrainingDemand_BySearchWithpage:page5 para:teacherInfo.ResearchField date:@"2019-02-03" And:^(NSDictionary *dic) {
+            
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if (tarr.count==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                page5 = dic[@"nextpage"];
+                for (int i=0; i<tarr.count; i++) {
+                    PXNeedModel *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                    model.cellHeight=60;
+                    [arr_model5 addObject:model];
+                }
+                [tableV reloadData];
+                }
+            }
+        }];
+        
+    }
+    
+    
+    else
     {
         
     }
@@ -303,7 +364,11 @@
     {
         //照片管理
         [self loadRequestData];
-    }else
+    }else if (index==5 && arr_model5.count==0)
+    {
+      [self loadRequestData];
+    }
+    else
     {
         
     }
@@ -314,10 +379,12 @@
     arr_model2 = [NSMutableArray arrayWithCapacity:0];
     arr_model3 = [NSMutableArray arrayWithCapacity:0];
     arr_model4 = [NSMutableArray arrayWithCapacity:0];
+    arr_model5 = [NSMutableArray arrayWithCapacity:0];
     page1 =@"0";
     page2=@"0";
     page3 =@"0";
     page4 =@"0";
+    page5 =@"0";
     user = [WebRequest GetUserInfo];
     arr_tableV = [NSMutableArray arrayWithCapacity:0];
     self.navigationItem.title = @"个人中心";
@@ -326,10 +393,10 @@
     [self.view addSubview:titleV];
     titleV.delegate_head =self;
     
-    [titleV setArr_titles:@[@"讲师信息",@"文章管理",@"课程管理",@"视频管理",@"照片管理"]];
+    [titleV setArr_titles:@[@"讲师信息",@"文章管理",@"课程管理",@"视频管理",@"照片管理",@"需求推荐"]];
     [self setTableVData];
     temp =0;
-    [self setScrollViewWithCount:5];
+    [self setScrollViewWithCount:6];
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"add_eqd2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(tianjiaCLick)];
     [self.navigationItem setRightBarButtonItem:right];
 }
@@ -339,6 +406,7 @@
     if(temp==1)
     {
         ///添加文章
+        
         EQDS_AddArticleViewController *Avc = [[EQDS_AddArticleViewController alloc]init];
         [self.navigationController pushViewController:Avc animated:NO];
     }else if (temp ==2)
@@ -379,6 +447,15 @@
         }]];
         [self presentViewController:alert animated:NO completion:nil];
         
+    }else
+    {
+        MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text =@"暂无该功能";
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [MBProgressHUD hideHUDForView:self.view  animated:YES];
+        });
     }
 }
 #pragma  mark - scroll的协议代理
@@ -444,6 +521,10 @@
     }else if (temp ==4)
     {
         return 60;
+    }else if (temp ==5)
+    {
+        PXNeedModel *model = arr_model5[indexPath.row];
+        return model.cellHeight;
     }
     else
     {
@@ -466,7 +547,11 @@
     }else if (temp==4)
     {
         return arr_model4.count;
-    }else
+    }else if (temp==5)
+    {
+        return arr_model5.count;
+    }
+    else
     {
          return 0;
     }
@@ -559,6 +644,18 @@
         FBindexpathLongPressGestureRecognizer *longPress = [[FBindexpathLongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCLick:)];
         longPress.indexPath = indexPath;
         [cell addGestureRecognizer:longPress];
+        return cell;
+    }else if (temp==5)
+    {
+        static NSString *cellId=@"cellID5";
+        EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        PXNeedModel *model =arr_model5[indexPath.row];
+        [cell setModel_need:model];
+    
         return cell;
     }
     else
@@ -764,6 +861,11 @@
     }else if (temp==3)
     {
         //视频
+        EQDS_VideoModel *model =arr_model3[indexPath.row];
+        PlayerViewController *Pvc = [[PlayerViewController alloc]initWithVid:model.vid platform:@"youku" quality:nil];
+        Pvc.islocal =NO;
+        Pvc.supportPortraitOnly =YES;
+        [self.navigationController pushViewController:Pvc animated:NO];
         
     }else if (temp==2)
     {
@@ -774,6 +876,12 @@
         Dvc.courseId =model.Id;
         [self.navigationController pushViewController:Dvc animated:NO];
         
+    }else if (temp ==5)
+    {
+        PXNeedModel  *model =arr_model5[indexPath.row];
+        EQDS_needDetailViewController  *Dvc = [[EQDS_needDetailViewController alloc]init];
+        Dvc.model = model;
+        [self.navigationController pushViewController:Dvc animated:NO];
     }
     else
     {

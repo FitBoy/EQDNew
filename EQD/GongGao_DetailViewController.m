@@ -30,14 +30,14 @@
     [WebRequest Notices_Get_Notice_ByIdWithnoticeId:self.model.ID And:^(NSDictionary *dic) {
         model_detail =[GongGao_ListModel mj_objectWithKeyValues:dic[Y_ITEMS]];
         
-        arr_contents =[NSMutableArray arrayWithArray:@[model_detail.noticeCode,model_detail.noticeName,[model_detail.objectType integerValue]==0?@"全体员工":model_detail.department,model_detail.noticeTheme,model_detail.noticeContent,model_detail.noticeCycle,model_detail.duty,model_detail.createrName,model_detail.checkerName,model_detail.checkTime,model_detail.checkMessage]];
+        arr_contents =[NSMutableArray arrayWithArray:@[model_detail.noticeCode,model_detail.noticeName,[model_detail.objectType integerValue]==0?@"全体员工":model_detail.department,model_detail.noticeTheme,model_detail.noticeContent,model_detail.noticeCycle,model_detail.duty,model_detail.createrName,model_detail.checkerName,model_detail.createTime,model_detail.checkTime,model_detail.checkMessage]];
         [tableV reloadData];
     }];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStylePlain];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
    
     
 }

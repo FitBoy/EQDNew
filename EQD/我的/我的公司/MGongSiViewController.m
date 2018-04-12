@@ -9,7 +9,6 @@
 #import "MGongSiViewController.h"
 #import "WebRequest.h"
 #import "GSRegisterViewController.h"
-#import "GSQiYeRenZhengViewController.h"
 #import "GSYaoQingViewController.h"
 #import "FBTwo_noimg12TableViewCell.h"
 #import "FBOne_img2TableViewCell.h"
@@ -43,8 +42,8 @@
     [WebRequest  userashx_GetCount_MsgCodeWithuserGuid:user.Guid And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr =dic[Y_ITEMS];
-            arr_code = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0"]];
-            NSInteger temp =[user.isAdmin integerValue]>0?2:0;
+            arr_code = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0"]];
+            NSInteger temp =0;
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary *dic2 =tarr[i];
                 if ([dic2[@"code"] integerValue]==150) {
@@ -96,18 +95,19 @@
     flag=0;
     user =[WebRequest GetUserInfo];
     self.navigationItem.title = @"我的企业";
-    if([user.isAdmin integerValue]>0)
+  /*  if([user.isAdmin integerValue]>0)
     {
-    arr_gongsi = [NSMutableArray arrayWithArray:@[@"注册企业",@"企业认证",@"入职邀请",@"合同签订",@"外企联络书"]];
+    arr_gongsi = [NSMutableArray arrayWithArray:@[@"注册企业",@"入职邀请",@"合同签订",@"外企联络书"]];
     }else
     {
-      arr_gongsi = [NSMutableArray arrayWithArray:@[@"入职邀请",@"合同签订",@"外企联络书"]];
-    }
+     
+    }*/
+     arr_gongsi = [NSMutableArray arrayWithArray:@[@"入职邀请",@"合同签订",@"外企联络书"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(message_recieved) name:Z_FB_message_received object:nil];
     
 }
@@ -211,8 +211,8 @@ return cell;
     }
     else
     {
-        NSInteger  temp = [user.isAdmin integerValue]>0?0:2;
-    switch (indexPath.row+temp) {
+//        NSInteger  temp = [user.isAdmin integerValue]>0?0:2;
+    switch (indexPath.row+1) {
         case 0:
         {
             if ([user.authen integerValue]==1) {
@@ -246,35 +246,15 @@ return cell;
             
         }
             break;
+     
         case 1:
-        {
-            //企业认证
-            if ([comM.isauthen integerValue]==0 && [user.companyId integerValue]!=0) {
-                GSQiYeRenZhengViewController *YZvc =[[GSQiYeRenZhengViewController alloc]init];
-                [self.navigationController pushViewController:YZvc animated:NO];
-            }
-            else
-            {
-                MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text =@"您的企业已认证或未注册";
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [MBProgressHUD hideHUDForView:self.view  animated:YES];
-                });
-            }
-            
-            
-        }
-            break;
-        case 2:
         {
             //入驻邀请
             GSYaoQingViewController *YQvc =[[GSYaoQingViewController alloc]init];
             [self.navigationController pushViewController:YQvc animated:NO];
         }
             break;
-        case 3:
+        case 2:
         {
             //合同签订
             HeTong_listPersonViewController *Pvc =[[HeTong_listPersonViewController alloc]init];
@@ -282,7 +262,7 @@ return cell;
             
         }
             break;
-            case 4:
+            case 3:
         {
             //联络书
             LianLuoBook_OtherViewController *Ovc =[[LianLuoBook_OtherViewController alloc]init];

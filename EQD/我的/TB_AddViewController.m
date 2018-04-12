@@ -37,7 +37,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     [WebRequest Get_User_ShiftWithuserGuid:user.Guid companyId:user.companyId And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {

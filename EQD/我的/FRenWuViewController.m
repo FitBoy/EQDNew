@@ -70,7 +70,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_renwu = [NSMutableArray arrayWithArray:@[@"我的任务",@"我验收的任务",@"我参与的任务",@"我发起的任务"]];
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"发任务" style:UIBarButtonItemStylePlain target:self action:@selector(farenwuClick)];

@@ -39,7 +39,7 @@
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(quedingCLick)];
     [self.navigationItem setRightBarButtonItem:right];
      picjer.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    if ([self.content containsString:@"-"]) {
+ /*   if ([self.content containsString:@"-"]) {
         NSArray *arr = [self.content componentsSeparatedByString:@"-"];
         NSString *str1 =arr[0];
         formatter =[[NSDateFormatter alloc]init];
@@ -64,10 +64,10 @@
         NSDateFormatter *formatter1 =[[NSDateFormatter alloc]init];
         [formatter1 setDateFormat:@"MM-dd"];
         L_date.text =[formatter1 stringFromDate:picjer.date];
-    }
+    }*/
     
     [picjer addTarget:self action:@selector(dateClick) forControlEvents:UIControlEventValueChanged];
-    
+    [self dateClick];
 }
 -(void)quedingCLick
 {
@@ -84,7 +84,7 @@
     
     if ([str_name isEqualToString:@"阴历"]) {
       NSCalendar *calender = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
-        NSDateComponents  *componets = [calender components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:picjer.date];
+        NSDateComponents  *componets = [calender components:NSCalendarUnitMonth|NSCalendarUnitDay fromDate:picjer.date];
         
         L_date.text = [NSString stringWithFormat:@"%ld-%ld",(long)componets.month,(long)componets.day];
         

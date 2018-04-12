@@ -52,8 +52,8 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
-    tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
+    tableV.rowHeight=60;
+//    tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
    [WebRequest Get_Off_CheckWithoffId:self.model.ID And:^(NSDictionary *dic) {
        if ([dic[Y_STATUS] integerValue]==200) {
            NSArray *tarr =dic[Y_ITEMS];

@@ -13,6 +13,7 @@
  String source;
  String sourceOwner;
   articleId
+ type
  */
 
 #import <RongIMLib/RongIMLib.h>

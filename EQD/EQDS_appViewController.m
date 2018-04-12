@@ -691,6 +691,21 @@
         Dvc.courseId = model.Id;
         [self.navigationController pushViewController:Dvc animated:NO];
         
+    }else if (temp==0)
+    {
+        if (indexPath.section==0) {
+            //讲师详情
+        }else if (indexPath.section==1)
+        {
+            //视频详情
+        }else
+        {
+            //课程详情
+            EQDS_CourseModel *model  =arr_model02[indexPath.row];
+            EQDS_CourseDetailViewController *Dvc = [[EQDS_CourseDetailViewController alloc]init];
+            Dvc.courseId = model.lectCourseId;
+            [self.navigationController pushViewController:Dvc animated:NO];
+        }
     }
 }
 - (void)setNewOrientation:(BOOL)fullscreen

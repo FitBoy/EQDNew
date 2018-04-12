@@ -24,4 +24,5 @@
 @property (nonatomic,copy) NSString* departId;
 @property (nonatomic,copy) NSString*  department;
 @property (nonatomic,copy) NSString* user;
+@property (nonatomic,assign) float cellHeight;
 @end

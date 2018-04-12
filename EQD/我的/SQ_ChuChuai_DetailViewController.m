@@ -61,8 +61,8 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
-    tableV.contentInset = UIEdgeInsetsMake(15, 0, 0, 0);
+    tableV.rowHeight=60;
+//    tableV.contentInset = UIEdgeInsetsMake(15, 0, 0, 0);
 
 }
 #pragma  mark - 表的数据源

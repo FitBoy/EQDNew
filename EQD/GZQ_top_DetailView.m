@@ -59,6 +59,7 @@
         self.IV_zan.image =[UIImage imageNamed:@"zan_true"];
     }
     self.height_view =95+25;
+    if ([model.type integerValue]==0) {
     CGSize size =[model.contents boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
     NSInteger number =model.imgurls.count/3+(model.imgurls.count%3==0?0:1);
     if (model.contents.length>0&&model.imgurls.count>0) {
@@ -152,6 +153,7 @@
             }
             
         }
+    
         
     }
     else
@@ -167,6 +169,59 @@
         self.IV_img8.frame=CGRectZero;
         self.IV_img9.frame=CGRectZero;
     }
+        self.IV_link.hidden =YES;
+        self.L_title.hidden =YES;
+    }
+    else if([model.type integerValue]==1){
+     //链接
+        self.IV_link.hidden =NO;
+        self.L_title.hidden = NO;
+        if (model.location.length >1) {
+            self.L_address.text = model.location;
+            self.
+            model.cellHeight = 24;
+            self.height_view =24;
+        }else
+        {
+            model.cellHeight =0;
+            self.height_view =0;
+            self.L_address.text = nil;
+        }
+        model.cellHeight =95+model.cellHeight;
+        self.height_view = model.cellHeight;
+        if (model.Message.length > 1 ) {
+            NSMutableParagraphStyle  *para= [[NSMutableParagraphStyle alloc]init];
+            para.lineSpacing =5;
+            CGSize size =[model.Message boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSParagraphStyleAttributeName:para} context:nil].size;
+            self.L_contents.frame =CGRectMake(0, 55, DEVICE_WIDTH-30, size.height+10);
+            self.L_contents.text =model.Message;
+            model.cellHeight = model.cellHeight+size.height+5;
+            self.height_view = model.cellHeight;
+            [self.IV_link mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(self.L_contents.mas_bottom).mas_offset(5);
+            }];
+        }else
+        {
+            [self.IV_link mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(self.V_top.mas_bottom).mas_offset(5);
+            }];
+        }
+        NSString  *imgurl = model.GZQ_newImages[0];
+        self.IV_img2.frame = CGRectZero;
+        self.IV_img3.frame = CGRectZero;
+        self.IV_img1.frame = CGRectZero;
+        
+        [self.IV_link sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"share_lianjie"]];
+        self.L_title.text = model.sourceTitle;
+        model.cellHeight = model.cellHeight+60;
+        self.height_view = model.cellHeight;
+        
+    }else
+    {
+        self.L_address .text = @"暂不支持此类型内容的查看";
+    }
+        
+        
     ///对点赞人的动态处理
     if (model.zan_imgurls.count==0) {
         self.IV_zan1.frame =CGRectMake(0, 3, 24, 24);
@@ -279,7 +334,37 @@
     }
     return _V_bg;
 }
-
+-(UILabel*)L_title
+{
+    if (!_L_title) {
+        _L_title = [[UILabel alloc]init];
+        _L_title.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.6];
+        _L_title.userInteractionEnabled =YES;
+        [self.V_bg addSubview:_L_title];
+        _L_title.font = [UIFont systemFontOfSize:17.f];
+        [_L_title mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(50);
+            make.left.mas_equalTo(self.IV_link.mas_right).mas_offset(5);
+            make.right.mas_equalTo(self.V_bg.mas_right);
+            make.centerY.mas_equalTo(self.IV_link.mas_centerY);
+        }];
+        
+    }
+    return _L_title;
+}
+-(UIImageView*)IV_link
+{
+    if (!_IV_link) {
+        _IV_link = [[UIImageView alloc]init];
+        [self.V_bg addSubview:_IV_link];
+        _IV_link.image = [UIImage imageNamed:@"share_lianjie"];
+        [_IV_link mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(50, 50));
+            make.left.mas_equalTo(self.V_bg.mas_left);
+        }];
+    }
+    return _IV_link;
+}
 -(UIView*)V_top
 {
     if (!_V_top) {

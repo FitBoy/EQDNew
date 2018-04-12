@@ -42,4 +42,10 @@
 
 ///迟到早退的id
 @property (nonatomic,copy) NSString* sickleaveId;
+
+/// 报销
+@property (nonatomic,copy) NSString* remiburseId;
+@property (nonatomic,copy) NSString* staffName;
+@property (nonatomic,assign)  float cellHeight;
+
 @end

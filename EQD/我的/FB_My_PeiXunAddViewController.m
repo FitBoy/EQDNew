@@ -138,6 +138,10 @@
         hud.mode = MBProgressHUDModeAnnularDeterminate;
         hud.label.text = @"正在提交";
         NSMutableString  *IdStr = [NSMutableString string];
+        if (arr_chooseModel.count==0) {
+            [IdStr appendString: user.postId];
+        }else
+        {
         for (int i=0; i<arr_chooseModel.count; i++) {
             GangweiModel  *model2 = arr_chooseModel[i];
             if (i==arr_chooseModel.count-1) {
@@ -146,6 +150,7 @@
             {
             [IdStr appendFormat:@"%@,",model2.ID];
             }
+        }
         }
         [WebRequest Training_Add_trainingApplyWithcomid:user.companyId applicantGuid:user.Guid applicantName:user.username depid:user.departId depName:user.department postid:user.postId postName:user.post trainees:arr_contents[3] theCategory:arr_contents[4] theTheme:arr_contents[5] recoDocentGuid:@" " recoDocentName:arr_contents[6] budgetedExpense:arr_contents[7] thedateStart:arr_contents[8] thedateEnd:arr_contents[9] theDemand:arr_contents[10] theReason:arr_contents[11] betrainedPostId:IdStr And:^(NSDictionary *dic) {
             hud.label.text = dic[Y_MSG];

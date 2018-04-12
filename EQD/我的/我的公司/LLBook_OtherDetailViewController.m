@@ -77,23 +77,23 @@
                 NSMutableAttributedString  *title =[[NSMutableAttributedString alloc]initWithString:model_detail2.noticeName attributes:@{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:30]}];
                 title.yy_alignment =NSTextAlignmentCenter;
                 
-                NSMutableAttributedString  *time =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@发 [%@] %@",model_detail2.createrName,[model_detail2.createTime  substringWithRange:NSMakeRange(0, 4)],model_detail2.noticeCode] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+                NSMutableAttributedString  *time =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@   [%@] %@",model_detail2.createrName,[model_detail2.createTime  substringWithRange:NSMakeRange(0, 4)],model_detail2.noticeCode] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor grayColor]}];
                 time.yy_alignment =NSTextAlignmentCenter;
                 
                 [title appendAttributedString:time];
-                
+                title.yy_lineSpacing =5;
                 CGSize  tsize =[title boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
                 V_red.frame =CGRectMake(0, tsize.height+9, DEVICE_WIDTH-30, 5);
                 
-                NSMutableAttributedString  *contentTitle=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n《%@》",model_detail2.noticeName] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]}];
+                NSMutableAttributedString  *contentTitle=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n《%@》",model_detail2.noticeTheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]}];
                 contentTitle.yy_alignment =NSTextAlignmentCenter;
                 
                 [title appendAttributedString:contentTitle];
                 
-                NSMutableAttributedString *content =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@",model_detail2.noticeContent] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+                NSMutableAttributedString *content =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@",model_detail2.noticeContent] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
                 [title appendAttributedString:content];
                 
-                NSMutableAttributedString *createTime =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@",model_detail2.createTime] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+                NSMutableAttributedString *createTime =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@",model_detail2.createTime] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor grayColor]}];
                 createTime.yy_alignment =NSTextAlignmentRight;
                 [title appendAttributedString:createTime];
                 
@@ -120,7 +120,7 @@
             NSMutableAttributedString  *title =[[NSMutableAttributedString alloc]initWithString:model_deltail.liaisonBookName attributes:@{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:30]}];
             title.yy_alignment =NSTextAlignmentCenter;
             
-            NSMutableAttributedString  *time =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@发 [%@] %@",model_deltail.createrName,[model_deltail.createTime  substringWithRange:NSMakeRange(0, 4)],model_deltail.liaisonBookCode] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+            NSMutableAttributedString  *time =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@  [%@] %@",model_deltail.createrName,[model_deltail.createTime  substringWithRange:NSMakeRange(0, 4)],model_deltail.liaisonBookCode] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor grayColor]}];
             time.yy_alignment =NSTextAlignmentCenter;
             
             [title appendAttributedString:time];
@@ -133,13 +133,13 @@
             
             [title appendAttributedString:contentTitle];
             
-            NSMutableAttributedString *content =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@",model_deltail.liaisonBookContent] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+            NSMutableAttributedString *content =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n\n%@",model_deltail.liaisonBookContent] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
             [title appendAttributedString:content];
             
-            NSMutableAttributedString *createTime =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@",model_deltail.createTime] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+            NSMutableAttributedString *createTime =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@",model_deltail.createTime] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
             createTime.yy_alignment =NSTextAlignmentRight;
             [title appendAttributedString:createTime];
-            
+            title.yy_lineSpacing = 5;
             YYL_contents.attributedText =title;
             CGSize  size =[title boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
             YYL_contents.frame =CGRectMake(15, 0, DEVICE_WIDTH-30, size.height+20);

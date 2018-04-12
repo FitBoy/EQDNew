@@ -9,6 +9,7 @@
 #import "commonRenwuModel.h"
 #import "NSString+FBString.h"
 @implementation commonRenwuModel
+
 -(NSString*)left0
 {
     return self.name;

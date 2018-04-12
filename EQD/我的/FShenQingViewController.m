@@ -16,7 +16,7 @@
 #import "XuQiuPerson_listViewController.h"
 #import "SQ_tiaobanViewController.h"
 #import "SQ_JiaBan_ListViewController.h"
-
+#import "SQTiaoGangViewController.h"
 #import "TongZhi_listViewController.h"
 #import "LianLuoBook_ListViewController.h"
 #import "RedTip_LabelTableViewCell.h"
@@ -42,6 +42,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self  message_recieved];
+    
 }
 
 -(void)message_recieved
@@ -50,7 +51,7 @@
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr =dic[Y_ITEMS];
             arr_one =[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
-            arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0"]];
+            arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0"]];
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary *dic2 = tarr[i];
                 if ([dic2[@"code"] integerValue]==102) {
@@ -92,6 +93,8 @@
                 {
                     //通知
                     [arr_four replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%ld",[arr_four[0] integerValue]+[dic2[@"count"] integerValue]]];
+                }else if ([dic2[@"code"] integerValue]==322 ||[dic2[@"code"] integerValue]==323 ){
+                  [arr_four replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"%ld",[arr_four[4] integerValue]+[dic2[@"count"] integerValue]]];
                 }
                 else
                 {
@@ -110,14 +113,14 @@
     user =[WebRequest GetUserInfo];
     self.navigationItem.title=@"我的申请";
     //@[@"用车",@"报废",@"行政物资"],@[@"调薪",@"费用报销",@"福利",@"社保"],,@"转正",@"岗位异动",
-    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"联络书",@"离职申请",@"人力需求",@"培训申请"]]];//
+    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"联络书",@"离职申请",@"人力需求",@"培训申请"]]];//,@"调岗申请"
     arr_leibie = [NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStyleGrouped];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     
     

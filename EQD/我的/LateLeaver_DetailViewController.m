@@ -91,13 +91,12 @@
         
     }
     
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStyleGrouped];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     adjustsScrollViewInsets_NO(tableV, self);
-    tableV.rowHeight=50;
-    tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
+    tableV.rowHeight=60;
 
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

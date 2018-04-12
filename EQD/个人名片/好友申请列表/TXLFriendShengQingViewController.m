@@ -11,6 +11,7 @@
 #import "FBHaoYouModel.h"
 #import "FBNewFriendTableViewCell.h"
 #import <UIImageView+AFNetworking.h>
+#import "PPCMoreViewController.h"
 @interface TXLFriendShengQingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *tableV;
@@ -91,10 +92,6 @@
     [tableV.mj_header beginRefreshing];
 }
 
-
-
-
-
 #pragma  mark - 表的数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -153,9 +150,20 @@
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 [hud hideAnimated:NO];
+                 [self loadRequestData];
+                UIAlertController  *alert = [UIAlertController alertControllerWithTitle:nil message:@"是否设置备注？" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }]];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    PPCMoreViewController  *Mvc = [[PPCMoreViewController alloc]init];
+                    Mvc.friendGuid = guid;
+                    [self.navigationController pushViewController:Mvc animated:NO];
+                }]];
+                [self presentViewController:alert animated:NO completion:nil];
             });
         }
-        [self loadRequestData];
+       
     }];
     
 }

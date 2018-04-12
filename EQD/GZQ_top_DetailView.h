@@ -43,6 +43,9 @@
 @property (nonatomic,strong)  UIImageView *IV_img7;
 @property (nonatomic,strong)  UIImageView *IV_img8;
 @property (nonatomic,strong)  UIImageView *IV_img9;
+
+@property (nonatomic,strong)  UILabel *L_title;
+@property (nonatomic,strong)  UIImageView *IV_link;
 ///存放九张图片
 @property (nonatomic,strong)  NSMutableArray *arr_imgs;
 

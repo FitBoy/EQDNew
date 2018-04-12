@@ -9,7 +9,7 @@
 #import "FBBaseViewController.h"
 
 @interface EQDS_searchHighViewController : FBBaseViewController
-// 0 讲师，1 课程，2视频，3 文章
+///0 讲师，1 课程，2视频，3 文章
 @property (nonatomic,assign) NSInteger temp;
 @property (nonatomic,copy) NSString* searchKey;
 @end

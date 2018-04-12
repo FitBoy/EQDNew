@@ -94,14 +94,14 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     config.SinaRedirectUri = @"https://www.eqidd.com";
     config.QQAppId = @"1106545812";
     config.QQAppKey = @"2mH9J8txuUtg5YCL";
-    config.WeChatAppId = @"wxa2ea563906227379";
-    config.WeChatAppSecret = @"bb63c0a06bf0ee7f633a5bc44304d110";
-    config.isProduction = NO;
+    config.WeChatAppId = @"wx225929aa256e2053";
+    config.WeChatAppSecret = @"980d8583d596984fb5c162f6baf1f215";
+    config.isProduction = YES;
     config.isSupportWebSina = YES;
     
     [JSHAREService setupWithConfig:config];
     ///发布产品后改成NO 
-    [JSHAREService setDebug:YES];
+    [JSHAREService setDebug:NO];
 
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -201,7 +201,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     NSLog(@"收到的远程推送===%@",remoteNotificationUserInfo);
     [[RCIM sharedRCIM] initWithAppKey:APPKEY_RongCloud];
     [RCIM sharedRCIM].globalNavigationBarTintColor =YQDCOLOR;
-    
+   
     //设置红包扩展的Url Scheme。
     [[RCIM sharedRCIM] setScheme:@"RedPacketEQDLXS" forExtensionModule:@"JrmfPacketManager"];
     
@@ -254,9 +254,30 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     
     //设置Log级别，开发阶段打印详细log
     [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Info;
+    
+    if (iOS10_1Later) {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            //点击允许
+            NSLog(@"注册通知成功");
+            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                NSLog(@"%@", settings);
+            }];
+        } else {
+            //点击不允许
+            NSLog(@"注册通知失败");
+        }
+    }];
+    
+    }else
+    {
+    
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         //注册推送, 用于iOS8以及iOS8之后的系统
-       
+        
+        
+        
         UIUserNotificationSettings *settings = [UIUserNotificationSettings
                                                 settingsForTypes:(UIUserNotificationTypeBadge |
                                                                   UIUserNotificationTypeSound |
@@ -269,6 +290,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
         UIRemoteNotificationTypeAlert |
         UIRemoteNotificationTypeSound;
         [application registerForRemoteNotificationTypes:myTypes];
+    }
     }
     
     [[NSNotificationCenter defaultCenter]
@@ -286,6 +308,11 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
                 NSDictionary *items =dic[Y_ITEMS];
                 [USERDEFAULTS setObject:items forKey:Y_USERINFO];
                 [USERDEFAULTS synchronize];
+            }else
+            {
+                EQDLoginViewController *login =[[EQDLoginViewController alloc]init];
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:login];
+                self.window.rootViewController = nav;
             }
             
         }];
@@ -392,7 +419,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     
     NSString *customizeField1 = [extras valueForKey:@"type"]; //服务端传递的Extras附加字段，key是自己定义的  根据type不同做不同的逻辑处理
     /*
-     100：请假  110：出差，103：外出，104：加班，105：调休，120：调班，.。。。。。。130：离职申请  140：责任人收到的任务 141：协助人，知会人收到的任务 142：验收人收到的验收任务  150入驻邀请 151入驻审批，160:劳动合同，  200：添加好友 ,201:同意  公告：210 ，通知：220  联络书230  240:调休 250：加班 260：消迟到早退，270 ：人力需求申请
+     100：请假  110：出差，103：外出，104：加班，105：调休，120：调班，.。。。。。。130：离职申请  140：责任人收到的任务 141：协助人，知会人收到的任务 142：验收人收到的验收任务  150入驻邀请 151入驻审批，160:劳动合同，  200：添加好友 ,201:同意  公告：210 ，通知：220  联络书230  240:调休 250：加班 260：消迟到早退，270 ：人力需求申请  360 好友评论
      */
    /* if(customizeField1)
     {
@@ -402,20 +429,27 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     [USERDEFAULTS synchronize];
     }*/
     [[NSNotificationCenter defaultCenter]  postNotificationName:@"FB_message_received" object:nil];
-    if([customizeField1 isEqualToString:@"152"]||[customizeField1 isEqualToString:@"302"]||[customizeField1 isEqualToString:@"310"])
+    if([customizeField1 isEqualToString:@"152"]||[customizeField1 isEqualToString:@"302"]||[customizeField1 isEqualToString:@"310"] || [customizeField1 isEqualToString:@"381"])
     {
         user =[WebRequest GetUserInfo];
         if(user)
         {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-          
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
             [WebRequest user_enterWithu1:user.uname u2:[USERDEFAULTS objectForKey:Y_MIMA] And:^(NSDictionary *dic) {
                 if([dic[Y_STATUS] integerValue]==200)
                 {
                     NSDictionary *items =dic[Y_ITEMS];
-                    [USERDEFAULTS setObject:items forKey:Y_USERINFO];
-                    [USERDEFAULTS synchronize];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [USERDEFAULTS setObject:items forKey:Y_USERINFO];
+                        [USERDEFAULTS synchronize];
+                    });
+                   
+                }else
+                {
+                    EQDLoginViewController *login =[[EQDLoginViewController alloc]init];
+                    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:login];
+                    self.window.rootViewController = nav;
                 }
                 
             }];
@@ -516,6 +550,7 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 
 
 //注册用户通知设置
+
 - (void)application:(UIApplication *)application
 didRegisterUserNotificationSettings:
 (UIUserNotificationSettings *)notificationSettings {
@@ -525,6 +560,7 @@ didRegisterUserNotificationSettings:
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+     [JPUSHService registerDeviceToken:deviceToken];
     NSString *token = [deviceToken description];
     token = [token stringByReplacingOccurrencesOfString:@"<"
                                              withString:@""];
@@ -532,9 +568,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                                              withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@" "
                                              withString:@""];
-    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
+
     
-    [JPUSHService registerDeviceToken:deviceToken];
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [[RCIMClient sharedRCIMClient] setDeviceToken:token];
+       
+    });
+   
+
+
 }
 
 - (void)application:(UIApplication *)application
@@ -563,8 +607,10 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
         [USERDEFAULTS removeObjectForKey:Y_USERINFO];
         [USERDEFAULTS removeObjectForKey:RC_TOKEN];
         [USERDEFAULTS removeObjectForKey:Y_MIMA];
+        [USERDEFAULTS setBool:YES forKey:Y_quit];
         [USERDEFAULTS synchronize];
         [[RCIM sharedRCIM] logout];
+        
         EQDLoginViewController *login =[[EQDLoginViewController alloc]init];
         UINavigationController  *nav = [[UINavigationController alloc]initWithRootViewController:login];
         self.window.rootViewController =nav;

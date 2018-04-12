@@ -25,6 +25,8 @@
 #import "FBShareUrlMessageCollectionViewCell.h"
 #import "EQDR_Article_DetailViewController.h"
 #import "FB_ShareEQDViewController.h"
+#import "FBWebUrlViewController.h"
+#import "FBImgShowViewController.h"
 @interface FBConversationViewControllerViewController ()<UIActionSheetDelegate, RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate, UIAlertViewDelegate,
 RCMessageCellDelegate>
@@ -61,7 +63,8 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.conversationMessageCollectionView.frame = CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight);
+    adjustsScrollViewInsets_NO(self.conversationMessageCollectionView, self);
     [[RCIM sharedRCIM] registerMessageType:[FBShareMessageContent class]];
     [self.conversationMessageCollectionView registerClass:[FBShareUrlMessageCollectionViewCell class] forCellWithReuseIdentifier:@"FBShareMessageBaseCell"];
     [self registerClass:[FBShareUrlMessageCollectionViewCell class] forMessageClass:[FBShareMessageContent class]];
@@ -78,6 +81,11 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     self.enableNewComingMessageIcon=YES;
     [RCIM sharedRCIM].enableTypingStatus =YES;
     [RCIM sharedRCIM].enableSyncReadStatus=YES;
+    
+    /// 移除音视频
+
+    [self.chatSessionInputBarControl.pluginBoardView removeItemWithTag:1101];
+      [self.chatSessionInputBarControl.pluginBoardView removeItemWithTag:1102];
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"eqd_myTask.png"] title:@"发任务" atIndex:5 tag:4001];
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[RCKitUtility imageNamed:@"card.png" ofBundle:@"RongCloud.bundle"] title:@"个人名片" atIndex:6 tag:4002];
     [self notifyUpdateUnreadMessageCount];
@@ -256,18 +264,40 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     {
         FBShareMessageContent  *content = (FBShareMessageContent*)model.content;
         NSDictionary *dic = content.content;
-        EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
-        Dvc.articleId = dic[@"articleId"];
-        if([dic[@"source"] isEqualToString:@"易企创"])
+       
+        if([dic[@"source"] isEqualToString:@"易企创"] && dic[@"articleId"]!=nil)
         {
+           
+            
+            EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+            Dvc.articleId = dic[@"articleId"];
             Dvc.temp =1;
-        }else if ([dic[@"source"] isEqualToString:@"易企阅"])
+            [self.navigationController pushViewController:Dvc animated:NO];
+        }else if ([dic[@"source"] isEqualToString:@"易企阅"]&& dic[@"articleId"]!=nil)
         {
+            EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+            Dvc.articleId = dic[@"articleId"];
             Dvc.temp =0;
+            [self.navigationController pushViewController:Dvc animated:NO];
+        }else
+        {
+            FBWebUrlViewController  *wvc = [[FBWebUrlViewController alloc]init];
+            wvc.url = dic[@"url"];
+            wvc.contentTitle = dic[@"source"];
+            [self.navigationController pushViewController:wvc animated:NO];
         }
         
-        [self.navigationController pushViewController:Dvc animated:NO];
+        
     }
+   /* else if ([model.content isKindOfClass:[RCImageMessage class]])
+    {
+        RCImageMessage *imgmess =(RCImageMessage*)model.content;
+        
+        FBImgShowViewController  *ISvc =[[FBImgShowViewController alloc]init];
+        ISvc.selected =0;
+        ISvc.imgstrs= @[imgmess.imageUrl];
+        [self.navigationController pushViewController:ISvc animated:NO];
+    }*/
     else
     {
         
@@ -275,6 +305,7 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     
     
 }
+
 #pragma mark - RealTimeLocationStatusViewDelegate
 - (void)onJoin {
     [self showRealTimeLocationViewController];
@@ -442,12 +473,14 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
         Svc.content = message;
         Svc.EQD_ShareType = EQD_ShareTypeText;
         Svc.text = message.content;
+        Svc.sourceOwner = user.Guid;
+        Svc.source = [NSString stringWithFormat:@"与[%@]的聊天",self.navigationItem.title];
     }
     else if([M_model.content isKindOfClass:[RCImageMessage class]])
     {
         RCImageMessage *message =(RCImageMessage*) M_model.content;
-        Svc.EQD_ShareType = EQD_ShareTypeImage2;
-        Svc.image_local = message.originalImage;
+        Svc.EQD_ShareType = EQD_ShareTypeImage;
+        Svc.imageURL = message.imageUrl;
         Svc.content =message;
     }
     else if([M_model.content isKindOfClass:[RCFileMessage class]])
@@ -511,7 +544,7 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
         //文本
         
         RCTextMessage  *message = (RCTextMessage*)M_model.content;
-        [WebRequest  Collection_Add_collectionWithowner:user.Guid title:@"单聊" ccontent:message.content tel:user.uname sourceOwner:M_model.senderUserId source:source  And:^(NSDictionary *dic) {
+        [WebRequest  Collection_Add_collectionWithowner:user.Guid title: [NSString stringWithFormat:@"与[%@]的聊天",self.navigationItem.title] ccontent:message.content tel:user.uname sourceOwner:M_model.senderUserId source:source  And:^(NSDictionary *dic) {
             hud.label.text =dic[Y_MSG];
         }];
         

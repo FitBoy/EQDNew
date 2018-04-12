@@ -44,7 +44,10 @@
         __block NSInteger temp =i;
         imgV.userInteractionEnabled=YES;
         [imgV sd_setImageWithURL:[NSURL URLWithString:self.imgstrs[i]] placeholderImage:[UIImage imageNamed:@"imageerro"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            [arr_imgs addObject:image];
+            if (image) {
+                  [arr_imgs addObject:image];
+            
+          
             if (DEVICE_WIDTH*image.size.height/image.size.width>DEVICE_HEIGHT-70) {
                 ScrollV.contentSize = CGSizeMake(DEVICE_WIDTH*self.imgstrs.count,DEVICE_WIDTH*image.size.height/image.size.width+10);
                  imgV.frame =CGRectMake(DEVICE_WIDTH*temp, 5, DEVICE_WIDTH, DEVICE_WIDTH*image.size.height/image.size.width);
@@ -54,7 +57,7 @@
               ScrollV.contentSize = CGSizeMake(DEVICE_WIDTH*self.imgstrs.count, DEVICE_HEIGHT-DEVICE_TABBAR_Height);
                  imgV.frame =CGRectMake(DEVICE_WIDTH*temp, 5, DEVICE_WIDTH, DEVICE_WIDTH*image.size.height/image.size.width);
             }
-           
+            }
             
         }];
         
@@ -92,6 +95,14 @@
                 [alertV showAlertWith:@"收藏成功"];
             }
         }];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"识别图中二维码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       
+        if (arr_imgs[longpress.index]) {
+            FBScanViewController *Fvc =[[FBScanViewController alloc]init];
+            Fvc.image = arr_imgs[longpress.index];
+            [self.navigationController pushViewController:Fvc animated:NO];
+        }
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         

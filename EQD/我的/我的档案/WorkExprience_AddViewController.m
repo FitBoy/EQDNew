@@ -49,7 +49,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     date_alert =[[DatePicer_AlertView alloc]initWithFrame:self.view.frame];
     NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd"];

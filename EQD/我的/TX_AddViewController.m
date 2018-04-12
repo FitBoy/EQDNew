@@ -36,7 +36,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     arr_names =[NSMutableArray arrayWithArray:@[@"时段1开始时间",@"时段1结束时间",@"时段2开始时间",@"时段2结束时间",@"调休天数(天)"]];
     arr_contents =[NSMutableArray arrayWithArray:@[@"请选择",@"请选择",@"请选择",@"请选择",@"请输入"]];

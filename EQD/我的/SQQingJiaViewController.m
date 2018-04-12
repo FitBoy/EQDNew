@@ -28,6 +28,10 @@
         
     }];
 }
+
+- (BOOL)prefersHomeIndicatorAutoHidden{
+    return NO;
+}
 -(void)loadRequestData{
     
     [WebRequest Get_Leave_ByCreaterWithcompanyId:user.companyId userGuid:user.Guid page:@"0" type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] And:^(NSDictionary *dic) {
@@ -88,15 +92,15 @@
     self.navigationItem.title =@"请假申请";
     adjustsScrollViewInsets_NO(tableV, self);
     segmentC = [[UISegmentedControl alloc]initWithItems:@[@"审批中",@"已审批"]];
-    segmentC.frame =CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 40);
+    segmentC.frame =CGRectMake(0, DEVICE_HEIGHT-50-kBottomSafeHeight, DEVICE_WIDTH, 50);
     segmentC.selectedSegmentIndex=0;
     [segmentC addTarget:self action:@selector(chooseClick) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentC];
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 40+DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-40-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-50-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"add_eqd2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(addClick)];
     [self.navigationItem setRightBarButtonItem:right];
     selected_page =@"0";

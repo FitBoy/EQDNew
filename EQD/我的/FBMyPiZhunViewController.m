@@ -25,6 +25,7 @@
 #import "RedTip_LabelTableViewCell.h"
 #import "CarUse_ListViewController.h"
 #import "FB_MyPeiXunListViewController.h"
+#import "PZ_baoXiaoViewController.h"
 @interface FBMyPiZhunViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -50,6 +51,7 @@
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr = dic[Y_ITEMS];
             arr_one =[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
+            arr_three =[NSMutableArray arrayWithArray:@[@"0"]];
             arr_four=[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0"]];
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary  *dic2 =tarr[i];
@@ -101,7 +103,12 @@
                 {
                     //劳动合同
                     [arr_four replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"%ld",[arr_four[4] integerValue]+[dic2[@"count"] integerValue]]];
-                }else
+                }else if ([dic2[@"code"] integerValue]==370)
+                {
+                    //报销申请
+                    [arr_three replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%ld",[arr_four[0] integerValue]+[dic2[@"count"] integerValue]]];
+                }
+                else
                 {
                     
                 }
@@ -119,13 +126,13 @@
     user = [WebRequest GetUserInfo];
     self.navigationItem.title =@"我的批准";
     ///@[@"用车",@"报废",@"行政物资"],@[@"调薪",@"费用报销",@"福利",@"社保"],
-    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"公告",@"联络书",@"离职批准",@"劳动合同",@"培训申请"]]];//@"转正",@"岗位异动",@"人力资源需求",
+    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[@"费用报销"],@[@"通知",@"公告",@"联络书",@"离职批准",@"劳动合同",@"培训申请"]]];//@"转正",@"岗位异动",@"人力资源需求",
     arr_leibie = [NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(message_recieved) name:Z_FB_message_received object:nil];
     
@@ -171,7 +178,11 @@
         cell.L_RedTip.hidden =YES;
     }else if (indexPath.section==2)
     {
-        //薪资福利
+        //报销
+        if ([arr_three[indexPath.row] integerValue]>0) {
+            cell.L_RedTip.hidden=NO;
+            cell.L_RedTip.text =arr_three[indexPath.row];
+        }
     }else if (indexPath.section==3)
     {
         //组织管理
@@ -294,12 +305,14 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    //调薪
+                    //费用报销
+                    PZ_baoXiaoViewController *BXvc =[[PZ_baoXiaoViewController alloc]init];
+                    [self.navigationController pushViewController:BXvc animated:NO];
                 }
                     break;
                 case 1:
                 {
-                    //费用报销
+                    //调薪
                 }
                     break;
                 case 2:

@@ -15,4 +15,6 @@
 +(NSString*)getEQDM_ArticleDetailWithId:(NSString*)Id;
 ///易企点培训纪律公约
 +(NSString*)getEQD_TrainJiLv;
+///工作圈的说说详情
++(NSString*)getEQD_ZoneWithid:(NSString*)Id AnduserGuid:(NSString*)userGuid;
 @end

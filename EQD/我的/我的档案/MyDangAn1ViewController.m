@@ -108,7 +108,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
    GRV =[[GeRenView alloc]init];
     GRV.frame =CGRectMake(0, 0, DEVICE_WIDTH, 90);
     tableV.tableHeaderView =GRV;
@@ -172,7 +172,16 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *image =[info objectForKey:UIImagePickerControllerEditedImage];
-    [GRV.B_headimg setBackgroundImage:image forState:UIControlStateNormal];
+    [WebRequest userashx_Update_UserIphotoWithtel:user.uname userGuid:user.Guid image:image And:^(NSDictionary *dic) {
+        MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:dic[Y_MSG]];
+        if ([dic[Y_STATUS] integerValue]==200) {
+            [GRV.B_headimg setBackgroundImage:image forState:UIControlStateNormal];
+        }
+    }];
+    
+    
+  
     [self dismissViewControllerAnimated:NO completion:nil];
     
 }
@@ -382,18 +391,13 @@
         {
             //血型
             UIAlertController *alert =[[UIAlertController alloc]init];
-            [alert addAction:[UIAlertAction actionWithTitle:@"A" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self xiugaiWithcongtent:action.title indexpath:indexPath];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"B" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                 [self xiugaiWithcongtent:action.title indexpath:indexPath];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"AB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                 [self xiugaiWithcongtent:action.title indexpath:indexPath];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"O" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                 [self xiugaiWithcongtent:action.title indexpath:indexPath];
-            }]];
+            NSArray  *tarr = @[@"A型",@"B型",@"AB型",@"O型",@"未知"];
+            for (int i=0; i<tarr.count; i++) {
+                [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self xiugaiWithcongtent:action.title indexpath:indexPath];
+                }]];
+            }
+            
             [self presentViewController:alert animated:NO completion:nil];
             
         }

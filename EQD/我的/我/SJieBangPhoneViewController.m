@@ -29,7 +29,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_jiebang =[NSMutableArray arrayWithArray:@[@"原手机",@"登录密码",@"新手机号",@"再次确认"]];
     arr_contents =[NSMutableArray arrayWithArray:@[user.uname,@"请输入登录密码",@"新手机号",@"重新输入新手机号"]];
 
@@ -113,10 +113,15 @@
             hud.label.text = @"正在解绑";
             //解绑
             [WebRequest userashx_Update_loginphonenoWithuserGuid:user.Guid password:arr_contents[1] uname:arr_contents[2] And:^(NSDictionary *dic) {
-                hud.label.text =dic[Y_MSG];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    hud.label.text = @"解绑成功";
+                }else
+                {
+                    hud.label.text = @"手机或密码有误";
+                }
+              
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [hud hideAnimated:NO];
-                    [self.navigationController popViewControllerAnimated:NO];
                 });
             }];
 

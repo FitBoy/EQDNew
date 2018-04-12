@@ -9,5 +9,10 @@
 #import "EQDS_VideoModel.h"
 
 @implementation EQDS_VideoModel
-
+-(NSString*)vid
+{
+    NSArray *tarr = [self.videoUrl componentsSeparatedByString:@"id_"];
+    NSString  *vid2 =[tarr lastObject];
+   return  [vid2 stringByReplacingOccurrencesOfString:@".html" withString:@""];
+}
 @end

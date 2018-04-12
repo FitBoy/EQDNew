@@ -14,7 +14,7 @@
 @property (nonatomic,copy) NSString* contents;
 @property (nonatomic,copy) NSArray* imgurls;
 @property (nonatomic,copy) NSString* time;
-
+-(NSArray*)imgurls;
 -(NSString*)left0;
 -(NSString*)right0;
 -(NSString*)left1;

@@ -37,7 +37,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
  
     tableV.contentInset=UIEdgeInsetsMake(15, 0, 0, 0);
     arr_contents =[NSMutableArray arrayWithArray:@[@"请选择",@"请选择",@"请输入",@"请选择",@"请输入"]];

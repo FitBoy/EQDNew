@@ -58,7 +58,7 @@
     NSMutableAttributedString  *shuoming = [[NSMutableAttributedString alloc]initWithString:@"注册表示你同意易企点" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
     
     NSMutableAttributedString  *xieyi = [[NSMutableAttributedString alloc]initWithString:@"服务使用协议" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
-    [xieyi yy_setTextHighlightRange:xieyi.yy_rangeOfAll color:[UIColor whiteColor] backgroundColor:EQDCOLOR tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+    [xieyi yy_setTextHighlightRange:xieyi.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         //使用协议
         FBWebUrlViewController  *Url = [[FBWebUrlViewController alloc]init];
         Url.url =@"https://www.eqidd.com/html/agreement.html";
@@ -71,14 +71,14 @@
     [shuoming appendAttributedString:sand];
     
     NSMutableAttributedString  *tiaoKuan = [[NSMutableAttributedString alloc]initWithString:@"隐私条款" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
-    [tiaoKuan yy_setTextHighlightRange:tiaoKuan.yy_rangeOfAll color:[UIColor whiteColor] backgroundColor:EQDCOLOR tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+    [tiaoKuan yy_setTextHighlightRange:tiaoKuan.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         //隐私条款
         FBWebUrlViewController  *Url = [[FBWebUrlViewController alloc]init];
         Url.url =@"https://www.eqidd.com/html/PrivacyPolicy.html";
         Url.contentTitle =@"隐私条款";
         [self.navigationController pushViewController:Url animated:NO];
     }];
-    
+    [shuoming appendAttributedString:tiaoKuan];
     tlabel1.attributedText =shuoming;
     tlabel1.textAlignment =NSTextAlignmentCenter;
     

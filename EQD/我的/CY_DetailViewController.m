@@ -107,7 +107,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
 }
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -194,12 +194,15 @@
             LWvc.contentTitle =arr_names[indexPath.row];
             [self.navigationController pushViewController:LWvc animated:NO];
             
+        }else
+        {
+            
         }
     }
     
         else
         {
-            commonRenwuModel *commmodel =arr_big[indexPath.row-1];
+            commonRenwuModel *commmodel =arr_big[indexPath.row];
             FBShowImg_TextViewController *Svc =[[FBShowImg_TextViewController alloc]init];
             Svc.contents =commmodel.contents;
             Svc.contentTitle =commmodel.name;

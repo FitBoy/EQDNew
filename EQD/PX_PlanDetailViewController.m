@@ -52,7 +52,7 @@
     tableV.dataSource=self;
     tableV.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_height = [NSMutableArray arrayWithCapacity:0];
     for (int i=0; i<arr_names.count; i++) {
         [arr_height addObject:@"60"];

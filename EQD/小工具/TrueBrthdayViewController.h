@@ -10,7 +10,7 @@
 
 @interface TrueBrthdayViewController : FBBaseViewController
 @property (nonatomic,strong)  NSIndexPath *indexpath;
-@property (nonatomic,copy) NSString* content;
+//@property (nonatomic,copy) NSString* content;
 @property (nonatomic,weak) id delegate;
 @end
 @protocol TrueBrthdayViewControllerDelegate <NSObject>

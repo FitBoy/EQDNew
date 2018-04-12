@@ -32,7 +32,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_names =[NSMutableArray arrayWithArray:@[@"通知名称",@"通知对象",@"通知主题",@"通知内容",@"处理时限",@"时限内未审批的责任"]];
     
     arr_contents =[NSMutableArray arrayWithArray:@[@"请输入",[user.isAdmin integerValue]==0?user.department:@"请选择",@"请输入",@"请输入",@"请选择",@"请输入"]];

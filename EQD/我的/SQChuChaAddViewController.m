@@ -44,7 +44,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     
     arr_names =[NSMutableArray arrayWithArray:@[@"出差开始时间",@"出差结束时间",@"出差时长(天)",@"出差地点",@"出差原因",@"审批人"]];
     

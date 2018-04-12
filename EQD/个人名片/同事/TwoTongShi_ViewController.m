@@ -31,43 +31,53 @@
 }
 -(void)loadRequestData{
     [WebRequest Com_Com_User_ByCompanyWithcompanyId:user.companyId page:@"0" And:^(NSDictionary *dic) {
-        [arr_tongshi removeAllObjects];
-        NSDictionary *dicitems =dic[Y_ITEMS];
-        NSArray *tarr =dicitems[@"BusinessCardList"];
-        page=dicitems[@"page"];
-        if (tarr.count) {
-            for (int i=0; i<tarr.count; i++) {
-                Com_UserModel *model =[Com_UserModel mj_objectWithKeyValues:tarr[i]];
-                [arr_tongshi addObject:model];
+        [tableV.mj_header endRefreshing];
+        [tableV.mj_footer endRefreshing];
+        if ([dic[Y_STATUS] integerValue]==200) {
+            [arr_tongshi removeAllObjects];
+            NSDictionary *dicitems =dic[Y_ITEMS];
+            NSArray *tarr =dicitems[@"BusinessCardList"];
+            page=dicitems[@"page"];
+            if (tarr.count) {
+                for (int i=0; i<tarr.count; i++) {
+                    Com_UserModel *model =[Com_UserModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_tongshi addObject:model];
+                }
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                [tableV reloadData];
+            });
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [tableV.mj_header endRefreshing];
-            [tableV.mj_footer endRefreshing];
-            [tableV reloadData];
-        });
+      
     }];
     
 }
 -(void)loadFooterData
 {
     [WebRequest Com_Com_User_ByCompanyWithcompanyId:user.companyId page:page And:^(NSDictionary *dic) {
-        NSDictionary *dicitems =dic[Y_ITEMS];
-        page=dicitems[@"page"];
-        NSArray *tarr =dicitems[@"BusinessCardList"];
-        if (tarr.count) {
-            for (int i=0; i<tarr.count; i++) {
-                Com_UserModel *model =[Com_UserModel mj_objectWithKeyValues:tarr[i]];
-                [arr_tongshi addObject:model];
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [tableV.mj_header endRefreshing];
+        [tableV.mj_footer endRefreshing];
+        if ([dic[Y_STATUS] integerValue]==200) {
+            NSDictionary *dicitems =dic[Y_ITEMS];
+            page=dicitems[@"page"];
+            NSArray *tarr =dicitems[@"BusinessCardList"];
             
-            [tableV.mj_header endRefreshing];
-            [tableV.mj_footer endRefreshing];
-            [tableV reloadData];
-        });
+            if (tarr.count) {
+                for (int i=0; i<tarr.count; i++) {
+                    Com_UserModel *model =[Com_UserModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_tongshi addObject:model];
+                }
+            }else
+            {
+                [tableV.mj_footer endRefreshingWithNoMoreData];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableV reloadData];
+            });
+        }
+       
     }];
 }
 - (void)viewDidLoad {

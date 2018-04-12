@@ -50,7 +50,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"接受邀请" style:UIBarButtonItemStylePlain target:self action:@selector(ruzhiClick)];
     [self.navigationItem setRightBarButtonItem:right];
 
@@ -128,22 +128,14 @@
     else if(indexPath.row==2)
     {
         //血型
-        UIAlertController *alert = [[UIAlertController alloc]init];
-        [alert addAction:[UIAlertAction actionWithTitle:@"A型" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self xiugaiWithcontent:action.title IndexPath:indexPath];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"B型" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self xiugaiWithcontent:action.title IndexPath:indexPath];
-        }]];
-
-        [alert addAction:[UIAlertAction actionWithTitle:@"AB型" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self xiugaiWithcontent:action.title IndexPath:indexPath];
-        }]];
-
-        [alert addAction:[UIAlertAction actionWithTitle:@"O型" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self xiugaiWithcontent:action.title IndexPath:indexPath];
-        }]];
-
+        
+        UIAlertController *alert =[[UIAlertController alloc]init];
+        NSArray  *tarr = @[@"A型",@"B型",@"AB型",@"O型",@"未知"];
+        for (int i=0; i<tarr.count; i++) {
+            [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self xiugaiWithcontent:action.title IndexPath:indexPath];
+            }]];
+        }
         
         [self presentViewController:alert animated:NO completion:nil];
         

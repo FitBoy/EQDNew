@@ -32,13 +32,13 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
 
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return section==0?0:40;
+    return section==0?0:50;
 }
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {

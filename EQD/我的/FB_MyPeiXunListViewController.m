@@ -31,6 +31,9 @@
     
     if(self.isRenshi==2)
     {
+        [WebRequest  userashx_ResetCount_MsgCodeWithuserGuid:user.Guid code:@"320" And:^(NSDictionary *dic) {
+            
+        }];
         [WebRequest  Training_Get_trainingApply_byLeaderWithuserGuid:user.Guid comid:user.companyId type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
             [tableV.mj_footer endRefreshing];
@@ -49,6 +52,9 @@
         
     }else if (self.isRenshi==1)
     {
+        [WebRequest  userashx_ResetCount_MsgCodeWithuserGuid:user.Guid code:@"321" And:^(NSDictionary *dic) {
+            
+        }];
         [WebRequest Training_Get_trainingApply_byHRWithuserGuid:user.Guid comid:user.companyId type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
             [tableV.mj_footer endRefreshing];
@@ -66,6 +72,14 @@
     }
     else
     {
+        
+        [WebRequest  userashx_ResetCount_MsgCodeWithuserGuid:user.Guid code:@"322" And:^(NSDictionary *dic) {
+            
+        }];
+        [WebRequest  userashx_ResetCount_MsgCodeWithuserGuid:user.Guid code:@"323" And:^(NSDictionary *dic) {
+            
+        }];
+        
     [WebRequest Training_Get_trainingApply_OwnerWithuserGuid:user.Guid type:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex] page:@"0" And:^(NSDictionary *dic) {
         [tableV.mj_header endRefreshing];
         [tableV.mj_footer endRefreshing];

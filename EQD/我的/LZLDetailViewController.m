@@ -57,7 +57,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_one =[NSMutableArray arrayWithArray:@[@"编码",@"申请人",@"所在部门",@"所在职位",@"工号",@"入职时间",@"预计离职时间",@"离职类型",@"离职原因",@"等待审批"]];
     
     [WebRequest  User_GetQuitInfoWithquitId:self.model.ID And:^(NSDictionary *dic) {

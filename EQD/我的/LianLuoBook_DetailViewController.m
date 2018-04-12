@@ -32,7 +32,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     // 联络人  被联络人  公司 部门职位
     [WebRequest LiaisonBooks_Get_LiaisonBook_ByIdWithId:self.model.ID And:^(NSDictionary *dic) {

@@ -20,6 +20,7 @@
 #import "FBShareViewController.h"
 #import "FBShareMessageContent.h"
 #import "FBGeRenCardMessageContent.h"
+#import "FBShareLinkViewController.h"
 @interface FB_ShareEQDViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
     UICollectionView *CollectionV;
@@ -331,7 +332,9 @@
             String imgUrl;
             String source;
             String sourceOwner;
-            articleId*/
+            articleId
+             type
+             */
             NSDictionary  *dic = @{
                                    @"title":self.Stitle,
                                    @"content":self.text,
@@ -339,7 +342,8 @@
                                    @"imgUrl":self.imageURL,
                                    @"sourceOwner":self.sourceOwner,
                                    @"source":self.source,
-                                   @"articleId":self.articleId
+                                   @"articleId":self.articleId,
+                                   @"type":[NSString stringWithFormat:@"%ld",self.type]
                                    };
             FBShareMessageContent *message=[[FBShareMessageContent alloc]initWithgeRenCardWithcontent:dic];
             Svc.messageContent =message;
@@ -390,7 +394,7 @@
     UserModel *user = [WebRequest GetUserInfo];
     NSString *address = [USERDEFAULTS objectForKey:Y_AMAP_address];
     if (self.EQD_ShareType ==EQD_ShareTypeText) {
-        [WebRequest Add_WorkCircleWithcompanyId:user.companyId userGuid:user.Guid message:self.text name:user.upname location:address imgarr:nil And:^(NSDictionary *dic) {
+        [WebRequest Add_WorkCircleWithcompanyId:user.companyId userGuid:user.Guid message:self.text name:user.uname location:address imgarr:nil type:@"0" sourceTitle:@" " source:@" " sourceUrl:@" "  And:^(NSDictionary *dic) {
             if ([dic[Y_STATUS] integerValue]==200) {
                 hud.label.text = @"分享成功";
             }else
@@ -403,7 +407,7 @@
         }];
     }else if (self.EQD_ShareType ==EQD_ShareTypeImage2)
     {
-        [WebRequest Add_WorkCircleWithcompanyId:user.companyId userGuid:user.Guid message:@" " name:user.upname location:address imgarr:@[self.image_local] And:^(NSDictionary *dic) {
+        [WebRequest Add_WorkCircleWithcompanyId:user.companyId userGuid:user.Guid message:@" " name:user.uname location:address imgarr:@[self.image_local] type:@"0" sourceTitle:@" " source:@" " sourceUrl:@" " And:^(NSDictionary *dic) {
             if ([dic[Y_STATUS] integerValue]==200) {
                 hud.label.text = @"分享成功";
             }else
@@ -417,9 +421,33 @@
     }else if (self.EQD_ShareType == EQD_ShareTypeImage)
     {
         //图片的连接
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        [alert showAlertWith:@"暂不支持，后续开发"];
     }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
     {
+        /*
+         *String title;
+         String content;
+         String url;
+         String imgUrl;
+         String source;
+         String sourceOwner;
+         articleId
+         type
+         */
+        [hud hideAnimated:NO];
+        FBShareLinkViewController  *SLvc = [[FBShareLinkViewController alloc]init];
+        //message sourceUrl imgUrl source type sourceTitle
+        SLvc.message = self.text;
+        SLvc.sourceUrl = self.url;
+        SLvc.imgUrl = self.imageURL;
+        SLvc.source = self.source;
+        SLvc.sourceTitle = self.Stitle.length < 512? self.Stitle:[self.Stitle substringWithRange:NSMakeRange(0, 510)];
+        SLvc.type =[NSString stringWithFormat:@"%ld",self.type2] ;
+        UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:SLvc];
+        [self presentViewController:nav animated:NO completion:nil];
         //纯连接
+      
     }else
     {
         MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
@@ -469,6 +497,7 @@
         
     }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
     {
+        
         [WebRequest Collection_Add_collectionowner:user.Guid type:[NSString stringWithFormat:@"%ld",self.type] title:self.Stitle url:self.url source:self.source sourceOwner:self.sourceOwner articleId:self.articleId And:^(NSDictionary *dic) {
             MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
             if ([dic[Y_STATUS] integerValue]==200) {
@@ -651,7 +680,10 @@
     JSHAREMessage *message = [JSHAREMessage message];
     message.mediaType = JSHARELink;
     message.url = self.url;
-    message.text = self.text;
+    if (self.text.length>40) {
+        self.text =[self.text substringWithRange:NSMakeRange(0, 40)];
+    }
+    message.text =self.text;
     message.title = self.Stitle;
     message.platform = platform;
     NSString *imageURL = self.imageURL;
@@ -661,6 +693,13 @@
     [JSHAREService share:message handler:^(JSHAREState state, NSError *error) {
         
         NSLog(@"分享回调");
+        MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+        if (!error) {
+            [alert showAlertWith:@"分享成功"];
+        }else
+        {
+            [alert showAlertWith:@"分享失败，或暂不支持此类型分享"];
+        }
         [hud hideAnimated:NO];
         [self dismissViewControllerAnimated:NO completion:nil];
         

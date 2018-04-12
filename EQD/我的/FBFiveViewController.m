@@ -26,6 +26,8 @@
 #import "TKaoQinViewController.h"
 #import "RedTipTableViewCell.h"
 #import "MyShouCangViewController.h"
+#import "FFMyExpensesViewController.h"
+#import "PPersonCardViewController.h"
 @interface FBFiveViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -58,17 +60,17 @@
 {
     [WebRequest  userashx_GetCount_MsgCodeWithuserGuid:user.Guid And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
-            arr_code = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0"]];
+            arr_code = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0"]];
             qiyecode = @"0";
             NSArray *tarr = dic[Y_ITEMS];
             NSInteger code_five =0;
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary *dic2 = tarr[i];
-                if ([dic2[@"code"] integerValue]==102||[dic2[@"code"] integerValue]==112||[dic2[@"code"] integerValue]==122||[dic2[@"code"] integerValue]==252||[dic2[@"code"] integerValue]==242||[dic2[@"code"] integerValue]==262||[dic2[@"code"] integerValue]==282||[dic2[@"code"] integerValue]==232||[dic2[@"code"] integerValue]==302||[dic2[@"code"] integerValue]==222) {
+                if ([dic2[@"code"] integerValue]==102||[dic2[@"code"] integerValue]==112||[dic2[@"code"] integerValue]==122||[dic2[@"code"] integerValue]==252||[dic2[@"code"] integerValue]==242||[dic2[@"code"] integerValue]==262||[dic2[@"code"] integerValue]==282||[dic2[@"code"] integerValue]==232||[dic2[@"code"] integerValue]==302||[dic2[@"code"] integerValue]==222 || [dic2[@"code"] integerValue]==322 || [dic2[@"code"] integerValue]==323 ) {
                     //我的申请
                     [arr_code  replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%d",[arr_code[0] integerValue] +[dic2[@"count"] integerValue]]];
                     code_five = code_five + [dic2[@"count"] integerValue];
-                }else if ([dic2[@"code"] integerValue]==100 ||[dic2[@"code"] integerValue]==110||[dic2[@"code"] integerValue]==120||[dic2[@"code"] integerValue]==250||[dic2[@"code"] integerValue]==240||[dic2[@"code"] integerValue]==260||[dic2[@"code"] integerValue]==280||[dic2[@"code"] integerValue]==231||[dic2[@"code"] integerValue]==162||[dic2[@"code"] integerValue]==300 || [dic2[@"code"] integerValue]==221||[dic2[@"code"] integerValue]==211)
+                }else if ([dic2[@"code"] integerValue]==100 ||[dic2[@"code"] integerValue]==110||[dic2[@"code"] integerValue]==120||[dic2[@"code"] integerValue]==250||[dic2[@"code"] integerValue]==240||[dic2[@"code"] integerValue]==260||[dic2[@"code"] integerValue]==280||[dic2[@"code"] integerValue]==231||[dic2[@"code"] integerValue]==162||[dic2[@"code"] integerValue]==300 || [dic2[@"code"] integerValue]==221||[dic2[@"code"] integerValue]==211||[dic2[@"code"] integerValue]==370 || [dic2[@"code"] integerValue]==320 || [dic2[@"code"] integerValue]==321)
                 {//我的批准
                     code_five = code_five + [dic2[@"count"] integerValue];
                     [arr_code  replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%d",[arr_code[1] integerValue] +[dic2[@"count"] integerValue]]];
@@ -77,10 +79,17 @@
                     code_five = code_five + [dic2[@"count"] integerValue];
                     [arr_code  replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%d",[arr_code[2] integerValue] +[dic2[@"count"] integerValue]]];
                 }else if ([dic2[@"code"] integerValue]==230||[dic2[@"code"] integerValue]==160||[dic2[@"code"] integerValue]==150)
-                {//我的企业
+                {//我的
                     code_five = code_five + [dic2[@"count"] integerValue];
                     qiyecode =[NSString stringWithFormat:@"%d",[qiyecode integerValue] +[dic2[@"count"] integerValue]] ;
-                }else
+                }else if ([dic2[@"code"] integerValue]==371)
+                {
+                    //我的报销
+                    code_five = code_five + [dic2[@"count"] integerValue];
+                  [arr_code  replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"%d",[arr_code[3] integerValue] +[dic2[@"count"] integerValue]]];
+
+                }
+                else
                 {
                 }
             }
@@ -107,14 +116,15 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     adjustsScrollViewInsets_NO(tableV, self); 
     arr_info = [NSMutableArray arrayWithArray:@[@"个人档案"]];
     
-    arr_one = [NSMutableArray arrayWithArray:@[@[@"shenq.png",@"我的申请"],@[@"pizhun.png",@"我的批准"],@[@"renwu.png",@"我的任务"]]];
-    arr_two=[NSMutableArray arrayWithArray:@[@[@"dak.png",@"我的打卡"],@[@"kanb.png",@"我的收藏"],@[@"beiWangLu",@"我的备忘录"]]];
+    arr_one = [NSMutableArray arrayWithArray:@[@[@"shenq.png",@"我的申请"],@[@"pizhun.png",@"我的批准"],@[@"renwu.png",@"我的任务"],@[@"my_baobiao",@"我的报销"]]];
+    arr_two=[NSMutableArray arrayWithArray:@[@[@"dak.png",@"我的打卡"],@[@"kanb.png",@"我的收藏"],@[@"beiWangLu",@"我的备忘录"],@[@"my_study",@"我的学习"]]];
     
     arr_three=[NSMutableArray arrayWithArray:@[@[@"gere",@"我"],@[@"qiye.png",@"我的企业"]]];
+    //
     arr_four=[NSMutableArray arrayWithArray:@[@[@"shezh",@"系统设置"]]];
 //    arr_five = [NSMutableArray arrayWithArray:@[]];
     arr_big =[NSMutableArray arrayWithCapacity:0];
@@ -250,7 +260,7 @@
                     NSDictionary *dic2=dic[Y_ITEMS] ;
                     if ([dic2[@"authen"] integerValue]==1) {
                         
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请再输入一次登录密码" preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"查看个人档案前需要密码再次确认" preferredStyle:UIAlertControllerStyleAlert];
                         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                             textField.placeholder = @"请再次输入密码";
                             textField.secureTextEntry=YES;
@@ -374,6 +384,26 @@
                 
             }
                 break;
+                case 3:
+            {
+                //我的报销
+                 if([user.companyId integerValue]>0)
+                 {
+                FFMyExpensesViewController *Evc =[[FFMyExpensesViewController alloc]init];
+                Evc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:Evc animated:NO];
+                 }else
+                 {
+                     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                     hud.mode = MBProgressHUDModeText;
+                     hud.label.text =@"加入企业后才可以使用";
+                     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                         [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                     });
+                 }
+            }
+                break;
             default:
                 break;
         }
@@ -418,6 +448,17 @@
                 BWLvc.hidesBottomBarWhenPushed=YES;
                 [self.navigationController pushViewController:BWLvc animated:NO];
                 
+                
+            }
+                break;
+                case 3:
+            {
+               //我的学习
+            }
+                break;
+                case 4:
+            {
+                //我的学习
                 
             }
                 break;

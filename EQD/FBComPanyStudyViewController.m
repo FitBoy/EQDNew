@@ -9,6 +9,8 @@
 #import "FBComPanyStudyViewController.h"
 #import "EQDS_appViewController.h"
 #import "PorxyNavigationController.h"
+#import "FBTrainTellViewController.h"
+#import "GSRegisterViewController.h"
 @interface FBComPanyStudyViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -54,6 +56,9 @@
         case 0:
             {
              // 入职培训课程库
+                GSRegisterViewController *Rvc =[[GSRegisterViewController alloc]init];
+                Rvc.phonenumber = @"15286837836";
+                [self.navigationController pushViewController:Rvc animated:NO];
             }
             break;
         case 1:
@@ -84,6 +89,8 @@
         case 6:
         {
             //现场培训
+            FBTrainTellViewController  *Tvc = [[FBTrainTellViewController alloc]init];
+            [self.navigationController pushViewController:Tvc animated:NO];
         }
             break;
         case 7:
@@ -100,6 +107,7 @@
             
         }
             break;
+           
             
         default:
             break;

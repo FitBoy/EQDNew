@@ -23,6 +23,8 @@
 #import "UISearchBar+ToolDone.h"
 #import "FB_CollectionLinkTableViewCell.h"
 #import "EQDR_Article_DetailViewController.h"
+#import "GongZuoQunModel.h"
+#import "GZQ_PingLunViewController.h"
 @interface MyShouCangViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextvImgViewControllerDelegate,FBSearchMapViewControllerDelegate,MakeVoiceNoticeControllerDelegate,UISearchBarDelegate,ShouCangGroupViewControllerDelegate>
 {
     UITableView *tableV;
@@ -402,7 +404,38 @@
         [self.navigationController pushViewController:Dvc animated:NO];
         
         
-    }else
+    }else if ([model.Collection.type integerValue]==0)
+    {
+        //工作圈
+        NSArray  *tarr1 =[model.Collection.url componentsSeparatedByString:@"?"];
+        NSString *tstr1 = tarr1[1];
+        NSArray *tarr2 =[tstr1 componentsSeparatedByString:@"&"];
+        NSString *tstr2  = tarr2[0];
+        NSArray *tarr3 = [tstr2 componentsSeparatedByString:@"="];
+        NSString *Id = tarr3[1];
+       
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeAnnularDeterminate;
+            hud.label.text = @"正在加载";
+            [WebRequest Get_WorkCircle_ByIdWithworkCircleId:Id userGuid:user.Guid And:^(NSDictionary *dic) {
+                [hud hideAnimated:NO];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    
+                    GongZuoQunModel *model = [GongZuoQunModel mj_objectWithKeyValues:dic[Y_ITEMS]];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        GZQ_PingLunViewController  *PLvc = [[GZQ_PingLunViewController alloc]init];
+                        PLvc.model = model;
+                        [self.navigationController pushViewController:PLvc animated:NO];
+                    });
+                    
+                }else
+                {
+                    MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                    [alert showAlertWith:@"该文件已被删除"];
+                }
+            }];
+    }
+    else
     {
         
     }

@@ -49,7 +49,7 @@
     B_yanzheng =[FBButton buttonWithType:UIButtonTypeSystem];
     [B_yanzheng setTitle:@"获取验证码" titleColor:[UIColor whiteColor] backgroundColor:EQDCOLOR font:[UIFont systemFontOfSize:17]];
     [self.view addSubview:B_yanzheng];
-    B_yanzheng.frame = CGRectMake(DEVICE_WIDTH-115, 140, 100, 30);
+    B_yanzheng.frame = CGRectMake(DEVICE_WIDTH-115, 140-64+DEVICE_TABBAR_Height, 100, 30);
     [B_yanzheng addTarget:self action:@selector(fasongyanzhengClick) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -130,33 +130,31 @@
 {
     //下一步
      [self.view endEditing:YES];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.label.text = @"正在验证手机号";
+  
 //    if ([RCKitUtility validateCellPhoneNumber:TF_phone.text]) {
         [WebRequest jsms_ValidcodeWithmsgid:messageId code:TF_yanzhengma.text And:^(NSDictionary *dic) {
             if([dic[Y_STATUS] integerValue]==200)
             {
             
             [WebRequest User_JudgeExistWithuid:TF_phone.text And:^(NSDictionary *dic) {
-                [hud hideAnimated:NO];
                 NSNumber *number =dic[Y_STATUS];
                 NSString *msg =dic[Y_MSG];
+                MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+                [alert showAlertWith:msg];
                 if ([number integerValue]==200) {
-                    [USERDEFAULTS setObject:dic[Y_ITEMS] forKey:Y_USERINFO];
-                    [USERDEFAULTS synchronize];
-                    
-                    GSRegisterViewController *Rvc =[[GSRegisterViewController alloc]init];
-                    Rvc.phonenumber = TF_phone.text;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController pushViewController:Rvc animated:NO];
+                        [USERDEFAULTS setObject:dic[Y_ITEMS] forKey:Y_USERINFO];
+                        [USERDEFAULTS synchronize];
+                        GSRegisterViewController *Rvc =[[GSRegisterViewController alloc]init];
+                        Rvc.phonenumber = TF_phone.text;
+                          [self.navigationController pushViewController:Rvc animated:NO];
                     });
+                   
+                    
                     
                 }
-                else
-                {
-                    hud.label.text =msg;
-                }
+                
+               
         }];
             }else
             {
@@ -171,10 +169,7 @@
 //    hud.label.text =@"你的手机格式不正确";
 //}
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [hud hideAnimated:NO];
-    });
+    
    
     
 }

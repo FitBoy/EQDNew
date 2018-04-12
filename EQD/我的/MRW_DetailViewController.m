@@ -121,7 +121,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     NSString *tstr =@"接受";
     if ([Detail_model.Status integerValue]==1) {
         tstr =@"完成";
@@ -296,9 +296,21 @@
         else if(indexPath.row==3)
         {
             //关联父项目
+            if ([Detail_model.ParentTaskId integerValue]!=0) {
+            
             CY_DetailViewController *Dvc =[[CY_DetailViewController  alloc]init];
             Dvc.renwuID =Detail_model.ParentTaskId;
             [self.navigationController pushViewController:Dvc animated:NO];
+            }else
+            {
+                MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text =@"暂无父级项目";
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                });
+            }
             
         }
         else if(indexPath.row==4)

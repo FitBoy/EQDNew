@@ -40,7 +40,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     user =[WebRequest GetUserInfo];
     arr_names =[NSMutableArray arrayWithArray:@[@"*任务名称",@"*任务描述",@"关联父项目(非必填)",@"*责任人",@"协助人(非必填)",@"知会人(非必填)",@"*开始时间",@"*结束时间",@"*验收标准",@"*验收人",@"*验收时间",@"*责任（奖罚）"]];
     

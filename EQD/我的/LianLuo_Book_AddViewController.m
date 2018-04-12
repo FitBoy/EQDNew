@@ -35,7 +35,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
    
     arr_names =[NSMutableArray arrayWithArray:@[@"联络人",@"联络书名称",@"主题",@"内容",@"处理时限"]];
     arr_contents =[NSMutableArray arrayWithArray:@[@"请选择", [NSString stringWithFormat:@"%@联络书",user.company],@"请输入",@"请输入",@"请选择"]];

@@ -27,6 +27,7 @@ _Pragma("clang diagnostic pop") \
 {
     UIScrollView *SV_imgs;
     NSMutableArray *arr_imgess;
+    UserModel *user;
 }
 
 @end
@@ -82,6 +83,7 @@ _Pragma("clang diagnostic pop") \
 }
 -(void)longPressClick:(FBindexpathLongPressGestureRecognizer*)longPress
 {
+    user = [WebRequest GetUserInfo];
     UIAlertController *alert = [[UIAlertController alloc]init];
     [alert addAction:[UIAlertAction actionWithTitle:@"保存图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
@@ -97,6 +99,26 @@ _Pragma("clang diagnostic pop") \
         }];
         
         
+    }]];
+    
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"收藏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [WebRequest Collection_Add_collectionWithowner:user.Guid imgArr:@[arr_imgess[longPress.index]] tel:user.uname sourceOwner:user.Guid source:[NSString stringWithFormat:@"工作圈-%@",user.upname] And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                MBFadeAlertView *alertV = [[MBFadeAlertView alloc]init];
+                [alertV showAlertWith:@"收藏成功"];
+            }
+        }];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"识别图中二维码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if (arr_imgess[longPress.index]) {
+            FBScanViewController *Fvc =[[FBScanViewController alloc]init];
+            Fvc.image = arr_imgess[longPress.index];
+            [self.navigationController pushViewController:Fvc animated:NO];
+        }
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         

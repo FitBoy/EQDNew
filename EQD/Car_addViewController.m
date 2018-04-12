@@ -10,8 +10,8 @@
 #import "FBTextFieldViewController.h"
 #import "DatePicer_AlertView.h"
 #import "FBTextvImgViewController.h"
-
-@interface Car_addViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextvImgViewControllerDelegate,FBTextFieldViewControllerDelegate>
+#import "FBOptionViewController.h"
+@interface Car_addViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextvImgViewControllerDelegate,FBTextFieldViewControllerDelegate,FBOptionViewControllerDelegate>
 {
     UITableView *tableV;
     UserModel *user;
@@ -55,6 +55,10 @@
 -(void)leftClick
 {
     [date_alert removeFromSuperview];
+}
+-(void)option:(NSString*)option indexPath:(NSIndexPath*)indexPath{
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:option];
+    [tableV reloadData];
 }
 -(void)rightClick
 {
@@ -120,7 +124,14 @@
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row <6 || indexPath.row==7) {
+    if (indexPath.row==1) {
+        FBOptionViewController *Ovc =[[FBOptionViewController alloc]init];
+        Ovc.indexPath =indexPath;
+        Ovc.option=41;
+        Ovc.delegate =self;
+        Ovc.contentTitle =arr_names[indexPath.row];
+        [self.navigationController pushViewController:Ovc animated:NO];
+    }else if (indexPath.row <6 || indexPath.row==7) {
         FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];
         TFvc.delegate =self;
         TFvc.indexPath =indexPath;

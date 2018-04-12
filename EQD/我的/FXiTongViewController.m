@@ -8,10 +8,10 @@
 
 #import "FXiTongViewController.h"
 #import <RongIMKit/RongIMKit.h>
-#import "MyAboutUsViewController.h"
 #import "EQDLoginViewController.h"
 #import "FanKui_ListViewController.h"
 #import <StoreKit/StoreKit.h>
+#import "FBWebUrlViewController.h"
 @interface FXiTongViewController ()<UITableViewDelegate,UITableViewDataSource,SKStoreProductViewControllerDelegate>
 {
     UITableView *tableV;
@@ -45,7 +45,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     S_voice = [[UISwitch alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-70, 5, 70, 30)];
     [S_voice setOn:![RCIM sharedRCIM].disableMessageAlertSound animated:YES];
     [S_voice addTarget:self action:@selector(voiceClick) forControlEvents:UIControlEventValueChanged];
@@ -140,8 +140,11 @@
             case 1:
             {
                 //关于易企点
-                MyAboutUsViewController *AUvc =[[MyAboutUsViewController alloc]init];
-                [self.navigationController pushViewController:AUvc animated:NO];
+                FBWebUrlViewController  *Uvc = [[FBWebUrlViewController alloc]init];
+                Uvc.url = @"https://www.eqidd.com/relatedLink/related.html";
+                Uvc.contentTitle = @"易企点";
+                [self.navigationController pushViewController:Uvc animated:NO];
+             
             }
                 break;
             default:

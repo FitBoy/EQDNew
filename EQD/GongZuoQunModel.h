@@ -44,6 +44,18 @@
 @property (nonatomic,copy) NSString* uname;
 ///2 昵称
 @property (nonatomic,copy) NSString* upname;
+
+///type =1  的链接多出来的字段  来源 “易企阅”
+
+@property (nonatomic,copy) NSString* source;
+///链接的标题
+@property (nonatomic,copy) NSString* sourceTitle;
+/// 链接的url
+@property (nonatomic,copy) NSString* sourceUrl;
+/// type  0:工作圈 1:网页连接，2：视频，3：音乐，9：广告
+@property (nonatomic,copy) NSString* type;
+
+@property (nonatomic,assign) float cellHeight;
 -(NSString*)bottom_right0;
 -(NSString*)bottom_right1;
 -(NSArray*)zan_imgurls;

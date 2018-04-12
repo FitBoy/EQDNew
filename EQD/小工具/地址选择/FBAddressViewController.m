@@ -57,7 +57,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     segmentC =[[UISegmentedControl alloc]initWithItems:@[@"省"]];
     segmentC.frame =CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 40);
     segmentC.selectedSegmentIndex=0;

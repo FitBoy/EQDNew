@@ -26,6 +26,7 @@
     NSMutableArray *arr_tishi;
     NSInteger flag;
     UserModel *user;
+    UIImagePickerController *picker;
 }
 
 @end
@@ -40,11 +41,12 @@
     [super viewDidLoad];
     self.navigationItem.title=@"个人实名认证";
     user = [WebRequest GetUserInfo];
-    arr_images =[NSMutableArray arrayWithArray:@[@"证件照",@"身份证正面照",@"身份证反面照",@"手持身份证"]];
-    arr_tishi = [NSMutableArray arrayWithArray:@[@"1.此证件照必须是红或白或蓝底，否则将会验证失败。\n2.此证件照只可修改一次，请认真对待\n3.此照片仅用于易企点认证使用，不做其他身上也用途",@"1.身份证正面照片必须是真实的 。\n2.此照片仅用于易企点认证使用，不做其他身上也用途",@"1.身份证反面面照片必须是真实的 \n2.此照片仅用于易企点认证使用，不做其他身上也用途",@"1.必须是本人与本人的身份证件。\n2.此照片仅用于易企点认证使用，不做其他身上也用途",@"易企点",@"易企点",@"希望公司给你祝福的日期",@"此邮箱用于用户换手机或者手机丢失的个人操作，也便于我们邮箱联系你"]];
-    arr_one_names = [NSMutableArray arrayWithArray:@[@"证件照",@"身份证正面照",@"身份证反面照",@"本人手持身份证照",@"籍贯",@"户口性质",@"生日祝福日期",@"邮箱(可选)"]];
+    arr_images =[NSMutableArray arrayWithArray:@[@"身份证正面照",@"身份证反面照",@"手持身份证"]];
+    //@"1.此证件照必须是红或白或蓝底，否则将会验证失败。\n2.此证件照只可修改一次，请认真对待\n3.此照片仅用于易企点认证使用，不做其他身上也用途",
+    arr_tishi = [NSMutableArray arrayWithArray:@[@"1.身份证正面照片必须是真实的 。\n2.此照片仅用于易企点认证使用，不做其他身上也用途",@"1.身份证反面面照片必须是真实的 \n2.此照片仅用于易企点认证使用，不做其他身上也用途",@"1.必须是本人与本人的身份证件。\n2.此照片仅用于易企点认证使用，不做其他身上也用途",@"易企点",@"易企点",@"希望公司给你祝福的日期",@"此邮箱用于用户换手机或者手机丢失的个人操作，也便于我们邮箱联系你"]];
+    arr_one_names = [NSMutableArray arrayWithArray:@[@"身份证正面照",@"身份证反面照",@"本人手持身份证照",@"籍贯",@"户口性质",@"生日祝福日期",@"邮箱(可选)"]];
     
-    arr_one_contents = [NSMutableArray arrayWithArray:@[@"未选择",@"未选择",@"未选择",@"未选择",@"请选择",@"请选择",@"请选择",@"请输入"]];
+    arr_one_contents = [NSMutableArray arrayWithArray:@[@"未选择",@"未选择",@"未选择",@"请选择",@"请选择",@"请选择",@"请输入"]];
     
     arr_names = [NSMutableArray arrayWithArray:@[@"真实姓名",@"身份证号",@"性别",@"出生日期",@"民族",@"户籍地址"]];
     arr_contents = [NSMutableArray arrayWithArray:@[@"从身份证信息读取",@"从身份证信息读取",@"从身份证信息读取",@"从身份证信息读取",@"从身份证信息读取",@"从身份证信息读取",@"从身份证信息读取"]];
@@ -58,6 +60,13 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(editCancelClick)];
     [self.navigationItem setLeftBarButtonItem:left];
     flag = 0;
+     picker =[[UIImagePickerController alloc]init];
+    picker.delegate=self;
+    picker.allowsEditing =YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+      picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    
     
 }
 
@@ -69,7 +78,7 @@
         if ([str isEqualToString:@"从身份证信息读取"] ) {
             flag1=1;
         }
-    if (flag1 ==0 && arr_images.count==4) {
+    if (flag1 ==0) {
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeAnnularDeterminate;
@@ -79,7 +88,7 @@
             temp=1;
         }
         self.navigationItem.rightBarButtonItem.enabled =NO;
-        [WebRequest Com_InsertStaffInfoWithuserGuid:user.Guid name:arr_contents[0] imagearr:arr_images idnum:arr_contents[1] sex:[NSString stringWithFormat:@"%ld",(long)temp] age:[self ageWithDateOfBirth:arr_contents[3]] date:arr_contents[3] rdate:arr_one_contents[6] pnative:arr_one_contents[4] nation:arr_contents[4] mail:arr_one_contents[7] housetype:arr_one_contents[5] houseadress:arr_contents[5]  ptel:user.uname And:^(NSDictionary *dic) {
+        [WebRequest Com_InsertStaffInfoWithuserGuid:user.Guid name:arr_contents[0] imagearr:arr_images idnum:arr_contents[1] sex:[NSString stringWithFormat:@"%ld",(long)temp] age:[self ageWithDateOfBirth:arr_contents[3]] date:arr_contents[3] rdate:arr_one_contents[5] pnative:arr_one_contents[3] nation:arr_contents[4] mail:arr_one_contents[6] housetype:arr_one_contents[4] houseadress:arr_contents[5]  ptel:user.uname And:^(NSDictionary *dic) {
           self.navigationItem.rightBarButtonItem.enabled =YES;
            
             NSNumber *number = dic[@"status"];
@@ -189,14 +198,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 60;
 }
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if (indexPath.section==0) {
-        if (indexPath.row==0) {
+       /* if (indexPath.row==0) {
             FBImgViewController *imagvc =[[FBImgViewController alloc]init];
             imagvc.indexPath=indexPath;
             imagvc.flag =indexPath.row;
@@ -206,14 +215,11 @@
             [self.navigationController pushViewController:imagvc animated:NO];
             
         }
-        else if(indexPath.row<4 && indexPath.row>0)
+        else*/
+        if(indexPath.row<3 )
         {
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 flag = indexPath.row;
-                UIImagePickerController *picker =[[UIImagePickerController alloc]init];
-                picker.delegate=self;
-                picker.allowsEditing=YES;
-                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
                 [self presentViewController:picker animated:NO completion:nil];
             }
             else
@@ -227,7 +233,7 @@
                 });
             }
         }
-        else if(indexPath.row==4)
+        else if(indexPath.row==3)
         {
             //户籍
             FBAddressViewController *Avc =[[FBAddressViewController alloc]init];
@@ -236,7 +242,7 @@
             [self.navigationController pushViewController:Avc animated:NO];
             
         }
-        else if(indexPath.row==5)
+        else if(indexPath.row==4)
         {
             //户口性质
             FBOptionViewController *Ovc =[[FBOptionViewController alloc]init];
@@ -247,12 +253,12 @@
             [self.navigationController pushViewController:Ovc animated:NO];
             
         }
-       else if (indexPath.row==6) {
+       else if (indexPath.row==5) {
             //生日祝福日期
            TrueBrthdayViewController *Bvc =[[TrueBrthdayViewController alloc]init];
            Bvc.delegate =self;
            Bvc.indexpath= indexPath;
-           Bvc.content =arr_one_contents[indexPath.row];
+//           Bvc.content =arr_one_contents[indexPath.row];
            [self.navigationController pushViewController:Bvc animated:NO];
            
         }
@@ -279,8 +285,10 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    [self dismissViewControllerAnimated:NO completion:nil];
-    if (flag ==1) {
+    [self dismissViewControllerAnimated:NO completion:^{
+       
+    }];
+    if (flag ==0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeAnnularDeterminate;
         hud.label.text = @"正在处理身份信息";
@@ -309,6 +317,7 @@
             });
         }];
     }
+        
     [arr_one_contents replaceObjectAtIndex:flag withObject:@"已选择"];
     [arr_images replaceObjectAtIndex:flag withObject:image];
     [tableV reloadData];

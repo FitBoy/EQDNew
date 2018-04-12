@@ -31,12 +31,12 @@
     self.navigationItem.title =@"详情";
     user =[WebRequest GetUserInfo];
     arr_shenpi =[NSMutableArray arrayWithCapacity:0];
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStyleGrouped];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_names =[NSMutableArray arrayWithArray:@[@"申请人",@"加班单编码",@"加班时间段",@"加班时长(h)",@"加班类型",@"加班原因",@"提交时间"]];
   //审批详情
     [WebRequest OverTimes_Get_OverTime_ByIdWithoverTimeId:self.model.ID And:^(NSDictionary *dic) {
@@ -56,7 +56,6 @@
         }
         [tableV reloadData];
     }];
-    tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
 }
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

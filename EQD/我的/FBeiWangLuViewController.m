@@ -68,7 +68,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"add_eqd"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
     [self.navigationItem setRightBarButtonItem:right];
     
@@ -94,6 +94,8 @@
 }
 
 -(void)updateUIWithDate:(NSDate*)date{
+    
+   
     //设置小红点
     NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
@@ -127,6 +129,8 @@
         }
         
     }];
+    [arr_model removeAllObjects];
+    [tableV reloadData];
     
 }
 -(void)addClick

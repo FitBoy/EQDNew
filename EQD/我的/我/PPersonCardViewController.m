@@ -16,6 +16,7 @@
 #import "SetPerson_QuanXianViewController.h"
 #import "FBShareViewController.h"
 #import "FBGeRenCardMessageContent.h"
+#import "PPCMoreViewController.h"
 @interface PPersonCardViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -64,7 +65,7 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_two = [NSMutableArray arrayWithArray:@[@"手机号",@"地区"]];
     arr_three = [NSMutableArray arrayWithArray:@[@"公司",@"部门职务"]];
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
@@ -74,24 +75,32 @@
 -(void)moreClick
 {
     //更多
-    NSArray *tarr =@[@"设置工作圈权限",@"发送该名片",@"删除"];
+    NSArray *tarr =@[@"设置备注",@"设置工作圈权限",@"发送该名片",@"删除"];
     UIAlertController  *alert = [[UIAlertController alloc]init];
     for (int i=0; i<tarr.count; i++) {
         [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if(i==0)
             {
+                //备注
+                PPCMoreViewController  *CMvc =[[PPCMoreViewController alloc]init];
+                CMvc.friendGuid = self.userGuid;
+                [self.navigationController pushViewController:CMvc animated:NO];
+                
+                
+            }else if(i==1)
+            {
                 SetPerson_QuanXianViewController  *QXvc =[[SetPerson_QuanXianViewController alloc]init];
                 QXvc.userGuid =model.userGuid;
                 [self.navigationController pushViewController:QXvc animated:NO];
                 
-            }else if (i==1)
+            }else if (i==2)
             {
                 FBShareViewController  *Svc =[[FBShareViewController alloc]init];
                 FBGeRenCardMessageContent  *content = [[FBGeRenCardMessageContent alloc]initWithgeRenCardWithcontent:@{@"imgurl":model.photo,@"name":model.upname,@"bumen":model.department,@"gangwei":model.post,@"company":model.company,@"uid":model.userGuid,@"comid":model.companyId}];
                 Svc.messageContent =content;
                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
                 [self presentViewController:nav animated:NO completion:nil];
-            }else if (i==2)
+            }else if (i==3)
             {
                 UIAlertController  *alert1 =[UIAlertController alertControllerWithTitle:nil message:@"您确定删除？" preferredStyle:UIAlertControllerStyleActionSheet];
                 [alert1 addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -224,6 +233,12 @@
         [[RCIM sharedRCIM] refreshUserInfoCache:userinfo withUserId:model.userGuid];
 //        oneTooneChat.hidesBottomBarWhenPushed =YES;
         [self.navigationController pushViewController:oneTooneChat animated:NO];
+    }else if (indexPath.section ==1 && indexPath.row==0)
+    {
+        NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"tel:%@",model.uname];
+        UIWebView *callWebView = [[UIWebView alloc] init];
+        [callWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [self.view addSubview:callWebView];
     }
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "FBTimeTwoViewController.h"
-
+#import "GNmodel.h"
 @interface FBTimeTwoViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -27,7 +27,7 @@
     
     flag =0;
     self.navigationItem.title = self.contenttitle;
-    arr_names =[NSMutableArray arrayWithArray:@[@"开始",@"结束"]];
+    arr_names =[NSMutableArray arrayWithArray:@[@"开始时间",@"结束时间"]];
     arr_contents =[NSMutableArray arrayWithArray:@[@"请选择",@"请选择"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 300) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
@@ -93,7 +93,6 @@
     cell.textLabel.text =arr_names[indexPath.row];
     cell.detailTextLabel.text =arr_contents[indexPath.row];
     if (indexPath.row==0) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell_selected=cell;
     }
     return cell;
@@ -105,17 +104,15 @@
     UITableViewCell *cell =[tableView cellForRowAtIndexPath:indexPath];
     flag =indexPath.row;
     if (indexPath.row==0) {
-        cell_selected.accessoryType = UITableViewCellAccessoryNone;
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        cell_selected=cell;
+       
+        dateP.backgroundColor = [UIColor whiteColor];
     }
     else
     {
-         cell_selected.accessoryType = UITableViewCellAccessoryNone;
-       cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        cell_selected=cell;
+       dateP.backgroundColor =EQDCOLOR;
+       
     }
-   
+   cell_selected=cell;
     [self datePClick];
     
 }

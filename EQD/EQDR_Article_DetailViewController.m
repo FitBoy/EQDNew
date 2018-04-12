@@ -97,6 +97,9 @@
                 [self setBottom];
             });
          
+        }else
+        {
+            [webview_Detail loadHTMLString:@"<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" > <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"></head><body style=\"font-size:25px; color:gray;text-align:center\" >文章已被作者删除</body></html>"  baseURL:nil];
         }
     }];
     }
@@ -228,6 +231,7 @@
                 Svc.providesPresentationContextTransitionStyle = YES;
                 Svc.definesPresentationContext = YES;
                 Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                Svc.articleId = model_MDetail.Id;
                 //url text title imageURL
                 if(self.temp ==1)
                 {
@@ -238,6 +242,8 @@
                     Svc.imageURL = [NSString stringWithFormat:@"%@%@",HTTP_PATH,model_MDetail.picUrl];
                     Svc.articleId = self.articleId;
                     Svc.source = @"易企创";
+                    Svc.type = 12;
+                    Svc.type2=1;
                     Svc.sourceOwner=model_MDetail.userGuid;
                 }else
                 {
@@ -250,6 +256,8 @@
                     Svc.sourceOwner = model_detail.userGuid;
                 }
                 Svc.EQD_ShareType = EQD_ShareTypeLink;
+                Svc.type = 10;
+                Svc.type2=1;
                 [self presentViewController:Svc animated:NO completion:nil];
                 
             }else if (i==2)
@@ -426,7 +434,8 @@
     Svc.text =model_detail.textContent;
     Svc.imageURL = model_detail.homeImage;
     Svc.articleId = model_detail.Id;
-        Svc.type =0;
+        Svc.type =1;
+        Svc.type2=1;
     }
     Svc.EQD_ShareType = EQD_ShareTypeLink;
     [self presentViewController:Svc animated:NO completion:nil];
