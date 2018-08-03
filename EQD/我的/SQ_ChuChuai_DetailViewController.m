@@ -136,8 +136,10 @@
         }
     }]];
     
-    
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+
+    });
 }
 -(void)tongyiClick
 {

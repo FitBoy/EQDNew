@@ -74,4 +74,15 @@
 {
     return self.location;
 }
+
+-(NSArray*)GZQ_newImages
+{
+    NSMutableArray *tarr = [NSMutableArray arrayWithCapacity:0];
+    for (int i=0; i<_GZQ_newImages.count; i++) {
+        NSString *url = _GZQ_newImages[i];
+        url = [url stringByReplacingOccurrencesOfString:@".png" withString:@"min.png"];
+        [tarr addObject:url];
+    }
+    return tarr;
+}
 @end

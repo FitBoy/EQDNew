@@ -67,7 +67,9 @@
                 [callWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
                 [self.view addSubview:callWebView];
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
         }else
         {
             MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];

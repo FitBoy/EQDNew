@@ -127,7 +127,10 @@
         LYvc.delegate =self;
         LYvc.btnName = @"确定";
         LYvc.placeHolder = @"请输入拒绝理由";
-        [self.navigationController presentViewController:LYvc animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController presentViewController:LYvc animated:NO completion:nil];
+
+        });
         
     }else
     {

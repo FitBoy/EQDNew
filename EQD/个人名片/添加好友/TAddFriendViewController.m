@@ -11,12 +11,14 @@
 #import "ASearchViewController.h"
 #import "FBActivityViewController.h"
 #import "ExActivity.h"
+#import "FB_ShareEQDViewController.h"
+#import "Add_phoneContactViewController.h"
 @interface TAddFriendViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
     UITableView *tableV;
     NSMutableArray *arr_names;
     UserModel *user;
-    ComModel *com;
+    
 }
 
 @end
@@ -25,9 +27,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [WebRequest Com_regiInfoWithcomId:user.companyId And:^(NSDictionary *dic) {
-        com =[ComModel mj_objectWithKeyValues:dic[Y_ITEMS]];
-    }];
+   
     
 }
 
@@ -37,7 +37,7 @@
     self.navigationItem.title= @"添加好友方式";
     
     
-    arr_names = [NSMutableArray arrayWithArray:@[@[@"",@"手机号/易企点号加好友"],@[@"",@"扫一扫加好友"],@[@"",@"邀请朋友注册易企点"]]];
+    arr_names = [NSMutableArray arrayWithArray:@[@[@"",@"手机号/易企点号加好友"],@[@"",@"扫一扫加好友"],@[@"",@"邀请朋友注册易企点"],@[@"",@"批量添加手机联系人"]]];
 
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
@@ -97,17 +97,33 @@
             {
                 Tstr =user.uname;
             }
+            
+            FB_ShareEQDViewController *Svc = [[FB_ShareEQDViewController alloc]init];
+            Svc.providesPresentationContextTransitionStyle = YES;
+            Svc.definesPresentationContext = YES;
+            Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            Svc.EQD_ShareType= EQD_ShareTypeText;
+            Svc.text =[NSString stringWithFormat:@"【易企点】您的朋友:%@邀请您注册易企点,点击 https://www.eqidd.com/html/adjust.html 注册",Tstr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:Svc animated:NO completion:nil];
+            });
+          
+            /*
          //邀请好友注册易企点
             ExActivity *activity=[[ExActivity alloc]init];
             activity.messageContent = [RCTextMessage messageWithContent:[NSString stringWithFormat:@"【易企点】您的朋友:%@邀请您注册易企点,点击 https://www.eqidd.com/relatedLink/related.html 注册",Tstr]];
            
             FBActivityViewController *ACvc =[[FBActivityViewController alloc]initWithActivityItems:@[[NSString stringWithFormat:@"【易企点】您的朋友:<%@>邀请您注册易企点,点击 https://www.eqidd.com/relatedLink/related.html 注册",Tstr]] applicationActivities:@[activity]];
             
-            [self  presentViewController:ACvc animated:NO completion:nil];
+            [self  presentViewController:ACvc animated:NO completion:nil];*/
         }
             break;
-      
-            
+        case 3:{
+           //添加手机联系人
+            Add_phoneContactViewController *Avc =[[Add_phoneContactViewController alloc]init];
+            [self.navigationController pushViewController:Avc animated:NO];
+        }
+            break;
         default:
             break;
     }

@@ -70,12 +70,16 @@
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.label.text = @"正在修改";
     [WebRequest crmModule_Update_revisitRecordWithowner:user.Guid revisitRecordid:self.model.ID data:data And:^(NSDictionary *dic) {
-        hud.label.text =dic[Y_MSG];
+        
         if ([dic[Y_STATUS] integerValue]==200) {
+            hud.label.text =@"修改成功";
            [arr_contents replaceObjectAtIndex:5 withObject:date_str];
             [tableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             //@[@"回访标题",@"联系人",@"回访类型",@"回访日期",@"回访内容",@"提醒(再次回访)",@"创建时间"]
             [[EventCalendar sharedEventCalendar] createEventCalendarTitle:arr_contents[0] location:@" " startDate:date_alert.picker.date endDate:date_alert.picker.date allDay:NO alarmArray:@[@"-5"]];
+        }else
+        {
+            hud.label.text =@"您无此权限修改";
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [hud hideAnimated:NO];

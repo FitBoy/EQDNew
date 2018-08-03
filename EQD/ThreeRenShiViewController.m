@@ -23,6 +23,10 @@
 #import "RedTip_LabelTableViewCell.h"
 #import "FB_PeiXunManagerViewController.h"
 #import "RS_CaiWuViewController.h"
+#import "RS_meetingManagerViewController.h"
+#import "TKeHuGuanLiViewController.h"
+#import "ComWorkSpace_ViewController.h"
+#import "Space_comListViewController.h"
 @interface ThreeRenShiViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -83,7 +87,7 @@
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
     self.navigationItem.title =@"人事";
-    arr_names =[NSMutableArray arrayWithArray:@[@[@"人事的审批"],@[@"组织管理",@"考勤管理",@"招聘管理",@"培训管理",@"财务管理"],@[@"员工档案管理",@"劳动合同管理"],@[@"权限设置",@"公告-小喇叭管理",@"企业文化"]]];//
+    arr_names =[NSMutableArray arrayWithArray:@[@[@"人事的审批"],@[@"组织管理",@"考勤管理",@"招聘管理",@"培训管理",@"财务管理",@"会议管理",@"客户管理"],@[@"员工档案管理",@"劳动合同管理"],@[@"权限设置",@"公告-小喇叭管理",@"企业文化",@"企业空间管理员设置",@"企业空间"]]];//
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStyleGrouped];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
@@ -181,6 +185,19 @@
             RS_CaiWuViewController *CWvc = [[RS_CaiWuViewController alloc]init];
             [self.navigationController pushViewController:CWvc animated:NO];
             
+        }else if (indexPath.row ==5)
+        {
+            //会议管理
+            
+            RS_meetingManagerViewController *Mvc = [[RS_meetingManagerViewController alloc]init];
+            [self.navigationController pushViewController:Mvc animated:NO];
+            
+        }else if (indexPath.row == 6)
+        {
+            //客户管理
+            TKeHuGuanLiViewController  *KHvc = [[TKeHuGuanLiViewController alloc]init];
+            KHvc.isRenShi =1;
+            [self.navigationController pushViewController:KHvc animated:NO];
         }
         else
         {
@@ -223,6 +240,16 @@
             TRSWenHuaViewController *WHvc =[[TRSWenHuaViewController alloc]init];
             [self.navigationController pushViewController:WHvc animated:NO];
 
+        }else if (indexPath.row ==3)
+        {
+            //企业空间设置
+            ComWorkSpace_ViewController  *Wvc = [[ComWorkSpace_ViewController alloc]init];
+            [self.navigationController pushViewController:Wvc animated:NO];
+        }else if (indexPath.row == 4)
+        {
+            //企业空间
+            Space_comListViewController  *Lvc =[[Space_comListViewController alloc]init];
+            [self.navigationController pushViewController:Lvc animated:NO];
         }
         else
         {

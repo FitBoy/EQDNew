@@ -485,8 +485,10 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+
+    });
     
 }
 #pragma  mark - 表的协议代理
@@ -534,7 +536,10 @@
         {
             //上传票据
             indexPath_selected = indexPath;
-            [self presentViewController:picker animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:picker animated:NO completion:nil];
+
+            });
         }else if (model.biaoji ==4)
         {
             //上传附件

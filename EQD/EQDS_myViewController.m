@@ -445,7 +445,9 @@
             }];
             
         }]];
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
         
     }else
     {
@@ -699,13 +701,17 @@
         [alert2 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert2 animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert2 animated:NO completion:nil];
+        });
         
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 -(void)longPressCLick:(FBindexpathLongPressGestureRecognizer*)longPress{
     UITableView *tableV = arr_tableV[temp];
@@ -735,8 +741,9 @@
                 });
             }];
         }]];
-        
-        [self presentViewController:alert2 animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert2 animated:NO completion:nil];
+        });
         
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"删除相册" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -756,14 +763,18 @@
         [alert2 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert2 animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert2 animated:NO completion:nil];
+        });
         
       
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 #pragma  mark - 视频的选择 delegate
 -(void)getVideoArr:(NSArray *)arr_Video
@@ -799,7 +810,9 @@
             picker.allowsEditing = YES;
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                 picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:picker animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:picker animated:NO completion:nil];
+                });
             }
           
             

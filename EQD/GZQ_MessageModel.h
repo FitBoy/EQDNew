@@ -21,5 +21,7 @@
 @property (nonatomic,copy) NSString* workCircleId;
 @property (nonatomic,copy) NSString* workCircleImageUrl;
 @property (nonatomic,assign) float cellHeight;
+///日志的Id
+@property (nonatomic,copy) NSString* dailyId;
 -(NSString*)createTime;
 @end

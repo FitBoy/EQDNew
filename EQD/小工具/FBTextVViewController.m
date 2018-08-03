@@ -7,7 +7,6 @@
 //
 
 #import "FBTextVViewController.h"
-
 @interface FBTextVViewController ()<UITextViewDelegate>
 {
     UITextView *textV;
@@ -21,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets =NO;
-    textV =[[UITextView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 250)];
+    textV =[[UITextView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 300)];
     textV.font =[UIFont systemFontOfSize:17];
     textV.delegate =self;
     textV.layer.borderColor = [UIColor grayColor].CGColor;
@@ -43,8 +42,9 @@
     }
     else
     {
-        L_num =[[UILabel alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-110, 275, 100, 20)];
+        L_num =[[UILabel alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-110, DEVICE_TABBAR_Height+305, 100, 20)];
         [self.view addSubview:L_num];
+        L_num.textColor = [UIColor redColor];
         L_num.font=[UIFont systemFontOfSize:15];
         L_num.textAlignment =NSTextAlignmentRight;
         L_num.text =[NSString stringWithFormat:@"%ld/%@",self.content.length,self.S_maxnum];

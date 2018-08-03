@@ -14,8 +14,8 @@
 #import "PX_CourseManagerViewController.h"
 
 #import "EQDS_SearchViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
-@interface PX_Plan_AddViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextFieldViewControllerDelegate,FB_TimeSectionViewControllerdelegate,PX_CourseManagerViewControllerDelegate,EQDS_SearchViewControllerDelegate,FBOneChoose_TongShiViewControllerDelegate>
+#import "FB_twoTongShi2ViewController.h"
+@interface PX_Plan_AddViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextFieldViewControllerDelegate,FB_TimeSectionViewControllerdelegate,PX_CourseManagerViewControllerDelegate,EQDS_SearchViewControllerDelegate,FB_twoTongShi2ViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names;
@@ -54,12 +54,13 @@
     
 }
 #pragma  mark - 企业内部的同事
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    teacherGuid =model.userGuid;
-    [arr_contents replaceObjectAtIndex:indepPath.row withObject:model.username];
-    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
+    teacherGuid =model_com.userGuid;
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:model_com.username];
+    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 #pragma  mark - 自定义的协议代理
 -(void)getThreeSectionModel:(NSArray<ThreeSectionModel *> *)arr_threeSectionModel
 {
@@ -252,9 +253,9 @@
                 }else if (i==1)
                 {
                   //企业内部
-                    FBOneChoose_TongShiViewController  *Tvc= [[FBOneChoose_TongShiViewController alloc]init];
-                    Tvc.indexpath =indexPath;
-                    Tvc.delegate =self;
+                    FB_twoTongShi2ViewController  *Tvc= [[FB_twoTongShi2ViewController alloc]init];
+                    Tvc.indexPath =indexPath;
+                    Tvc.delegate_tongshiDan =self;
                     [self.navigationController pushViewController:Tvc animated:NO];
                 }else
                 {
@@ -271,7 +272,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
        
     }else if (indexPath.row==7)
     {
@@ -289,7 +292,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
     }else if (indexPath.row==8)
     {
         //培训时间

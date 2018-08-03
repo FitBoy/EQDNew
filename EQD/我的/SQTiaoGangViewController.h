@@ -9,5 +9,6 @@
 #import "FBBaseViewController.h"
 
 @interface SQTiaoGangViewController : FBBaseViewController
-
+/// 0 是申请 1 审批
+@property (nonatomic,assign) NSInteger temp;
 @end

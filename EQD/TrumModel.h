@@ -17,7 +17,9 @@
 @property (nonatomic,copy) NSString* isdel;
 @property (nonatomic,copy) NSString* trumCode;
 @property (nonatomic,copy) NSString* userGuid;
+-(NSString*)createTime;
 -(NSString*)left0;
 -(NSString*)left1;
 -(NSString*)right0;
+@property (nonatomic,assign) float cellHeight;
 @end

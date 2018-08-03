@@ -26,7 +26,7 @@
     tableV.rowHeight=60;
     UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(quedingClick)];
     [self.navigationItem setRightBarButtonItem:right];
-self.navigationItem.title =@"上班时间选择";
+self.navigationItem.title =@"时间选择";
 }
 -(void)quedingClick
 {

@@ -16,6 +16,7 @@
         _IV_bg =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_WIDTH*0.5)];
         _IV_bg.userInteractionEnabled=YES;
         [self addSubview:_IV_bg];
+        [_IV_bg sendSubviewToBack:self.IV_head];
     }
     return _IV_bg;
 }
@@ -34,7 +35,9 @@
     if (!_IV_head) {
         _IV_head =[[UIImageView alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-95, DEVICE_WIDTH*0.5-40, 80, 80)];
         _IV_head.userInteractionEnabled=YES;
+        
         [self addSubview:_IV_head];
+        [_IV_head bringSubviewToFront:self.IV_bg];
     }
     return _IV_head;
 }
@@ -55,9 +58,11 @@
     self.backgroundColor =[UIColor whiteColor];
     _arr_contents =arr_contents;
     [self.IV_bg sd_setImageWithURL:[NSURL URLWithString:arr_contents[0]] placeholderImage:[UIImage imageNamed:@"GZQ_header"]];
-    [self.IV_head sd_setImageWithURL:[NSURL URLWithString:arr_contents[1]] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
     self.L_name.text =arr_contents[2];
     self.L_sign.text =arr_contents[3];
+    [self.IV_head sd_setImageWithURL:[NSURL URLWithString:arr_contents[1]] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+    [self addSubview:self.IV_head];
+   
 }
 
 @end

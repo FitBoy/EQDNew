@@ -7,10 +7,10 @@
 //
 
 #import "ShenPiPerson_addViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
+#import "FB_twoTongShi2ViewController.h"
 #import "Bumen_MutableViewController.h"
 #import "FBPeople.h"
-@interface ShenPiPerson_addViewController ()<UITableViewDataSource,UITableViewDelegate,FBOneChoose_TongShiViewControllerDelegate,Bumen_MutableViewControllerDelegate>
+@interface ShenPiPerson_addViewController ()<UITableViewDataSource,UITableViewDelegate,FB_twoTongShi2ViewControllerDelegate,Bumen_MutableViewControllerDelegate>
 {
     UITableView *tableV;
     UserModel *user;
@@ -80,9 +80,9 @@
     if(indexPath.row==0)
     {
         //审批人
-        FBOneChoose_TongShiViewController  *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-        TSvc.delegate =self;
-        TSvc.indexpath =indexPath;
+        FB_twoTongShi2ViewController  *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+        TSvc.delegate_tongshiDan =self;
+        TSvc.indexPath =indexPath;
         [self.navigationController pushViewController:TSvc animated:NO];
     }else
     {
@@ -111,14 +111,15 @@
        
     }
 }
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    model_com =model;
-    checker = model.userGuid;
-    [arr_contents replaceObjectAtIndex:indepPath.row withObject:model.username];
-    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
-    
+    model_com =model_com;
+    checker = model_com.userGuid;
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:model_com.username];
+    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 -(void)bumenArr:(NSArray *)arr
 {
     NSMutableString *bumen = [NSMutableString string];

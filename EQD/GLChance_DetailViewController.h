@@ -10,4 +10,5 @@
 #import "ChanceSaleModel.h"
 @interface GLChance_DetailViewController : FBBaseViewController
 @property (nonatomic,strong)  ChanceSaleModel *model;
+@property (nonatomic,copy) NSString* kehuName;
 @end

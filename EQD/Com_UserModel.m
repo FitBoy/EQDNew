@@ -9,6 +9,10 @@
 #import "Com_UserModel.h"
 #import <MJExtension.h>
 @implementation Com_UserModel
+-(BOOL)ischoose
+{
+    return self.isSelected;
+}
 +(NSDictionary*)mj_replacedKeyFromPropertyName
 {
     return @{@"ID":@"id"};
@@ -23,7 +27,12 @@
 }
 -(NSString*)left1
 {
+    if (self.department.length == 0) {
+        return self.post;
+    }else
+    {
     return [NSString stringWithFormat:@"%@-%@",self.department,self.post];
+    }
     
 }
 -(NSString*)right0

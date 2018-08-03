@@ -13,13 +13,13 @@
 #import "FBEQDEditer_AllViewController.h"
 #import "EQDR_labelTableViewCell.h"
 #import <Masonry.h>
-#import "FBOneChoose_TongShiViewController.h"
+#import "FB_twoTongShi2ViewController.h"
 #import "EQDS_SearchViewController.h"
 #import "FB_TimeSectionViewController.h"
 #import "Bumen_ChooseViewController.h"
 #import "FBWebUrlViewController.h"
 #import "EQD_HtmlTool.h"
-@interface FB_notificationAddViewController ()<UITableViewDelegate,UITableViewDataSource,PX_PlanViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,FBOneChoose_TongShiViewControllerDelegate,EQDS_SearchViewControllerDelegate,FB_TimeSectionViewControllerdelegate,Bumen_ChooseViewControllerDelegate>
+@interface FB_notificationAddViewController ()<UITableViewDelegate,UITableViewDataSource,PX_PlanViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,FB_twoTongShi2ViewControllerDelegate,EQDS_SearchViewControllerDelegate,FB_TimeSectionViewControllerdelegate,Bumen_ChooseViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names;
@@ -102,29 +102,30 @@
     }
 }
 #pragma  mark - 同事的选择
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
     if (duty_temp ==1) {
         //培训负责人
-        [arr_contents replaceObjectAtIndex:9 withObject:model.username];
-        dutyGuid = model.userGuid;
-       [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
+        [arr_contents replaceObjectAtIndex:9 withObject:model_com.username];
+        dutyGuid = model_com.userGuid;
+        [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         
     }else
     {
-    techerGuid = model.userGuid;
-    [arr_contents replaceObjectAtIndex:5 withObject:model.username];
-       
-    
-    if (model_detail) {
-        [WebRequest  Courses_Update_CourseLectureWithcourseId:model_detail.courseId userGuid:user.Guid lectureGuid:techerGuid lectureDescribe:@" " lectureRealName:model.userGuid And:^(NSDictionary *dic) {
-            
-        }];
-    }
+        techerGuid = model_com.userGuid;
+        [arr_contents replaceObjectAtIndex:5 withObject:model_com.username];
+        
+        
+        if (model_detail) {
+            [WebRequest  Courses_Update_CourseLectureWithcourseId:model_detail.courseId userGuid:user.Guid lectureGuid:techerGuid lectureDescribe:@" " lectureRealName:model_com.userGuid And:^(NSDictionary *dic) {
+                
+            }];
+        }
         [tableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-
+        
     }
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
@@ -266,9 +267,9 @@
                 }else if (i==1)
                 {
                    // 企业内部
-                    FBOneChoose_TongShiViewController *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-                    TSvc.delegate =self;
-                    TSvc.indexpath =indexPath;
+                    FB_twoTongShi2ViewController *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+                    TSvc.delegate_tongshiDan =self;
+                    TSvc.indexPath =indexPath;
                     duty_temp=0;
                     [self.navigationController pushViewController:TSvc animated:NO];
                     
@@ -289,8 +290,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
         
         
     }
@@ -325,9 +327,9 @@
     }else if (indexPath.row==9)
     {
       //培训负责人
-        FBOneChoose_TongShiViewController  *Tvc = [[FBOneChoose_TongShiViewController alloc]init];
-        Tvc.delegate =self;
-        Tvc.indexpath = indexPath;
+        FB_twoTongShi2ViewController  *Tvc = [[FB_twoTongShi2ViewController alloc]init];
+        Tvc.delegate_tongshiDan =self;
+        Tvc.indexPath = indexPath;
         duty_temp =1;
         [self.navigationController pushViewController:Tvc animated:NO];
     }else if (indexPath.row==10)

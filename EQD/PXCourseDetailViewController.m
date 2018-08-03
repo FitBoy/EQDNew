@@ -12,10 +12,10 @@
 #import <Masonry.h>
 #import "FBEQDEditer_AllViewController.h"
 #import "EQDS_SearchViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
+#import "FB_twoTongShi2ViewController.h"
 #import "FBTextFieldViewController.h"
 #import "FBTextVViewController.h"
-@interface PXCourseDetailViewController ()<UITableViewDelegate,UITableViewDataSource,FBEQDEditer_AllViewControllerDlegate,EQDS_SearchViewControllerDelegate,FBOneChoose_TongShiViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate>
+@interface PXCourseDetailViewController ()<UITableViewDelegate,UITableViewDataSource,FBEQDEditer_AllViewControllerDlegate,EQDS_SearchViewControllerDelegate,FB_twoTongShi2ViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTextVViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names1;
@@ -78,12 +78,14 @@
     name_teacher = model.realname;
     [self updateTeacherInfoWithTeacherName:model.realname];
 }
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    Guid_teacher = model.userGuid;
-    name_teacher = model.username;
-    [self updateTeacherInfoWithTeacherName:model.username];
+    Guid_teacher = model_com.userGuid;
+    name_teacher = model_com.username;
+    [self updateTeacherInfoWithTeacherName:model_com.username];
 }
+
 -(void)content:(NSString *)content WithindexPath:(NSIndexPath *)indexPath
 {
     Guid_teacher = @" ";
@@ -290,9 +292,9 @@
                     }else if (i==2)
                     {
                        //企业内部
-                        FBOneChoose_TongShiViewController  *Tvc =[[FBOneChoose_TongShiViewController alloc]init];
-                        Tvc.delegate =self;
-                        Tvc.indexpath =indexPath;
+                        FB_twoTongShi2ViewController  *Tvc =[[FB_twoTongShi2ViewController alloc]init];
+                        Tvc.delegate_tongshiDan =self;
+                        Tvc.indexPath =indexPath;
                         [self.navigationController pushViewController:Tvc animated:NO];
                     }else
                     {
@@ -310,7 +312,9 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
             
         }else if (indexPath.row==1)
         {

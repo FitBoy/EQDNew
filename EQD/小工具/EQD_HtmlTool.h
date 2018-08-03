@@ -17,4 +17,12 @@
 +(NSString*)getEQD_TrainJiLv;
 ///工作圈的说说详情
 +(NSString*)getEQD_ZoneWithid:(NSString*)Id AnduserGuid:(NSString*)userGuid;
+/// 企业文化
++(NSString*)getCompanyCultrueWithGuid:(NSString*)guid;
+/// 领导活动的连接
++(NSString*)getActiveFromLingdaoWithId:(NSString*)Id;
+/// 产品信息详情
++(NSString*)getProductDetailWithId:(NSString*)Id;
+///先进事迹详情
++(NSString*)getEventDetailWithId:(NSString*)Id;
 @end

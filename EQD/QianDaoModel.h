@@ -21,4 +21,11 @@
 @property (nonatomic,copy) NSString* trainees;
 @property (nonatomic,copy) NSString* teacherName;
 /** 考勤签到的字段*/
+/**会议签到的字段 id,type,place,startTime endTime **/
+@property (nonatomic,copy) NSString* type;
+@property (nonatomic,copy) NSString* place;
+@property (nonatomic,copy) NSString* startTime;
+@property (nonatomic,copy) NSString* endTime;
+/**会议签到的字段**/
+
 @end

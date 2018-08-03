@@ -121,7 +121,10 @@
     LYvc.providesPresentationContextTransitionStyle = YES;
     LYvc.definesPresentationContext = YES;
     LYvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:LYvc animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:LYvc animated:NO completion:nil];
+
+    });
 }
 -(void)rigthCLcik{
     //同意

@@ -11,4 +11,6 @@
 @property (nonatomic,copy) NSString* name;
 @property (nonatomic,copy) NSString* code;
 @property (nonatomic,strong)  NSArray *children;
+@property (nonatomic,copy) NSString* dec;
+
 @end

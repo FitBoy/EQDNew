@@ -13,9 +13,39 @@
 #import "PXNeedModel.h"
 #import "PX_NotificationListModel.h"
 #import "My_BaoXiaoModel.h"
+#import "GongGao_ListModel.h"
+#import "GNmodel.h"
+#import "TrumModel.h"
+#import "RiZhiModel.h"
+#import "GZQ_PingLunModel.h"
 @interface EQDR_labelTableViewCell : UITableViewCell
-
+///日志的评论
+@property (nonatomic,strong)   GZQ_PingLunModel *model_RiZhiPingLun;
+-(void)setModel_RiZhiPingLun:(GZQ_PingLunModel *)model_RiZhiPingLun;
+///日志
+@property (nonatomic,strong)  RiZhiModel *model_rizhi;
+-(void)setModel_rizhi:(RiZhiModel *)model_rizhi;
+///小喇叭
+@property (nonatomic,strong) TrumModel *model_trum;
+-(void)setModel_trum:(TrumModel *)model_trum;
 @property (nonatomic,strong)  YYLabel *YL_label;
+///字号15
+@property (nonatomic,copy) NSString* address;
+-(void)setAddress:(NSString *)address;
+///字号 18
+@property (nonatomic,copy) NSString* contents;
+-(void)setContents:(NSString *)contents;
+/// 里面的model 是 GNmodel
+@property (nonatomic,strong)  NSArray *arr_json;
+-(void)setArr_json:(NSArray *)arr_json;
+
+/// 简单的输入选择
+@property (nonatomic,strong)  GNmodel *model_GN;
+-(void)setModel_GN:(GNmodel *)model_GN;
+
+
+@property (nonatomic,strong)  GongGao_ListModel  *model_gonggao;
+-(void)setModel_gonggao:(GongGao_ListModel *)model_gonggao;
 
 @property (nonatomic,strong)  My_BaoXiaoModel *model_baoxiao;
 ///报销列表
@@ -45,5 +75,8 @@
 @protocol EQDR_labelTableViewCellDelegate <NSObject>
 -(void)getTapNameWithname:(NSString*)name  Guid:(NSString*)Guid model:(id)model;
 -(void)getTapTypeWithtype:(NSString*)type model:(id)model;
+
+///日志的评论的delegate  0 是第一个人 1是第二个人 2内容 12 长按内容
+-(void)getPingLunRiZhiModel:(GZQ_PingLunModel*)model_pinglun Withtemp:(NSInteger)temp;
 @end
 

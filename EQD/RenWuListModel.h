@@ -23,6 +23,7 @@
 @property (nonatomic,copy) NSString* status;
 ///任务描述
 @property (nonatomic,copy) NSString* taskDesc;
+@property (nonatomic,assign) float height_cell;
 -(NSString*)left0;
 -(NSString*)right0;
 -(NSString*)right1;

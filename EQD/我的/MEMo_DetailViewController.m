@@ -163,7 +163,10 @@ if(indexPath.row==1 ||indexPath.row==9)
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+
+    });
 }else if (indexPath.row==7)
 {
     //提醒

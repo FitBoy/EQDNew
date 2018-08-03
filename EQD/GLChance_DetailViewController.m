@@ -31,7 +31,7 @@
     self.navigationItem.title = @"销售机会详情";
     user =[WebRequest GetUserInfo];
    arr_names = [NSMutableArray arrayWithArray:@[@"机会名称",@"机会分类",@"客户",@"联系人",@"兴趣产品",@"预期成交日期",@"产品销售金额（元）",@"预期金额（元）",@"备注",@"提醒",@"创建日期"]];
-    arr_contents = [NSMutableArray arrayWithArray:@[_model.chanceName,_model.chanceClassify,[USERDEFAULTS objectForKey:Y_ManagerName],_model.contactsName,_model.interestproducts,_model.exdateofcompletion,_model.productsalesmoney,_model.expectmoney,_model.remark,_model.remindTime,_model.createTime]];
+    arr_contents = [NSMutableArray arrayWithArray:@[_model.chanceName,_model.chanceClassify,self.kehuName,_model.contactsName,_model.interestproducts,_model.exdateofcompletion,_model.productsalesmoney,_model.expectmoney,_model.remark,_model.remindTime,_model.createTime]];
     arr_key =@[@"chanceName",@"chanceClassify",@"kehu",@"contactsName",@"interestproducts",@"exdateofcompletion",@"productsalesmoney",@"expectmoney",@"remark",@"remindTime",@"createTime"];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
@@ -179,10 +179,14 @@
     hud.label.text = @"正在修改";
     [WebRequest  crmModule_Update_saleschanceWithowner:user.Guid saleschanceid:self.model.ID data:tstr And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
+             hud.label.text =@"修改成功";
             [arr_contents replaceObjectAtIndex:indexPath.row withObject:text];
             [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }else
+        {
+             hud.label.text =@"您没有此权限修改";
         }
-        hud.label.text =dic[Y_MSG];
+       
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [hud hideAnimated:NO];
         });

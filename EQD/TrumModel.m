@@ -10,6 +10,9 @@
 #import <MJExtension.h>
 #import "NSString+FBString.h"
 @implementation TrumModel
+-(NSString*)createTime{
+    return [_createTime formatDateString];
+}
 -(NSString*)left0
 {
     return [self.createTime datefromDatestring];

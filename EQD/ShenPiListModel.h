@@ -48,4 +48,8 @@
 @property (nonatomic,copy) NSString* staffName;
 @property (nonatomic,assign)  float cellHeight;
 
+///调岗
+@property (nonatomic,copy) NSString* changePostId;
+
+
 @end

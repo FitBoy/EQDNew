@@ -175,7 +175,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
     }else if (indexPath.row==5)
     {
         FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];

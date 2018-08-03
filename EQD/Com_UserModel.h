@@ -11,6 +11,7 @@
 @interface Com_UserModel : FBBaseModel
 @property (nonatomic,copy) NSString* userGuid;
 @property (nonatomic,copy) NSString* company;
+@property (nonatomic,copy) NSString* companyId;
 @property (nonatomic,copy) NSString* department;
 @property (nonatomic,copy) NSString* post;
 @property (nonatomic,copy) NSString* departmentId;
@@ -27,7 +28,10 @@
 @property (nonatomic,copy) NSString* location;
 ///真实姓名
 @property (nonatomic,copy) NSString* username;
-
+@property (nonatomic,copy) NSString* isFriend;
+@property (nonatomic,copy) NSString* jobNumber;
+@property (nonatomic,assign) BOOL isSelected;
+-(BOOL)ischoose;
 -(NSString*)img_header;
 -(NSString*)left0;
 -(NSString*)left1;
@@ -36,7 +40,6 @@
  EQDCode,company,companyId,department,departmentId,guid,headImage,id,name,nickName,phone,post,postId
  
  */
-@property (nonatomic,copy) NSString* companyId;
 @property (nonatomic,copy) NSString* guid;
 @property (nonatomic,copy) NSString* headImage;
 @property (nonatomic,copy) NSString* name;

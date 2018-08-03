@@ -63,8 +63,12 @@
     TF_title = [[FBTextField alloc]initWithFrame:CGRectMake(15, DEVICE_TABBAR_Height+5, self.view.frame.size.width-30-130, 40)];
     TF_title.placeholder =@"标题";
     [self.view addSubview:TF_title];
- 
+    if ([self.source integerValue]==0) {
+        self.placeholder =@"文章将会发布到易企阅和创客空间";
+    }else
+    {
     self.placeholder =@"文章将会发布到易企阅";
+    }
     TF_title.font = [UIFont systemFontOfSize:24];
     TF_title.layer.borderColor = [UIColor grayColor].CGColor;
     TF_title.layer.borderWidth =1;
@@ -252,7 +256,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController  isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             picker.sourceType =UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:picker animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:picker animated:NO completion:nil];
+            });
         }else
         {
         }
@@ -261,7 +267,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             picker.sourceType =UIImagePickerControllerSourceTypeCamera;
-            [self presentViewController:picker animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:picker animated:NO completion:nil];
+            });
         }else
         {
         }
@@ -269,7 +277,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {

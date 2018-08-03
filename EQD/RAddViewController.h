@@ -9,5 +9,6 @@
 #import "FBBaseViewController.h"
 
 @interface RAddViewController : FBBaseViewController
-
+@property (nonatomic,copy) NSString* kehuId;
+@property (nonatomic,copy) NSString* kehuName;
 @end

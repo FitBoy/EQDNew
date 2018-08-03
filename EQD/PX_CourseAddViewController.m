@@ -15,8 +15,8 @@
 #import "EQDS_SearchViewController.h"
 #import "FB_PXChooseViewController.h"
 #import "FBTextVViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
-@interface PX_CourseAddViewController ()<UITableViewDelegate,UITableViewDataSource,FB_PXLeiBieChooseViewControllerdelegate,FBTextFieldViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,EQDS_SearchViewControllerDelegate,FB_PXChooseViewControllerDelegate,FBTextVViewControllerDelegate,FBOneChoose_TongShiViewControllerDelegate>
+#import "FB_twoTongShi2ViewController.h"
+@interface PX_CourseAddViewController ()<UITableViewDelegate,UITableViewDataSource,FB_PXLeiBieChooseViewControllerdelegate,FBTextFieldViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,EQDS_SearchViewControllerDelegate,FB_PXChooseViewControllerDelegate,FBTextVViewControllerDelegate,FB_twoTongShi2ViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names;
@@ -40,12 +40,13 @@
 
 @implementation PX_CourseAddViewController
 #pragma  mark - 同事
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    Guid_teacher = model.userGuid;
-    [arr_contents2 replaceObjectAtIndex:0 withObject:model.username];
-    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
+    Guid_teacher = model_com.userGuid;
+    [arr_contents2 replaceObjectAtIndex:0 withObject:model_com.username];
+    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 #pragma  mark - 课程大纲
 -(void)getEditerTitle:(NSString *)title html:(NSString *)html text:(NSString *)text imgurl:(NSString *)imgurl stringData:(NSData *)data
 {
@@ -327,9 +328,9 @@
                  {
                      // 企业内部
                       Sourcelecturer =@"1";
-                     FBOneChoose_TongShiViewController  *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-                     TSvc.delegate =self;
-                     TSvc.indexpath =indexPath;
+                     FB_twoTongShi2ViewController  *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+                     TSvc.delegate_tongshiDan =self;
+                     TSvc.indexPath =indexPath;
                      [self.navigationController pushViewController:TSvc animated:NO];
                  }else
                  {
@@ -348,7 +349,9 @@
          [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
              
          }]];
-         [self presentViewController:alert animated:NO completion:nil];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self presentViewController:alert animated:NO completion:nil];
+         });
          
      }else if (indexPath.row==1)
      {

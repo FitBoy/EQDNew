@@ -10,8 +10,13 @@
 #import "LianLuoBook_ListModel.h"
 #import "GongGao_ListModel.h"
 @interface LLBook_OtherDetailViewController : FBBaseViewController
+
+@property (nonatomic,copy) NSString* isShenPi;
 @property (nonatomic,strong)  LianLuoBook_ListModel *model;
-/// 0是联络书  1是通知  2是公告
+/// 0是联络书 （model）   2是公告 通知 通告（Id gongwen）
 @property (nonatomic,assign) NSInteger isLianLuoBook;
-@property (nonatomic,strong) GongGao_ListModel *model_TG;
+///下面俩
+@property (nonatomic,copy)   NSString* Id;
+@property (nonatomic,copy) NSString* gongwen;
+
 @end

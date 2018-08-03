@@ -67,4 +67,5 @@
 -(NSArray*)imgurls;
 -(NSString*)isZan_FB;
 -(NSString*)address;
+-(NSArray*)GZQ_newImages;
 @end

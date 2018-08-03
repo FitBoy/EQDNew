@@ -640,7 +640,7 @@
     NSCharacterSet* nonDigits =[[NSCharacterSet decimalDigitCharacterSet] invertedSet];
     NSString *tstr=[str stringByTrimmingCharactersInSet:nonDigits];
     if (tstr.length==0) {
-      return @"-1";
+      return @"0";
     }else
     {
         return tstr;

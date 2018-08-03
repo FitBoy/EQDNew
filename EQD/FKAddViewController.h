@@ -9,5 +9,5 @@
 #import "FBBaseViewController.h"
 
 @interface FKAddViewController : FBBaseViewController
-
+@property (nonatomic,copy) NSString* kehuId;
 @end

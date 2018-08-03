@@ -327,7 +327,7 @@
         }else if (self.EQD_ShareType ==EQD_ShareTypeLink)
         {
             /*String title;
-            String content;
+            String text;
             String url;
             String imgUrl;
             String source;
@@ -375,7 +375,9 @@
         
         
                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
-                [self  presentViewController:nav animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self  presentViewController:nav animated:NO completion:nil];
+        });
       
        
     }else
@@ -445,7 +447,9 @@
         SLvc.sourceTitle = self.Stitle.length < 512? self.Stitle:[self.Stitle substringWithRange:NSMakeRange(0, 510)];
         SLvc.type =[NSString stringWithFormat:@"%ld",self.type2] ;
         UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:SLvc];
-        [self presentViewController:nav animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:nav animated:NO completion:nil];
+        });
         //纯连接
       
     }else

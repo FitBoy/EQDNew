@@ -23,7 +23,11 @@
 #import "FB_ShareEQDViewController.h"
 #import "FBImgShowViewController.h"
 #import "FBWebUrlViewController.h"
-@interface FBQunChatViewController ()<RCIMGroupMemberDataSource>
+//文件
+#import "iCloudManager.h"
+#import "FileManagerTool.h"
+
+@interface FBQunChatViewController ()<RCIMGroupMemberDataSource,UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate>
 {
     
      RCMessageModel  *M_model;
@@ -31,7 +35,7 @@
     NSMutableArray *arr1;
     qunListModel *model1;
     UIButton *rightBtn;
-    
+    FileManagerTool  *fileTool;
 }
 
 @end
@@ -57,6 +61,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    fileTool = [[FileManagerTool alloc]init];
     self.conversationMessageCollectionView.frame = CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight);
     adjustsScrollViewInsets_NO(self.conversationMessageCollectionView, self);
     rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -85,6 +90,7 @@
     [self.chatSessionInputBarControl.pluginBoardView removeItemWithTag:1101];
     [self.chatSessionInputBarControl.pluginBoardView removeItemWithTag:1102];
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[RCKitUtility imageNamed:@"card.png" ofBundle:@"RongCloud.bundle"] title:@"个人名片" atIndex:6 tag:4002];
+     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[RCKitUtility imageNamed:@"actionbar_file_icon.png" ofBundle:@"RongCloud.bundle"] title:@"文件" atIndex:6 tag:4003];
     [self notifyUpdateUnreadMessageCount];
     
     
@@ -112,6 +118,12 @@
             
         }
             break;
+        case 4003:
+        {
+            //发文件
+            [self presentDocumentPicker];
+        }
+            break;
             
         default:
             break;
@@ -119,6 +131,82 @@
     
 }
 
+#pragma  mark - 发文件
+- (void)presentDocumentPicker {
+    NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
+    
+    UIDocumentPickerViewController *documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
+                                                                                                                          inMode:UIDocumentPickerModeOpen];
+    documentPickerViewController.delegate = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:documentPickerViewController animated:YES completion:nil];
+    });
+}
+
+#pragma mark - UIDocumentPickerDelegate
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    
+    NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+    NSString *fileName = [array lastObject];
+    fileName = [fileName stringByRemovingPercentEncoding];
+    NSString *path = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/%@",fileName]];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"url == %@",path];
+    NSArray *tarr = [fileTool getDataWithReg:pre];
+    if (tarr.count==0) {
+        if ([iCloudManager iCloudEnable]) {
+            [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
+                NSData *data = obj;
+                //写入沙盒Documents
+                
+                
+                
+                
+                BOOL issuccess=  [data writeToFile:path atomically:YES];
+                
+                if (issuccess ==YES) {
+                    
+                    
+                    [fileTool insertDataWithfileData:@{
+                                                       @"type":[[fileName componentsSeparatedByString:@"."] lastObject],
+                                                       @"url":path,
+                                                       @"userGuid":user.Guid
+                                                       }];
+                    RCFileMessage *file = [RCFileMessage messageWithFile:path];
+                    [[RCIM sharedRCIM] sendMediaMessage:(ConversationType_GROUP) targetId:self.targetId content:file pushContent:nil pushData:nil progress:nil success:^(long messageId) {
+                        
+                    } error:nil cancel:nil];
+                }else
+                {
+                    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.label.text =@"存储文件出错";
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                    });
+                }
+                
+                
+            }];
+        }else
+        {
+            MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text =@"不支持iCloud访问";
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [MBProgressHUD hideHUDForView:self.view  animated:YES];
+            });
+        }
+    }else
+    {
+        RCFileMessage *file = [RCFileMessage messageWithFile:path];
+        [[RCIM sharedRCIM] sendMediaMessage:(ConversationType_GROUP) targetId:self.targetId content:file pushContent:nil pushData:nil progress:nil success:^(long messageId) {
+            
+        } error:nil cancel:nil];
+    }
+}
 
 
 
@@ -243,7 +331,9 @@
     Svc.providesPresentationContextTransitionStyle = YES;
     Svc.definesPresentationContext = YES;
     Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:Svc animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:Svc animated:NO completion:nil];
+    });
 }
 
 -(void)jishibenClick

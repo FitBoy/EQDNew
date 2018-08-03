@@ -53,7 +53,13 @@
     [V_bg addSubview:L_title];
     L_title.font = [UIFont systemFontOfSize:17];
     L_title.numberOfLines =2;
-    L_title.text = self.model_qiandao.theTheme;
+    if (self.temp ==1) {
+        L_title.text = self.model_huiyi.type;
+    }else if (self.temp ==0)
+    {
+       L_title.text = self.model_qiandao.theTheme;
+    }
+    
     [L_title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(DEVICE_WIDTH-70, 46));
         make.top.mas_equalTo(V_bg.mas_top).mas_offset(3);
@@ -71,9 +77,9 @@
         make.left.mas_equalTo(V_bg.mas_left).mas_offset(10);
         make.bottom.mas_equalTo(V_bg.mas_bottom).mas_offset(-5);
     }];
-    
-    
-   NSDictionary  * dic=@{
+    NSDictionary  * dic =nil;
+    if (self.temp ==0) {
+       dic =@{
           @"type":@"3",
           @"ugid":@" ",
           @"name":@" ",
@@ -90,6 +96,21 @@
                   @"theTrainTime":self.model_qiandao.theTrainTime
                   }
           };
+    }else
+    {
+        dic =@{
+               @"type":@"4",
+               @"ugid":@" ",
+               @"name":@" ",
+               @"data":@{
+                       @"Id":self.model_huiyi.Id,
+                       @"type":self.model_huiyi.type,
+                       @"place":self.model_huiyi.place,
+                       @"startTime":self.model_huiyi.startTime,
+                       @"endTime":self.model_huiyi.endTime,
+                    }
+               };
+    }
     /// 签到完成后弹出一个view，提示 课程名字   课程的时间 地点 受训人 讲师
     NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *tstr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
@@ -135,7 +156,9 @@
                 Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 Svc.EQD_ShareType = EQD_ShareTypeImage2;
                 Svc.image_local =image_share;
-                [self presentViewController:Svc animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:Svc animated:NO completion:nil];
+                });
                 
             }else
             {
@@ -149,7 +172,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
     
 }
 

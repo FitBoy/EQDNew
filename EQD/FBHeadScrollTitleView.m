@@ -16,7 +16,7 @@
 {
     self.showsHorizontalScrollIndicator =NO;
     self.showsVerticalScrollIndicator = NO;
-
+    self.userInteractionEnabled =YES;
     _arr_titles = arr_titles;
     UIView *tview = [[UIView alloc]init];
     [self addSubview:tview];

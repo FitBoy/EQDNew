@@ -139,7 +139,10 @@
         [self.navigationController popViewControllerAnimated:NO];
     }]];
     
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+
+    });
     
     
 }
@@ -280,7 +283,10 @@
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
             {
                 picker.sourceType =UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:picker animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:picker animated:NO completion:nil];
+
+                });
             }
             else
             {
@@ -297,7 +303,10 @@
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
             {
                 picker.sourceType =UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:picker animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:picker animated:NO completion:nil];
+
+                });
             }
             else
             {
@@ -311,7 +320,10 @@
             }
         }]];
         
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+
+        });
         
     }
    

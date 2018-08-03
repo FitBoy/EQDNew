@@ -11,11 +11,11 @@
 #import "FBTextVViewController.h"
 #import "FBTimeDayViewController.h"
 #import "MyRenWuViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
-#import "FBMutableChoose_TongShiViewController.h"
+#import "FB_twoTongShi2ViewController.h"
+#import "FB_twoTongShiChooseViewController.h"
 #import "RenWuSearchViewController.h"
 
-@interface RWFaSongViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTimeDayViewControllerDelegate,FBOneChoose_TongShiViewControllerDelegate,FBMutableChoose_TongShiViewControllerDelegate,RenWuSearchViewControllerDelegate>
+@interface RWFaSongViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBTimeDayViewControllerDelegate,FB_twoTongShi2ViewControllerDelegate,FB_twoTongShiChooseViewControllerDelegate,RenWuSearchViewControllerDelegate>
 {
     UITableView *tableV;
     NSMutableArray *arr_names;
@@ -26,12 +26,19 @@
     NSMutableString *xiezhu;
     NSString *renwuId;
     UserModel *user;
+    ///协助人
+    NSArray *tarr_model1;
+    ///知会人
+    NSArray *tarr_model2;
 }
 
 @end
 
 @implementation RWFaSongViewController
 
+- (BOOL)prefersHomeIndicatorAutoHidden{
+    return NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title=@"发任务";
@@ -72,7 +79,8 @@
     
   /*  UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
     [self.navigationItem setLeftBarButtonItem:left];*/
-    
+    tarr_model1 = nil;
+    tarr_model2 = nil;
     
 }
 -(void)backClick
@@ -90,8 +98,10 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController popViewControllerAnimated:NO];
     }]];
-    
-    [self presentViewController:alert animated:NO completion:nil];
+   
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 -(void)fasongCLik
 {
@@ -217,9 +227,9 @@
         case 3:
         {
             //责任人
-            FBOneChoose_TongShiViewController *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-            TSvc.delegate=self;
-            TSvc.indexpath =indexPath;
+            FB_twoTongShi2ViewController *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+            TSvc.delegate_tongshiDan=self;
+            TSvc.indexPath =indexPath;
             [self.navigationController pushViewController:TSvc animated:NO];
             
             
@@ -228,18 +238,24 @@
         case 4:
         {
             //协助人
-            FBMutableChoose_TongShiViewController *TSvc =[[FBMutableChoose_TongShiViewController alloc]init];
-            TSvc.delegate=self;
-            TSvc.indePath=indexPath;
+            FB_twoTongShiChooseViewController *TSvc =[[FB_twoTongShiChooseViewController alloc]init];
+            NSMutableArray  *arr_guid = [NSMutableArray arrayWithCapacity:0];
+            for (int i=0; i<tarr_model1.count; i++) {
+                Com_UserModel  *model = tarr_model1[i];
+                [arr_guid addObject:model.userGuid];
+            }
+            TSvc.delegate_tongshi=self;
+            TSvc.indexPath=indexPath;
+            TSvc.arr_guid = arr_guid;
             [self.navigationController pushViewController:TSvc animated:NO];
         }
             break;
         case 5:
         {
            //知会人
-            FBMutableChoose_TongShiViewController *TSvc =[[FBMutableChoose_TongShiViewController alloc]init];
-            TSvc.delegate=self;
-            TSvc.indePath=indexPath;
+            FB_twoTongShiChooseViewController *TSvc =[[FB_twoTongShiChooseViewController alloc]init];
+            TSvc.delegate_tongshi=self;
+            TSvc.indexPath=indexPath;
             [self.navigationController pushViewController:TSvc animated:NO];
 
         }
@@ -282,9 +298,9 @@
         case 9:
         {
             //验收人
-            FBOneChoose_TongShiViewController *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-            TSvc.delegate=self;
-            TSvc.indexpath =indexPath;
+            FB_twoTongShi2ViewController *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+            TSvc.delegate_tongshiDan=self;
+            TSvc.indexPath =indexPath;
             [self.navigationController pushViewController:TSvc animated:NO];
         }
             break;
@@ -333,31 +349,32 @@
     [tableV reloadData];
     
 }
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    if (indepPath.row==3) {
-        zeren = model.userGuid;
+    if (indexPath.row==3) {
+        zeren = model_com.userGuid;
     }
-    else if (indepPath.row==9)
+    else if (indexPath.row==9)
     {
-        yanshou=model.userGuid;
+        yanshou=model_com.userGuid;
     }
     else
     {
         
     }
-    [arr_contents replaceObjectAtIndex:indepPath.row withObject:model.username];
-    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
-    
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:model_com.username];
+    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
--(void)mutableChooseArr:(NSArray *)chooses tarr:(NSArray *)tarr indexPath:(NSIndexPath *)indexPath
+
+-(void)getChooseArr_model:(NSArray *)arr_tmodel indexpath:(NSIndexPath *)indexpath
 {
-    if (indexPath.row==4) {
+    if (indexpath.row==4) {
         //协助人
+        tarr_model1 = arr_tmodel;
         xiezhu=[NSMutableString string];
-        for (int i=0; i<chooses.count; i++) {
-            Com_UserModel *model=chooses[i];
-            if (i==chooses.count-1) {
+        for (int i=0; i<arr_tmodel.count; i++) {
+            Com_UserModel *model=arr_tmodel[i];
+            if (i==arr_tmodel.count-1) {
                 [xiezhu appendString:model.userGuid];
             }
             else
@@ -367,12 +384,13 @@
             
         }
     }
-    else if (indexPath.row==5)
+    else if (indexpath.row==5)
     {//知会人
+        tarr_model2 = arr_tmodel;
         zhihui =[NSMutableString string];
-        for (int i=0; i<chooses.count; i++) {
-            Com_UserModel *model=chooses[i];
-            if (i==chooses.count-1) {
+        for (int i=0; i<arr_tmodel.count; i++) {
+            Com_UserModel *model=arr_tmodel[i];
+            if (i==arr_tmodel.count-1) {
                 [zhihui appendString:model.userGuid];
             }
             else
@@ -387,8 +405,8 @@
         
     }
     
-    [arr_contents replaceObjectAtIndex:indexPath.row withObject:[NSString stringWithFormat:@"%ld个",chooses.count]];
-    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [arr_contents replaceObjectAtIndex:indexpath.row withObject:[NSString stringWithFormat:@"%ld个",arr_tmodel.count]];
+    [tableV reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)searchRenwumodel:(Search_rewuModel *)model indexpath:(NSIndexPath *)indexPath

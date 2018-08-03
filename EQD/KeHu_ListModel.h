@@ -24,6 +24,7 @@
 @property (nonatomic,copy) NSString* addrlat;
 @property (nonatomic,copy) NSString* addrlong;
 @property (nonatomic,strong) NSArray* lpicAddr;
+@property (nonatomic,strong) NSArray *assList;
 @property (nonatomic,copy) NSString* owner;
 @property (nonatomic,copy) NSString* remark;
 @property (nonatomic,copy) NSString* url;

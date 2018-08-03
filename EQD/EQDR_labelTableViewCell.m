@@ -12,6 +12,151 @@
 #import "EQDR_labelTableViewCell.h"
 #import <Masonry.h>
 @implementation EQDR_labelTableViewCell
+-(void)setModel_RiZhiPingLun:(GZQ_PingLunModel *)model_RiZhiPingLun
+{
+    _model_RiZhiPingLun = model_RiZhiPingLun;
+    NSDictionary *tdic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+    NSMutableAttributedString  *name1 =[[NSMutableAttributedString alloc]initWithString:model_RiZhiPingLun.createStaffName attributes:tdic];
+    [name1 yy_setTextHighlightRange:name1.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        if ([self.delegate  respondsToSelector:@selector(getPingLunRiZhiModel:Withtemp:)]) {
+            [self.delegate getPingLunRiZhiModel:model_RiZhiPingLun Withtemp:0];
+        }
+    }];
+    NSMutableAttributedString *huifu = [[NSMutableAttributedString alloc]initWithString:@"回复" attributes:tdic];
+    [name1 appendAttributedString:huifu];
+    
+    NSMutableAttributedString *name2 = [[NSMutableAttributedString alloc]initWithString:model_RiZhiPingLun.parentStaffName attributes:tdic];
+    [name2 yy_setTextHighlightRange:name2.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        if ([self.delegate  respondsToSelector:@selector(getPingLunRiZhiModel:Withtemp:)]) {
+            [self.delegate getPingLunRiZhiModel:model_RiZhiPingLun Withtemp:1];
+        }
+    }];
+    [name1 appendAttributedString:name2];
+    
+    NSMutableAttributedString *contents = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@":%@",model_RiZhiPingLun.content] attributes:tdic];
+    [contents yy_setTextHighlightRange:contents.yy_rangeOfAll color:[UIColor blackColor] backgroundColor:[UIColor whiteColor] userInfo:nil tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        if ([self.delegate  respondsToSelector:@selector(getPingLunRiZhiModel:Withtemp:)]) {
+            [self.delegate getPingLunRiZhiModel:model_RiZhiPingLun Withtemp:2];
+        }
+    } longPressAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        if ([self.delegate  respondsToSelector:@selector(getPingLunRiZhiModel:Withtemp:)]) {
+            [self.delegate getPingLunRiZhiModel:model_RiZhiPingLun Withtemp:12];
+        }
+    }];
+    
+   
+    [name1 appendAttributedString:contents];
+    name1.yy_lineSpacing =6;
+    self.YL_label.attributedText = name1;
+    CGSize size = [name1 boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_RiZhiPingLun.cellHeight = size.height+10;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+10);
+        make.left.mas_equalTo(self.mas_left).mas_offset(55);
+        make.centerY.mas_equalTo(self.mas_centerY);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+    }];
+    
+    
+}
+
+-(void)setModel_rizhi:(RiZhiModel *)model_rizhi
+{
+    _model_rizhi = model_rizhi;
+    NSMutableAttributedString  *title = [[NSMutableAttributedString alloc]initWithString:@""];
+    NSMutableAttributedString *time = [[NSMutableAttributedString alloc]initWithString:@"时间："  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    NSMutableAttributedString *time1 =[[NSMutableAttributedString alloc]initWithString:model_rizhi.TimeSlot attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    [time appendAttributedString:time1];
+    [title appendAttributedString:time];
+    NSMutableAttributedString  *jihua =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n今日计划："] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    NSMutableAttributedString *jihua2 =[[NSMutableAttributedString alloc]initWithString:model_rizhi.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    [jihua appendAttributedString:jihua2];
+    [title appendAttributedString:jihua];
+    
+    NSMutableAttributedString  *result = [[NSMutableAttributedString alloc]initWithString:@"\n完成结果：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    NSString *Tstr = model_rizhi.result == nil?@"等待结果":model_rizhi.result;
+    NSMutableAttributedString  *result1 =[[NSMutableAttributedString alloc]initWithString:Tstr attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    [result appendAttributedString:result1];
+    [title appendAttributedString:result];
+    
+    title.yy_lineSpacing =6;
+    CGSize size = [title boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    self.YL_label.attributedText = title;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+30);
+        make.left.equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    model_rizhi.cellHeight =size.height+30;
+}
+-(void)setArr_json:(NSArray *)arr_json{
+    _arr_json = arr_json;
+    NSMutableAttributedString  *title = [[NSMutableAttributedString alloc]initWithString:@""];
+    NSMutableAttributedString *time = [[NSMutableAttributedString alloc]initWithString:@"时间："  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    for (int i=0; i<arr_json.count; i++) {
+        GNmodel *model =arr_json[i];
+        if (model.biaoji ==3 && i==0) {
+            NSMutableAttributedString  *tstr =[[NSMutableAttributedString alloc]initWithString:model.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+            [time appendAttributedString:tstr];
+        }else if (model.biaoji ==3 && i>0)
+        {
+            NSMutableAttributedString  *tstr =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" ~ %@\n",model.content]  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+            [time appendAttributedString:tstr];
+            [title appendAttributedString:time];
+        }else
+        {
+            NSMutableAttributedString *other = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@：",model.name] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+            NSMutableAttributedString *other2 =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@\n",model.content] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+            [other appendAttributedString:other2];
+            [title appendAttributedString:other];
+        }
+    }
+    
+    title.yy_lineSpacing =8;
+    CGSize size = [title boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    self.YL_label.attributedText = title;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+40);
+        make.left.equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+}
+
+-(void)setAddress:(NSString *)address
+{
+    if (address ==nil) {
+        address =@"您拒绝了位置请求";
+    }
+    _address =address;
+    NSMutableAttributedString *con = [[NSMutableAttributedString alloc]initWithString:address attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    con.yy_lineSpacing =6;
+    self.YL_label.attributedText = con;
+  
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(60);
+        make.left.equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+}
+-(void)setContents:(NSString *)contents
+{
+    _contents = contents;
+    NSMutableAttributedString *con = [[NSMutableAttributedString alloc]initWithString:contents attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    con.yy_lineSpacing =8;
+    self.YL_label.attributedText = con;
+    CGSize size = [con boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+40);
+        make.left.equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+}
 -(void)setModel_baoxiao:(My_BaoXiaoModel *)model_baoxiao
 {
     
@@ -48,6 +193,26 @@
     self.layer.cornerRadius=6;
     self.layer.borderWidth=3;
     self.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+}
+-(void)setModel_gonggao:(GongGao_ListModel *)model_gonggao
+{
+    _model_gonggao = model_gonggao;
+    
+    NSMutableAttributedString  *gonggao = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",model_gonggao.name,model_gonggao.theme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+    NSMutableAttributedString *time = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@",model_gonggao.createTime] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    time.yy_alignment = NSTextAlignmentRight;
+    [gonggao appendAttributedString:time];
+    gonggao.yy_lineSpacing =6;
+    CGSize  size = [gonggao boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_gonggao.cellHeight = size.height+10;
+    self.YL_label.attributedText = gonggao;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.height.mas_equalTo(size.height+10);
+    }];
     
 }
 -(void)setModel_notification:(PX_NotificationListModel *)model_notification
@@ -229,6 +394,44 @@
         make.left.mas_equalTo(self.mas_left).mas_offset(15);
         make.right.mas_equalTo(self.mas_right).mas_offset(-15);
         make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+}
+
+-(void)setModel_GN:(GNmodel *)model_GN
+{
+    NSMutableAttributedString *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@：",model_GN.name] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+    NSMutableAttributedString *contents = [[NSMutableAttributedString alloc]initWithString:model_GN.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+//    contents.yy_alignment = NSTextAlignmentRight;
+    [name appendAttributedString:contents];
+    
+    CGSize size  =[name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_GN.cellHeight = size.height+40;
+    self.YL_label.attributedText = name;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+40);
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+}
+
+-(void)setModel_trum:(TrumModel *)model_trum
+{
+    NSMutableAttributedString  *name = [[NSMutableAttributedString alloc]initWithString:model_trum.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+    NSMutableAttributedString  *content = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n%@",model_trum.createTime] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    content.yy_alignment = NSTextAlignmentRight;
+    [name appendAttributedString:content];
+    name.yy_lineSpacing =6;
+    CGSize size = [name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    self.YL_label.attributedText = name;
+    model_trum.cellHeight = size.height+30;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+        make.height.mas_equalTo(size.height+30);
     }];
     
 }

@@ -17,12 +17,12 @@
 #import "SQ_tiaobanViewController.h"
 #import "SQ_JiaBan_ListViewController.h"
 #import "SQTiaoGangViewController.h"
-#import "TongZhi_listViewController.h"
 #import "LianLuoBook_ListViewController.h"
 #import "RedTip_LabelTableViewCell.h"
 #import "LateLeaver_ListViewController.h"
 #import "CarUse_ListViewController.h"
 #import "FB_MyPeiXunListViewController.h"
+#import "GongGao_ListViewController.h"
 @interface FShenQingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *tableV;
@@ -50,7 +50,7 @@
     [WebRequest userashx_GetCount_MsgCodeWithuserGuid:user.Guid And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr =dic[Y_ITEMS];
-            arr_one =[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
+            arr_one =[NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0"]];
             arr_four = [NSMutableArray arrayWithArray:@[@"0",@"0",@"0",@"0",@"0",@"0"]];
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary *dic2 = tarr[i];
@@ -113,7 +113,7 @@
     user =[WebRequest GetUserInfo];
     self.navigationItem.title=@"我的申请";
     //@[@"用车",@"报废",@"行政物资"],@[@"调薪",@"费用报销",@"福利",@"社保"],,@"转正",@"岗位异动",
-    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡"],@[@"用车申请"],@[],@[@"通知",@"联络书",@"离职申请",@"人力需求",@"培训申请"]]];//,@"调岗申请"
+    arr_big =[NSMutableArray arrayWithArray:@[@[@"请假",@"出差",@"加班",@"调休",@"调班",@"迟到早退",@"漏打卡",@"调岗申请"],@[@"用车申请"],@[],@[@"通知",@"联络书",@"离职申请",@"人力需求",@"培训申请"]]];//,
     arr_leibie = [NSMutableArray arrayWithArray:@[@"考勤",@"后勤",@"薪酬福利",@"组织管理"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStyleGrouped];
     adjustsScrollViewInsets_NO(tableV, self);
@@ -160,11 +160,19 @@
             cell.L_RedTip.hidden=NO;
             cell.L_RedTip.text = arr_one[indexPath.row];
         }
+        else
+        {
+            cell.L_RedTip.hidden =YES;
+        }
     }else if (indexPath.section==3)
     {
         if ([arr_four[indexPath.row] integerValue]>0) {
             cell.L_RedTip.hidden=NO;
             cell.L_RedTip.text =arr_four[indexPath.row];
+        }
+        else
+        {
+            cell.L_RedTip.hidden =YES;
         }
     }else if (indexPath.section==1)
     {
@@ -259,6 +267,13 @@
 
                 }
                     break;
+                    case 7:
+                {
+                    //调岗申请
+                    SQTiaoGangViewController  *TGvc =[[SQTiaoGangViewController alloc]init];
+                    [self.navigationController pushViewController:TGvc animated:NO];
+                }
+                    break;
                 default:
                     break;
             }
@@ -333,8 +348,10 @@
                 case 0:
                 {
                     //通知
-                    TongZhi_listViewController *Lvc =[[TongZhi_listViewController alloc]init];
-                    [self.navigationController pushViewController:Lvc animated:NO];
+                    GongGao_ListViewController  *Avc =[[GongGao_ListViewController alloc]init];
+                    Avc.ischeker = 0;
+                    Avc.notieName =@"通知";
+                    [self.navigationController pushViewController:Avc animated:NO];
                     
                 }
                     break;

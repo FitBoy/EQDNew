@@ -17,6 +17,8 @@
 #import "FBShareViewController.h"
 #import "FBGeRenCardMessageContent.h"
 #import "PPCMoreViewController.h"
+#import "FGongZuoQuanViewController.h"
+#import "WS_comDetailViewController.h"
 @interface PPersonCardViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -24,6 +26,7 @@
     NSMutableArray *arr_two;
     NSMutableArray *arr_three;
     UserModel *user;
+    NSInteger  isFriend;
 }
 
 @end
@@ -31,7 +34,7 @@
 @implementation PPersonCardViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadRequestData];
+    
 }
 -(void)loadRequestData{
     [WebRequest Com_User_BusinessCardWithuserGuid:self.userGuid And:^(NSDictionary *dic) {
@@ -60,17 +63,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
+    isFriend =0;
     self.navigationItem.title=@"个人名片";
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
-    arr_two = [NSMutableArray arrayWithArray:@[@"手机号",@"地区"]];
-    arr_three = [NSMutableArray arrayWithArray:@[@"公司",@"部门职务"]];
+    arr_two = [NSMutableArray arrayWithArray:@[@"手机号",@"地区",@"个人工作圈"]];
+    arr_three = [NSMutableArray arrayWithArray:@[@"公司",@"部门职务",@"企业空间"]];//,
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
     [self.navigationItem setRightBarButtonItem:right];
+    [self loadRequestData];
+    
+    [WebRequest Friend_Get_IsFriendWithmyGuid:user.Guid userGuid:self.userGuid And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            if ([dic[Y_ITEMS] integerValue]==1 || [dic[Y_ITEMS] integerValue]==11) {
+                isFriend =1;
+            }else
+            {
+                isFriend =0;
+            }
+            [tableV reloadData];
+            
+        }
+    }];
+    
    }
 -(void)moreClick
 {
@@ -99,7 +118,9 @@
                 FBGeRenCardMessageContent  *content = [[FBGeRenCardMessageContent alloc]initWithgeRenCardWithcontent:@{@"imgurl":model.photo,@"name":model.upname,@"bumen":model.department,@"gangwei":model.post,@"company":model.company,@"uid":model.userGuid,@"comid":model.companyId}];
                 Svc.messageContent =content;
                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:Svc];
-                [self presentViewController:nav animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:nav animated:NO completion:nil];
+                });
             }else if (i==3)
             {
                 UIAlertController  *alert1 =[UIAlertController alertControllerWithTitle:nil message:@"您确定删除？" preferredStyle:UIAlertControllerStyleActionSheet];
@@ -122,7 +143,9 @@
                     
                 }]];
                 
-                [self presentViewController:alert1 animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert1 animated:NO completion:nil];
+                });
                 
             }else
             {
@@ -133,7 +156,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -149,8 +174,11 @@
     
     if(model)
     {
-        if (section==1||section==2) {
-            return 2;
+        if (section==1) {
+            return arr_two.count;
+        }else if (section==2)
+        {
+            return arr_three.count;
         }
         else
         {
@@ -196,12 +224,33 @@
         }
         if (indexPath.section==1) {
             cell.L_left0.text =arr_two[indexPath.row];
-            cell.L_right0.text = indexPath.row==0?model.uname:model.location;
+//            cell.L_right0.text = indexPath.row==0?model.uname:model.location;
+            cell.L_right0.textColor = [UIColor blackColor];
+            if(indexPath.row==0)
+            {
+                cell.L_right0.text =model.uname;
+                cell.L_right0.textColor = EQDCOLOR;
+            }else if (indexPath.row==1)
+            {
+                cell.L_right0.text = model.location;
+            }else if (indexPath.row==2) {
+                cell.L_right0.text =nil;
+            }else
+            {
+                
+            }
         }
         else
         {
             cell.L_left0.text = arr_three[indexPath.row];
+            if(indexPath.row ==0 || indexPath.row ==1)
+            {
+                
             cell.L_right0.text=indexPath.row==0?model.company:[NSString stringWithFormat:@"%@/ %@",model.department,model.post];
+            }else
+            {
+                cell.L_right0.text =nil;
+            }
         }
         
         return cell;
@@ -215,8 +264,8 @@
             cell.textLabel.font=[UIFont systemFontOfSize:18];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
-        
-        cell.textLabel.text = @"发消息";
+        NSString  *Tstr = isFriend ==0?@"添加好友":@"发消息";
+        cell.textLabel.text = Tstr;
         return cell;
         
     }
@@ -226,6 +275,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==3) {
+        if(isFriend ==1)
+        {
         //发消息
         FBConversationViewControllerViewController  *oneTooneChat =[[FBConversationViewControllerViewController alloc]initWithConversationType:ConversationType_PRIVATE targetId:model.userGuid];
         oneTooneChat.navigationItem.title =model.upname;
@@ -233,15 +284,68 @@
         [[RCIM sharedRCIM] refreshUserInfoCache:userinfo withUserId:model.userGuid];
 //        oneTooneChat.hidesBottomBarWhenPushed =YES;
         [self.navigationController pushViewController:oneTooneChat animated:NO];
+        }else
+        {
+            [self addfriend];
+        }
     }else if (indexPath.section ==1 && indexPath.row==0)
     {
         NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"tel:%@",model.uname];
         UIWebView *callWebView = [[UIWebView alloc] init];
         [callWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebView];
+    }else if (indexPath.section==1 && indexPath.row==2)
+    {
+        //个人空间
+        FGongZuoQuanViewController   *GZQvc =[[FGongZuoQuanViewController alloc]init];
+        GZQvc.temp =1;
+        GZQvc.friendGuid = model.userGuid;
+        [self.navigationController pushViewController:GZQvc animated:NO];
+    }else if (indexPath.section == 2 && indexPath.row ==2)
+    {
+        //企业空间
+        WS_comDetailViewController  *WSvc =[[WS_comDetailViewController alloc]init];
+        WSvc.comId = model.companyId;
+        [self.navigationController pushViewController:WSvc animated:NO];
     }
 }
 
-
+-(void)addfriend{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"附加信息" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"我是……";
+        
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeAnnularDeterminate;
+        hud.label.text = @"正在发送好友申请";
+        [WebRequest User_AddFriendWithuserid:user.Guid friendid:self.userGuid content:alert.textFields[0].text And:^(NSDictionary *dic) {
+            NSNumber *number  = dic[Y_STATUS];
+            [hud hideAnimated:NO];
+            NSString *msg = dic[Y_MSG];
+            MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text =msg;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+            });
+        }];
+        
+    }]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
+    
+    
+    
+}
 
 @end

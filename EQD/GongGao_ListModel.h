@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString* ID;
 @property (nonatomic,copy) NSString* name;
 @property (nonatomic,copy) NSString* theme;
+@property (nonatomic,assign) float cellHeight;
 -(NSString*)createTime;
 
 /*******公告详情***/
@@ -49,5 +50,7 @@
 @property (nonatomic,copy) NSString* newsName;
 @property (nonatomic,copy) NSString* newsTheme;
 @property (nonatomic,copy) NSString* checkName;
+//企业简称
+@property (nonatomic,copy) NSString* simpleCompanyName;
 -(NSString*)newsName;
 @end

@@ -31,4 +31,8 @@
     return [self.creatTime formatDateString];
  
 }
+-(NSString*)creatTime
+{
+    return [_creatTime formatDateString];
+}
 @end

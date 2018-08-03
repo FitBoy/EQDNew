@@ -91,7 +91,9 @@
         Svc.providesPresentationContextTransitionStyle = YES;
         Svc.definesPresentationContext = YES;
         Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        [self presentViewController:Svc animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:Svc animated:NO completion:nil];
+        });
         /*
         ExActivity *activity =[[ExActivity alloc]init];
         RCImageMessage *content = [RCImageMessage messageWithImage:image_share];
@@ -125,7 +127,9 @@
         
     }]];
     
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
     
     
     

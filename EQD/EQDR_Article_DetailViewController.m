@@ -258,7 +258,9 @@
                 Svc.EQD_ShareType = EQD_ShareTypeLink;
                 Svc.type = 10;
                 Svc.type2=1;
-                [self presentViewController:Svc animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:Svc animated:NO completion:nil];
+                });
                 
             }else if (i==2)
             {
@@ -269,7 +271,9 @@
                 JBvc.providesPresentationContextTransitionStyle = YES;
                 JBvc.definesPresentationContext = YES;
                 JBvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                [self.navigationController presentViewController:JBvc animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController presentViewController:JBvc animated:NO completion:nil];
+                });
             }else
             {
                 
@@ -289,7 +293,9 @@
         
     }]];
     
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 -(void)guanZhuClick
 {
@@ -438,7 +444,9 @@
         Svc.type2=1;
     }
     Svc.EQD_ShareType = EQD_ShareTypeLink;
-    [self presentViewController:Svc animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:Svc animated:NO completion:nil];
+    });
   
 }
 -(void)liuYanCLick

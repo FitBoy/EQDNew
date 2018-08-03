@@ -72,11 +72,13 @@
                 
             }];
         } else {
-            UIAlertController *alert  =[UIAlertController alertControllerWithTitle:nil message:@"请前往-设置-隐私-通讯录-易企点 修改权限" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert  =[UIAlertController alertControllerWithTitle:nil message:@"请前往-设置-隐私-通讯录-易企点 修改 通讯录 权限" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
         }
         
         

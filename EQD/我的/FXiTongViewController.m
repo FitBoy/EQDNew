@@ -12,6 +12,7 @@
 #import "FanKui_ListViewController.h"
 #import <StoreKit/StoreKit.h>
 #import "FBWebUrlViewController.h"
+#import "NSString+FBString.h"
 @interface FXiTongViewController ()<UITableViewDelegate,UITableViewDataSource,SKStoreProductViewControllerDelegate>
 {
     UITableView *tableV;
@@ -22,6 +23,8 @@
     NSMutableArray *arr_big;
     UISwitch *S_voice;
     UISwitch *S_notification;
+    UISwitch *S_tixing;
+    UserModel *user;
 }
 
 @end
@@ -31,21 +34,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"系统设置";
-    arr_one = [NSMutableArray arrayWithArray:@[@"消息提示音",@"通知"]];
+    arr_one = [NSMutableArray arrayWithArray:@[@"消息提示音",@"通知",@"打卡提醒"]];
     arr_two = [NSMutableArray arrayWithArray:@[@"帮助与反馈",@"关于易企点"]];
     arr_four = [NSMutableArray arrayWithArray:@[@"当前版本"]];
     arr_three = [NSMutableArray arrayWithArray:@[@"退出登录"]];
     arr_big = [NSMutableArray arrayWithCapacity:0];
     
+    
+    if ([WebRequest getDaKa]) {
+       
+        arr_one =  [NSMutableArray arrayWithArray:@[@"消息提示音",@"通知", [NSString stringWithFormat:@"打卡提醒:提前%ld分钟",[WebRequest getDaKa]]]];
+    }
     [arr_big addObject:arr_one];
     [arr_big addObject:arr_two];
     [arr_big addObject:arr_four];
     [arr_big addObject:arr_three];
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
-    tableV.delegate=self;
-    tableV.dataSource=self;
-    [self.view addSubview:tableV];
-    tableV.rowHeight=60;
+    
     S_voice = [[UISwitch alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-70, 5, 70, 30)];
     [S_voice setOn:![RCIM sharedRCIM].disableMessageAlertSound animated:YES];
     [S_voice addTarget:self action:@selector(voiceClick) forControlEvents:UIControlEventValueChanged];
@@ -54,8 +58,48 @@
     [S_notification setOn:![RCIM sharedRCIM].disableMessageNotificaiton animated:YES];
     [S_notification addTarget:self action:@selector(notificationClick) forControlEvents:UIControlEventValueChanged];
     
+    S_tixing=[[UISwitch alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-70, 5, 70, 30)];
+    [S_tixing setOn:[WebRequest getDaKa]];
+    [S_tixing addTarget:self action:@selector(dakaTiXingClick) forControlEvents:UIControlEventValueChanged];
+
     
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStyleGrouped];
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=60;
     
+}
+-(void)dakaTiXingClick
+{
+    if (S_tixing.isOn == NO) {
+        [WebRequest removeDaKaDaTa];
+        NSMutableArray *tarr = [NSMutableArray arrayWithArray:arr_one];
+        [tarr replaceObjectAtIndex:2 withObject:@"打卡提醒"];
+        [arr_big replaceObjectAtIndex:0 withObject:tarr];
+        [tableV reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+    }else
+    {
+        UIAlertController  *alert = [[UIAlertController alloc]init];
+        NSArray *tarr = @[@"提前5分钟",@"提前10分钟",@"提前20分钟",@"提前30分钟"];
+        for(int i=0;i<tarr.count;i++)
+        {
+            [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSMutableArray *tarr1 = [NSMutableArray arrayWithArray:arr_one];
+                [tarr1 replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"打卡提醒 :%@",tarr[i]]];
+                [arr_big replaceObjectAtIndex:0 withObject:tarr1];
+                NSDictionary *tdic = @{
+                                       @"daKaTiXing":[NSString numberWithStr:tarr[i]]
+                                       };
+                [WebRequest setDaKaWithkai:tdic];
+                [tableV reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            }]];
+        }
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [self presentViewController:alert animated:NO completion:nil];
+    }
 }
 -(void)voiceClick
 {
@@ -80,6 +124,11 @@
     NSArray *arr = arr_big[section];
     return arr.count;
 }
+-(void)removeSwitch{
+    [S_tixing removeFromSuperview];
+    [S_notification removeFromSuperview];
+    [S_voice removeFromSuperview];
+}
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellId=@"cellID";
     UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
@@ -95,12 +144,19 @@
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
+//        [self removeSwitch];
         if (indexPath.row==0) {
             [cell addSubview:S_voice];
         }
-        else
+        else if(indexPath.row ==1)
         {
             [cell addSubview:S_notification];
+        }else if (indexPath.row == 2)
+        {
+            [cell addSubview:S_tixing];
+        }else
+        {
+            
         }
     }
     else if(indexPath.section==1)
@@ -180,10 +236,13 @@
                              NSLog(@"error %@ with userInfo %@",error,[error userInfo]);
                          }else{
                              //模态弹出appstore
-                             [self presentViewController:storeProductViewContorller animated:YES completion:^{
-                                 
-                             }
-                              ];
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [self presentViewController:storeProductViewContorller animated:YES completion:^{
+                                     
+                                 }
+                                  ];
+                             });
+                            
                          }
                      }];
                     
@@ -196,7 +255,9 @@
                 [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     
                 }]];
-                [self presentViewController:alert animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:NO completion:nil];
+                });
                 
             }else
             {
@@ -211,6 +272,7 @@
         
         UIAlertController  *alert = [UIAlertController alertControllerWithTitle:@"提醒" message:@"您确认退出登录？" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"登出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self quiteLogin];
             [USERDEFAULTS removeObjectForKey:Y_USERINFO];
             [USERDEFAULTS removeObjectForKey:RC_TOKEN];
             [USERDEFAULTS removeObjectForKey:Y_MIMA];
@@ -224,14 +286,36 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
     }
     else
     {
     }
 }
 
+-(void)quiteLogin{
+    NSString  *loginedId =[NSString stringWithFormat:@"%@",[USERDEFAULTS objectForKey:Y_LoginedId]] ;
+    NSDate *date = [NSDate date];
+    NSDateFormatter  *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString  *time = [formatter stringFromDate:date];
+    user = [WebRequest GetUserInfo];
+    if (loginedId.length !=0) {
+        [WebRequest userashx_LoginLog_Set_QuitLogsWithuserGuid:user.Guid logId:loginedId time:time  And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [USERDEFAULTS removeObjectForKey:Y_LoginedId];
+                [USERDEFAULTS synchronize];
+            }else
+            {
+                [USERDEFAULTS setObject:time forKey:Y_quitTime];
+                [USERDEFAULTS synchronize];
+            }
+        }];
+    }
+    
+}
 //取消按钮监听
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{
     [self dismissViewControllerAnimated:YES completion:^{

@@ -134,7 +134,9 @@
      [alert2 addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
          
      }]];
-     [self presentViewController:alert2 animated:NO completion:nil];
+     dispatch_async(dispatch_get_main_queue(), ^{
+         [self presentViewController:alert2 animated:NO completion:nil];
+     });
      
      
      
@@ -163,7 +165,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self  presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self  presentViewController:alert animated:NO completion:nil];
+    });
 }
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

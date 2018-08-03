@@ -9,9 +9,10 @@
 #define DEVICE_WIDTH   [UIScreen mainScreen].bounds.size.width
 #import "FBWebUrlViewController.h"
 
-@interface FBWebUrlViewController ()
+@interface FBWebUrlViewController ()<UIWebViewDelegate>
 {
     UIWebView *webV;
+    MBProgressHUD *hud ;
 }
 
 @end
@@ -31,7 +32,46 @@
     }
     
     [webV loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    webV.delegate = self;
+    
     [self.view addSubview:webV];
+}
+
+/**清除缓存和cookie*/
+- (void)cleanCacheAndCookie{
+    //清除cookies
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]){
+        [storage deleteCookie:cookie];
+    }
+    //清除UIWebView的缓存
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLCache * cache = [NSURLCache sharedURLCache];
+    [cache removeAllCachedResponses];
+    [cache setDiskCapacity:0];
+    [cache setMemoryCapacity:0];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self cleanCacheAndCookie];
+}
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    if (!hud) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeAnnularDeterminate;
+        hud.label.text = @"请稍等……";
+    }
+
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    if (hud) {
+       [hud hideAnimated:NO];
+    }
+    
 }
 
 

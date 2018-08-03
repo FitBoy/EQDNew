@@ -10,5 +10,6 @@
 
 @interface GZQ_ZanViewController : FBBaseViewController
 @property (nonatomic,strong)  NSString *cell_id;
-
+/// 1 是日志的点赞 0是工作圈的点赞 2 是任务的点赞的人
+@property (nonatomic,assign) NSInteger temp;
 @end

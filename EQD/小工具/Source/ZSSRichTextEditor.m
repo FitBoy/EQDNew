@@ -1313,7 +1313,9 @@ static CGFloat kDefaultScale = 0.5;
             }
             [self focusTextEditor];
         }]];
-        [self presentViewController:alertController animated:YES completion:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alertController animated:YES completion:NULL];
+        });
         
     } else {
         
@@ -1461,7 +1463,9 @@ static CGFloat kDefaultScale = 0.5;
             }
             [self focusTextEditor];
         }]];
-        [self presentViewController:alertController animated:YES completion:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alertController animated:YES completion:NULL];
+        });
         
     } else {
         
@@ -1531,12 +1535,15 @@ static CGFloat kDefaultScale = 0.5;
 
             self.selectedImageScale = [textFieldScale.text floatValue]?:kDefaultScale;
             self.selectedImageAlt = textFieldAlt.text?:@"";
-            
-            [self presentViewController:self.imagePicker animated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:self.imagePicker animated:YES completion:nil];
+            });
 
         }]];
         
-        [self presentViewController:alertController animated:YES completion:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alertController animated:YES completion:NULL];
+        });
         
     } else {
         
@@ -1854,8 +1861,9 @@ static CGFloat kDefaultScale = 0.5;
             
             self.selectedImageScale = [textFieldScale.text floatValue]?:kDefaultScale;
             self.selectedImageAlt = textFieldAlt.text?:@"";
-            
-            [self presentViewController:self.imagePicker animated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:self.imagePicker animated:YES completion:nil];
+            });
 
         }
     }

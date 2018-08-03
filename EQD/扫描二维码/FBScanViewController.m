@@ -14,9 +14,14 @@
 #import "FBWebUrlViewController.h"
 #import "FBWifiManager.h"
 #import "MyUUIDManager.h"
+#import <AMapLocationKit/AMapLocationKit.h>
+
 @interface FBScanViewController ()<AVCaptureMetadataOutputObjectsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     UserModel *user;
+    AMapLocationManager *locationManager;
+    NSString *address;
+    NSString *coodinate;
 }
 
 /** 会话对象 */
@@ -32,9 +37,36 @@
 @implementation FBScanViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+   
+    [self dingwei];
+    address =[USERDEFAULTS objectForKey:Y_AMAP_address];
+    coodinate =[USERDEFAULTS objectForKey:Y_AMAP_coordation];
+ [self setupScanningQRCode];
     self.scanningView = [[SGScanningQRCodeView alloc] initWithFrame:self.view.frame outsideViewLayer:self.view.layer];
+    
     [self.view addSubview:self.scanningView];
 
+}
+//高德地图定位
+-(void)dingwei{
+    
+    [locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        //地址   regeocode.formattedAddress  经纬度 location.coordinate
+        NSString* jinwei =[NSString stringWithFormat:@"%f,%f",location.coordinate.latitude,location.coordinate.longitude];
+        NSString*  address =regeocode.formattedAddress;
+        if(address.length==0)
+        {
+            [self dingwei];
+        }else
+        {
+            NSArray  *tarr = @[regeocode.province,regeocode.city];
+            [USERDEFAULTS setObject:jinwei forKey:Y_AMAP_coordation];
+            [USERDEFAULTS setObject:address forKey:Y_AMAP_address];
+            [USERDEFAULTS setObject:tarr forKey:Y_AMAP_cityProvince];
+            [USERDEFAULTS synchronize];
+        }
+        
+    }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,9 +76,17 @@
     self.navigationItem.title = @"扫一扫添加好友";
     
     // 二维码扫描
-    [self setupScanningQRCode];
+//    [self setupScanningQRCode];
     self.first_push = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册" style:(UIBarButtonItemStyleDone) target:self action:@selector(rightBarButtonItenAction)];
+    //    高德地图定位
+    locationManager =[[AMapLocationManager alloc]init];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    //   定位超时时间，最低2s，此处设置为10s
+    locationManager.locationTimeout =10;
+    //   逆地理请求超时时间，最低2s，此处设置为10s
+    locationManager.reGeocodeTimeout = 10;
+    
     
     if (self.image) {
         [self scanQRCodeFromPhotosInTheAlbum:self.image];
@@ -64,7 +104,9 @@
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init]; // 创建对象
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary; //（选择类型）表示仅仅从相册中选取照片
     imagePicker.delegate = self; // 指定代理，因此我们要实现UIImagePickerControllerDelegate,  UINavigationControllerDelegate协议
-    [self presentViewController:imagePicker animated:YES completion:nil]; // 显示相册
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:imagePicker animated:YES completion:nil]; // 显示相册
+    });
 }
 
 #pragma mark - - - UIImagePickerControllerDelegate
@@ -105,17 +147,13 @@
                 UIAlertAction *action_queding =[UIAlertAction actionWithTitle:@"确定发送" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     NSLog(@"添加好友");
                     NSString *mess =  alert.textFields[0].text;
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    hud.mode = MBProgressHUDModeAnnularDeterminate;
-                    hud.label.text = @"正在处理";
+                  
                     [WebRequest User_AddFriendWithuserid:user.Guid friendid:model.ugid content:mess  And:^(NSDictionary *dic) {
                         NSString *msg = dic[Y_MSG];
-                        hud.label.text =msg;
-                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
-                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                            [hud hideAnimated:NO];
+                        MBFadeAlertView  *alert = [[MBFadeAlertView alloc]init];
+                        [alert showAlertWith:msg];
                             [self.navigationController popViewControllerAnimated:NO];
-                        });
+    
                     }];
                     
                     
@@ -130,8 +168,9 @@
                 }];
                 [alert addAction:action_queding];
                 [alert addAction:action_cancel];
-                
-                [self presentViewController:alert animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:NO completion:nil];
+                });
                 
             }
             else if([model.type integerValue]==1)
@@ -156,14 +195,20 @@
                 
                 [alert addAction:action_queding];
                 [alert addAction:action_cancel];
-                
-                [self presentViewController:alert animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:NO completion:nil];
+                });
 
                 
             }else if ([model.type integerValue]==3)
             {
+                ///培训签到
                 [self setQianDaoWithModel:model];
                 
+            }else if([model.type integerValue]==4)
+            {
+                ///会议签到
+                [self setHuiYiWithModel:model];
             }
             else
             {
@@ -178,7 +223,51 @@
         }
     }
 }
+///会议考勤签到
+-(void)setHuiYiWithModel:(EWMModel*)tmodel{
+    
+   NSString  *phone_name =[[UIDevice currentDevice] name];
+    NSArray *tarr =[FBWifiManager getWifiName];
+    NSString *wifiname=nil;
+    NSString *macadress = nil;
+    if (tarr.count==2) {
+        wifiname =tarr[0];
+        macadress =tarr[1];
+    }else
+    {
+        wifiname =@"未知";
+        macadress =@"未知";
+    }
+    
+   NSString *UUID=[MyUUIDManager getUUID];
+    if (address.length==0) {
+        address =@"地址未知";
+        coodinate=@"0.000000,0.000000";
+    }
+    [WebRequest Meeting_Meeting_signInWithuserGuid:user.Guid noticeId:tmodel.data.Id signInPosition:address macAddress:macadress wifiName:wifiname phoneModel:phone_name uuid:UUID And:^(NSDictionary *dic) {
+        
+        if ([dic[Y_STATUS] integerValue]==200) {
+            
+            NSString *meesage= [NSString stringWithFormat:@"地点:%@\n时间:%@~%@\n",tmodel.data.place,tmodel.data.startTime,tmodel.data.endTime];
+            UIAlertController  *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"[%@]会议签到",tmodel.data.type] message:meesage preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController popViewControllerAnimated:NO];
+            }]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
+            
+        }else
+        {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            [alert showAlertWith:dic[Y_MSG]];
+        }
+        
+    }];
+    
+}
 
+/// 培训考勤签到
 -(void)setQianDaoWithModel:(EWMModel*)model{
     //考勤签到
     
@@ -210,8 +299,11 @@
                     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [self.navigationController popViewControllerAnimated:NO];
                     }]];
-                    [self presentViewController:alert animated:NO completion:^{
-                    }];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self presentViewController:alert animated:NO completion:^{
+                     }];
+                 });
+                 
                     
                 }else
                 {
@@ -255,7 +347,7 @@
     
     // 6、设置输出数据类型，需要将元数据输出添加到会话后，才能指定元数据类型，否则会报错
     // 设置扫码支持的编码格式(如下设置条形码和二维码兼容)
-    output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode, AVMetadataObjectTypeEAN13Code,  AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
+    output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode, AVMetadataObjectTypeEAN13Code,  AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code,AVMetadataObjectTypeUPCECode,AVMetadataObjectTypeCode39Code,AVMetadataObjectTypeCode39Mod43Code,AVMetadataObjectTypeCode93Code,AVMetadataObjectTypePDF417Code];
     
     // 7、实例化预览图层, 传递_session是为了告诉图层将来显示什么内容
     self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
@@ -323,8 +415,9 @@
             }];
             [alert addAction:action_queding];
             [alert addAction:action_cancel];
-            
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
             
         }
         else if([model.type integerValue]==1)
@@ -354,12 +447,17 @@
             [alert addAction:action_queding];
             [alert addAction:action_cancel];
             
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
             
             
         }else if ([model.type integerValue]==3)
         {
             [self setQianDaoWithModel:model];
+        }else if ([model.type integerValue] ==4)
+        {
+            [self setHuiYiWithModel:model];
         }
         else
         {

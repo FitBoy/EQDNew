@@ -134,13 +134,13 @@
     
     UIBarButtonItem *right =[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add_eqd2"]  style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
     
-    UISearchBar * searchBar =[[UISearchBar alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 40)];
+    UISearchBar * searchBar =[[UISearchBar alloc]initWithFrame:CGRectMake(0, kNavBarHAbove7, DEVICE_WIDTH, 40)];
     [self.view addSubview:searchBar];
     searchBar.delegate=self;
     searchBar.placeholder=@"搜索";
     [searchBar setTextFieldInputAccessoryView];
     [self.navigationItem setRightBarButtonItem:right];
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height+40, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-40) style:UITableViewStylePlain];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, kNavBarHAbove7+40, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-40) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
@@ -233,7 +233,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
     
 }
 #pragma  mark - 表的数据源
@@ -361,8 +363,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -387,7 +390,9 @@
         [player play];
         Pvc.player =player;
         
-        [self.navigationController presentViewController:Pvc animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController presentViewController:Pvc animated:NO completion:nil];
+        });
     }else if ([model.Collection.type integerValue]==6)
     {
         //位置

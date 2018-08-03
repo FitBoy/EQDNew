@@ -136,8 +136,9 @@
                 [self xiugaiWithcontent:action.title IndexPath:indexPath];
             }]];
         }
-        
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
         
     }
     else if (indexPath.row==3||indexPath.row==4||indexPath.row==6||indexPath.row==8||indexPath.row==12||indexPath.row==13||indexPath.row==14||indexPath.row==15)

@@ -7,7 +7,11 @@
 //
 
 #import "FBBaseViewController.h"
-
+#import "BiaoQianModel.h"
 @interface Two_BiaoQian_ViewController : FBBaseViewController
-
+@property (nonatomic,weak) id delegate_baioqian;
 @end
+@protocol Two_BiaoQian_ViewControllerDelegate <NSObject>
+-(void)getBiaoQianModel:(BiaoQianModel*)model_biaoqian;
+@end
+

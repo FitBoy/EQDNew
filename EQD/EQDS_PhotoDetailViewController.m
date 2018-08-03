@@ -216,8 +216,9 @@
                     }];
                     
                 }]];
-                
-                [self presentViewController:alert2 animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert2 animated:NO completion:nil];
+                });
                 
                 
                 
@@ -259,7 +260,9 @@
         [alert2 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert2 animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert2 animated:NO completion:nil];
+        });
         
        
     }]];
@@ -268,7 +271,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
     }
 }
 

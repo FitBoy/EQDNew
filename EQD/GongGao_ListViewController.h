@@ -11,5 +11,6 @@
 @interface GongGao_ListViewController : FBBaseViewController
 /// 1审核人 其他不是 
 @property (nonatomic,assign) NSInteger  ischeker;
-
+///通知  公告 通告
+@property (nonatomic,copy) NSString* notieName;
 @end

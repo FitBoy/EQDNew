@@ -35,7 +35,9 @@
     }
     isScale = NO;
     self.imagePickerController.allowsEditing = YES;
-    [viewController presentViewController:_imagePickerController animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [viewController presentViewController:_imagePickerController animated:YES completion:nil];
+    });
 }
 - (void)showImagePickerWithType:(ImagePickerType)type InViewController:(UIViewController *)viewController Scale:(double)scale{
     if (type == ImagePickerCamera) {
@@ -50,8 +52,9 @@
     }else{
         _scale = 1;
     }
-    
-    [viewController presentViewController:_imagePickerController animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [viewController presentViewController:_imagePickerController animated:YES completion:nil];
+    });
 }
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{

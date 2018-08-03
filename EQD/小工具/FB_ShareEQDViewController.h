@@ -47,8 +47,7 @@ typedef NS_ENUM(NSInteger,EQD_ShareType)
 @property (nonatomic,copy) NSString* source; // 收藏中也可以用
 @property (nonatomic,copy) NSString* sourceOwner; //收藏中也可以用
 
-///收藏的链接的type说明  10 易企阅  12 易企创  11 易企学
-
+///收藏的链接的type说明  10 易企阅  12 易企创  11 易企学  ......13?企业空间
 @property (nonatomic,assign) NSInteger type;
 ///0:工作圈   1:网页连接，2：视频，3：音乐，9：广告 网页链接多出来的字段
 @property (nonatomic,assign) NSInteger type2;

@@ -9,5 +9,5 @@
 #import "FBBaseViewController.h"
 
 @interface GongGao_AddViewController : FBBaseViewController
-
+@property (nonatomic,copy) NSString* gongwen;
 @end

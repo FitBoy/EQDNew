@@ -7,10 +7,10 @@
 //
 
 #import "LateLeaver_AddViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
+#import "FB_twoTongShi2ViewController.h"
 #import "FBTextvImgViewController.h"
 #import "Late_leave_ChooseViewController.h"
-@interface LateLeaver_AddViewController ()<UITableViewDataSource,UITableViewDelegate,FBOneChoose_TongShiViewControllerDelegate,FBTextvImgViewControllerDelegate,Late_leave_ChooseViewControllerDelegate>
+@interface LateLeaver_AddViewController ()<UITableViewDataSource,UITableViewDelegate,FB_twoTongShi2ViewControllerDelegate,FBTextvImgViewControllerDelegate,Late_leave_ChooseViewControllerDelegate>
 {
     UITableView *tableV;
     NSMutableArray *arr_names;
@@ -173,9 +173,9 @@
             case 2:
         {
             //证明人
-            FBOneChoose_TongShiViewController *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-            TSvc.indexpath =indexPath;
-            TSvc.delegate =self;
+            FB_twoTongShi2ViewController *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+            TSvc.indexPath =indexPath;
+            TSvc.delegate_tongshiDan =self;
             [self.navigationController pushViewController:TSvc animated:NO];
         }
             break;
@@ -213,11 +213,11 @@
     [arr_contents replaceObjectAtIndex:indexPath.row withObject:text];
     [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    model_detail =model;
-    [arr_contents replaceObjectAtIndex:indepPath.row withObject:model.username];
-    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
+    model_detail =model_com;
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:model_com.username];
+    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

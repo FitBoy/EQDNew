@@ -32,6 +32,13 @@
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
+    [WebRequest Friend_Get_FriendRemarksWithuserGuid:user.Guid friendGuid:self.friendGuid And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            [arr_contents replaceObjectAtIndex:0 withObject:dic[Y_ITEMS]];
+            [tableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            
+        }
+    }];
    
 }
 #pragma  mark - 表的数据源

@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title=@"加班申请";
-    arr_names =[NSMutableArray arrayWithArray:@[@"加班开始时间",@"加班结束时间",@"加班时长",@"加班类型",@"加班原因",@"审批人"]];
+    arr_names =[NSMutableArray arrayWithArray:@[@"加班开始时间",@"加班结束时间",@"加班时长/h",@"加班类型",@"加班原因",@"审批人"]];
     user =[WebRequest GetUserInfo];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height) style:UITableViewStyleGrouped];
     adjustsScrollViewInsets_NO(tableV, self);

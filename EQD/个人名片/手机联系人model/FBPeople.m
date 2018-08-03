@@ -9,5 +9,15 @@
 #import "FBPeople.h"
 
 @implementation FBPeople
+-(NSString*)isZhuCe
+{
+    if (_userGuid.length==0) {
+        return @"0";
+    }else
+    {
+        return @"1";
+    }
+}
+
 
 @end

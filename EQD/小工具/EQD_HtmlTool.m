@@ -26,4 +26,23 @@
 {
     return [NSString stringWithFormat:@"https://www.eqidd.com/Friend/friend.html?worId=%@&Guid=%@",Id,userGuid];
 }
+
++(NSString*)getCompanyCultrueWithGuid:(NSString*)guid
+{
+    return [NSString  stringWithFormat:@"https://www.eqidd.com/Friend/html/comCulture.html?guid=%@",guid];
+}
++(NSString*)getActiveFromLingdaoWithId:(NSString*)Id
+{
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/leaderDetdils.html?id=%@",Id];
+}
+
++(NSString*)getProductDetailWithId:(NSString*)Id
+{
+    
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/product.html?id=%@",Id];
+}
++(NSString*)getEventDetailWithId:(NSString*)Id
+{
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/thingDetails.html?id=%@",Id];
+}
 @end

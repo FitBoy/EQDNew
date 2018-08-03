@@ -13,7 +13,6 @@
 #import "MyDangAn1ViewController.h"
 #import "MGongSiViewController.h"
 #import "MMyViewController.h"
-#import "TFAQViewController.h"
 #import "FXiTongViewController.h"
 #import <UIImageView+AFNetworking.h>
 
@@ -70,7 +69,7 @@
                     //我的申请
                     [arr_code  replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%d",[arr_code[0] integerValue] +[dic2[@"count"] integerValue]]];
                     code_five = code_five + [dic2[@"count"] integerValue];
-                }else if ([dic2[@"code"] integerValue]==100 ||[dic2[@"code"] integerValue]==110||[dic2[@"code"] integerValue]==120||[dic2[@"code"] integerValue]==250||[dic2[@"code"] integerValue]==240||[dic2[@"code"] integerValue]==260||[dic2[@"code"] integerValue]==280||[dic2[@"code"] integerValue]==231||[dic2[@"code"] integerValue]==162||[dic2[@"code"] integerValue]==300 || [dic2[@"code"] integerValue]==221||[dic2[@"code"] integerValue]==211||[dic2[@"code"] integerValue]==370 || [dic2[@"code"] integerValue]==320 || [dic2[@"code"] integerValue]==321)
+                }else if ([dic2[@"code"] integerValue]==100 ||[dic2[@"code"] integerValue]==110||[dic2[@"code"] integerValue]==120||[dic2[@"code"] integerValue]==250||[dic2[@"code"] integerValue]==240||[dic2[@"code"] integerValue]==260||[dic2[@"code"] integerValue]==280||[dic2[@"code"] integerValue]==231||[dic2[@"code"] integerValue]==162||[dic2[@"code"] integerValue]==300 || [dic2[@"code"] integerValue]==221||[dic2[@"code"] integerValue]==211||[dic2[@"code"] integerValue]==370 || [dic2[@"code"] integerValue]==320 || [dic2[@"code"] integerValue]==321 || [dic2[@"code"] integerValue]==581)
                 {//我的批准
                     code_five = code_five + [dic2[@"count"] integerValue];
                     [arr_code  replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%d",[arr_code[1] integerValue] +[dic2[@"count"] integerValue]]];
@@ -277,8 +276,10 @@
 
                         }]];
 
-                        
-                        [self presentViewController:alert animated:NO completion:nil];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self presentViewController:alert animated:NO completion:nil];
+
+                        });
                         
                         
                         

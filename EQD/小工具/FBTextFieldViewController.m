@@ -8,9 +8,11 @@
 
 #import "FBTextFieldViewController.h"
 
-@interface FBTextFieldViewController ()<UITextFieldDelegate>
+@interface FBTextFieldViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UITextField *TF_content;
+    UITableView *tableV;
+    NSMutableArray *arr_model;
 }
 
 @end
@@ -19,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    arr_model = [NSMutableArray arrayWithCapacity:0];
     TF_content = [[UITextField alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height+5, DEVICE_WIDTH, 45)];
     [self.view addSubview:TF_content];
     TF_content.clearButtonMode = UITextFieldViewModeAlways;
@@ -26,7 +29,7 @@
     TF_content.text = self.content;
     self.navigationItem.title =self.contentTitle;
     TF_content.delegate =self;
-    
+    TF_content.keyboardType = self.keyBoardType;
     
     
     if (self.contentTishi.length>0) {
@@ -49,6 +52,13 @@
     [self.navigationItem setRightBarButtonItem:right];
     [TF_content becomeFirstResponder];
     
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height+50, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight-50) style:UITableViewStylePlain];
+    adjustsScrollViewInsets_NO(tableV, self);
+    tableV.delegate=self;
+    tableV.dataSource=self;
+    [self.view addSubview:tableV];
+    tableV.rowHeight=50;
+    tableV.hidden =YES;
    }
 -(void)quedingClick{
     
@@ -76,6 +86,62 @@
     if ([textField.text isEqualToString:@"请输入"]) {
         textField.text = nil;
     }
+}
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSString *searchText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSLog(@"=最终的字=%@",searchText);
+    if (self.temp==1) {
+        /// 客户名称的搜索
+        [WebRequest getKehuNameFromTianyanChaWithKey:searchText And:^(NSDictionary *dic) {
+            if([dic[@"state"] isEqualToString:@"ok"])
+            {
+                [arr_model removeAllObjects];
+                NSArray *tarr = dic[@"data"];
+                for (int i=0; i<tarr.count; i++) {
+                    NSDictionary *tdic = tarr[i];
+                    [arr_model addObject:tdic];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    tableV.hidden = NO;
+                  [tableV reloadData];
+                });
+               
+            }
+        }];
+    }
+    
+    
+    return YES;
+}
+
+#pragma  mark - 表的数据源
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return arr_model.count;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId=@"cellID";
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = [UIFont systemFontOfSize:18];
+    }
+    NSDictionary *tdic = arr_model[indexPath.row];
+    cell.textLabel.text = tdic[@"name"];
+    return cell;
+}
+
+#pragma  mark - 表的协议代理
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    tableView.hidden = YES;
+    NSDictionary *tdic = arr_model[indexPath.row];
+    TF_content.text =tdic[@"name"];
 }
 
 @end

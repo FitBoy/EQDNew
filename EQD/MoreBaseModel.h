@@ -23,5 +23,6 @@
 @property (nonatomic,assign) NSString *isZan_FB;
 
 @property (nonatomic,copy) NSString* address;
+@property (nonatomic,assign) float cell_height;
 
 @end

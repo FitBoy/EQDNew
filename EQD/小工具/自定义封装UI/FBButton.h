@@ -12,4 +12,6 @@
 -(void)setTitle:(NSString*)title titleColor:(UIColor*)titlecolor backgroundColor:(UIColor*)backgroundColor  font:(UIFont*)font;
 @property (nonatomic,strong)  NSIndexPath *indexpath;
 
+///工作日志是第一个增加的
+@property (nonatomic,assign) NSInteger temp;
 @end

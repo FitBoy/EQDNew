@@ -101,8 +101,9 @@
             //修改名称
             
         }]];
-        
-        [self presentViewController:alert2 animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert2 animated:NO completion:nil];
+        });
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -124,8 +125,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -168,9 +170,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BiaoQianModel *model =arr_biaoqian[indexPath.row];
+    
+    if ([self.delegate_baioqian respondsToSelector:@selector(getBiaoQianModel:)]) {
+        [self.delegate_baioqian getBiaoQianModel:model];
+        [self.navigationController popViewControllerAnimated:NO];
+    }else
+    {
     BQ_DetailViewController *Dvc =[[BQ_DetailViewController alloc]init];
     Dvc.model =model;
     [self.navigationController pushViewController:Dvc animated:NO];
+    }
 }
 
 

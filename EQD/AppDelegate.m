@@ -29,10 +29,13 @@
 #import "SDAdImageView.h"
 #import "JSHAREService.h"
 #import "FBShareMessageContent.h"
+#import <UserNotifications/UserNotifications.h>
+
 @interface AppDelegate ()<RCIMConnectionStatusDelegate,
-RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
+RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate,UNUserNotificationCenterDelegate>
 {
     UserModel *user;
+    NSInteger temp;
 }
 
 @end
@@ -77,7 +80,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     NSLog(@"程序被杀死");
-    
+    [self quiteLogin];
     
 }
 ///极光分享用的
@@ -102,17 +105,35 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
     [JSHAREService setupWithConfig:config];
     ///发布产品后改成NO 
     [JSHAREService setDebug:NO];
-
+    
 }
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UIViewController alloc]init];
     [self.window makeKeyAndVisible];
+    ///本地通知的注册
+    /******/
+    // 使用 UNUserNotificationCenter 来管理通知
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    //监听回调事件
+    center.delegate = self;
+    
+    //iOS 10 使用以下方法注册，才能得到授权
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              // Enable or disable features based on authorization.
+                          }];
+    /****/
+  
+    
 //    if (@available(iOS 11.0, *)) {
 //       [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 //    }
-   
+    temp = 1;
+    
+    
     [self addnotification];
 //    [FBSocketTool sharedInstance].socketHost =@"47.94.173.253";
 //    [FBSocketTool sharedInstance].socketPort = 8008;
@@ -351,9 +372,35 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate>
  
     //配置崩溃日志
 //    [self setupBugly];
-     [self setProductImgage];
+//     [self setProductImgage];
     return YES;
     
+}
+
+
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    
+    NSLog(@"3333334");
+    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+
+    // 处理完成后条用 completionHandler ，用于指示在前台显示通知的形式
+//    completionHandler(UNNotificationPresentationOptionSound);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler{
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"易企点打卡提醒" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.window.rootViewController presentViewController:alert animated:NO completion:nil];
+
+    });
+    
+    
+    completionHandler();
 }
 
 - (void)setupBugly {
@@ -492,7 +539,22 @@ fetchCompletionHandler:
 didReceiveLocalNotification:(UILocalNotification *)notification {
     [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
 }
-
+/*
+-(void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler
+{
+     if (![notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    // 本地通知为notification
+     
+         
+     }
+}
+-(void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
+{
+    // if (![response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    // 本地通知为response.notification
+    // }
+}
+*/
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #pragma mark- JPUSHRegisterDelegate
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
@@ -517,6 +579,7 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     else {
         // 判断为本地通知
         NSLog(@"iOS10 前台收到本地通知:{\nbody:%@，\ntitle:%@,\nsubtitle:%@,\nbadge：%@，\nsound：%@，\nuserInfo：%@\n}",body,title,subtitle,badge,sound,userInfo);
+
     }
     completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
 }
@@ -614,7 +677,53 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
         EQDLoginViewController *login =[[EQDLoginViewController alloc]init];
         UINavigationController  *nav = [[UINavigationController alloc]initWithRootViewController:login];
         self.window.rootViewController =nav;
+        [self quiteLogin];
+        
+    }else if ((status ==ConnectionStatus_UNKNOWN &&temp==0) || status == ConnectionStatus_Unconnected )
+    {
+        [self quiteLogin];
+        temp=1;
+        UIAlertController  *alert = [UIAlertController alertControllerWithTitle:@"网络变化" message:@"您似乎与网络断开了,连接网络后请手动刷新" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.window.rootViewController presentViewController:alert animated:NO completion:nil];
+
+        });
+    }else if (status ==ConnectionStatus_Connected )
+    {
+        temp=0;
+    }else
+    {
+        
     }
+}
+///退出登录
+-(void)quiteLogin{
+    NSString  *loginedId =[NSString stringWithFormat:@"%@",[USERDEFAULTS objectForKey:Y_LoginedId]] ;
+    NSDate *date = [NSDate date];
+    NSDateFormatter  *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString  *time = [formatter stringFromDate:date];
+    user = [WebRequest GetUserInfo];
+  
+    if (loginedId.length !=0) {
+        [USERDEFAULTS setObject:time forKey:Y_quitTime];
+        [USERDEFAULTS synchronize];
+        
+       /* [WebRequest userashx_LoginLog_Set_QuitLogsWithuserGuid:user.Guid logId:loginedId time:time  And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [USERDEFAULTS removeObjectForKey:Y_LoginedId];
+                [USERDEFAULTS synchronize];
+            }else
+            {
+                [USERDEFAULTS setObject:time forKey:Y_quitTime];
+                [USERDEFAULTS synchronize];
+            }
+        }];*/
+    }
+    
 }
 
 - (void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
@@ -688,6 +797,24 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:NULL];
     return str;
 }
+
+
+/*- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    NSLog(@"url  %@",[url absoluteString]);
+    
+    if ([[url absoluteString] containsString:@"file"]) {
+        NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+        NSString *fileName = [array lastObject];
+        fileName = [fileName stringByRemovingPercentEncoding];
+        
+        NSString *path = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/Inbox/%@",fileName]];
+        
+        NSData *data = [NSData dataWithContentsOfFile:path];
+    }
+    return YES;
+}
+*/
 /*
 ///分享逻辑
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_9_0
@@ -779,7 +906,17 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
             self.window.rootViewController = nav;
             
         }
-    }else
+    }else if ([[url absoluteString] containsString:@"file"]) {
+        NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+        NSString *fileName = [array lastObject];
+        fileName = [fileName stringByRemovingPercentEncoding];
+        
+        NSString *path = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/Inbox/%@",fileName]];
+        
+        NSData *data = [NSData dataWithContentsOfFile:path];
+    }
+    
+    else
     {
     }
     

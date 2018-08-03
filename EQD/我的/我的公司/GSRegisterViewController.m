@@ -250,7 +250,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                 picker.sourceType =UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:picker animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:picker animated:NO completion:nil];
+                });
             }else
             {
                 MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
@@ -266,7 +268,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 picker.sourceType =UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:picker animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:picker animated:NO completion:nil];
+                });
             }else
             {
                 MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
@@ -281,7 +285,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
     }
    
 }

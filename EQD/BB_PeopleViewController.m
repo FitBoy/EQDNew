@@ -9,8 +9,8 @@
 #import "BB_PeopleViewController.h"
 #import "FBTwo_img11TableViewCell.h"
 #import "BanBiePreopleModel.h"
-#import "FBMutableChoose_TongShiViewController.h"
-@interface BB_PeopleViewController ()<UITableViewDelegate,UITableViewDataSource,FBMutableChoose_TongShiViewControllerDelegate>
+#import "FB_twoTongShiChooseViewController.h"
+@interface BB_PeopleViewController ()<UITableViewDelegate,UITableViewDataSource,FB_twoTongShiChooseViewControllerDelegate>
 {
     UITableView *tableV;
     NSMutableArray *arr_model;
@@ -62,10 +62,10 @@
         BanBiePreopleModel *model =arr_model[i];
         [tarr addObject:model.userGuid];
     }
-    FBMutableChoose_TongShiViewController *TSvc =[[FBMutableChoose_TongShiViewController alloc]init];
-    TSvc.delegate =self;
-    TSvc.indePath =[NSIndexPath indexPathForRow:0 inSection:0];
-    TSvc.arr_Guid =tarr;
+    FB_twoTongShiChooseViewController *TSvc =[[FB_twoTongShiChooseViewController alloc]init];
+    TSvc.delegate_tongshi =self;
+    TSvc.indexPath =[NSIndexPath indexPathForRow:0 inSection:0];
+    TSvc.arr_guid =tarr;
     [self.navigationController pushViewController:TSvc animated:NO];
 }
 #pragma  mark - 表的数据源
@@ -95,16 +95,19 @@
     
 }
 #pragma  mark - 自定义的协议代理
--(void)mutableChooseArr:(NSArray *)chooses tarr:(NSArray *)tarr indexPath:(NSIndexPath *)indexPath
+-(void)getChooseArr_model:(NSArray *)arr_tmodel indexpath:(NSIndexPath *)indexpath
 {
     NSMutableString *tstr =[NSMutableString string];
-    for (int i=0; i<chooses.count; i++) {
-        Com_UserModel *model2 =chooses[i];
+    for (int i=0; i<arr_tmodel.count; i++) {
+        Com_UserModel *model2 =arr_tmodel[i];
+        if (i==arr_tmodel.count-1) {
+            [tstr appendString:model2.userGuid];
+        }else
+        {
         [tstr appendFormat:@"%@;",model2.userGuid];
+        }
     }
-    for (int i=0; i<tarr.count; i++) {
-        [tstr appendFormat:@"%@;",tarr[i]];
-    }
+    
     [WebRequest Update_RuleShift_UserWithuserGuid:user.Guid companyId:user.companyId ruleShiftId:self.ruleId objecter:tstr And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             [self loadRequestData];

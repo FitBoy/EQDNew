@@ -27,15 +27,20 @@
 #import "FB_ShareEQDViewController.h"
 #import "FBWebUrlViewController.h"
 #import "FBImgShowViewController.h"
+
+///文件
+#import "iCloudManager.h"
+#import "FileManagerTool.h"
 @interface FBConversationViewControllerViewController ()<UIActionSheetDelegate, RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate, UIAlertViewDelegate,
-RCMessageCellDelegate>
+RCMessageCellDelegate,UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate>
 {
     RCMessageModel  *M_model;
     FBGeRenCardMessageContent *content ;
     UserModel *user;
     RCUserInfo *userinfo1;
     RCUserInfo *userinfo2;
+    FileManagerTool  *fileTool;
 }
 @property(nonatomic, weak) id<RCRealTimeLocationProxy> realTimeLocation;
 @property(nonatomic, strong)
@@ -63,6 +68,8 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+      fileTool = [[FileManagerTool alloc]init];
+    [fileTool context];
     self.conversationMessageCollectionView.frame = CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight);
     adjustsScrollViewInsets_NO(self.conversationMessageCollectionView, self);
     [[RCIM sharedRCIM] registerMessageType:[FBShareMessageContent class]];
@@ -88,6 +95,8 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
       [self.chatSessionInputBarControl.pluginBoardView removeItemWithTag:1102];
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"eqd_myTask.png"] title:@"发任务" atIndex:5 tag:4001];
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[RCKitUtility imageNamed:@"card.png" ofBundle:@"RongCloud.bundle"] title:@"个人名片" atIndex:6 tag:4002];
+    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[RCKitUtility imageNamed:@"actionbar_file_icon.png" ofBundle:@"RongCloud.bundle"] title:@"文件" atIndex:6 tag:4003];
+    
     [self notifyUpdateUnreadMessageCount];
     
     UIBarButtonItem  *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"me_focu"] style:UIBarButtonItemStylePlain target:self action:@selector(personInfo)];
@@ -333,11 +342,14 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
                RC_REAL_TIME_LOCATION_STATUS_IDLE) {
         [self.realTimeLocation startRealTimeLocation];
     }
-    [self.navigationController presentViewController:lsvc
-                                            animated:YES
-                                          completion:^{
-                                              
-                                          }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.navigationController presentViewController:lsvc
+                                                animated:YES
+                                              completion:^{
+                                                  
+                                              }];
+    });
+   
 }
 - (void)updateRealTimeLocationStatus {
     if (self.realTimeLocation) {
@@ -397,8 +409,9 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
             [self.realTimeLocation quitRealTimeLocation];
             [self popupChatViewController];
         }]];
-
-        [self presentViewController:alert animated:NO completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:NO completion:nil];
+        });
     } else {
         [self popupChatViewController];
     }
@@ -506,7 +519,9 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
     Svc.providesPresentationContextTransitionStyle = YES;
     Svc.definesPresentationContext = YES;
     Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:Svc animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:Svc animated:NO completion:nil];
+    });
 }
 -(void)jishibenClick
 {
@@ -637,8 +652,9 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
                 [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     
                 }]];
-                
-                [self presentViewController:alert animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:NO completion:nil];
+                });
                 
             } else {
                 [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
@@ -681,6 +697,12 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
         }
             break;
             
+        case 4003:
+        {
+            //发文件
+             [self presentDocumentPicker];
+        }
+            break;
         default:
              [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
             break;
@@ -689,7 +711,81 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
 }
 
 
+#pragma  mark - 发文件
+- (void)presentDocumentPicker {
+    NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
+    
+    UIDocumentPickerViewController *documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
+                                                                                                                          inMode:UIDocumentPickerModeOpen];
+    documentPickerViewController.delegate = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:documentPickerViewController animated:YES completion:nil];
+    });
+}
+#pragma mark - UIDocumentPickerDelegate
 
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    
+    NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+    NSString *fileName = [array lastObject];
+    fileName = [fileName stringByRemovingPercentEncoding];
+     NSString *path = [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Documents/%@",fileName]];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"url == %@",path];
+    NSArray *tarr = [fileTool getDataWithReg:pre];
+    if (tarr.count==0) {
+    if ([iCloudManager iCloudEnable]) {
+        [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
+            NSData *data = obj;
+            //写入沙盒Documents
+           
+            
+            
+            
+         BOOL issuccess=  [data writeToFile:path atomically:YES];
+            
+            if (issuccess ==YES) {
+                
+               
+                [fileTool insertDataWithfileData:@{
+                                                   @"type":[[fileName componentsSeparatedByString:@"."] lastObject],
+                                                   @"url":path,
+                                                   @"userGuid":user.Guid
+                                                   }];
+                RCFileMessage *file = [RCFileMessage messageWithFile:path];
+                [[RCIM sharedRCIM] sendMediaMessage:(ConversationType_PRIVATE) targetId:self.targetId content:file pushContent:nil pushData:nil progress:nil success:^(long messageId) {
+                    
+                } error:nil cancel:nil];
+            }else
+            {
+                MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text =@"存储文件出错";
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                });
+            }
+            
+         
+        }];
+    }else
+    {
+        MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text =@"不支持iCloud访问";
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [MBProgressHUD hideHUDForView:self.view  animated:YES];
+        });
+    }
+    }else
+    {
+        RCFileMessage *file = [RCFileMessage messageWithFile:path];
+        [[RCIM sharedRCIM] sendMediaMessage:(ConversationType_PRIVATE) targetId:self.targetId content:file pushContent:nil pushData:nil progress:nil success:^(long messageId) {
+            
+        } error:nil cancel:nil];
+    }
+}
 
 
 - (RCMessageBaseCell *)rcConversationCollectionView:(UICollectionView *)collectionView

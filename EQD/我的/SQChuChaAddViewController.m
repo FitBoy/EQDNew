@@ -81,7 +81,7 @@
     [self.navigationItem setRightBarButtonItem:right];
     
     picker_alert=[[DatePicer_AlertView alloc]initWithFrame:self.view.frame];
-    picker_alert.picker.datePickerMode =UIDatePickerModeDate;
+    picker_alert.picker.datePickerMode =UIDatePickerModeDateAndTime;
     NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     [picker_alert setDate:[formatter stringFromDate:[NSDate date]]];
@@ -99,14 +99,14 @@
 -(void)queDingClick:(FBButton*)tbtn
 {
     NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *tstr =[formatter stringFromDate:picker_alert.picker.date];
     [arr_contents replaceObjectAtIndex:tbtn.indexpath.row withObject:tstr];
     if (![arr_contents[0] isEqualToString:@"请选择"] &&![arr_contents[1] isEqualToString:@"请选择"] ) {
         NSDateFormatter *formatter1 =[[NSDateFormatter alloc]init];
-        [formatter1 setDateFormat:@"yyyy-MM-dd"];
+        [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
         NSDateFormatter *formatter2 =[[NSDateFormatter alloc]init];
-        [formatter2 setDateFormat:@"yyyy-MM-dd"];
+        [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm"];
         NSDate *date1 =[formatter1 dateFromString:arr_contents[0]];
         NSDate *date2 =[formatter2 dateFromString:arr_contents[1]];
         float day =[NSString day_numberWithdate1:date1 date2:date2 Withweeks:nil];

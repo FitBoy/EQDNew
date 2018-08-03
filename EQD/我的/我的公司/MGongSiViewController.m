@@ -300,7 +300,9 @@ return cell;
             [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                     [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                    [self presentViewController:picker animated:NO completion:nil];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self presentViewController:picker animated:NO completion:nil];
+                    });
                 }
                 else
                 {
@@ -316,7 +318,9 @@ return cell;
             [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                     [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-                    [self presentViewController:alert animated:NO completion:nil];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self presentViewController:alert animated:NO completion:nil];
+                    });
                 }
                 else
                 {
@@ -332,7 +336,9 @@ return cell;
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
 
         }
         else

@@ -77,7 +77,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
     
     
     
@@ -202,7 +204,12 @@
 {
     NSMutableString *tstr =[NSMutableString string];
     for (int i=0; i<tarr.count; i++) {
+        if (i==tarr.count-1) {
+            [tstr appendString:tarr[i]];
+        }else
+        {
         [tstr appendFormat:@"%@,",tarr[i]];
+        }
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeAnnularDeterminate;

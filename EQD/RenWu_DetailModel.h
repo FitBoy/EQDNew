@@ -15,6 +15,7 @@
 @property (nonatomic,copy) NSString* Checker;
 @property (nonatomic,copy) NSString* CompanyId;
 @property (nonatomic,copy) NSString* CompleteImageUrl;
+///这个里面有图片
 @property (nonatomic,copy) NSArray* CompleteImageUrls;
 @property (nonatomic,copy) NSString* CompleteMessage;
 @property (nonatomic,copy) NSString* CompleteTime;
@@ -43,4 +44,6 @@
 @property (nonatomic,copy) NSString* parentTaskName;
 
 -(NSString*)CompleteTime;
+
+@property (nonatomic,assign) float cell_height;
 @end

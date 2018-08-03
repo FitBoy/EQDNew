@@ -11,8 +11,8 @@
 #import "DatePicer_AlertView.h"
 #import "FBTextVViewController.h"
 #import "Car_ChooseByTimeViewController.h"
-#import "FBOneChoose_TongShiViewController.h"
-@interface Car_use_AddViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,Car_ChooseByTimeViewControllerDelegate,FBOneChoose_TongShiViewControllerDelegate>
+#import "FB_twoTongShi2ViewController.h"
+@interface Car_use_AddViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,Car_ChooseByTimeViewControllerDelegate,FB_twoTongShi2ViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names;
@@ -171,9 +171,9 @@
         }
     }else if (indexPath.row==5)
     {
-        FBOneChoose_TongShiViewController  *TSvc =[[FBOneChoose_TongShiViewController alloc]init];
-        TSvc.delegate =self;
-        TSvc.indexpath =indexPath;
+        FB_twoTongShi2ViewController  *TSvc =[[FB_twoTongShi2ViewController alloc]init];
+        TSvc.delegate_tongshiDan =self;
+        TSvc.indexPath =indexPath;
         [self.navigationController pushViewController:TSvc animated:NO];
     }
     else if ((indexPath.row>2 &&indexPath.row<7 )&&indexPath.row!=5 )
@@ -212,11 +212,11 @@
     [arr_contents replaceObjectAtIndex:2 withObject:Cmodel.plateNumber];
     [tableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
--(void)chooseModel:(Com_UserModel *)model indexpath:(NSIndexPath *)indepPath
+-(void)getComUserModel:(Com_UserModel *)model_com indexpath:(NSIndexPath *)indexPath
 {
-    [arr_contents replaceObjectAtIndex:indepPath.row withObject:model.username];
-    [tableV reloadRowsAtIndexPaths:@[indepPath] withRowAnimation:UITableViewRowAnimationNone];
-    
+    [arr_contents replaceObjectAtIndex:indexPath.row withObject:model_com.username];
+    [tableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 
 @end

@@ -132,7 +132,9 @@ MBProgressHUD *hud;
     [aelrt addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:aelrt animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:aelrt animated:NO completion:nil];
+    });
     
  /* UIActionSheet *actionSheet =
       [[UIActionSheet alloc] initWithTitle:@"是否结束位置共享？"

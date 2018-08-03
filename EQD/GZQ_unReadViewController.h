@@ -9,5 +9,6 @@
 #import "FBBaseViewController.h"
 
 @interface GZQ_unReadViewController : FBBaseViewController
-
+/// 1 日志的评论点赞 
+@property (nonatomic,assign) NSInteger  temp;
 @end

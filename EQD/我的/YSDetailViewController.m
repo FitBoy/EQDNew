@@ -222,7 +222,7 @@
 {
     if (indexPath.section==0) {
          //@[@"任务编码",@"任务名称"@"2任务描述",@"关联父项目",@"4责任人",@"验收标准",@"6验收时间",@"发起人"]
-        if (indexPath.row==2) {
+        if (indexPath.row==2 || indexPath.row ==1) {
             //任务描述
             LoadWordViewController *Lvc =[[LoadWordViewController alloc]init];
             Lvc.content =arr_contents[indexPath.row];
@@ -265,7 +265,10 @@
                 
             }]];
             
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+
+            });
             
             
         }
@@ -286,7 +289,10 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+
+            });
 
         }
         else if(indexPath.row==7)
@@ -306,7 +312,10 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+
+            });
         }
         else
         {

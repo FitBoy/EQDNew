@@ -31,7 +31,7 @@
             for (int i=0; i<tarr.count; i++) {
                 NSDictionary *dic2 =tarr[i];
                 if ([dic2[@"code"] integerValue]==161) {
-                    code = dic2[@"count"];
+                    code =[NSString stringWithFormat:@"%@",dic2[@"count"]] ;
                     break;
                 }
             }
@@ -43,12 +43,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     user =[WebRequest GetUserInfo];
+    code =@"0";
     self.navigationItem.title =@"劳动合同管理";
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT) style:UITableViewStylePlain];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    tableV.rowHeight=50;
+    tableV.rowHeight=60;
     arr_names =[NSMutableArray arrayWithArray:@[@"劳动合同"]];
     //,@"流程查询"
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(message_recived) name:Z_FB_message_received object:nil];

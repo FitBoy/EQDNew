@@ -7,7 +7,7 @@
 //
 
 #import "FBBaseViewController.h"
-
+#import "EQD_HtmlTool.h"
 @interface FBWebUrlViewController : FBBaseViewController
 @property (nonatomic,copy) NSString* url;
 @property (nonatomic,copy) NSString* contentTitle;

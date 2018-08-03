@@ -8,8 +8,9 @@
 
 #import "Trumpt_ListViewController.h"
 #import "TrumModel.h"
-#import "FBFour_noimgTableViewCell.h"
+#import "EQDR_labelTableViewCell.h"
 #import "FBTextVViewController.h"
+
 @interface Trumpt_ListViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UserModel *user;
@@ -51,31 +52,32 @@
 
 }
 #pragma  mark - 表的数据源
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TrumModel *model =arr_model[indexPath.row];
+    return model.cellHeight;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return arr_model.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellId=@"cellID";
-    FBFour_noimgTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[FBFour_noimgTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.font = [UIFont systemFontOfSize:18];
+        cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     TrumModel *model =arr_model[indexPath.row];
-    [cell setModel:model];
+    [cell setModel_trum:model];
+    
     return cell;
 }
 
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TrumModel *model =arr_model[indexPath.row];
-    FBTextVViewController *TVvc =[[FBTextVViewController alloc]init];
-    TVvc.content =model.content;
-    TVvc.contentTitle =@"小喇叭的详细内容";
-    [self.navigationController pushViewController:TVvc animated:NO];
+   
     
 }
 

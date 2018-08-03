@@ -36,6 +36,7 @@
 @property (nonatomic,copy) NSString* parentUPname;
 @property (nonatomic,copy) NSString* parentUserGuid;
 @property (nonatomic,copy) NSString* parentUserPhoto;
+@property (nonatomic,copy) NSString* DepartId;
 
 
 @property (nonatomic,assign) float cellHeight;

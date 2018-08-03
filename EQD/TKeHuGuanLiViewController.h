@@ -9,5 +9,6 @@
 #import "FBBaseViewController.h"
 
 @interface TKeHuGuanLiViewController : FBBaseViewController
-
+/// 0 个人客户 1 人事客户
+@property (nonatomic,assign) NSInteger isRenShi;
 @end

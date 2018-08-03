@@ -67,6 +67,7 @@
            if ([dic[Y_STATUS] integerValue]==200) {
         NSArray *tarr =dic[Y_ITEMS];
         if (tarr.count==0) {
+            
             [tableV.mj_footer endRefreshingWithNoMoreData];
         }else
         {

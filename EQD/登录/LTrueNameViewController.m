@@ -124,8 +124,10 @@
                         [alert addAction:[UIAlertAction actionWithTitle:@"现在进入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [self mainJiemian];
                         }]];
-                        
-                        [self presentViewController:alert animated:NO completion:nil];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self presentViewController:alert animated:NO completion:nil];
+
+                        });
                     }
                     else
                     {
@@ -220,7 +222,10 @@
         {
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 flag = indexPath.row;
-                [self presentViewController:picker animated:NO completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:picker animated:NO completion:nil];
+
+                });
             }
             else
             {

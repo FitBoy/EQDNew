@@ -127,7 +127,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             pickerC.sourceType =UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:pickerC animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:pickerC animated:NO completion:nil];
+            });
             
         }
         else
@@ -145,7 +147,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             pickerC.sourceType =UIImagePickerControllerSourceTypeCamera;
-            [self presentViewController:pickerC animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:pickerC animated:NO completion:nil];
+            });
             
         }
         else
@@ -164,7 +168,9 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alert animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:NO completion:nil];
+    });
     
 }
 
@@ -381,8 +387,9 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"其他" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                  [self xiugaiWithcongtent:action.title indexpath:indexPath];
             }]];
-            
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
             
             
         }
@@ -397,8 +404,9 @@
                     [self xiugaiWithcongtent:action.title indexpath:indexPath];
                 }]];
             }
-            
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
             
         }
         else if(indexPath.row ==14)
@@ -451,7 +459,9 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"亲戚" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                  [self xiugaiWithcongtent:action.title indexpath:indexPath];
             }]];
-            [self presentViewController:alert animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alert animated:NO completion:nil];
+            });
             
         }
         else
