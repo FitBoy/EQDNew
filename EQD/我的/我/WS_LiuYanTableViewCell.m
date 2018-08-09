@@ -16,15 +16,15 @@
     [self.V_top setHead:model_liuyan.iphoto name:model_liuyan.staffName bumen:[NSString stringWithFormat:@"%@-%@",model_liuyan.departName,model_liuyan.postName] time:model_liuyan.createTime];
     model_liuyan.cell_height = 50+5;
     self.V_top.IV_fenxiang.hidden =YES;
-    CGSize size = [model_liuyan.Message boundingRectWithSize:CGSizeMake(DEVICE_WIDTH, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil].size;
+    CGSize size = [model_liuyan.Message boundingRectWithSize:CGSizeMake(self.frame.size.width-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil].size;
     self.L_contets.text = model_liuyan.Message;
     [self.L_contets mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(size.height+10);
+        make.height.mas_equalTo(size.height+5);
         make.left.mas_equalTo(self.mas_left).mas_offset(15);
         make.right.mas_equalTo(self.mas_right).mas_offset(-15);
         make.top.mas_equalTo(self.V_top.mas_bottom).mas_offset(5);
     }];
-    model_liuyan.cell_height = model_liuyan.cell_height +5+5+size.height+10;
+    model_liuyan.cell_height = model_liuyan.cell_height +5+5+size.height+5;
     if (model_liuyan.childList.count==0) {
         
     }else
@@ -32,16 +32,16 @@
         NSMutableAttributedString  *contents = [[NSMutableAttributedString alloc]initWithString:@""];
         for (int i=0; i<model_liuyan.childList.count; i++) {
             WS_liuYanModel  *tmodel = model_liuyan.childList[i];
-            NSMutableAttributedString *tcontent =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"企业回复：%@\n",tmodel.Message] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+            NSMutableAttributedString *tcontent =[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"企业回复：%@",tmodel.Message] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
             [contents appendAttributedString:tcontent];
         }
         contents.yy_lineSpacing =6;
         self.YL_contents.attributedText = contents;
-        CGSize size = [contents boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-75, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-        model_liuyan.cell_height =20+size.height+model_liuyan.cell_height;
+        CGSize size = [contents boundingRectWithSize:CGSizeMake(self.frame.size.width -75, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        model_liuyan.cell_height =10+size.height+model_liuyan.cell_height;
         
         [self.YL_contents mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.size.height.mas_equalTo(size.height+15);
+            make.size.height.mas_equalTo(size.height+5);
             make.left.mas_equalTo(self.mas_left).mas_offset(60);
             make.right.mas_equalTo(self.mas_right).mas_offset(-15);
             make.top.mas_equalTo(self.L_contets.mas_bottom).mas_offset(5);

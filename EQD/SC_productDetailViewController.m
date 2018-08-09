@@ -17,14 +17,14 @@
 #import "FB_ShareEQDViewController.h"
 #import "EQD_HtmlTool.h"
 #import "SC_MaiMaiViewController.h"
+#import "BottomMoreView.h"
 @interface SC_productDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>
 {
     UITableView *tableV;
     SC_productModel *model_detail;
     float height_1;
     float height_2;
-    FBTwoButtonView *twoBtnV;
-    
+    BottomMoreView *btn_more;
     WS_contactModel *model_contact;
     UserModel *user;
 }
@@ -75,15 +75,30 @@
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
-    twoBtnV = [[FBTwoButtonView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-kBottomSafeHeight-40, DEVICE_WIDTH, 40)];
-    [self.view addSubview:twoBtnV];
-    [twoBtnV setleftname:@"企业信息" rightname:@"联系方式"];
-    [twoBtnV.B_left addTarget:self action:@selector(qiyeClick) forControlEvents:UIControlEventTouchUpInside];
-      [twoBtnV.B_right addTarget:self action:@selector(ContactClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    btn_more = [[BottomMoreView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-kBottomSafeHeight-40, DEVICE_WIDTH, 40)];
+    [self.view addSubview:btn_more];
+   
+    [btn_more setMorename:@"更多" right:@"采购" center:@"打电话"        ];
+    [btn_more.B_more addTarget:self action:@selector(btn_more) forControlEvents:UIControlEventTouchUpInside];
+    [btn_more.B_center addTarget:self action:@selector(ContactClick) forControlEvents:UIControlEventTouchUpInside];
+    [btn_more.B_right addTarget:self action:@selector(caigouClick) forControlEvents:UIControlEventTouchUpInside];
+    
+   
     
     UIBarButtonItem  *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"EQD_more"] style:UIBarButtonItemStyleDone target:self action:@selector(moreClick)];
     [self.navigationItem setRightBarButtonItem:right];
 
+}
+#pragma  mark - 采购
+-(void)caigouClick
+{
+    
+}
+#pragma  mark - 底部的更多
+-(void)btn_more
+{
+    
 }
 -(void)moreClick
 {

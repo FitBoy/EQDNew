@@ -383,6 +383,12 @@
 		1825ADBD20E75B8E001377AF /* WS_LiuYanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825ADBC20E75B8E001377AF /* WS_LiuYanTableViewCell.m */; };
 		1825ADC020E9C82A001377AF /* WS_ArticleComModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825ADBF20E9C82A001377AF /* WS_ArticleComModel.m */; };
 		1825ADC320EA1C56001377AF /* WS_equipmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825ADC220EA1C56001377AF /* WS_equipmentModel.m */; };
+		1825E6F221153E7C009E6FD6 /* CK_hangyeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825E6F121153E7C009E6FD6 /* CK_hangyeViewController.m */; };
+		1825E6F521155189009E6FD6 /* headTitleAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825E6F421155189009E6FD6 /* headTitleAddView.m */; };
+		1825E6F82115AA74009E6FD6 /* FBunderLineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825E6F72115AA74009E6FD6 /* FBunderLineTextField.m */; };
+		1825E6FB2115AD2F009E6FD6 /* CK_fuWuChoosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825E6FA2115AD2F009E6FD6 /* CK_fuWuChoosViewController.m */; };
+		182723E721194D68004FA622 /* CK_CKPersonZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182723E621194D68004FA622 /* CK_CKPersonZoneViewController.m */; };
+		182723EB211AEE8D004FA622 /* BottomMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182723EA211AEE8D004FA622 /* BottomMoreView.m */; };
 		18287E3C1FC6C27800836186 /* FBGangWei_DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18287E3B1FC6C27800836186 /* FBGangWei_DetailViewController.m */; };
 		18287E401FC6CF0700836186 /* FBGangWei_AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18287E3F1FC6CF0700836186 /* FBGangWei_AddViewController.m */; };
 		18287E441FC7E2D900836186 /* LeiBie_GangWeiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18287E431FC7E2D900836186 /* LeiBie_GangWeiViewController.m */; };
@@ -1561,6 +1567,18 @@
 		1825ADBF20E9C82A001377AF /* WS_ArticleComModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WS_ArticleComModel.m; sourceTree = "<group>"; };
 		1825ADC120EA1C56001377AF /* WS_equipmentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WS_equipmentModel.h; sourceTree = "<group>"; };
 		1825ADC220EA1C56001377AF /* WS_equipmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WS_equipmentModel.m; sourceTree = "<group>"; };
+		1825E6F021153E7C009E6FD6 /* CK_hangyeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CK_hangyeViewController.h; sourceTree = "<group>"; };
+		1825E6F121153E7C009E6FD6 /* CK_hangyeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CK_hangyeViewController.m; sourceTree = "<group>"; };
+		1825E6F321155189009E6FD6 /* headTitleAddView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = headTitleAddView.h; sourceTree = "<group>"; };
+		1825E6F421155189009E6FD6 /* headTitleAddView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = headTitleAddView.m; sourceTree = "<group>"; };
+		1825E6F62115AA74009E6FD6 /* FBunderLineTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBunderLineTextField.h; sourceTree = "<group>"; };
+		1825E6F72115AA74009E6FD6 /* FBunderLineTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBunderLineTextField.m; sourceTree = "<group>"; };
+		1825E6F92115AD2F009E6FD6 /* CK_fuWuChoosViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CK_fuWuChoosViewController.h; sourceTree = "<group>"; };
+		1825E6FA2115AD2F009E6FD6 /* CK_fuWuChoosViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CK_fuWuChoosViewController.m; sourceTree = "<group>"; };
+		182723E521194D68004FA622 /* CK_CKPersonZoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CK_CKPersonZoneViewController.h; sourceTree = "<group>"; };
+		182723E621194D68004FA622 /* CK_CKPersonZoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CK_CKPersonZoneViewController.m; sourceTree = "<group>"; };
+		182723E9211AEE8D004FA622 /* BottomMoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomMoreView.h; sourceTree = "<group>"; };
+		182723EA211AEE8D004FA622 /* BottomMoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomMoreView.m; sourceTree = "<group>"; };
 		18287E3A1FC6C27800836186 /* FBGangWei_DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBGangWei_DetailViewController.h; sourceTree = "<group>"; };
 		18287E3B1FC6C27800836186 /* FBGangWei_DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBGangWei_DetailViewController.m; sourceTree = "<group>"; };
 		18287E3E1FC6CF0700836186 /* FBGangWei_AddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBGangWei_AddViewController.h; sourceTree = "<group>"; };
@@ -4790,6 +4808,15 @@
 			name = "基本信息";
 			sourceTree = "<group>";
 		};
+		182723E821194D6C004FA622 /* 个人的创客空间 */ = {
+			isa = PBXGroup;
+			children = (
+				182723E521194D68004FA622 /* CK_CKPersonZoneViewController.h */,
+				182723E621194D68004FA622 /* CK_CKPersonZoneViewController.m */,
+			);
+			name = "个人的创客空间";
+			sourceTree = "<group>";
+		};
 		18287E3D1FC6C27D00836186 /* 岗位描述 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4860,6 +4887,15 @@
 			children = (
 				1829A5C6211305FF002154E2 /* CK_personAppViewController.h */,
 				1829A5C7211305FF002154E2 /* CK_personAppViewController.m */,
+				182723E821194D6C004FA622 /* 个人的创客空间 */,
+				1825E6F021153E7C009E6FD6 /* CK_hangyeViewController.h */,
+				1825E6F121153E7C009E6FD6 /* CK_hangyeViewController.m */,
+				1825E6F92115AD2F009E6FD6 /* CK_fuWuChoosViewController.h */,
+				1825E6FA2115AD2F009E6FD6 /* CK_fuWuChoosViewController.m */,
+				1825E6F62115AA74009E6FD6 /* FBunderLineTextField.h */,
+				1825E6F72115AA74009E6FD6 /* FBunderLineTextField.m */,
+				1825E6F321155189009E6FD6 /* headTitleAddView.h */,
+				1825E6F421155189009E6FD6 /* headTitleAddView.m */,
 			);
 			name = "创客空间";
 			sourceTree = "<group>";
@@ -7954,6 +7990,8 @@
 				185322C520EC76C400864223 /* SC_productTableViewCell.m */,
 				185322C720ECCE0C00864223 /* SC_productDetailViewController.h */,
 				185322C820ECCE0C00864223 /* SC_productDetailViewController.m */,
+				182723E9211AEE8D004FA622 /* BottomMoreView.h */,
+				182723EA211AEE8D004FA622 /* BottomMoreView.m */,
 				182AF4ED20FF231F00D6951F /* 产品买卖方的需求 */,
 				1832EB4420EB7D2C00F6A255 /* SC_productModel.h */,
 				1832EB4520EB7D2C00F6A255 /* SC_productModel.m */,
@@ -8919,6 +8957,7 @@
 				18EE656D1F53CBF50096DCE9 /* RuleTime4Model.m in Sources */,
 				18027D5A20AEA9C900EA6C40 /* FBPersonList_ViewController.m in Sources */,
 				181F75F1202C49FF00AC8440 /* EQD_SearchAllViewController.m in Sources */,
+				182723EB211AEE8D004FA622 /* BottomMoreView.m in Sources */,
 				181B26DD1FF23C8D00A38BFC /* EQDR_MyArticleTwoViewController.m in Sources */,
 				183BFFFA1FD2B02D00C70988 /* Repair_AddViewController.m in Sources */,
 				18AFCAA320B6984D00C80A49 /* MeetingModel.m in Sources */,
@@ -9114,6 +9153,7 @@
 				183BBEEB1F31788C007D4675 /* LoadWordViewController.m in Sources */,
 				189A937F1F9B3B820049A919 /* DLAddToDesktopHandler.m in Sources */,
 				180E3FD61F3DB83400E29EB8 /* GZQ_PingLunTableViewCell.m in Sources */,
+				182723E721194D68004FA622 /* CK_CKPersonZoneViewController.m in Sources */,
 				18E465711EEA49210018D72A /* ZPJianlLiLibararyViewController.m in Sources */,
 				18CB8F6B1EA1CF40000BABD2 /* QYQHaoYouViewController.m in Sources */,
 				181378771FADC26900B7C964 /* SDAdImageView.m in Sources */,
@@ -9379,12 +9419,14 @@
 				18CB8F671EA1C22A000BABD2 /* DQunYaoQingViewController.m in Sources */,
 				183BBEFA1F31E4B5007D4675 /* UITextView+Tool.m in Sources */,
 				18E102C61F98509700C6A0E2 /* GLChance_DetailViewController.m in Sources */,
+				1825E6F82115AA74009E6FD6 /* FBunderLineTextField.m in Sources */,
 				181C35BA1F8DFA87005E753B /* FanKui_AddViewController.m in Sources */,
 				181F75F8202D3D3000AC8440 /* EQDS_myViewController.m in Sources */,
 				183BFFFE1FD67DFC00C70988 /* RepairRecord_DetailViewController.m in Sources */,
 				1818CDBC201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.m in Sources */,
 				1833E12A2005C63C00F37B02 /* PX_Plan_AddViewController.m in Sources */,
 				183B000B1FD6978700C70988 /* Traffic_AddViewController.m in Sources */,
+				1825E6F221153E7C009E6FD6 /* CK_hangyeViewController.m in Sources */,
 				18EDAFF420DA3AF700364B87 /* Space_comListViewController.m in Sources */,
 				18D9D8E71FE917CC00D29185 /* EQDR_webviewTableViewCell.m in Sources */,
 				181B26C81FECE75B00A38BFC /* EQDR_FenSiViewController.m in Sources */,
@@ -9423,6 +9465,7 @@
 				187D4A8C2060DEF300F0D8B2 /* FBSegmentedControl.m in Sources */,
 				18074B191FDBD8C3006B2682 /* HRCgUtil.m in Sources */,
 				18A61B2720D121B200B1F655 /* WorkSpace_detailViewController.m in Sources */,
+				1825E6FB2115AD2F009E6FD6 /* CK_fuWuChoosViewController.m in Sources */,
 				181A9B911FD8D19C00669989 /* InsuranceModel.m in Sources */,
 				180445471ED53A32003FFD88 /* LXRAddViewController.m in Sources */,
 				1833E120200452FB00F37B02 /* Need_AddViewController.m in Sources */,
@@ -9467,6 +9510,7 @@
 				180E3FCA1F3D609500E29EB8 /* GZQ_PingLunViewController.m in Sources */,
 				1804455D1ED6B458003FFD88 /* FBThree_noimg112TableViewCell.m in Sources */,
 				1831FE13208451940046D3B7 /* FX_riZhiAddViewController.m in Sources */,
+				1825E6F521155189009E6FD6 /* headTitleAddView.m in Sources */,
 				189020EB1EEE43EA008A7B6F /* TRSKaoQinViewController.m in Sources */,
 				181378781FADC26900B7C964 /* SDLaunchImageTool.m in Sources */,
 				18CB8F7B1EA45F96000BABD2 /* FBHnagYeModel.m in Sources */,

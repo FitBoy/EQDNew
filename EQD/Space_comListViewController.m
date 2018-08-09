@@ -255,6 +255,7 @@
         [tableV2.mj_footer endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
             NSArray *tarr = dic[Y_ITEMS];
+            page2 = dic[@"page"];
             [arr_model2 removeAllObjects];
             for (int i=0; i<tarr.count; i++) {
                 SC_productModel *model = [SC_productModel mj_objectWithKeyValues:tarr[i]];
@@ -266,7 +267,7 @@
     }];
 }
 -(void)loadMoreData2{
-    [WebRequest ComSpace_ComSpaceProduct_Get_ComSpaceProductWithcompanyId:user.companyId page:@"0" And:^(NSDictionary *dic) {
+    [WebRequest ComSpace_ComSpaceProduct_Get_ComSpaceProductWithcompanyId:user.companyId page:page2 And:^(NSDictionary *dic) {
         [tableV2.mj_header endRefreshing];
         [tableV2.mj_footer endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
@@ -276,6 +277,7 @@
                 [tableV2.mj_footer endRefreshingWithNoMoreData];
             }else
             {
+                page2 = dic[@"page"];
             for (int i=0; i<tarr.count; i++) {
                 SC_productModel *model = [SC_productModel mj_objectWithKeyValues:tarr[i]];
                 model.cell_height =60;
