@@ -26,9 +26,10 @@
     }];
     model_liuyan.cell_height = model_liuyan.cell_height +5+5+size.height+5;
     if (model_liuyan.childList.count==0) {
-        
+        self.YL_contents.hidden =YES;
     }else
     {
+         self.YL_contents.hidden =NO;
         NSMutableAttributedString  *contents = [[NSMutableAttributedString alloc]initWithString:@""];
         for (int i=0; i<model_liuyan.childList.count; i++) {
             WS_liuYanModel  *tmodel = model_liuyan.childList[i];

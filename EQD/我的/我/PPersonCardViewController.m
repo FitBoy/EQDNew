@@ -19,6 +19,8 @@
 #import "PPCMoreViewController.h"
 #import "FGongZuoQuanViewController.h"
 #import "WS_comDetailViewController.h"
+//创客空间
+#import "CK_CKPersonZoneViewController.h"
 @interface PPersonCardViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -70,7 +72,7 @@
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
-    arr_two = [NSMutableArray arrayWithArray:@[@"手机号",@"地区",@"个人工作圈"]];
+    arr_two = [NSMutableArray arrayWithArray:@[@"手机号",@"地区",@"个人工作圈",@"个人空间"]];
     arr_three = [NSMutableArray arrayWithArray:@[@"公司",@"部门职务",@"企业空间"]];//,
     tableV.contentInset =UIEdgeInsetsMake(15, 0, 0, 0);
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
@@ -233,9 +235,10 @@
             }else if (indexPath.row==1)
             {
                 cell.L_right0.text = model.location;
-            }else if (indexPath.row==2) {
+            }else if (indexPath.row==2 || indexPath.row ==3) {
                 cell.L_right0.text =nil;
-            }else
+            }
+            else
             {
                 
             }
@@ -296,7 +299,7 @@
         [self.view addSubview:callWebView];
     }else if (indexPath.section==1 && indexPath.row==2)
     {
-        //个人空间
+        //个人工作圈
         FGongZuoQuanViewController   *GZQvc =[[FGongZuoQuanViewController alloc]init];
         GZQvc.temp =1;
         GZQvc.friendGuid = model.userGuid;
@@ -307,6 +310,13 @@
         WS_comDetailViewController  *WSvc =[[WS_comDetailViewController alloc]init];
         WSvc.comId = model.companyId;
         [self.navigationController pushViewController:WSvc animated:NO];
+    }else if (indexPath.section ==1 && indexPath.row ==3)
+    {
+        //个人空间
+        CK_CKPersonZoneViewController  *PZvc = [[CK_CKPersonZoneViewController alloc]init];
+        PZvc.userGuid = model.userGuid;
+        [self.navigationController pushViewController:PZvc animated:NO];
+        
     }
 }
 

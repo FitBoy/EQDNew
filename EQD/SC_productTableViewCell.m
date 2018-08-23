@@ -9,6 +9,15 @@
 #import <Masonry.h>
 #import <UIImageView+WebCache.h>
 @implementation SC_productTableViewCell
+
+-(void)setModel_shoucang:(SC_productModel *)model_product
+{
+    _model_product = model_product;
+    [self.IV_img sd_setImageWithURL:[NSURL URLWithString:model_product.productImage]];
+    NSMutableAttributedString *productName = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"产品名称：%@\n产品价格：￥%@ 元",model_product.ProductName,model_product.ProductPrice] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    model_product.cell_height =110;
+    self.yl_contents.attributedText = productName;
+}
 -(void)setModel_product:(SC_productModel *)model_product
 {
     _model_product = model_product;

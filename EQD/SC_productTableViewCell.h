@@ -14,5 +14,8 @@
 @property (nonatomic,strong)  YYLabel *yl_contents;
 @property (nonatomic,strong)  SC_productModel *model_product;
 
+///产品列表
 -(void)setModel_product:(SC_productModel *)model_product;
+///收藏的产品
+-(void)setModel_shoucang:(SC_productModel *)model_product;
 @end

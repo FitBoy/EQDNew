@@ -77,4 +77,5 @@
 @property (nonatomic,copy) NSString* comLogo;
 @property (nonatomic,copy) NSString* productImage;
 -(NSString*)createTime;
+
 @end

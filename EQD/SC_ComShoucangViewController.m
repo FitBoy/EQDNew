@@ -27,6 +27,25 @@
     [self loadRequestData];
 }
 -(void)loadRequestData{
+    
+    if(self.temp ==1)
+    {
+        [WebRequest Makerspacey_MakerCollection_Get_MakerCollectionWithuserGuid:self.userGuid page:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_footer endRefreshing];
+            [tableV.mj_header endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                page =dic[@"page"];
+                [arr_model removeAllObjects];
+                for (int i=0; i<tarr.count; i++) {
+                    [arr_model addObject:tarr[i]];
+                }
+                [tableV reloadData];
+            }
+        }];
+    }else
+    {
+    
     /*
      {
      Id = 16;
@@ -47,8 +66,32 @@
             [tableV reloadData];
         }
     }];
+    }
 }
 -(void)loadMoreData{
+    
+    if (self.temp ==1) {
+        [WebRequest Makerspacey_MakerCollection_Get_MakerCollectionWithuserGuid:self.userGuid page:page And:^(NSDictionary *dic) {
+            [tableV.mj_footer endRefreshing];
+            [tableV.mj_header endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if(tarr.count ==0)
+                {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                page =dic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    [arr_model addObject:tarr[i]];
+                }
+                [tableV reloadData];
+                }
+            }
+        }];
+    }else
+    {
+    
     [WebRequest ComSpace_ComSpace_Collection_Get_CompanyCollectionWithcompanyId:self.comId page:page And:^(NSDictionary *dic) {
         [tableV.mj_footer endRefreshing];
         [tableV.mj_header endRefreshing];
@@ -66,6 +109,7 @@
             }
         }
     }];
+    }
 }
 - (BOOL)prefersHomeIndicatorAutoHidden{
     return NO;
@@ -139,6 +183,21 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定取消收藏该企业" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"取消收藏" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             NSDictionary *tdic = arr_model[indexPath.row];
+            if (self.temp ==1) {
+                [WebRequest Makerspacey_MakerCollection_Cancle_MakerCollectionWithuserGuid:user.Guid collectId:tdic[@"Id"] And:^(NSDictionary *dic) {
+                    MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                    if ([dic[Y_STATUS] integerValue]==200) {
+                        [alert showAlertWith:@"取消成功"];
+                        [arr_model removeObject:tdic];
+                        [tableV reloadData];
+                    }else
+                    {
+                        [alert showAlertWith:@"服务器错误，请重试！"];
+                    }
+                }];
+                
+            }else
+            {
             [WebRequest  ComSpace_ComSpace_Collection_Cancel_CollectionWithuserGuid:user.Guid companyId:user.companyId collectId:tdic[@"Id"] And:^(NSDictionary *dic) {
                 MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
                 if ([dic[Y_STATUS] integerValue]==200) {
@@ -150,7 +209,9 @@
                     [alert showAlertWith:@"服务器错误，请重试！"];
                 }
             }];
+            }
         }]];
+            
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }]];

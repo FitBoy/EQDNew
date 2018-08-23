@@ -23,6 +23,8 @@
 @property (nonatomic,copy) NSString* staffName;
 @property (nonatomic,copy) NSString* userCompanyId;
 
+@property (nonatomic,copy) NSString* useroption;
+@property (nonatomic,copy) NSString* makerGuid;
 @property (nonatomic,assign) NSInteger cell_height;
 -(NSString*)createTime;
 -(NSString*)iphoto;

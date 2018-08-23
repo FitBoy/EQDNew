@@ -668,7 +668,7 @@
 }
 //课程长按
 -(void)longPress2Click:(FBindexpathLongPressGestureRecognizer*)longPress{
-    UITableView *tableV =arr_model2[temp];
+    UITableView *tableV =arr_tableV[temp];
     PX_courseManageModel *model =arr_model2[longPress.indexPath.row];
     
     UIAlertController *alert = [[UIAlertController alloc]init];
@@ -851,7 +851,13 @@
             FBShowimg_moreViewController *Svc =[[FBShowimg_moreViewController alloc]init];
             NSMutableArray  *tarr = [NSMutableArray arrayWithArray:[teacherInfo.Qualifications componentsSeparatedByString:@";"]];
             [tarr removeLastObject];
-            Svc.arr_imgs = tarr;
+            
+            NSMutableArray *tarr2 =[NSMutableArray arrayWithCapacity:0];
+            for (int i=0; i<tarr.count; i++) {
+                NSString *tstr = tarr[i];
+                [tarr2 addObject:[NSString stringWithFormat:@"%@%@",HTTP_PATH,tstr]];
+            }
+            Svc.arr_imgs = tarr2;
             [self.navigationController pushViewController:Svc animated:NO];
         }
         

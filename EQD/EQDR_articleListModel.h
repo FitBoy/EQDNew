@@ -23,7 +23,7 @@
 @property (nonatomic,copy) NSString* zanCount;
 @property (nonatomic,copy) NSString* source;
 @property (nonatomic,assign) float cellHeight;
-
+@property (nonatomic,assign) NSInteger sourceNumber;
 -(NSString*)source;
 -(NSString*)createTime;
 

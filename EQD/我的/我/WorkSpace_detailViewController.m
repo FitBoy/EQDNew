@@ -144,7 +144,7 @@
     tableV.rowHeight=60;
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
     tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
-  [self loadRequestData];
+    [tableV.mj_header beginRefreshing];
     
   
     ///选择框
@@ -158,16 +158,12 @@
         }
     }];
     
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"EQD_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
-    [self.navigationItem setRightBarButtonItem:right];
+   
     
     
     
 }
--(void)moreClick
-{
-    
-}
+
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -182,6 +178,7 @@
     EQDR_articleListModel  *model = arr_model[tap.indexPath.row];
     WS_comDetailViewController  *Dvc = [[WS_comDetailViewController alloc]init];
     Dvc.comId= model.companyId;
+
     [self.navigationController pushViewController:Dvc animated:NO];
     
 }
@@ -217,6 +214,9 @@
         make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
     }];
     
+    if(model.image.length!=0)
+    {
+        cell.IV_img.hidden = NO;
     [cell.IV_img sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"imageerro"]];
     [cell.IV_img mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(DEVICE_WIDTH-30, (DEVICE_WIDTH-30)/2.0));
@@ -224,9 +224,14 @@
         make.left.mas_equalTo(cell.mas_left).mas_offset(15);
     }];
     model.cellHeight = model.cellHeight +(DEVICE_WIDTH-30)/2.0+5;
+    }else
+    {
+        cell.IV_img.hidden =YES;
+    }
     cell.V_bottomThree.hidden =NO;
     [cell.V_bottomThree setread:model.browseCount liuyan:model.commentCount zan:model.zanCount];
     model.cellHeight = model.cellHeight+45;
+    
     FBindexTapGestureRecognizer  *tap_liuyan = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(liuyanClick:)];
     tap_liuyan.indexPath =indexPath;
     [cell.V_bottomThree.IV_liuyan addGestureRecognizer:tap_liuyan];

@@ -57,7 +57,7 @@
     NSString *fuwu = tarr[segmentC.selectedSegmentIndex];
     if ([self.delegate_fuwu respondsToSelector:@selector(getFuwu:dayTime:hourTime:index:)]) {
         [self.navigationController popViewControllerAnimated:NO];
-        [self.delegate_fuwu getFuwu:fuwu dayTime:textfield1.text hourTime:textfield2.text index:[NSString stringWithFormat:@"ld",segmentC.selectedSegmentIndex]];
+        [self.delegate_fuwu getFuwu:fuwu dayTime:textfield1.text hourTime:textfield2.text index:[NSString stringWithFormat:@"%ld",segmentC.selectedSegmentIndex]];
     }
 }
 -(void)loadRequestData

@@ -15,10 +15,17 @@
     _model_fangke = model_fangke;
     [self.V_top setHead:model_fangke.iphoto name:model_fangke.staffName bumen:[NSString stringWithFormat:@"%@-%@",model_fangke.departName,model_fangke.postName] time:model_fangke.createTime];
     self.V_top.IV_fenxiang.hidden =YES;
+    if(model_fangke.makerGuid!=nil)
+    {
+       self.L_contents.text = [NSString stringWithFormat:@"访问了您的的%@",model_fangke.mudularName];
+    }else
+    {
     self.L_contents.text = [NSString stringWithFormat:@"访问了企业的%@",model_fangke.mudularName];
-    
+    }
+    model_fangke.cell_height =85;
     
 }
+
 -(FB_topView*)V_top
 {
     if (!_V_top) {

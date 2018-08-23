@@ -21,12 +21,15 @@
 -(NSString*)source
 {
     if ([_source integerValue]==0) {
+        self.sourceNumber = 0;
         return @"创客空间";
     }else if ([_source integerValue]==1)
     {
+        self.sourceNumber =1;
         return @"企业空间";
     }else
     {
+        self.sourceNumber =9;
         return @"未知空间";
     }
 }

@@ -63,6 +63,12 @@
     hud.label.text = @"正在处理";
     NSString *message = TF_text.text.length==0?@" ":TF_text.text;
     NSString *imgurl = [self.imgUrl stringByReplacingOccurrencesOfString:HTTP_PATH withString:@""];
+    NSString *tsourceTitle = nil;
+    if (self.sourceTitle.length>49) {
+        tsourceTitle = [self.sourceTitle substringWithRange:NSMakeRange(0, 49)];
+    }else{
+        tsourceTitle =self.sourceTitle;
+    }
     [WebRequest WorkCircles_Forward_Add_ForwardWithcompanyId:user.companyId userGuid:user.Guid message:message location:place type:self.type sourceTitle:self.sourceTitle source:self.source sourceUrl:self.sourceUrl imageUrl:imgurl And:^(NSDictionary *dic) {
         hud.label.text = dic[Y_MSG];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -18,7 +18,8 @@
 #import "EQD_HtmlTool.h"
 #import "SC_MaiMaiViewController.h"
 #import "BottomMoreView.h"
-@interface SC_productDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>
+#import "FB_OnlyForLiuYanViewController.h"
+@interface SC_productDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate,FB_OnlyForLiuYanViewControllerDlegate>
 {
     UITableView *tableV;
     SC_productModel *model_detail;
@@ -27,6 +28,10 @@
     BottomMoreView *btn_more;
     WS_contactModel *model_contact;
     UserModel *user;
+    
+    UITableView  *tableV1;
+    NSArray *arr_names1;
+
 }
 
 @end
@@ -43,9 +48,11 @@
             [tableV reloadData];
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
+                if (model_detail) {
                 [WebRequest ComSpace_ComSpaceVisitor_Add_ComSpaceVisitorWithuserGuid:user.Guid userCompanyId:user.companyId mudular:@"产品信息" companyId:model_detail.CompanyId option:[NSString stringWithFormat:@"访问了产品：%@",model_detail.productName]  And:^(NSDictionary *dic) {
                     
                 }];
+                }
             });
         }
     }];
@@ -88,6 +95,18 @@
     
     UIBarButtonItem  *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"EQD_more"] style:UIBarButtonItemStyleDone target:self action:@selector(moreClick)];
     [self.navigationItem setRightBarButtonItem:right];
+    
+    ///弹出框
+    arr_names1 = @[@"留言",@"收藏",@"企业信息"];
+    tableV1 = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-kBottomSafeHeight-40-arr_names1.count*50-2, DEVICE_WIDTH/3.0+10, arr_names1.count*50) style:UITableViewStylePlain];
+    tableV1.backgroundColor = [UIColor redColor];
+    adjustsScrollViewInsets_NO(tableV1, self);
+    tableV1.delegate=self;
+    tableV1.dataSource=self;
+    [self.view addSubview:tableV1];
+    tableV1.rowHeight=60;
+    tableV1.hidden = YES;
+
 
 }
 #pragma  mark - 采购
@@ -95,10 +114,14 @@
 {
     
 }
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    tableV1.hidden = YES;
+}
 #pragma  mark - 底部的更多
 -(void)btn_more
 {
-    
+    tableV1.hidden = !tableV1.hidden;
 }
 -(void)moreClick
 {
@@ -149,12 +172,32 @@
         
     }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"收藏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [WebRequest ComSpace_ComSpace_Collection_Add_ComSpaceCollectionWithuserGuid:user.Guid userCompanyId:user.companyId objectId:model_detail.ProductId objectType:@"1" objectCompanyId:model_detail.CompanyId And:^(NSDictionary *dic) {
-                MBFadeAlertView *alertV = [[MBFadeAlertView alloc]init];
+           
+            if ([user.isAdmin integerValue] >0) {
                 
-                [alertV showAlertWith:dic[Y_MSG]];
+            [WebRequest ComSpace_ComSpace_Collection_Add_ComSpaceCollectionWithuserGuid:user.Guid userCompanyId:user.companyId objectId:model_detail.Id objectType:@"1" objectCompanyId:model_detail.CompanyId And:^(NSDictionary *dic) {
+                MBFadeAlertView *alertV = [[MBFadeAlertView alloc]init];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    [alertV showAlertWith:@"收藏成功"];
+                }else
+                {
+                    [alertV showAlertWith:dic[Y_MSG]];
+                }
             }];
+            }
+                [WebRequest Makerspacey_MakerCollection_Add_MakerCollectionWithuserCompanyId:user.companyId objectId:model_detail.Id objectType:@"1" objectGuid:@" " objectCompanyId:model_detail.CompanyId userGuid:user.Guid And:^(NSDictionary *dic) {
+                    MBFadeAlertView *alertV = [[MBFadeAlertView alloc]init];
+                    if ([dic[Y_STATUS] integerValue]==200) {
+                        [alertV showAlertWith:@"收藏成功"];
+                    }else
+                    {
+                    [alertV showAlertWith:dic[Y_MSG]];
+                    }
+                }];
+            
+                
         }]];
+            
     }
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
@@ -183,6 +226,10 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableV1 ==tableView) {
+        return 50;
+    }else if(tableV == tableView)
+    {
     if (indexPath.row ==0) {
         return 200;
     }else if (indexPath.row ==1)
@@ -196,18 +243,32 @@
     {
     return 60;
     }
+    }else
+    {
+        return 0;
+    }
 }
 #pragma  mark - 表的数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (model_detail) {
-        return 3;
+    if (tableV ==tableView) {
+        if (model_detail) {
+            return 3;
+        }else
+        {
+            return 0;
+        }
+    }else if(tableV1 ==tableView)
+    {
+        return arr_names1.count;
     }else
     {
-    return 0;
+        return 0;
     }
+  
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView ==tableV) {
     if (indexPath.row ==0) {
         static NSString *cellid = @"cellid0";
         
@@ -217,6 +278,9 @@
             FBScrollView  *ScrollV =[[FBScrollView alloc]initWithFrame:CGRectMake(15, 0, DEVICE_WIDTH-30, 200)];
             [ScrollV setArr_urls:model_detail.images];
             [cell addSubview:ScrollV];
+        }else
+        {
+            
         }
         return cell;
     }else if (indexPath.row ==1)
@@ -243,6 +307,9 @@
             make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
             make.centerY.mas_equalTo(cell.mas_centerY);
         }];
+        }else
+        {
+            
         }
         return cell;
         
@@ -267,6 +334,9 @@
         
         [cell addSubview:webView];
         
+        }else
+        {
+            
         }
         return cell;
         
@@ -277,15 +347,99 @@
         
         return nil;
     }
+    }else if (tableV1 ==tableView)
+    {
+        static NSString *cellid = @"cellid11";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+        
+        if(!cell)
+        {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        }else
+        {
+            
+        }
+        cell.textLabel.text = arr_names1[indexPath.row];
+        return cell;
+    }else
+    {
+        return nil;
+    }
    
 }
 
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+     tableV1.hidden = YES;
     
+    if (tableView ==tableV1) {
+       
+        if (indexPath.row ==0) {
+            //留言
+            FB_OnlyForLiuYanViewController  *LYvc =[[FB_OnlyForLiuYanViewController alloc]init];
+            LYvc.delegate =self;
+            LYvc.providesPresentationContextTransitionStyle = YES;
+            LYvc.definesPresentationContext = YES;
+            LYvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            LYvc.btnName = @"留言";
+            LYvc.placeHolder =@"您对这个产品的兴趣点……";
+            [self presentViewController:LYvc animated:NO completion:nil];
+        }else if (indexPath.row ==1)
+        {
+            //收藏
+            if(user.isAdmin >0)
+            {
+            [WebRequest ComSpace_ComSpace_Collection_Add_ComSpaceCollectionWithuserGuid:user.Guid userCompanyId:user.companyId objectId:model_detail.Id objectType:@"1" objectCompanyId:model_detail.CompanyId And:^(NSDictionary *dic) {
+                MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    [alert showAlertWith:@"收藏成功"];
+                }else
+                {
+                    [alert showAlertWith:@"服务器错误，请重试！"];
+                }
+            }];
+            }
+            [WebRequest Makerspacey_MakerCollection_Add_MakerCollectionWithuserCompanyId:user.companyId objectId:model_detail.Id objectType:@"1" objectGuid:@" " objectCompanyId:model_detail.CompanyId userGuid:user.Guid And:^(NSDictionary *dic) {
+                MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    [alert showAlertWith:@"收藏成功"];
+                }else
+                {
+                    [alert showAlertWith:@"服务器错误，请重试！"];
+                }
+            }];
+            
+        }else if (indexPath.row ==2)
+        {
+            //企业信息
+            [self qiyeClick];
+        }else
+        {
+            
+        }
+        
+    }else
+    {
+        
+    }
 }
 
+#pragma  mark - 留言
+-(void)getPresnetText:(NSString *)text
+{
+    [WebRequest ComSpace_ComSpaceLeaveMessage_Add_ComSpaceLeaveMessageWithuserGuid:user.Guid userCompanyId:user.companyId message:text parentId:@"0" companyId:model_detail.CompanyId parentUserGuid:@" " firstCommentId:model_detail.Id And:^(NSDictionary *dic) {
+        MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+        if ([dic[Y_STATUS] integerValue]==200) {
+            [alert showAlertWith:@"留言成功"];
+        }else
+        {
+            [alert showAlertWith:@"服务器错误，请重试！"];
+        }
+    }];
+}
 
 
 

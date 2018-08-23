@@ -31,7 +31,8 @@
 #import "SC_productDetailViewController.h"
 #import "SC_EqitmentShowViewController.h"
 #import "FBWebUrlViewController.h"
-
+#import "EQD_HtmlTool.h"
+#import "FB_ShareEQDViewController.h"
 @interface WS_comDetailViewController ()<UITableViewDelegate,UITableViewDataSource,FBHeadScrollTitleViewDelegate,FB_OnlyForLiuYanViewControllerDlegate,UIWebViewDelegate>
 {
     UserModel  *user;
@@ -366,8 +367,85 @@
     
     [self setHiddenView];
     tableV.hidden =NO;
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"EQD_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
+    [self.navigationItem setRightBarButtonItem:right];
     
+}
+
+-(void)moreClick
+{
+    UIAlertController *alert = [[UIAlertController alloc]init];
+    [alert addAction:[UIAlertAction actionWithTitle:@"收藏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if([user.isAdmin integerValue]>0)
+        {
+            [WebRequest ComSpace_ComSpace_Collection_Add_ComSpaceCollectionWithuserGuid:user.Guid userCompanyId:user.companyId objectId:@"0" objectType:@"0" objectCompanyId:self.comId And:^(NSDictionary *dic) {
+                MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+                if ([dic[Y_STATUS] integerValue]==200) {
+                    [alert showAlertWith:@"收藏成功"];
+                }else
+                {
+                    [alert showAlertWith:dic[Y_MSG]];
+                }
+            }];
+        }
+        [WebRequest Makerspacey_MakerCollection_Add_MakerCollectionWithuserCompanyId:user.companyId objectId:@"0" objectType:@"0" objectGuid:@" " objectCompanyId:self.comId userGuid:user.Guid And:^(NSDictionary *dic) {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [alert showAlertWith:@"收藏成功"];
+            }else
+            {
+                [alert showAlertWith:dic[Y_MSG]];
+            }
+        }];
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"分享企业" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeAnnularDeterminate;
+        hud.label.text = @"正在处理";
+        [WebRequest Com_regiInfoWithcomId:self.comId And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [hud hideAnimated:NO];
+                ComModel  *com = [ComModel mj_objectWithKeyValues:dic[Y_ITEMS]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                    FB_ShareEQDViewController  *Svc = [[FB_ShareEQDViewController alloc]init];
+                    Svc.EQD_ShareType = EQD_ShareTypeLink;
+                    Svc.Stitle = com.name;
+                    Svc.text = com.address;
+                    Svc.url =[EQD_HtmlTool getComLinkWithComId:self.comId];
+                    Svc.imageURL =com.logo;
+                    Svc.source = @"企业空间";
+                    Svc.sourceOwner = user.Guid;
+                    Svc.articleId = self.comId;
+                    Svc.type2 = 1;
+                    
+                    Svc.providesPresentationContextTransitionStyle = YES;
+                    Svc.definesPresentationContext = YES;
+                    Svc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                    [self presentViewController:Svc animated:NO completion:nil];
+                    
+                });
+                
+            }else
+            {
+                hud.label.text = @"未知错误，请重试";
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:NO];
+                });
+            }
+        }];
+        
+       
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
     
+    [self presentViewController:alert animated:NO completion:nil];
 }
 -(void)getPresnetText:(NSString *)text
 {
@@ -754,7 +832,10 @@
             make.left.mas_equalTo(cell.mas_left).mas_offset(15);
             make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
         }];
-        
+     
+        if (model.image.length !=0) {
+            
+            cell.IV_img.hidden =NO;
         [cell.IV_img sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"imageerro"]];
         [cell.IV_img mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(DEVICE_WIDTH-30, (DEVICE_WIDTH-30)/2.0));
@@ -762,6 +843,10 @@
             make.left.mas_equalTo(cell.mas_left).mas_offset(15);
         }];
         model.cellHeight = model.cellHeight +(DEVICE_WIDTH-30)/2.0+5;
+        }else
+        {
+            cell.IV_img.hidden = YES;
+        }
         cell.V_bottomThree.hidden =NO;
         [cell.V_bottomThree setread:model.browseCount liuyan:model.commentCount zan:model.zanCount];
         model.cellHeight = model.cellHeight+45;

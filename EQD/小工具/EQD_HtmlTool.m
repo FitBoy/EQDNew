@@ -33,16 +33,21 @@
 }
 +(NSString*)getActiveFromLingdaoWithId:(NSString*)Id
 {
-    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/leaderDetdils.html?id=%@",Id];
+    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/leaderDetdils.html?id=%@",Id];
 }
 
 +(NSString*)getProductDetailWithId:(NSString*)Id
 {
     
-    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/product.html?id=%@",Id];
+    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/product.html?id=%@",Id];
 }
 +(NSString*)getEventDetailWithId:(NSString*)Id
 {
-    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/thingDetails.html?id=%@",Id];
+    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/thingDetails.html?id=%@",Id];
+}
+
++(NSString*)getComLinkWithComId:(NSString *)comId
+{
+    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/companyIndex.html?id=%@",comId];
 }
 @end

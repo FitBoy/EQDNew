@@ -25,4 +25,6 @@
 +(NSString*)getProductDetailWithId:(NSString*)Id;
 ///先进事迹详情
 +(NSString*)getEventDetailWithId:(NSString*)Id;
+/// 企业空间的连接
++(NSString*)getComLinkWithComId:(NSString*)comId;
 @end

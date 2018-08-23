@@ -13,7 +13,8 @@
 #import "FB_PXLeiBieChooseViewController.h"
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 #import "FBTextImgModel.h"
-@interface EQDS_addCourseViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,FB_PXLeiBieChooseViewControllerdelegate,CTAssetsPickerControllerDelegate>
+#import "FBHangYeViewController.h"
+@interface EQDS_addCourseViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBEQDEditer_AllViewControllerDlegate,FB_PXLeiBieChooseViewControllerdelegate,CTAssetsPickerControllerDelegate,FBHangYeViewControllerDelegate>
 {
     UITableView *tableV;
     NSArray *arr_names;
@@ -33,8 +34,8 @@
     user = [WebRequest GetUserInfo];
     self.navigationItem.title= @"发布新课程";
     arr_images = [NSMutableArray arrayWithCapacity:0];
-    arr_names = @[@"*课程主题",@"*课程类型",@"*授课对象",@"*课程时长/天",@"*课程价格/元",@"*课程目标",@"*课程背景",@"*课程大纲",@"课程图片"];
-    arr_contents = [NSMutableArray arrayWithArray:@[@"请输入",@"请选择",@"请输入",@"请输入",@"请输入",@"请输入",@"请输入",@"请输入",@"请选择"]];
+    arr_names = @[@"*课程主题",@"*课程类型",@"*授课对象",@"*课程时长/天",@"*课程价格/元",@"*课程目标",@"*课程背景",@"*课程大纲",@"课程图片",@"*授课方法",@"*课程适合的行业"];
+    arr_contents = [NSMutableArray arrayWithArray:@[@"请输入",@"请选择",@"请输入",@"请输入",@"请输入",@"请输入",@"请输入",@"请输入",@"请选择",@"请输入",@"请输入"]];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
@@ -64,7 +65,7 @@
             [tarr addObject:model.image];
         }
         
-        [WebRequest  Lectures_course_Add_Lecture_CourseWithuserGuid:user.Guid courseType:arr_contents[1] courseTheme:arr_contents[0] courseTimes:arr_contents[3] courseOutlint:html_ courseObjecter:arr_contents[2] courseMethod:@" " coursePrice:arr_contents[4] courseBackground:arr_contents[6] lectureName:user.username courseTarget:arr_contents[5] coursewares:@" " images:tarr And:^(NSDictionary *dic) {
+        [WebRequest  Lectures_course_Add_Lecture_CourseWithuserGuid:user.Guid courseType:arr_contents[1] courseTheme:arr_contents[0] courseTimes:arr_contents[3] courseOutlint:html_ courseObjecter:arr_contents[2] courseMethod:arr_contents[9] coursePrice:arr_contents[4] courseBackground:arr_contents[6] lectureName:user.username courseTarget:arr_contents[5] coursewares:@" " images:tarr courseIndustry:arr_contents[10]  And:^(NSDictionary *dic) {
             hud.label.text = dic[Y_MSG];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [hud hideAnimated:NO];
@@ -108,7 +109,7 @@
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row==0 || indexPath.row==2 || indexPath.row==3 || indexPath.row==4) {
+    if (indexPath.row==0 || indexPath.row==2 || indexPath.row==3 ||indexPath.row==9|| indexPath.row==4) {
         //课程主题
         FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];
         TFvc.delegate =self;
@@ -176,11 +177,29 @@
                 });
             }
         }];
-    }else
+    }else if (indexPath.row ==10)
+    {
+        FBHangYeViewController  *HYvc = [[FBHangYeViewController alloc]init];
+        HYvc.indexPath =indexPath;
+        HYvc.delegate = self;
+        [self.navigationController pushViewController:HYvc animated:NO];
+    }
+    else
     {
         
     }
 }
+
+#pragma  mark - 行业
+-(void)hangye:(NSString *)hangye Withindexpath:(NSIndexPath *)indexpath
+{
+    NSArray *tarr = [hangye componentsSeparatedByString:@"-"];
+    
+    [arr_contents replaceObjectAtIndex:indexpath.row withObject:tarr[0]];
+    [tableV reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
 //@[@"课程主题",@"课程类型",@"授课对象",@"课程时长/h",@"课程价格/元",@"课程目标",@"课程背景",@"课程大纲",@"课程图片"];
 #pragma  mark - 多选相册的协议代理
 -(void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray<PHAsset *> *)assets

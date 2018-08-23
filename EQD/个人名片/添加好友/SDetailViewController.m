@@ -225,8 +225,9 @@
         hud.mode = MBProgressHUDModeAnnularDeterminate;
         hud.label.text = @"正在发送好友申请";
         [WebRequest User_AddFriendWithuserid:user.Guid friendid:model.Guid content:alert.textFields[0].text And:^(NSDictionary *dic) {
-            NSNumber *number  = dic[Y_STATUS];
+            
             [hud hideAnimated:NO];
+          
             NSString *msg = dic[Y_MSG];
             MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
             hud.mode = MBProgressHUDModeText;

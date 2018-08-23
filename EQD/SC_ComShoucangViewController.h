@@ -9,5 +9,11 @@
 #import "FBBaseViewController.h"
 
 @interface SC_ComShoucangViewController : FBBaseViewController
+/// 0是企业  1是个人收藏的企业
+@property (nonatomic,assign) NSInteger temp;
 @property (nonatomic,copy) NSString* comId;
+
+///个人收藏的企业 不为空
+@property (nonatomic,copy) NSString* userGuid;
+
 @end

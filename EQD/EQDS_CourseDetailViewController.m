@@ -76,6 +76,32 @@
     row_2 =1;
     tableV.contentInset = UIEdgeInsetsMake(15, 0, 0, 0);
      [self loadRequestData];
+    
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"EQD_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
+    
+    [self.navigationItem setRightBarButtonItem:right];
+    
+}
+-(void)moreClick
+{
+   
+    UIAlertController  *alert = [[UIAlertController alloc]init];
+    [alert addAction:[UIAlertAction actionWithTitle:@"收藏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [WebRequest Makerspacey_MakerCollection_Add_MakerCollectionWithuserCompanyId:user.companyId objectId:self.courseId objectType:@"2" objectGuid:model_detail.userGuid objectCompanyId:@"0" userGuid:user.Guid And:^(NSDictionary *dic) {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                [alert showAlertWith:@"收藏成功"];
+            }else
+            {
+                [alert showAlertWith:dic[Y_MSG]];
+            }
+        }];
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [self presentViewController:alert animated:NO completion:nil];
 }
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,7 +130,7 @@
 }
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSArray *tarr = @[@"课程信息",@"相关视频"];
+    NSArray *tarr = @[@"课程信息",@"其他信息"];
     
     return tarr[section];
 }

@@ -372,6 +372,10 @@
     [self.view addSubview:tableV4];
     tableV4.rowHeight=60;
     
+    page5 =@"0";
+    page6 =@"0";
+    arr_model5 = [NSMutableArray arrayWithCapacity:0];
+    arr_model6 = [NSMutableArray arrayWithCapacity:0];
     tableV5 = [[UITableView alloc]initWithFrame:CGRectMake(100, DEVICE_TABBAR_Height, DEVICE_WIDTH-100, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV5, self);
     tableV5.delegate=self;
@@ -390,10 +394,8 @@
     tableV6.rowHeight=60;
     tableV6.mj_header  =[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadrequestData6)];
     tableV6.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData6)];
-    arr_model5 = [NSMutableArray arrayWithCapacity:0];
-    arr_model6 = [NSMutableArray arrayWithCapacity:0];
-    page5 =@"0";
-    page6 =@"0";
+   
+  
    
     
     
