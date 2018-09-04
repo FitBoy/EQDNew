@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FBBaseModel.h"
 #import "EQDS_teacherInfoModel.h"
+#import "FX_personModel.h"
 /// 头像--- 上下显示label
 @interface FBTwo_img11TableViewCell : UITableViewCell
 @property (nonatomic,strong) UIView *V_bg;
@@ -19,4 +20,8 @@
 @property (nonatomic,strong) EQDS_teacherInfoModel *model_techerInfo;
 -(void)setModel:(FBBaseModel *)model;
 -(void)setModel_techerInfo:(EQDS_teacherInfoModel *)model_techerInfo;
+
+///采购 销售的人员
+@property (nonatomic,strong) FX_personModel *mode_caigou;
+-(void)setMode_caigou:(FX_personModel*)mode_caigou;
 @end

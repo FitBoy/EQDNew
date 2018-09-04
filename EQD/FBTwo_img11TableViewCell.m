@@ -85,6 +85,15 @@
     self.L_left0.text = model.left0;
     self.L_left1.text = model.left1;
 }
+
+-(void)setMode_caigou:(FX_personModel*)mode_caigou
+{
+    _mode_caigou = mode_caigou;
+    [self.IV_img sd_setImageWithURL:[NSURL URLWithString:mode_caigou.iphoto]  placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+    self.L_left0.text = mode_caigou.staffName;
+    self.L_left1.text = [NSString stringWithFormat:@"%@-%@",mode_caigou.department,mode_caigou.post];
+    
+}
 -(void)setModel_techerInfo:(EQDS_teacherInfoModel *)model_techerInfo
 {
     _model_techerInfo = model_techerInfo;

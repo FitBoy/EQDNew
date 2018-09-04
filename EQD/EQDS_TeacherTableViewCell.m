@@ -14,7 +14,7 @@
 {
     [self.IV_head sd_setImageWithURL:[NSURL URLWithString:model2.headimage] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
    
-    self.L_name.text =[NSString stringWithFormat:@"%@ 【%@】",model2.realname, model2.city];
+    self.L_name.text =[NSString stringWithFormat:@"%@",model2.realname];
     self.L_contents.text = [NSString stringWithFormat:@"主将课程：%@\n参考价格：%@元",model2.courses,model2.CooperativePrice];
     NSMutableAttributedString *ResearchField = [[NSMutableAttributedString alloc]initWithString:@""];
     NSArray *tarr = [model2.ResearchField componentsSeparatedByString:@","];

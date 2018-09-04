@@ -19,6 +19,8 @@
 @property (nonatomic,copy) NSString* headimage;
 @property (nonatomic,copy) NSString* realname;
 @property (nonatomic,copy) NSString* userGuid;
+@property (nonatomic,copy) NSString* sex;
+@property (nonatomic,copy) NSString* address;
 
 @property (nonatomic,assign) float cellHeight;
 

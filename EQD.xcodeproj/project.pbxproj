@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1801CD8C2134DAD0002B367F /* Person_caiGouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801CD8B2134DAD0002B367F /* Person_caiGouViewController.m */; };
+		1801CD8F2134E5B4002B367F /* FX_personModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801CD8E2134E5B4002B367F /* FX_personModel.m */; };
+		1801CD9221364011002B367F /* FX_caigouTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801CD9121364011002B367F /* FX_caigouTableViewCell.m */; };
+		1801CD9821378F99002B367F /* FB_oneImgTextBtnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801CD9721378F99002B367F /* FB_oneImgTextBtnTableViewCell.m */; };
+		1801CD9B2137EC1C002B367F /* EQDS_BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801CD9A2137EC1C002B367F /* EQDS_BaseModel.m */; };
+		1801CD9E213D1275002B367F /* FB_shuXiangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801CD9D213D1275002B367F /* FB_shuXiangViewController.m */; };
 		18027D4920A29A1E00EA6C40 /* FileManager+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 18027D4720A29A1E00EA6C40 /* FileManager+CoreDataClass.m */; };
 		18027D4A20A29A1E00EA6C40 /* FileManager+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 18027D4820A29A1E00EA6C40 /* FileManager+CoreDataProperties.m */; };
 		18027D5020A2D36D00EA6C40 /* FileManagerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18027D4F20A2D36C00EA6C40 /* FileManagerTool.m */; };
@@ -913,6 +919,18 @@
 
 /* Begin PBXFileReference section */
 		12140CF5B29EDA4EE46FFE91 /* Pods-EQDTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EQDTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EQDTests/Pods-EQDTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1801CD8A2134DAD0002B367F /* Person_caiGouViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person_caiGouViewController.h; sourceTree = "<group>"; };
+		1801CD8B2134DAD0002B367F /* Person_caiGouViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person_caiGouViewController.m; sourceTree = "<group>"; };
+		1801CD8D2134E5B4002B367F /* FX_personModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FX_personModel.h; sourceTree = "<group>"; };
+		1801CD8E2134E5B4002B367F /* FX_personModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FX_personModel.m; sourceTree = "<group>"; };
+		1801CD9021364011002B367F /* FX_caigouTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FX_caigouTableViewCell.h; sourceTree = "<group>"; };
+		1801CD9121364011002B367F /* FX_caigouTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FX_caigouTableViewCell.m; sourceTree = "<group>"; };
+		1801CD9621378F99002B367F /* FB_oneImgTextBtnTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_oneImgTextBtnTableViewCell.h; sourceTree = "<group>"; };
+		1801CD9721378F99002B367F /* FB_oneImgTextBtnTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_oneImgTextBtnTableViewCell.m; sourceTree = "<group>"; };
+		1801CD992137EC1C002B367F /* EQDS_BaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_BaseModel.h; sourceTree = "<group>"; };
+		1801CD9A2137EC1C002B367F /* EQDS_BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_BaseModel.m; sourceTree = "<group>"; };
+		1801CD9C213D1275002B367F /* FB_shuXiangViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_shuXiangViewController.h; sourceTree = "<group>"; };
+		1801CD9D213D1275002B367F /* FB_shuXiangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_shuXiangViewController.m; sourceTree = "<group>"; };
 		18027D4520A29A1E00EA6C40 /* FileManager+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileManager+CoreDataProperties.h"; sourceTree = "<group>"; };
 		18027D4620A29A1E00EA6C40 /* FileManager+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileManager+CoreDataClass.h"; sourceTree = "<group>"; };
 		18027D4720A29A1E00EA6C40 /* FileManager+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FileManager+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -4482,6 +4500,8 @@
 			children = (
 				181F75EA202C144F00AC8440 /* EQDS_appViewController.h */,
 				181F75EB202C144F00AC8440 /* EQDS_appViewController.m */,
+				1801CD992137EC1C002B367F /* EQDS_BaseModel.h */,
+				1801CD9A2137EC1C002B367F /* EQDS_BaseModel.m */,
 				186FCE652042B7E300203E6F /* EQDS_addCourseViewController.h */,
 				186FCE662042B7E300203E6F /* EQDS_addCourseViewController.m */,
 				186FCE622042849F00203E6F /* EQDS_addVideoViewController.h */,
@@ -5005,6 +5025,14 @@
 			children = (
 				182B7B78212D438000D7DF0A /* FX_caiGouViewController.h */,
 				182B7B79212D438000D7DF0A /* FX_caiGouViewController.m */,
+				1801CD9621378F99002B367F /* FB_oneImgTextBtnTableViewCell.h */,
+				1801CD9721378F99002B367F /* FB_oneImgTextBtnTableViewCell.m */,
+				1801CD9021364011002B367F /* FX_caigouTableViewCell.h */,
+				1801CD9121364011002B367F /* FX_caigouTableViewCell.m */,
+				1801CD8A2134DAD0002B367F /* Person_caiGouViewController.h */,
+				1801CD8B2134DAD0002B367F /* Person_caiGouViewController.m */,
+				1801CD8D2134E5B4002B367F /* FX_personModel.h */,
+				1801CD8E2134E5B4002B367F /* FX_personModel.m */,
 			);
 			name = "采购中心";
 			sourceTree = "<group>";
@@ -5261,6 +5289,8 @@
 				181F75E1202BF7FD00AC8440 /* PXNeedDetailViewController.m */,
 				1833E11E200452FB00F37B02 /* Need_AddViewController.h */,
 				1833E11F200452FB00F37B02 /* Need_AddViewController.m */,
+				1801CD9C213D1275002B367F /* FB_shuXiangViewController.h */,
+				1801CD9D213D1275002B367F /* FB_shuXiangViewController.m */,
 			);
 			name = "培训需求";
 			sourceTree = "<group>";
@@ -9104,12 +9134,14 @@
 				18074B201FDBD8C3006B2682 /* CYRTextView.m in Sources */,
 				1843187A20F36AB500E4C545 /* SC_needModel.m in Sources */,
 				18EE656D1F53CBF50096DCE9 /* RuleTime4Model.m in Sources */,
+				1801CD8F2134E5B4002B367F /* FX_personModel.m in Sources */,
 				18027D5A20AEA9C900EA6C40 /* FBPersonList_ViewController.m in Sources */,
 				181F75F1202C49FF00AC8440 /* EQD_SearchAllViewController.m in Sources */,
 				182723EB211AEE8D004FA622 /* BottomMoreView.m in Sources */,
 				181B26DD1FF23C8D00A38BFC /* EQDR_MyArticleTwoViewController.m in Sources */,
 				183BFFFA1FD2B02D00C70988 /* Repair_AddViewController.m in Sources */,
 				18AFCAA320B6984D00C80A49 /* MeetingModel.m in Sources */,
+				1801CD9E213D1275002B367F /* FB_shuXiangViewController.m in Sources */,
 				180CFEF91F5AB4BD0043C784 /* DaKaJiLuModel.m in Sources */,
 				188CF4091F481524007CF87C /* BB_DetailViewController.m in Sources */,
 				186FCE6A2043FB5400203E6F /* EQDS_CourseModel.m in Sources */,
@@ -9154,6 +9186,7 @@
 				18FC4E2F1F76377F00028B69 /* TimeChild.m in Sources */,
 				180AB0E91EDFF85500DFA1CA /* PZZhuanZhengViewController.m in Sources */,
 				180AB0E41EDFF3B900DFA1CA /* PZGangWeiDDViewController.m in Sources */,
+				1801CD9B2137EC1C002B367F /* EQDS_BaseModel.m in Sources */,
 				181A9B951FD8F4EF00669989 /* CarUse_ListViewController.m in Sources */,
 				18944FA91FF743B60022191B /* FB_shareEQDCollectionViewCell.m in Sources */,
 				18D9D8C71FE11B6600D29185 /* EQDR_wenjiListModel.m in Sources */,
@@ -9201,6 +9234,7 @@
 				186FCEC2204939B700203E6F /* PorxyNavigationController.m in Sources */,
 				1831FE0F208450EB0046D3B7 /* FX_riZhiViewController.m in Sources */,
 				18103EA21EB5BC7700FA757F /* FRenWuViewController.m in Sources */,
+				1801CD9821378F99002B367F /* FB_oneImgTextBtnTableViewCell.m in Sources */,
 				180820D41EE2A4EF000AB677 /* PZXuQiuPerson2ViewController.m in Sources */,
 				187D4A81205FC1DF00F0D8B2 /* FFMyEx_addViewController.m in Sources */,
 				18CEC45C1E7CE4F1008DCB46 /* MBFadeAlertView.m in Sources */,
@@ -9371,6 +9405,7 @@
 				18AFCA9620AFD0FD00C80A49 /* FBOneImg_yyLabelTableViewCell.m in Sources */,
 				180963FE1ED02D21007FAF8C /* SQTiaoXiuViewController.m in Sources */,
 				180963FA1ED023CA007FAF8C /* SQChuChaAddViewController.m in Sources */,
+				1801CD8C2134DAD0002B367F /* Person_caiGouViewController.m in Sources */,
 				189B4A5A1F1C987200073360 /* FBTwo_Button12TableViewCell.m in Sources */,
 				182F81901E8CDE0C00231A5F /* TXLQunLiaoViewController.m in Sources */,
 				1818F79D209C564400733EF4 /* Work_dongTanListViewController.m in Sources */,
@@ -9694,6 +9729,7 @@
 				186604631E80C5F000C69557 /* MyFirstTableViewCell.m in Sources */,
 				18074B1E1FDBD8C3006B2682 /* CYRToken.m in Sources */,
 				18BC471B20DE348B0040927E /* SC_teamAddViewController.m in Sources */,
+				1801CD9221364011002B367F /* FX_caigouTableViewCell.m in Sources */,
 				180963D91ECECA53007FAF8C /* FBTextvImgViewController.m in Sources */,
 				18CEC44E1E7CE4F1008DCB46 /* SGQRCodeTool.m in Sources */,
 				186FCE612042535500203E6F /* EQDS_AddArticleViewController.m in Sources */,

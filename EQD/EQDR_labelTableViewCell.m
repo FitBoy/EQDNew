@@ -12,6 +12,39 @@
 #import "EQDR_labelTableViewCell.h"
 #import <Masonry.h>
 @implementation EQDR_labelTableViewCell
+
+-(void)setModel_base:(EQDS_BaseModel *)model_base
+{
+    _model_base = model_base;
+    NSMutableAttributedString *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",model_base.staffName,model_base.title] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+    name.yy_lineSpacing =6;
+    CGSize size = [name boundingRectWithSize:CGSizeMake(self.frame.size.width-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_base.cellHeight = size.height+20;
+    self.YL_label.attributedText =name;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.height.mas_equalTo(size.height+15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+}
+
+-(void)setModel_base2:(EQDS_BaseModel *)model_base
+{
+    _model_base = model_base;
+    NSMutableAttributedString *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",model_base.lectureName,model_base.courseTheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+    name.yy_lineSpacing =6;
+    CGSize size = [name boundingRectWithSize:CGSizeMake(self.frame.size.width-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_base.cellHeight = size.height+20;
+    self.YL_label.attributedText =name;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.height.mas_equalTo(size.height+15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+}
 -(void)setModel_RiZhiPingLun:(GZQ_PingLunModel *)model_RiZhiPingLun
 {
     _model_RiZhiPingLun = model_RiZhiPingLun;

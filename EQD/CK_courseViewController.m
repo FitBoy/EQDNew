@@ -84,8 +84,14 @@
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
     tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add_eqd2"] style:UIBarButtonItemStylePlain target:self action:@selector(tianjiaClick)];
-    [self.navigationItem setRightBarButtonItem:right];
+    if ([self.userGuid isEqualToString:user.Guid]) {
+        UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add_eqd2"] style:UIBarButtonItemStylePlain target:self action:@selector(tianjiaClick)];
+        [self.navigationItem setRightBarButtonItem:right];
+    }else
+    {
+        
+    }
+  
 }
 -(void)tianjiaClick
 {

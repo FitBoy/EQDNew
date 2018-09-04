@@ -66,9 +66,9 @@
 }
 -(void)backClick
 {
-    if ([self.delegate respondsToSelector:@selector(getTecherLeiBieModel:)]) {
-        [self.delegate getTecherLeiBieModel:arr_model_choose];
-    }
+//    if ([self.delegate respondsToSelector:@selector(getTecherLeiBieModel:)]) {
+//        [self.delegate getTecherLeiBieModel:arr_model_choose];
+//    }
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)quedingClick

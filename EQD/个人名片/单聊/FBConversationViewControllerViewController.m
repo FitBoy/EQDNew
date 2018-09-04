@@ -817,6 +817,7 @@ RealTimeLocationStatusView *realTimeLocationStatusView;
         FBMessageCell *cell0 = (FBMessageCell*)cell;
         RCMessageModel *model =self.conversationDataRepository[indexPath.row];
         [cell0 setDataModel:model];
+        
 
 }
 }

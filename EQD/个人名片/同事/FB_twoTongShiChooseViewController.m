@@ -118,7 +118,9 @@
     
     if([self.delegate_tongshi respondsToSelector:@selector(getChooseArr_model:indexpath:)])
     {
-        [self.delegate_tongshi getChooseArr_model:tarr indexpath:self.indexPath];
+        if (tarr.count>0) {
+            [self.delegate_tongshi getChooseArr_model:tarr indexpath:self.indexPath];
+        }
         [self.navigationController popViewControllerAnimated:NO];
     }
 }

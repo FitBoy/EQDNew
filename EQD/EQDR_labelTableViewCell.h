@@ -18,7 +18,15 @@
 #import "TrumModel.h"
 #import "RiZhiModel.h"
 #import "GZQ_PingLunModel.h"
+#import "EQDS_BaseModel.h"
 @interface EQDR_labelTableViewCell : UITableViewCell
+
+///最新的文章
+@property (nonatomic,strong)  EQDS_BaseModel  *model_base;
+-(void)setModel_base:(EQDS_BaseModel *)model_base;
+///最新的课程
+-(void)setModel_base2:(EQDS_BaseModel *)model_base;
+
 ///日志的评论
 @property (nonatomic,strong)   GZQ_PingLunModel *model_RiZhiPingLun;
 -(void)setModel_RiZhiPingLun:(GZQ_PingLunModel *)model_RiZhiPingLun;

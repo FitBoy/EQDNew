@@ -15,4 +15,6 @@
 
 @property (nonatomic,strong) SC_needModel  *model_need;
 -(void)setModel_need:(SC_needModel *)model_need;
+
+
 @end

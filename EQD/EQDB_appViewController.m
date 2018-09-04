@@ -45,6 +45,14 @@
     }];
     [tbtn_need addTarget:self action:@selector(needClick) forControlEvents:UIControlEventTouchUpInside];
     
+    UIBarButtonItem *left  = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
+    [self.navigationItem setLeftBarButtonItem:left];
+    
+    
+}
+-(void)leftClick
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)productClick
 {

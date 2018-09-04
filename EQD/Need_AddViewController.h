@@ -9,5 +9,6 @@
 #import "FBBaseViewController.h"
 
 @interface Need_AddViewController : FBBaseViewController
-
+///0  从培训申请选择  1 自由添加
+@property (nonatomic,assign) NSInteger temp;
 @end

@@ -22,6 +22,7 @@
 #import "EQDR_ArticleClassSearchViewController.h"
 #import "CK_picturesPersonViewController.h"
 #import "EQDR_Article_DetailViewController.h"
+#import "CK_courseViewController.h"
 @interface CK_CKPersonZoneViewController ()<UITableViewDelegate,UITableViewDataSource,FBHeadScrollTitleViewDelegate,FB_OnlyForLiuYanViewControllerDlegate>
 {
     UITableView *tableV;
@@ -58,9 +59,9 @@
         if ([dic[Y_STATUS] integerValue] == 200) {
             model_user = [Com_UserModel mj_objectWithKeyValues:dic[Y_ITEMS]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                  [self setHeadViewWithuserModel:model_user];
+                [self setHeadViewWithuserModel:model_user];
             });
-          
+            
         }
     }];
     
@@ -226,6 +227,7 @@
     }];
 }
 -(void)setHeadViewWithuserModel:(Com_UserModel*)tmodel{
+
     head_view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, 100)];
     head_view.userInteractionEnabled =YES;
     UIImageView *IV_image= [[UIImageView alloc]init];
@@ -236,6 +238,7 @@
         make.left.mas_equalTo(head_view.mas_left).mas_offset(15);
         make.top.mas_equalTo(head_view.mas_top).mas_offset(5);
     }];
+    
     
     FBButton  *tbtn = [FBButton buttonWithType:UIButtonTypeSystem];
     [head_view addSubview:tbtn];
@@ -258,6 +261,7 @@
     [titleV setArr_titles:@[@"日志",@"产品",@"相册",@"留言",@"访客"]];
     //,@"收藏"
     [titleV setClickTapIndex:0];
+    
     
     
     //名字
@@ -341,12 +345,18 @@
                 }];
             });
             
-            if (arr_products.count ==0) {
+            
+            CK_courseViewController  *CCvc = [[CK_courseViewController alloc]init];
+            CCvc.userGuid = self.userGuid;
+            CCvc.username = model_user.username;
+            [self.navigationController pushViewController:CCvc animated:NO];
+            
+     /* if (arr_products.count ==0) {
                 [self loadRequestData];
             }else
             {
                 [tableV reloadData];
-            }
+            }*/
         }
             break;
         case 2:
@@ -433,6 +443,8 @@
     [self.view addSubview:tbtn_liuyan];
     tbtn_liuyan.hidden = YES;
      [self loadRequestData];
+    
+   
 }
 #pragma  mark - 留言
 -(void)getPresnetText:(NSString *)text

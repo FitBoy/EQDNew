@@ -28,6 +28,11 @@
 #import "PlayerViewController.h"
 #import "PorxyNavigationController.h"
 #import "EQDS_CourseDetailViewController.h"
+#import "EQDR_Article_DetailViewController.h"
+#import "EQDS_teacherInfoModel.h"
+#import "EQDS_BaseModel.h"
+#import "CK_CKPersonZoneViewController.h"
+#import "EQDR_Article_DetailViewController.h"
 @interface EQDS_appViewController ()<FBHeadScrollTitleViewDelegate,UITableViewDelegate,UITableViewDataSource,EQDS_TeacherTableViewCellDelegate,EQDR_labelTableViewCellDelegate,EQDS_VideoTableViewCellDelegate,EQDR_ArticleTableViewCellDelegate>
 {
     UIScrollView  *ScrollView;
@@ -72,11 +77,54 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadRequestData];
+   
 }
 -(void)loadRequestData{
     UITableView *tableV = arr_tableV[temp];
     if (temp==0) {
+        //首页
+        // 活跃讲师
+        [WebRequest Makerspacey_MakerArticle_Get_ActiveMakerWithpage:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshingWithNoMoreData];
+            [arr_model00 removeAllObjects];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_teacherInfoModel  *model = [EQDS_teacherInfoModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model00 addObject:model];
+                }
+                 [tableV reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+        ///最新文章
+        [WebRequest Articles_LectureArticle_Get_ArticlesByTimeWithpage:@"0" And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                [arr_model01 removeAllObjects];
+                for ( int i=0; i<tarr.count; i++) {
+                    EQDS_BaseModel *model =[EQDS_BaseModel mj_objectWithKeyValues:tarr[i]];
+                    model.cellHeight =60;
+                    [arr_model01 addObject:model];
+                }
+                [tableV reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+        ///最新课程
+        [WebRequest Lectures_course_Get_CourseByTimeWithpage:@"0" And:^(NSDictionary *dic) {
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                [arr_model02 removeAllObjects];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_BaseModel  *model = [EQDS_BaseModel mj_objectWithKeyValues:tarr[i]];
+                    model.cellHeight =60;
+                    [arr_model02 addObject:model];
+                }
+                [tableV reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+        
+        /*
         //首页
         [WebRequest Lectures_recommend_Get_LectureRecommendAnd:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
@@ -115,10 +163,29 @@
                 [tableV reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
             }
         }];
-        
+        */
         
     }else if (temp==1)
     {
+        
+        ///活跃讲师
+        [WebRequest Makerspacey_MakerArticle_Get_ActiveMakerWithpage:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            [arr_model1 removeAllObjects];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                page1 = dic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_teacherInfoModel  *model = [EQDS_teacherInfoModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model1 addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+        
+        
+        /*
     //推荐讲师
             [WebRequest Lectures_recommend_Get_LectureRecommendAnd:^(NSDictionary *dic) {
                 [tableV.mj_header endRefreshing];
@@ -132,7 +199,7 @@
                     }
                     [tableV reloadData];
                 }
-            }];
+            }];*/
     }else if (temp==2)
     {
         //看课程
@@ -173,6 +240,24 @@
         
     }else if (temp==4)
     {
+        
+        [WebRequest Makerspacey_MakerArticle_Get_MakerArticleWithpage:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                [arr_model4 removeAllObjects];
+                page4 = dic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_articleModel  *model = [EQDS_articleModel mj_objectWithKeyValues:tarr[i]];
+                    model.cellHeight =60;
+                    [arr_model4 addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+        
+        /*
         //评文章
         [WebRequest Lectures_article_Get_LectureArticle_ByTimeWithpage:@"0" And:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
@@ -189,7 +274,7 @@
                 }
                 [tableV reloadData];
             }
-        }];
+        }];*/
     }else
     {
         
@@ -201,6 +286,25 @@
         //首页
     }else if (temp==1)
     {
+        //活跃讲师
+        [WebRequest Makerspacey_MakerArticle_Get_ActiveMakerWithpage:page1 And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if (tarr.count ==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                    page1 = dic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_teacherInfoModel  *model = [EQDS_teacherInfoModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model1 addObject:model];
+                }
+                [tableV reloadData];
+                }
+            }
+        }];
        
     }else if (temp==2)
     {
@@ -251,6 +355,30 @@
         }];
     }else if (temp==4)
     {
+        
+        [WebRequest Makerspacey_MakerArticle_Get_MakerArticleWithpage:page4 And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+    
+                NSArray *tarr = dic[Y_ITEMS];
+                if(tarr.count==0)
+                {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                    page4 = dic[@"page"];
+                    for (int i=0; i<tarr.count; i++) {
+                        EQDS_articleModel  *model = [EQDS_articleModel mj_objectWithKeyValues:tarr[i]];
+                        model.cellHeight =60;
+                        [arr_model4 addObject:model];
+                    }
+                    [tableV reloadData];
+                }
+            }
+        }];
+        
+        /*
         //评文章
         [WebRequest Lectures_article_Get_LectureArticle_ByTimeWithpage:page4 And:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
@@ -272,7 +400,7 @@
                 [tableV reloadData];
                 }
             }
-        }];
+        }];*/
     }else
     {
         
@@ -303,7 +431,7 @@
     [self.navigationItem setLeftBarButtonItem:left];
     titleView = [[FBHeadScrollTitleView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, 40)];
     titleView.delegate_head =self;
-    [titleView setArr_titles:@[@"首页",@"推荐讲师",@"最新课程",@"最新视频",@"最新文章"]];
+    [titleView setArr_titles:@[@"首页",@"活跃讲师",@"最新课程",@"需求广场",@"最新文章"]];
     [self.view addSubview:titleView];
   
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"add_eqd2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(tianjiaCLick)];
@@ -311,6 +439,8 @@
     [self.navigationItem setRightBarButtonItems:@[right,right1]];
     [self getTeacherinfo];
     [self setScrollViewWithCount:5];
+    
+     [self loadRequestData];
    
 }
 -(void)setScrollViewWithCount:(NSInteger)count{
@@ -337,7 +467,7 @@
         tableV.rowHeight=60;
       
         
-        if (i>1) {
+        if (i>0) {
             tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
             tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOtherData)];
         }
@@ -446,7 +576,8 @@
         [self loadRequestData];
     }else
     {
-        
+        UITableView *ttableV = arr_tableV[temp];
+        [ttableV reloadData];
     }
 }
 
@@ -509,7 +640,7 @@
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (temp==0) {
-        NSArray *tarr = @[@"推荐讲师",@"推荐视频",@"推荐课程"];
+        NSArray *tarr = @[@"活跃讲师",@"最新文章",@"最新课程"];
         return tarr[section];
     }else
     {
@@ -522,44 +653,43 @@
     {
         //首页
         if (indexPath.section==0) {
-            //推荐讲师
+            //活跃讲师
             static NSString *cellId=@"cellID00";
             EQDS_TeacherTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
             if (!cell) {
                 cell = [[EQDS_TeacherTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
-            eQDS_teacherAndSearchModel  *model =arr_model00[indexPath.row];
+            EQDS_teacherInfoModel  *model =arr_model00[indexPath.row];
             cell.delegate =self;
-            [cell setModel:model];
+            [cell setModel2:model];
             return cell;
         }else if (indexPath.section==1)
         {
-            //推荐的视频
+            //最新文章
             static NSString *cellId=@"cellID01";
-            EQDS_VideoTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+            EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
             if (!cell) {
-                cell = [[EQDS_VideoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
-            EQDS_VideoModel *model =arr_model01[indexPath.row];
-            cell.delegate =self;
-            [cell setModel2:model];
+            EQDS_BaseModel *model =arr_model01[indexPath.row];
+            [cell setModel_base:model];
             
             return cell;
             
         }else if (indexPath.section==2)
         {
-            //推荐的课程
+            //最新课程
             static NSString *cellId=@"cellID02";
             EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
             if (!cell) {
                 cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
-            EQDS_CourseModel *model =arr_model02[indexPath.row];
-            cell.delegate =self;
-            [cell setModel_tuijian:model];
+            EQDS_BaseModel *model =arr_model02[indexPath.row];
+//            cell.delegate =self;
+            [cell setModel_base2:model];
             
             return cell;
         }else
@@ -569,17 +699,17 @@
     }else if (temp==1)
     {
      
-            //推荐的讲师
-            static NSString *cellId=@"cellID1";
-            EQDS_TeacherTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
-            if (!cell) {
-                cell = [[EQDS_TeacherTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            eQDS_teacherAndSearchModel  *model =arr_model1[indexPath.row];
-              cell.delegate =self;
-            [cell setModel:model];
-            return cell;
+            //活跃的讲师
+        static NSString *cellId=@"cellID1";
+        EQDS_TeacherTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[EQDS_TeacherTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        EQDS_teacherInfoModel  *model =arr_model1[indexPath.row];
+        [cell setModel2:model];
+        cell.delegate =self;
+        return cell;
        
     }else if (temp==2)
     {
@@ -632,14 +762,20 @@
     if (temp==0) {
         if (indexPath.section==0) {
             return 120;
-        }else if (indexPath.section==1)
+        }else if (indexPath.section ==1)
         {
-            return 100;
-        }else
-        {
-            EQDS_CourseModel  *model =arr_model02[indexPath.row];
+            EQDS_BaseModel  *model =arr_model01[indexPath.row];
             
-            return model.cell_height;
+            return model.cellHeight;
+        }else if (indexPath.section ==2)
+        {
+            EQDS_BaseModel  *model =arr_model02[indexPath.row];
+            
+            return model.cellHeight;
+        }
+        else
+        {
+            return 60;
         }
         
     }else if (temp==1)
@@ -667,9 +803,15 @@
     if (temp ==4) {
         //文章详情
         EQDS_articleModel *model =arr_model4[indexPath.row];
-        EQDS_ArticleDetailViewController *Dvc = [[EQDS_ArticleDetailViewController alloc]init];
-        Dvc.Id = model.Id;
+        
+        EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+        Dvc.temp =0;
+        Dvc.articleId = model.Id;
         [self.navigationController pushViewController:Dvc animated:NO];
+        
+     /*   EQDS_ArticleDetailViewController *Dvc = [[EQDS_ArticleDetailViewController alloc]init];
+        Dvc.Id = model.Id;
+        [self.navigationController pushViewController:Dvc animated:NO];*/
     }else if (temp==3)
     {
         EQDS_VideoModel *model =arr_model3[indexPath.row];
@@ -697,16 +839,29 @@
     {
         if (indexPath.section==0) {
             //讲师详情
+            EQDS_teacherInfoModel  *model = arr_model00[indexPath.row];
+            CK_CKPersonZoneViewController  *PPvc = [[CK_CKPersonZoneViewController alloc]init];
+            PPvc.userGuid =model.userGuid;
+            [self.navigationController pushViewController:PPvc animated:NO];
+            
         }else if (indexPath.section==1)
         {
-            //视频详情
-        }else
+            //文章详情
+            EQDS_articleModel *model =arr_model01[indexPath.row];
+           EQDR_Article_DetailViewController  *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+            Dvc.articleId = model.Id;
+            Dvc.temp = EQDArticle_typeRead;
+            [self.navigationController pushViewController:Dvc animated:NO];
+        }else if(indexPath.section ==2)
         {
             //课程详情
-            EQDS_CourseModel *model  =arr_model02[indexPath.row];
+            EQDS_BaseModel *model  =arr_model02[indexPath.row];
             EQDS_CourseDetailViewController *Dvc = [[EQDS_CourseDetailViewController alloc]init];
-            Dvc.courseId = model.lectCourseId;
+            Dvc.courseId = model.Id;
             [self.navigationController pushViewController:Dvc animated:NO];
+        }else
+        {
+            
         }
     }
 }
