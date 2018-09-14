@@ -32,6 +32,7 @@
     NSInteger  isFriend;
     UIView *V_footer;
     
+    
 }
 
 @end
@@ -86,8 +87,8 @@
     V_footer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, 30)];
     V_footer.userInteractionEnabled = YES;
     FBButton *tbtn= [FBButton buttonWithType:UIButtonTypeSystem];
-    [tbtn setTitle:@"一键导入到CRM" titleColor:[UIColor whiteColor] backgroundColor:[UIColor greenColor] font:[UIFont systemFontOfSize:16]];
-    tbtn.frame = CGRectMake(DEVICE_WIDTH-150-15, 3, 150, 25);
+    [tbtn setTitle:@"一键导入CRM" titleColor:[UIColor whiteColor] backgroundColor:[UIColor greenColor] font:[UIFont systemFontOfSize:13]];
+    tbtn.frame = CGRectMake(DEVICE_WIDTH-110-15, 10, 110, 25);
     [V_footer addSubview:tbtn];
     [tbtn addTarget:self action:@selector(daoruCLick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -103,8 +104,11 @@
             
         }
     }];
+   
     
-   }
+    
+}
+
 #pragma  mark - 一键导入CRM
 -(void)daoruCLick
 {
@@ -178,6 +182,25 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:alert animated:NO completion:nil];
     });
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section ==3) {
+        return 40;
+    }else
+    {
+        return 1;
+    }
+}
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section ==3) {
+        return V_footer;
+    }else
+    {
+        return nil;
+    }
 }
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

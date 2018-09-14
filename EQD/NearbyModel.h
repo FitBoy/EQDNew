@@ -14,5 +14,7 @@
 @property (nonatomic,copy) NSString* address;
 @property (nonatomic,copy) NSString* cusCode;
 @property (nonatomic,copy) NSString* distance;
+@property (nonatomic,copy) NSString* cusCall;
+@property (nonatomic,copy) NSString* latAndLong;
 @property (nonatomic,assign) float  cell_height;
 @end

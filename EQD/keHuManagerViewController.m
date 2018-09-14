@@ -636,6 +636,8 @@
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.font = [UIFont systemFontOfSize:17];
         }
         cell.textLabel.text = arr_names[indexPath.row];

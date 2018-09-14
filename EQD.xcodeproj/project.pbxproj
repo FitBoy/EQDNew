@@ -430,6 +430,7 @@
 		18313501210EF0C0004503E3 /* SC_ComShoucangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18313500210EF0C0004503E3 /* SC_ComShoucangViewController.m */; };
 		1831E670214A3C4E004F377D /* KH_fuJinKeHuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831E66F214A3C4E004F377D /* KH_fuJinKeHuViewController.m */; };
 		1831E673214A599E004F377D /* NearbyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831E672214A599E004F377D /* NearbyModel.m */; };
+		1831E676214B932D004F377D /* KeHuChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831E675214B932D004F377D /* KeHuChooseViewController.m */; };
 		1831FE0F208450EB0046D3B7 /* FX_riZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831FE0E208450EB0046D3B7 /* FX_riZhiViewController.m */; };
 		1831FE13208451940046D3B7 /* FX_riZhiAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831FE12208451940046D3B7 /* FX_riZhiAddViewController.m */; };
 		1831FE1620848DE70046D3B7 /* FX_riZhiSectionAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831FE1520848DE70046D3B7 /* FX_riZhiSectionAddViewController.m */; };
@@ -1689,6 +1690,8 @@
 		1831E66F214A3C4E004F377D /* KH_fuJinKeHuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KH_fuJinKeHuViewController.m; sourceTree = "<group>"; };
 		1831E671214A599E004F377D /* NearbyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearbyModel.h; sourceTree = "<group>"; };
 		1831E672214A599E004F377D /* NearbyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearbyModel.m; sourceTree = "<group>"; };
+		1831E674214B932D004F377D /* KeHuChooseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeHuChooseViewController.h; sourceTree = "<group>"; };
+		1831E675214B932D004F377D /* KeHuChooseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeHuChooseViewController.m; sourceTree = "<group>"; };
 		1831FE0D208450EB0046D3B7 /* FX_riZhiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FX_riZhiViewController.h; sourceTree = "<group>"; };
 		1831FE0E208450EB0046D3B7 /* FX_riZhiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FX_riZhiViewController.m; sourceTree = "<group>"; };
 		1831FE11208451940046D3B7 /* FX_riZhiAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FX_riZhiAddViewController.h; sourceTree = "<group>"; };
@@ -5464,6 +5467,8 @@
 			children = (
 				183BBE651F257F86007D4675 /* PPersonCardViewController.h */,
 				183BBE661F257F86007D4675 /* PPersonCardViewController.m */,
+				1831E674214B932D004F377D /* KeHuChooseViewController.h */,
+				1831E675214B932D004F377D /* KeHuChooseViewController.m */,
 				18A61B2520D121B200B1F655 /* WorkSpace_detailViewController.h */,
 				18A61B2620D121B200B1F655 /* WorkSpace_detailViewController.m */,
 				1825ADAF20E5C00E001377AF /* WS_comDetailViewController.h */,
@@ -9231,6 +9236,7 @@
 				18201DCB1EA7413F00075C6E /* ThreeRenShiViewController.m in Sources */,
 				18074B161FDBD8C3006B2682 /* ZSSBarButtonItem.m in Sources */,
 				180820D01EE2673A000AB677 /* PZXuQiuPersonViewController.m in Sources */,
+				1831E676214B932D004F377D /* KeHuChooseViewController.m in Sources */,
 				18FBDA8A1EAE0365000AB668 /* FBTextVTableViewCell.m in Sources */,
 				18027D4920A29A1E00EA6C40 /* FileManager+CoreDataClass.m in Sources */,
 				181F75E8202BFFE200AC8440 /* FBHeadScrollTitleView.m in Sources */,
