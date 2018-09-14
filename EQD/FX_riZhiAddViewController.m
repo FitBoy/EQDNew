@@ -35,6 +35,7 @@
     ///修改的位置
     NSInteger  isXiuGai;
     NSIndexPath *indexpath_selected;
+    NSInteger location_temp;
 
 }
 
@@ -108,8 +109,14 @@
         NSString*  address =regeocode.formattedAddress;
         if(address.length==0)
         {
-            
-            [self dingwei];
+            if (location_temp <5) {
+              [self dingwei];
+                location_temp+=1;
+            }else
+            {
+                
+            }
+           
         }else
         {
             NSArray  *tarr = @[regeocode.province,regeocode.city];
@@ -130,6 +137,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    location_temp = 0;
     temp =0;
     isXiuGai =0;
     arr_model0 = [NSMutableArray arrayWithCapacity:0];

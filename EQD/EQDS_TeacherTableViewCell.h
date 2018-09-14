@@ -16,10 +16,12 @@
 @property (nonatomic,strong)  UILabel *L_contents;
 @property (nonatomic,strong) YYLabel *YL_label;
 @property (nonatomic,strong)  eQDS_teacherAndSearchModel  *model;
+@property (nonatomic,strong)  EQDS_teacherInfoModel *model_teacher;
 @property (nonatomic,weak) id delegate;
 @property (nonatomic,strong) EQDS_teacherInfoModel *model2;
 -(void)setModel:(eQDS_teacherAndSearchModel *)model;
 -(void)setModel2:(EQDS_teacherInfoModel *)model2;
+-(void)setModel3:(EQDS_teacherInfoModel *)model;
 @end
 @protocol EQDS_TeacherTableViewCellDelegate <NSObject>
 -(void)getlable:(NSString*)label Withmodel:(id)model;

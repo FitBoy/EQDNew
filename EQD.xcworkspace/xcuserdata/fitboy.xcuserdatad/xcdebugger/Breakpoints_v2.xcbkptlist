@@ -115,22 +115,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EQD/FX_riZhiAddViewController.m"
-            timestampString = "552648593.345837"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-getarr_json:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "EQD/EQDR_LiuYanViewController.m"
             timestampString = "549336816.931699"
             startingColumnNumber = "9223372036854775807"
@@ -212,12 +196,12 @@
                   moduleName = "EQD"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/fitboy/Desktop/eqd_htpp/iosEDQ/EQD%202/EQD/Space_comListViewController.m"
-                  timestampString = "557733408.857959"
+                  timestampString = "558526385.113786"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "185"
                   endingLineNumber = "185"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "56">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -227,12 +211,12 @@
                   moduleName = "EQD"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/fitboy/Desktop/eqd_htpp/iosEDQ/EQD%202/EQD/Space_comListViewController.m"
-                  timestampString = "557733408.86113"
+                  timestampString = "558526385.118405"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "185"
                   endingLineNumber = "185"
-                  offsetFromSymbolStart = "19">
+                  offsetFromSymbolStart = "12">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -242,12 +226,12 @@
                   moduleName = "EQD"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/fitboy/Desktop/eqd_htpp/iosEDQ/EQD%202/EQD/Space_comListViewController.m"
-                  timestampString = "557733408.864556"
+                  timestampString = "558526385.122344"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "185"
                   endingLineNumber = "185"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "10">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -264,6 +248,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
             endingLineNumber = "33"
+            landmarkName = "-loadRequestData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EQD/PXNeedDetailViewController.m"
+            timestampString = "558242624.219637"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-loadRequestData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EQD/KH_fuJinKeHuViewController.m"
+            timestampString = "558526424.908134"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "-loadRequestData"
             landmarkType = "7">
          </BreakpointContent>

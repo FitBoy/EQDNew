@@ -22,6 +22,7 @@
     AMapLocationManager *locationManager;
     NSString *address;
     NSString *coodinate;
+    NSInteger location_temp;
 }
 
 /** 会话对象 */
@@ -37,7 +38,7 @@
 @implementation FBScanViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
+    location_temp =0;
     [self dingwei];
     address =[USERDEFAULTS objectForKey:Y_AMAP_address];
     coodinate =[USERDEFAULTS objectForKey:Y_AMAP_coordation];
@@ -56,7 +57,14 @@
         NSString*  address =regeocode.formattedAddress;
         if(address.length==0)
         {
-            [self dingwei];
+            if (location_temp <5) {
+                 [self dingwei];
+                location_temp+=1;
+            }else
+            {
+                
+            }
+           
         }else
         {
             NSArray  *tarr = @[regeocode.province,regeocode.city];

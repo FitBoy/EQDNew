@@ -9,6 +9,9 @@
 #import "FBBaseModel.h"
 
 @interface Com_UserModel : FBBaseModel
+@property (nonatomic,copy) NSString* Email;
+@property (nonatomic,copy) NSString* QQ;
+@property (nonatomic,copy) NSString* WeChat;
 @property (nonatomic,copy) NSString* userGuid;
 @property (nonatomic,copy) NSString* company;
 @property (nonatomic,copy) NSString* companyId;

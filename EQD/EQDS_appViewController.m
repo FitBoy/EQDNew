@@ -10,7 +10,6 @@
 #import "FBHeadScrollTitleView.h"
 #import <Masonry.h>
 #import "EQD_SearchAllViewController.h"
-#import "EQDS_myViewController.h"
 #import "EQDS_AddArticleViewController.h"
 #import "EQDS_addVideoViewController.h"
 #import "EQDS_addCourseViewController.h"
@@ -33,6 +32,9 @@
 #import "EQDS_BaseModel.h"
 #import "CK_CKPersonZoneViewController.h"
 #import "EQDR_Article_DetailViewController.h"
+#import "PXNeedModel.h"
+#import "PXNeedDetailViewController.h"
+#import "CK_personAppViewController.h"
 @interface EQDS_appViewController ()<FBHeadScrollTitleViewDelegate,UITableViewDelegate,UITableViewDataSource,EQDS_TeacherTableViewCellDelegate,EQDR_labelTableViewCellDelegate,EQDS_VideoTableViewCellDelegate,EQDR_ArticleTableViewCellDelegate>
 {
     UIScrollView  *ScrollView;
@@ -221,7 +223,22 @@
         }];
     }else if (temp==3)
     {
-        //品视频
+        ///需求广场
+        [WebRequest Training_Trains_Get_TrainingByTimeWithpage:@"0" And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr  = dic[Y_ITEMS];
+                page3 = dic[@"page"];
+                [arr_model3 removeAllObjects];
+                for (int i=0; i<tarr.count; i++) {
+                    PXNeedModel  *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model3 addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+        /*/品视频
         [WebRequest Lectures_video_Get_LectureVideo_ByTimeWithPage:@"0" And:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
             [tableV.mj_footer endRefreshing];
@@ -236,7 +253,7 @@
                 }
                 [tableV reloadData];
             }
-        }];
+        }];*/
         
     }else if (temp==4)
     {
@@ -331,6 +348,27 @@
         }];
     }else if (temp==3)
     {
+        //需求广场
+        [WebRequest Training_Trains_Get_TrainingByTimeWithpage:page3 And:^(NSDictionary *dic) {
+            [tableV.mj_header endRefreshing];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if (tarr.count ==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                    page3 = dic[@"page"];
+                    for (int i=0; i<tarr.count; i++) {
+                        PXNeedModel *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                        [arr_model3 addObject:model];
+                    }
+                    [tableV reloadData];
+                }
+            }
+        }];
+        
+        /*
         //品视频
         [WebRequest Lectures_video_Get_LectureVideo_ByTimeWithPage:page3 And:^(NSDictionary *dic) {
             [tableV.mj_header endRefreshing];
@@ -352,7 +390,7 @@
                 [tableV reloadData];
                 }
             }
-        }];
+        }];*/
     }else if (temp==4)
     {
         
@@ -495,14 +533,17 @@
 }
 #pragma  mark - + 添加功能
 -(void)tianjiaCLick{
+    
+    CK_personAppViewController  *Avc = [[CK_personAppViewController alloc]init];
+    [self.navigationController pushViewController:Avc animated:NO];
+    
+    /*
     UIAlertController  *alert = [[UIAlertController alloc]init];
-    NSArray *tarr = @[@"个人中心",@"添加课程",@"添加视频",@"添加文章"];
+    NSArray *tarr = @[@"个人中心",@"添加讲师课程",@"添加讲师文章"];
     for (int i=0; i<tarr.count; i++) {
         [alert  addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (i==0) {
-                //个人中心
-                EQDS_myViewController  *Mvc =[[EQDS_myViewController alloc]init];
-                [self.navigationController pushViewController:Mvc animated:NO];
+               
             }else if(i==1)
             {
                 //添加课程
@@ -528,6 +569,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:alert animated:NO completion:nil];
     });
+     */
 }
 #pragma  mark - 搜索
 -(void)searchClick{
@@ -556,6 +598,7 @@
     if(index==0)
     {
         //首页
+        
         [self loadRequestData];
    
     }else if(index==1 && arr_model1.count==0)
@@ -727,16 +770,28 @@
         return cell;
     }else if (temp==3)
     {
-        //最新视频
+        //最新需求
         static NSString *cellId=@"cellID3";
-        EQDS_VideoTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[EQDS_VideoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        EQDS_VideoModel *model =arr_model3[indexPath.row];
-        cell.delegate =self;
-        [cell setModel:model];
+        PXNeedModel *model =arr_model3[indexPath.row];
+        NSMutableAttributedString  *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@\n",model.thetheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17 weight:3]}];
+        name.yy_alignment = NSTextAlignmentCenter;
+        NSMutableAttributedString *contents = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"需求类别：%@\n预算：%@元\n结束时间：%@",model.thecategory,model.budgetedExpense,model.thedateEnd] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor grayColor]}];
+        [name appendAttributedString:contents];
+        name.yy_lineSpacing =6;
+        cell.YL_label.attributedText = name;
+        CGSize size = [name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        model.cellHeight = size.height+20;
+        [cell.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(size.height+10);
+            make.left.mas_equalTo(cell.mas_left).mas_offset(15);
+            make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
+            make.centerY.mas_equalTo(cell.mas_centerY);
+        }];
         
         return cell;
     }else if (temp==4)
@@ -787,7 +842,8 @@
         return model.cell_height;
     }else if (temp==3)
     {
-        return 100;
+        PXNeedModel *model =arr_model3[indexPath.row];
+        return model.cellHeight;
     }else if (temp==4)
     {
         EQDM_ArticleModel *model =arr_model4[indexPath.row];
@@ -814,6 +870,12 @@
         [self.navigationController pushViewController:Dvc animated:NO];*/
     }else if (temp==3)
     {
+        PXNeedModel *model = arr_model3[indexPath.row];
+        PXNeedDetailViewController *Dvc = [[PXNeedDetailViewController alloc]init];
+        Dvc.Id = model.Id;
+        [self.navigationController pushViewController:Dvc animated:NO];
+        
+     /*
         EQDS_VideoModel *model =arr_model3[indexPath.row];
         //视频
         NSArray *tarr = [model.videoUrl componentsSeparatedByString:@"id_"];
@@ -824,10 +886,8 @@
         }
         PlayerViewController *Pvc = [[PlayerViewController alloc]initWithVid:vid platform:@"youku" quality:nil];
         Pvc.islocal =NO;
-        
         [self.navigationController pushViewController:Pvc animated:NO];
-       
-        
+        */
     }else if (temp==2)
     {
         PX_courseManageModel *model =arr_model2[indexPath.row];

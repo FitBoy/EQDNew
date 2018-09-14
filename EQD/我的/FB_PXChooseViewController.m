@@ -9,6 +9,7 @@
 #import "FB_PXChooseViewController.h"
 #import "GangweiModel.h"
 #import "FBTwoChoose_noimg_TableViewCell.h"
+#import "FBButton.h"
 @interface FB_PXChooseViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -79,7 +80,11 @@
 
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(quedingClick)];
     [self.navigationItem setRightBarButtonItem:right];
+    
+   
+    
 }
+
 -(void)quedingClick
 {
     if ([self.delegate respondsToSelector:@selector(getGangweiModel:)]) {
@@ -116,6 +121,9 @@
     }
     return cell;
 }
+
+
+
 
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

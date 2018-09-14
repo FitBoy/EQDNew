@@ -10,6 +10,8 @@
 #import "EQDR_labelTableViewCell.h"
 #import "PX_CourseAddViewController.h"
 #import "PXCourseDetailViewController.h"
+#import "FByylabel_btnOnerightTableViewCell.h"
+#import "FB_pipeiNeedViewController.h"
 @interface PX_CourseManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -98,7 +100,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PX_courseManageModel *model =arr_model[indexPath.row];
-    return model.cell_height;
+    return model.cell_height>60? model.cell_height:60;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -106,14 +108,24 @@
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellId=@"cellID";
-    EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    FByylabel_btnOnerightTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[FByylabel_btnOnerightTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     PX_courseManageModel *model =arr_model[indexPath.row];
     [cell setModel_course:model];
+    cell.btn_right.indexpath = indexPath;
+    [cell.btn_right addTarget:self action:@selector(rightCellClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
+}
+-(void)rightCellClick:(FBButton*)tbtn{
+    PX_courseManageModel *model = arr_model[tbtn.indexpath.row];
+    FB_pipeiNeedViewController  *Nvc =[[FB_pipeiNeedViewController alloc]init];
+    Nvc.courseId = model.Id;
+    [self.navigationController pushViewController:Nvc animated:NO];
+    
 }
 
 #pragma  mark - 表的协议代理

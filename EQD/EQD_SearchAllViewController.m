@@ -17,10 +17,13 @@
 #import "EQDR_ArticleTableViewCell.h"
 #import "EQDS_searchHighViewController.h"
 #import "EQDS_ArticleDetailViewController.h"
+#import <Masonry.h>
+#import "PXNeedDetailViewController.h"
+#import "EQDR_Article_DetailViewController.h"
 @interface EQD_SearchAllViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,EQDS_TeacherTableViewCellDelegate,EQDR_labelTableViewCellDelegate,EQDS_VideoTableViewCellDelegate,EQDR_ArticleTableViewCellDelegate>
 {
     UISearchBar *searchBar;
-    NSInteger temp; // 0 ,1,2,3 "讲师",@"课程",@"视频",@"文章
+    NSInteger temp; // 0 ,1,2,3 "讲师",@"课程",@"需求",@"文章
     UILabel *tlabel ;
     UITableView *tableV;
     NSString *page;
@@ -115,6 +118,25 @@
         }];
     }else if (temp==2)
     {
+        
+        [WebRequest Training_Trains_Get_TrainBySearchWithpage:page type:@" " minBudget:@"0" maxBudget:@"200000" para:searchBar.text And:^(NSDictionary *dic) {
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                if (tarr.count ==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                page = dic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    PXNeedModel *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                }
+                    [tableV reloadData];
+                }
+            }
+        }];
+        /*
         [WebRequest Lectures_Get_LectrueVideo_BySearchWithpara:searchBar.text page:page And:^(NSDictionary *dic) {
             [tableV.mj_footer endRefreshing];
             if ([dic[Y_STATUS] integerValue]==200) {
@@ -133,9 +155,30 @@
                 [tableV reloadData];
                 }
             }
-        }];
+        }];*/
     }else if (temp ==3)
     {
+        [WebRequest Articles_Get_Article_BySearchWithpara:searchBar.text page:page type:@"app" And:^(NSDictionary *dic) {
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSDictionary *tdic = dic[Y_ITEMS];
+                NSArray *tarr = tdic[@"rows"];
+                if (tarr.count==0) {
+                    [tableV.mj_footer endRefreshingWithNoMoreData];
+                }else
+                {
+                page = tdic[@"page"];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_articleModel *model = [EQDS_articleModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                }
+                [tableV reloadData];
+                }
+            }
+        }];
+        
+        
+        /*
         [WebRequest Lectures_article_Get_LectureArticle_BySearchWithpara:searchBar.text page:page type:@"app" And:^(NSDictionary *dic) {
             [tableV.mj_footer endRefreshing];
             if ([dic[Y_STATUS] integerValue]==200) {
@@ -154,7 +197,7 @@
                 [tableV reloadData];
                 }
             }
-        }];
+        }];*/
     }
     
     else
@@ -163,6 +206,10 @@
     }
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [searchBar endEditing:YES];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     arr_model = [NSMutableArray arrayWithCapacity:0];
@@ -197,7 +244,7 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
     [self.navigationItem setLeftBarButtonItem:left];
     temp =self.temp0;
-     NSArray *tarr = @[@"讲师",@"课程",@"视频",@"文章"];
+     NSArray *tarr = @[@"讲师",@"讲师课程",@"培训需求",@"文章"];
     tlabel.text = tarr[temp];
     page =@"0";
     [self settableV];
@@ -221,7 +268,7 @@
 -(void)tapClick
 {
     UIAlertController *alert = [[UIAlertController alloc]init];
-    NSArray *tarr = @[@"讲师",@"课程",@"视频",@"文章"];
+    NSArray *tarr = @[@"讲师",@"课程",@"需求",@"文章"];
     for (int i=0; i<tarr.count; i++) {
         [alert addAction:[UIAlertAction actionWithTitle:tarr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             temp = i;
@@ -281,6 +328,22 @@
         }];
     }else if (temp==2)
     {
+        [WebRequest Training_Trains_Get_TrainBySearchWithpage:@"0" type:@" " minBudget:@"0" maxBudget:@"200000" para:searchBar.text And:^(NSDictionary *dic) {
+            [hud hideAnimated:NO];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSArray *tarr = dic[Y_ITEMS];
+                page =dic[@"page"];
+                [arr_model removeAllObjects];
+                for (int i=0; i<tarr.count; i++) {
+                    PXNeedModel  *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+        
+        /*
         [WebRequest Lectures_Get_LectrueVideo_BySearchWithpara:searchBar.text page:@"0" And:^(NSDictionary *dic) {
             [hud hideAnimated:NO];
             if ([dic[Y_STATUS] integerValue]==200) {
@@ -295,9 +358,28 @@
                 }
                 [tableV reloadData];
             }
-        }];
+        }];*/
     }else if (temp ==3)
     {
+        
+        [WebRequest Articles_Get_Article_BySearchWithpara:searchBar.text page:@"0" type:@"app" And:^(NSDictionary *dic) {
+            [hud hideAnimated:NO];
+            [tableV.mj_footer endRefreshing];
+            if ([dic[Y_STATUS] integerValue]==200) {
+                NSDictionary *tdic = dic[Y_ITEMS];
+                NSArray *tarr = tdic[@"rows"];
+                page = tdic[@"page"];
+                [arr_model removeAllObjects];
+                for (int i=0; i<tarr.count; i++) {
+                    EQDS_articleModel *model = [EQDS_articleModel mj_objectWithKeyValues:tarr[i]];
+                    [arr_model addObject:model];
+                }
+                [tableV reloadData];
+            }
+        }];
+        
+        
+        /*
         [WebRequest Lectures_article_Get_LectureArticle_BySearchWithpara:searchBar.text page:@"0" type:@"app" And:^(NSDictionary *dic) {
             [hud hideAnimated:NO];
             if ([dic[Y_STATUS] integerValue]==200) {
@@ -312,7 +394,7 @@
                 }
                 [tableV reloadData];
             }
-        }];
+        }];*/
     }else
     {
         [hud hideAnimated:NO];
@@ -330,7 +412,8 @@
         return model.cell_height;
     }else if (temp==2)
     {
-        return 100;
+        PXNeedModel  *model = arr_model[indexPath.row];
+        return model.cellHeight;
     }else if (temp==3)
     {
         EQDS_articleModel *model =arr_model[indexPath.row];
@@ -372,15 +455,32 @@
         return cell;
     }else if (temp==2)
     {
+        ///培训需求
         static NSString *cellId=@"cellID2";
-        EQDS_VideoTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[EQDS_VideoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        EQDS_VideoModel *model =arr_model[indexPath.row];
-        cell.delegate =self;
-        [cell setModel:model];
+        PXNeedModel *model =arr_model[indexPath.row];
+        NSMutableAttributedString *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@",model.thetheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17 weight:3]}];
+        NSMutableAttributedString *company = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"  [%@]\n",model.company] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+        [name appendAttributedString:company];
+        
+        NSMutableAttributedString *contents = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"培训预算：%@元\n预计培训时间：%@ ~ %@\n培训地区：%@",model.budgetedExpense,model.thedateStart,model.thedateEnd,model.theplace] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor grayColor]}];
+        [name appendAttributedString:contents];
+        name.yy_lineSpacing =6;
+        
+        CGSize size = [name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        model.cellHeight = size.height+20;
+        cell.YL_label.attributedText = name;
+        [cell.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(size.height+15);
+            make.left.mas_equalTo(cell.mas_left).mas_offset(15);
+            make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
+            make.centerY.mas_equalTo(cell.mas_centerY);
+        }];
+        
         return cell;
     }else if (temp==3)
     {
@@ -408,7 +508,15 @@
     if (temp==3) {
         //文章详情
         EQDS_articleModel *model =arr_model[indexPath.row];
-        EQDS_ArticleDetailViewController *Dvc = [[EQDS_ArticleDetailViewController alloc]init];
+        EQDR_Article_DetailViewController *Dvc = [[EQDR_Article_DetailViewController alloc]init];
+        Dvc.articleId = model.Id;
+        Dvc.temp = 0;
+        [self.navigationController pushViewController:Dvc animated:NO];
+    }else if (temp ==2)
+    {
+        //需求详情
+        PXNeedModel  *model = arr_model[indexPath.row];
+        PXNeedDetailViewController *Dvc = [[PXNeedDetailViewController alloc]init];
         Dvc.Id = model.Id;
         [self.navigationController pushViewController:Dvc animated:NO];
     }

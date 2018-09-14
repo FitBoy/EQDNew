@@ -14,7 +14,11 @@
 {
     return @{@"ID":@"id"};
 }
-
+-(NSString*)lecturerSexdes
+{
+    NSArray *tarr = @[@"不限",@"男",@"女"];
+    return tarr[[self.lecturerSex integerValue]];
+}
 -(NSString*)createTime
 {
     return [_createTime formatDateString];

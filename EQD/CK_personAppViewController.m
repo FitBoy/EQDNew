@@ -30,6 +30,8 @@
 #import "CK_ShoucangProductViewController.h"
 #import "CK_CourseShoucangViewController.h"
 #import "CK_chuangkeShoucangViewController.h"
+#import "EQDR_labelTableViewCell.h"
+#import "PXNeedDetailViewController.h"
 @interface CK_personAppViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate,FB_OnlyForLiuYanViewControllerDlegate>
 {
     UITableView *tableV;
@@ -37,6 +39,8 @@
     UserModel *user;
     //主页
     UITableView *tableV1;
+    NSMutableArray *arr_need;
+    NSString *page_need;
     //日志
     UITableView *tableV2;
     FBButton *tbtn2 ;
@@ -87,7 +91,38 @@
     }
 }
 -(void)loadRequestData{
-    
+    [WebRequest Training_TrainingMatch_Get_LectureTrainMatchWithlectureGuid:user.Guid page:@"0" And:^(NSDictionary *dic) {
+        [tableV1.mj_footer endRefreshing];
+        [tableV1.mj_header endRefreshing];
+        if ([dic[Y_STATUS] integerValue]==200) {
+            NSArray *tarr =dic[Y_ITEMS];
+            page_need = dic[@"page"];
+            [arr_need removeAllObjects];
+            for (int i=0; i<tarr.count; i++) {
+                PXNeedModel *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                [arr_need addObject:model];
+            }
+            [tableV1 reloadData];
+        }
+    }];
+}
+-(void)loadMoreData{
+    [WebRequest Training_TrainingMatch_Get_LectureTrainMatchWithlectureGuid:user.Guid page:page_need And:^(NSDictionary *dic) {
+        [tableV1.mj_footer endRefreshing];
+        [tableV1.mj_header endRefreshing];
+        if ([dic[Y_STATUS] integerValue]==200) {
+            NSArray *tarr =dic[Y_ITEMS];
+            if (tarr.count ==0) {
+                [tableV1.mj_footer endRefreshingWithNoMoreData];
+            }
+            page_need = dic[@"page"];
+            for (int i=0; i<tarr.count; i++) {
+                PXNeedModel *model = [PXNeedModel mj_objectWithKeyValues:tarr[i]];
+                [arr_need addObject:model];
+            }
+            [tableV1 reloadData];
+        }
+    }];
 }
 
 -(void)loadRequestData2{
@@ -247,6 +282,11 @@
     [self.view addSubview:tableV1];
     tableV1.rowHeight=60;
 //    tableV1.backgroundColor = [UIColor orangeColor];
+    tableV1.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadRequestData)];
+    tableV1.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    arr_need = [NSMutableArray arrayWithCapacity:0];
+    page_need = @"0";
+    
     
     arr_rizhi2 = [NSMutableArray arrayWithCapacity:0];
     page_rizhi2 = @"0";
@@ -339,7 +379,7 @@
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
     self.navigationItem.title = @"创客空间";
-    arr_names = @[@"主页",@"个人日志",@"产品",@"个人档",@"留言",@"访客",@"收藏"];
+    arr_names = @[@"需求推荐",@"个人日志",@"产品",@"个人档",@"留言",@"访客",@"收藏"];
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, 100, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
@@ -369,6 +409,10 @@
     {
         EQDR_articleListModel  *model = arr_rizhi2[indexPath.row];
         return model.cellHeight;
+    }else if (tableV1 ==tableView)
+    {
+        PXNeedModel  *model = arr_need[indexPath.row];
+        return model.cellHeight >60? model.cellHeight:60;
     }
     else
     {
@@ -397,7 +441,7 @@
         return arr_rizhi2.count;
     }else if (tableV1 ==tableView)
     {
-        return 1;
+        return arr_need.count;
     }else if (tableV7 ==tableView)
     {
         return arr_names7.count;
@@ -562,14 +606,28 @@
     }else if (tableView ==tableV1)
     {
         static NSString *cellId=@"cellID1";
-        UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        EQDR_labelTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.textLabel.font = [UIFont systemFontOfSize:15];
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
-        cell.textLabel.text = @"正在开发中";
+        
+        PXNeedModel *model = arr_need[indexPath.row];
+        NSMutableAttributedString *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@\n",model.thetheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19 weight:3]}];
+        NSMutableAttributedString *contents = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"企业:%@\n培训地区：%@\n需求结束时间：%@",model.company,model.theplace,model.thedateEnd] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor grayColor]}];
+        [name appendAttributedString:contents];
+        
+        name.yy_lineSpacing =6;
+        CGSize  size = [name boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        model.cellHeight =size.height+20;
+        cell.YL_label.attributedText = name;
+        [cell.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(size.height+15);
+            make.left.mas_equalTo(cell.mas_left).mas_offset(15);
+            make.right.mas_equalTo(cell.mas_right).mas_offset(-15);
+            make.centerY.mas_equalTo(cell.mas_centerY);
+        }];
+        
         return cell;
     }else if (tableView ==tableV7)
     {
@@ -581,6 +639,16 @@
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
         cell.textLabel.text = arr_names7[indexPath.row];
+        return cell;
+    }else if (tableView ==tableV1)
+    {
+        static NSString *cellId = @"cellid1";
+        EQDR_labelTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[EQDR_labelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+//        NSMutableAttributedString *name
         return cell;
     }
     
@@ -728,6 +796,11 @@
     }else if (tableView == tableV1)
     {
        //主页
+        PXNeedModel *model = arr_need[indexPath.row];
+        PXNeedDetailViewController *Dvc = [[PXNeedDetailViewController alloc]init];
+        Dvc.Id = model.Id;
+        [self.navigationController pushViewController:Dvc animated:NO];
+        
     }else if (tableV2 == tableView)
     {
         //日志

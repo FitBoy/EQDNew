@@ -34,6 +34,23 @@
 @property (nonatomic,copy) NSString* courseName;
 @property (nonatomic,copy) NSString* courseType;
 //@property (nonatomic,copy) NSString* lectureName;
-
+/*
+ 匹配的课程
+ {
+ Id = 81;
+ courseObjecter = sdsd;
+ courseTheme = "\U57f9\U8bad\U7ba1\U7406";
+ courseType = "\U6f14\U8bb2\U53e3\U624d,\U57f9\U8bad\U7ba1\U7406";
+ coursetIndustry = "";
+ createTime = "2018-08-07 16:39:19";
+ lectureName = "\U738b\U5029";
+ }
+ */
+@property (nonatomic,copy) NSString* courseObjecter;
+@property (nonatomic,copy) NSString* courseTheme;
+//@property (nonatomic,copy) NSString* courseType;
+@property (nonatomic,copy) NSString* coursetIndustry;
+//@property (nonatomic,copy) NSString* lectureName;
+@property (nonatomic,copy) NSString* createTime;
 
 @end

@@ -76,6 +76,9 @@
 /// 易企学的 推荐课程
 @property (nonatomic,strong)  EQDS_CourseModel  *model_tuijian;
 -(void)setModel_tuijian:(EQDS_CourseModel *)model_tuijian;
+///匹配的课程
+-(void)setModel_pipei:(EQDS_CourseModel *)model_pipei;
+
 /// 易企学的培训需求
 @property (nonatomic,strong)  PXNeedModel *model_need;
 -(void)setModel_need:(PXNeedModel *)model_need;

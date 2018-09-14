@@ -15,6 +15,7 @@
 #import "EQDS_searchHighViewController.h"
 #import "FBShowimg_moreViewController.h"
 #import "PlayerViewController.h"
+#import "FB_pipeiNeedViewController.h"
 @interface EQDS_CourseDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -86,6 +87,16 @@
 {
    
     UIAlertController  *alert = [[UIAlertController alloc]init];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"匹配的需求" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            FB_pipeiNeedViewController  *Nvc = [[FB_pipeiNeedViewController alloc]init];
+            Nvc.courseId = model_detail.Id;
+            [self.navigationController pushViewController:Nvc animated:NO];
+        });
+        
+    }]];
+    
     [alert addAction:[UIAlertAction actionWithTitle:@"收藏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [WebRequest Makerspacey_MakerCollection_Add_MakerCollectionWithuserCompanyId:user.companyId objectId:self.courseId objectType:@"2" objectGuid:model_detail.userGuid objectCompanyId:@"0" userGuid:user.Guid And:^(NSDictionary *dic) {
             MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];

@@ -21,6 +21,7 @@
 #import "WS_comDetailViewController.h"
 //创客空间
 #import "CK_CKPersonZoneViewController.h"
+#import "FBButton.h"
 @interface PPersonCardViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
@@ -29,6 +30,8 @@
     NSMutableArray *arr_three;
     UserModel *user;
     NSInteger  isFriend;
+    UIView *V_footer;
+    
 }
 
 @end
@@ -79,6 +82,15 @@
     [self.navigationItem setRightBarButtonItem:right];
     [self loadRequestData];
     
+    ///底部一键导入
+    V_footer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, 30)];
+    V_footer.userInteractionEnabled = YES;
+    FBButton *tbtn= [FBButton buttonWithType:UIButtonTypeSystem];
+    [tbtn setTitle:@"一键导入到CRM" titleColor:[UIColor whiteColor] backgroundColor:[UIColor greenColor] font:[UIFont systemFontOfSize:16]];
+    tbtn.frame = CGRectMake(DEVICE_WIDTH-150-15, 3, 150, 25);
+    [V_footer addSubview:tbtn];
+    [tbtn addTarget:self action:@selector(daoruCLick) forControlEvents:UIControlEventTouchUpInside];
+    
     [WebRequest Friend_Get_IsFriendWithmyGuid:user.Guid userGuid:self.userGuid And:^(NSDictionary *dic) {
         if ([dic[Y_STATUS] integerValue]==200) {
             if ([dic[Y_ITEMS] integerValue]==1 || [dic[Y_ITEMS] integerValue]==11) {
@@ -93,6 +105,11 @@
     }];
     
    }
+#pragma  mark - 一键导入CRM
+-(void)daoruCLick
+{
+    
+}
 -(void)moreClick
 {
     //更多
@@ -202,6 +219,7 @@
     
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (indexPath.section==0) {
         static NSString *cellid1 =@"cellid1";
         MyFirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid1];

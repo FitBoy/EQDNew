@@ -10,7 +10,8 @@
 #import "FBTextFieldViewController.h"
 #import "FBTextVViewController.h"
 #import "FBContactPeopleViewController.h"
-@interface LXRAddViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBContactPeopleViewControllerdelegate>
+#import "FB_friendSearchViewController.h"
+@interface LXRAddViewController ()<UITableViewDataSource,UITableViewDelegate,FBTextVViewControllerDelegate,FBTextFieldViewControllerDelegate,FBContactPeopleViewControllerdelegate,FB_friendSearchViewControllerDelegate>
 {
     UITableView *tableV;
     NSMutableArray *arr_names;
@@ -111,7 +112,25 @@
     cell.detailTextLabel.text = arr_contents[indexPath.row];
     return cell;
 }
-
+-(void)gethaoyouModel:(HaoYouModel *)tmodel
+{
+    [WebRequest Com_User_BusinessCardWithuserGuid:tmodel.Guid And:^(NSDictionary *dic) {
+        NSNumber *number = dic[Y_STATUS];
+        if ([number integerValue]==200) {
+            NSDictionary *dic1=dic[Y_ITEMS];
+        Com_UserModel   *model1 = [Com_UserModel mj_objectWithKeyValues:dic1];
+            arr_contents = [NSMutableArray arrayWithArray:@[model1.username,model1.department,model1.post,model1.uname,model1.QQ,model1.WeChat,model1.Email,model1.username]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableV reloadData];
+            });
+        }
+        else
+        {
+          
+        }
+    }];
+}
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -127,6 +146,15 @@
     }else if (indexPath.row==0 || indexPath.row==3)
     {
         UIAlertController *alert = [[UIAlertController alloc]init];
+    
+        [alert addAction:[UIAlertAction actionWithTitle:@"易企点用户导入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            FB_friendSearchViewController  *Svc  = [[FB_friendSearchViewController alloc]init];
+            Svc.delegate_friend = self;
+            [self.navigationController pushViewController:Svc animated:NO];
+            
+        }]];
+        
         [alert addAction:[UIAlertAction actionWithTitle:@"通讯录导入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             FBContactPeopleViewController *Pvc =[[FBContactPeopleViewController alloc]init];
             Pvc.delegate =self;

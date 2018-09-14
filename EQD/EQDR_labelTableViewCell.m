@@ -349,6 +349,22 @@
         make.right.mas_equalTo(self.mas_right).mas_offset(-15);
     }];
 }
+-(void)setModel_pipei:(EQDS_CourseModel *)model_pipei
+{
+    _model_tuijian = model_pipei;
+    NSMutableAttributedString  *name = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"【%@】%@",model_pipei.lectureName,model_pipei.courseTheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
+    name.yy_lineSpacing =6;
+    self.YL_label.attributedText =name;
+    
+    CGSize size = [name boundingRectWithSize:CGSizeMake(self.frame.size.width-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_pipei.cell_height = size.height+20;
+    [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.mas_centerY);
+        make.height.mas_equalTo(size.height+15);
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+    }];
+}
 -(void)setModel_courseMin:(PX_courseManageModel *)model_courseMin
 {
     _model_courseMin = model_courseMin;

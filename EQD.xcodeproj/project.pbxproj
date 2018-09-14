@@ -349,7 +349,6 @@
 		181F75EC202C144F00AC8440 /* EQDS_appViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75EB202C144F00AC8440 /* EQDS_appViewController.m */; };
 		181F75F1202C49FF00AC8440 /* EQD_SearchAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75F0202C49FF00AC8440 /* EQD_SearchAllViewController.m */; };
 		181F75F5202D36C400AC8440 /* TeacherInfo_EQDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75F4202D36C400AC8440 /* TeacherInfo_EQDS.m */; };
-		181F75F8202D3D3000AC8440 /* EQDS_myViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F75F7202D3D3000AC8440 /* EQDS_myViewController.m */; };
 		18201DC31EA7373100075C6E /* GNBLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DC21EA7373100075C6E /* GNBLCollectionViewCell.m */; };
 		18201DC71EA73B9E00075C6E /* GNmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DC61EA73B9E00075C6E /* GNmodel.m */; };
 		18201DCB1EA7413F00075C6E /* ThreeRenShiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18201DCA1EA7413F00075C6E /* ThreeRenShiViewController.m */; };
@@ -429,6 +428,8 @@
 		182F81B91E8E4A3500231A5F /* ASearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182F81B81E8E4A3500231A5F /* ASearchViewController.m */; };
 		182F81BD1E8E588100231A5F /* SDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182F81BC1E8E588100231A5F /* SDetailViewController.m */; };
 		18313501210EF0C0004503E3 /* SC_ComShoucangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18313500210EF0C0004503E3 /* SC_ComShoucangViewController.m */; };
+		1831E670214A3C4E004F377D /* KH_fuJinKeHuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831E66F214A3C4E004F377D /* KH_fuJinKeHuViewController.m */; };
+		1831E673214A599E004F377D /* NearbyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831E672214A599E004F377D /* NearbyModel.m */; };
 		1831FE0F208450EB0046D3B7 /* FX_riZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831FE0E208450EB0046D3B7 /* FX_riZhiViewController.m */; };
 		1831FE13208451940046D3B7 /* FX_riZhiAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831FE12208451940046D3B7 /* FX_riZhiAddViewController.m */; };
 		1831FE1620848DE70046D3B7 /* FX_riZhiSectionAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831FE1520848DE70046D3B7 /* FX_riZhiSectionAddViewController.m */; };
@@ -549,6 +550,7 @@
 		186604781E80CED100C69557 /* FBIVLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186604771E80CED100C69557 /* FBIVLView.m */; };
 		1868948E1FA86485003CBB50 /* ShouCangGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868948D1FA86485003CBB50 /* ShouCangGroupViewController.m */; };
 		186894921FA876EE003CBB50 /* ShouCang_GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186894911FA876EE003CBB50 /* ShouCang_GroupModel.m */; };
+		186B1AA62147A9B50038D818 /* FB_friendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186B1AA52147A9B50038D818 /* FB_friendSearchViewController.m */; };
 		186CA6931F2354D30069A5EB /* FBAddressTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186CA6921F2354D30069A5EB /* FBAddressTwoViewController.m */; };
 		186FCE612042535500203E6F /* EQDS_AddArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE602042535500203E6F /* EQDS_AddArticleViewController.m */; };
 		186FCE642042849F00203E6F /* EQDS_addVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FCE632042849F00203E6F /* EQDS_addVideoViewController.m */; };
@@ -698,6 +700,7 @@
 		189B4A611F1DBF2500073360 /* FBPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B4A601F1DBF2500073360 /* FBPhoneViewController.m */; };
 		189B4A651F1DE4D000073360 /* FBOne_TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B4A641F1DE4D000073360 /* FBOne_TextFieldTableViewCell.m */; };
 		189B4A681F1DE65D00073360 /* FBindexPathTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B4A671F1DE65D00073360 /* FBindexPathTextField.m */; };
+		189D70FE21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D70FD21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.m */; };
 		18A61B0B20C7E2A500B1F655 /* Meeting_recoderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A61B0A20C7E2A500B1F655 /* Meeting_recoderViewController.m */; };
 		18A61B0E20CA25E200B1F655 /* Meeting_recoderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A61B0D20CA25E200B1F655 /* Meeting_recoderListViewController.m */; };
 		18A61B1520CE20A800B1F655 /* TiaoGangListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A61B1420CE20A800B1F655 /* TiaoGangListModel.m */; };
@@ -768,6 +771,10 @@
 		18C0D8382023F37200CA2F5F /* PXKaoQinListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D8372023F37100CA2F5F /* PXKaoQinListModel.m */; };
 		18C0D83B20258B8600CA2F5F /* PX_CourseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D83A20258B8600CA2F5F /* PX_CourseAddViewController.m */; };
 		18C0D83E20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0D83D20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m */; };
+		18CA6064213FB3E6003F63B4 /* FB_pipeiTeacherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA6063213FB3E6003F63B4 /* FB_pipeiTeacherViewController.m */; };
+		18CA6068213FD848003F63B4 /* FB_pipeiCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA6067213FD848003F63B4 /* FB_pipeiCourseViewController.m */; };
+		18CA606C2140D253003F63B4 /* FB_pipeiNeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA606B2140D253003F63B4 /* FB_pipeiNeedViewController.m */; };
+		18CA6070214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA606F214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.m */; };
 		18CB8F0E1E9B1844000BABD2 /* FBOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB8F0D1E9B1844000BABD2 /* FBOptionViewController.m */; };
 		18CB8F111E9B1EE0000BABD2 /* OptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB8F101E9B1EE0000BABD2 /* OptionModel.m */; };
 		18CB8F151E9B2BD5000BABD2 /* FBAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB8F141E9B2BD5000BABD2 /* FBAddressViewController.m */; };
@@ -1520,8 +1527,6 @@
 		181F75F0202C49FF00AC8440 /* EQD_SearchAllViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQD_SearchAllViewController.m; sourceTree = "<group>"; };
 		181F75F3202D36C400AC8440 /* TeacherInfo_EQDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherInfo_EQDS.h; sourceTree = "<group>"; };
 		181F75F4202D36C400AC8440 /* TeacherInfo_EQDS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherInfo_EQDS.m; sourceTree = "<group>"; };
-		181F75F6202D3D3000AC8440 /* EQDS_myViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_myViewController.h; sourceTree = "<group>"; };
-		181F75F7202D3D3000AC8440 /* EQDS_myViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQDS_myViewController.m; sourceTree = "<group>"; };
 		18201DC11EA7373100075C6E /* GNBLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNBLCollectionViewCell.h; sourceTree = "<group>"; };
 		18201DC21EA7373100075C6E /* GNBLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNBLCollectionViewCell.m; sourceTree = "<group>"; };
 		18201DC51EA73B9E00075C6E /* GNmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNmodel.h; sourceTree = "<group>"; };
@@ -1680,6 +1685,10 @@
 		182F81BC1E8E588100231A5F /* SDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDetailViewController.m; sourceTree = "<group>"; };
 		183134FF210EF0C0004503E3 /* SC_ComShoucangViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SC_ComShoucangViewController.h; sourceTree = "<group>"; };
 		18313500210EF0C0004503E3 /* SC_ComShoucangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SC_ComShoucangViewController.m; sourceTree = "<group>"; };
+		1831E66E214A3C4E004F377D /* KH_fuJinKeHuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KH_fuJinKeHuViewController.h; sourceTree = "<group>"; };
+		1831E66F214A3C4E004F377D /* KH_fuJinKeHuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KH_fuJinKeHuViewController.m; sourceTree = "<group>"; };
+		1831E671214A599E004F377D /* NearbyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearbyModel.h; sourceTree = "<group>"; };
+		1831E672214A599E004F377D /* NearbyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearbyModel.m; sourceTree = "<group>"; };
 		1831FE0D208450EB0046D3B7 /* FX_riZhiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FX_riZhiViewController.h; sourceTree = "<group>"; };
 		1831FE0E208450EB0046D3B7 /* FX_riZhiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FX_riZhiViewController.m; sourceTree = "<group>"; };
 		1831FE11208451940046D3B7 /* FX_riZhiAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FX_riZhiAddViewController.h; sourceTree = "<group>"; };
@@ -1920,6 +1929,8 @@
 		1868948D1FA86485003CBB50 /* ShouCangGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShouCangGroupViewController.m; sourceTree = "<group>"; };
 		186894901FA876EE003CBB50 /* ShouCang_GroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShouCang_GroupModel.h; sourceTree = "<group>"; };
 		186894911FA876EE003CBB50 /* ShouCang_GroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShouCang_GroupModel.m; sourceTree = "<group>"; };
+		186B1AA42147A9B50038D818 /* FB_friendSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_friendSearchViewController.h; sourceTree = "<group>"; };
+		186B1AA52147A9B50038D818 /* FB_friendSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_friendSearchViewController.m; sourceTree = "<group>"; };
 		186CA6911F2354D30069A5EB /* FBAddressTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAddressTwoViewController.h; sourceTree = "<group>"; };
 		186CA6921F2354D30069A5EB /* FBAddressTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAddressTwoViewController.m; sourceTree = "<group>"; };
 		186FCE5F2042535500203E6F /* EQDS_AddArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EQDS_AddArticleViewController.h; sourceTree = "<group>"; };
@@ -2185,6 +2196,8 @@
 		189B4A641F1DE4D000073360 /* FBOne_TextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBOne_TextFieldTableViewCell.m; sourceTree = "<group>"; };
 		189B4A661F1DE65D00073360 /* FBindexPathTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBindexPathTextField.h; sourceTree = "<group>"; };
 		189B4A671F1DE65D00073360 /* FBindexPathTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBindexPathTextField.m; sourceTree = "<group>"; };
+		189D70FC21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FByylabel_btnOnerightTableViewCell.h; sourceTree = "<group>"; };
+		189D70FD21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FByylabel_btnOnerightTableViewCell.m; sourceTree = "<group>"; };
 		18A61B0920C7E2A500B1F655 /* Meeting_recoderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meeting_recoderViewController.h; sourceTree = "<group>"; };
 		18A61B0A20C7E2A500B1F655 /* Meeting_recoderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Meeting_recoderViewController.m; sourceTree = "<group>"; };
 		18A61B0C20CA25E200B1F655 /* Meeting_recoderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meeting_recoderListViewController.h; sourceTree = "<group>"; };
@@ -2325,6 +2338,14 @@
 		18C0D83A20258B8600CA2F5F /* PX_CourseAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PX_CourseAddViewController.m; sourceTree = "<group>"; };
 		18C0D83C20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBLabel_YYAddTableViewCell.h; sourceTree = "<group>"; };
 		18C0D83D20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBLabel_YYAddTableViewCell.m; sourceTree = "<group>"; };
+		18CA6062213FB3E6003F63B4 /* FB_pipeiTeacherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_pipeiTeacherViewController.h; sourceTree = "<group>"; };
+		18CA6063213FB3E6003F63B4 /* FB_pipeiTeacherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_pipeiTeacherViewController.m; sourceTree = "<group>"; };
+		18CA6066213FD848003F63B4 /* FB_pipeiCourseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_pipeiCourseViewController.h; sourceTree = "<group>"; };
+		18CA6067213FD848003F63B4 /* FB_pipeiCourseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_pipeiCourseViewController.m; sourceTree = "<group>"; };
+		18CA606A2140D253003F63B4 /* FB_pipeiNeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FB_pipeiNeedViewController.h; sourceTree = "<group>"; };
+		18CA606B2140D253003F63B4 /* FB_pipeiNeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FB_pipeiNeedViewController.m; sourceTree = "<group>"; };
+		18CA606E214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FByyLabel_twobtnTableViewCell.h; sourceTree = "<group>"; };
+		18CA606F214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FByyLabel_twobtnTableViewCell.m; sourceTree = "<group>"; };
 		18CB8F0C1E9B1844000BABD2 /* FBOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBOptionViewController.h; sourceTree = "<group>"; };
 		18CB8F0D1E9B1844000BABD2 /* FBOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBOptionViewController.m; sourceTree = "<group>"; };
 		18CB8F0F1E9B1EE0000BABD2 /* OptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionModel.h; sourceTree = "<group>"; };
@@ -2719,6 +2740,10 @@
 			children = (
 				180445191ED3D331003FFD88 /* TKeHuGuanLiViewController.h */,
 				1804451A1ED3D331003FFD88 /* TKeHuGuanLiViewController.m */,
+				1831E66E214A3C4E004F377D /* KH_fuJinKeHuViewController.h */,
+				1831E66F214A3C4E004F377D /* KH_fuJinKeHuViewController.m */,
+				1831E671214A599E004F377D /* NearbyModel.h */,
+				1831E672214A599E004F377D /* NearbyModel.m */,
 				18027D5120A971D100EA6C40 /* keHuManagerViewController.h */,
 				18027D5220A971D100EA6C40 /* keHuManagerViewController.m */,
 				180445731ED80D5E003FFD88 /* 筛选 */,
@@ -2821,6 +2846,8 @@
 			children = (
 				180445451ED53A32003FFD88 /* LXRAddViewController.h */,
 				180445461ED53A32003FFD88 /* LXRAddViewController.m */,
+				186B1AA42147A9B50038D818 /* FB_friendSearchViewController.h */,
+				186B1AA52147A9B50038D818 /* FB_friendSearchViewController.m */,
 			);
 			name = "添加联系人";
 			sourceTree = "<group>";
@@ -4538,8 +4565,6 @@
 		181F75F9202D3D3500AC8440 /* 个人中心 */ = {
 			isa = PBXGroup;
 			children = (
-				181F75F6202D3D3000AC8440 /* EQDS_myViewController.h */,
-				181F75F7202D3D3000AC8440 /* EQDS_myViewController.m */,
 				181A499D2053B0BA00C436EE /* 培训需求详情 */,
 				181A4991204FE88F00C436EE /* 课程详情 */,
 				181A498B204FC67400C436EE /* EQDS_videoChooseViewController.h */,
@@ -5285,12 +5310,17 @@
 				181F75D9202AFE8800AC8440 /* PXChooseListViewController.m */,
 				1833E11A200451EE00F37B02 /* PXNeedListViewController.h */,
 				1833E11B200451EE00F37B02 /* PXNeedListViewController.m */,
+				18CA606E214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.h */,
+				18CA606F214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.m */,
 				181F75E0202BF7FD00AC8440 /* PXNeedDetailViewController.h */,
 				181F75E1202BF7FD00AC8440 /* PXNeedDetailViewController.m */,
 				1833E11E200452FB00F37B02 /* Need_AddViewController.h */,
 				1833E11F200452FB00F37B02 /* Need_AddViewController.m */,
 				1801CD9C213D1275002B367F /* FB_shuXiangViewController.h */,
 				1801CD9D213D1275002B367F /* FB_shuXiangViewController.m */,
+				18CA606D2140D257003F63B4 /* 根据课程匹配的需求 */,
+				18CA6069213FD84C003F63B4 /* 根据需求匹配的课程 */,
+				18CA6065213FB3EB003F63B4 /* 根据需求匹配的讲师 */,
 			);
 			name = "培训需求";
 			sourceTree = "<group>";
@@ -7104,6 +7134,8 @@
 			children = (
 				18B6C0B42016CDAD005876B2 /* PX_CourseManagerViewController.h */,
 				18B6C0B52016CDAD005876B2 /* PX_CourseManagerViewController.m */,
+				189D70FC21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.h */,
+				189D70FD21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.m */,
 				181F75D62029A28400AC8440 /* PXCourseDetailViewController.h */,
 				181F75D72029A28400AC8440 /* PXCourseDetailViewController.m */,
 				18C0D83920258B8600CA2F5F /* PX_CourseAddViewController.h */,
@@ -7235,6 +7267,33 @@
 				18C0D83D20259A1F00CA2F5F /* FBLabel_YYAddTableViewCell.m */,
 			);
 			name = "统一添加的cell";
+			sourceTree = "<group>";
+		};
+		18CA6065213FB3EB003F63B4 /* 根据需求匹配的讲师 */ = {
+			isa = PBXGroup;
+			children = (
+				18CA6062213FB3E6003F63B4 /* FB_pipeiTeacherViewController.h */,
+				18CA6063213FB3E6003F63B4 /* FB_pipeiTeacherViewController.m */,
+			);
+			name = "根据需求匹配的讲师";
+			sourceTree = "<group>";
+		};
+		18CA6069213FD84C003F63B4 /* 根据需求匹配的课程 */ = {
+			isa = PBXGroup;
+			children = (
+				18CA6066213FD848003F63B4 /* FB_pipeiCourseViewController.h */,
+				18CA6067213FD848003F63B4 /* FB_pipeiCourseViewController.m */,
+			);
+			name = "根据需求匹配的课程";
+			sourceTree = "<group>";
+		};
+		18CA606D2140D257003F63B4 /* 根据课程匹配的需求 */ = {
+			isa = PBXGroup;
+			children = (
+				18CA606A2140D253003F63B4 /* FB_pipeiNeedViewController.h */,
+				18CA606B2140D253003F63B4 /* FB_pipeiNeedViewController.m */,
+			);
+			name = "根据课程匹配的需求";
 			sourceTree = "<group>";
 		};
 		18CB8F121E9B1EE4000BABD2 /* 选择器的model */ = {
@@ -9196,6 +9255,7 @@
 				18EE65521F510AB80096DCE9 /* TB_AddViewController.m in Sources */,
 				189B4A181F0F8C1E00073360 /* QunMember.m in Sources */,
 				18D9D8DD1FE8C39100D29185 /* EQDR_Article_DetailViewController.m in Sources */,
+				189D70FE21422B0A00BF5470 /* FByylabel_btnOnerightTableViewCell.m in Sources */,
 				181C35D91F8F4A5F005E753B /* FBindexPathSwitch.m in Sources */,
 				183BBE6B1F26E87D007D4675 /* FBTwo_noImg11TableViewCell.m in Sources */,
 				183BBE9F1F2ACA32007D4675 /* SQLiZhiListViewController.m in Sources */,
@@ -9250,6 +9310,7 @@
 				18D9D8D41FE4AF9F00D29185 /* EQDR_ArticleTableViewCell.m in Sources */,
 				181A4990204FE88B00C436EE /* EQDS_CourseDetailViewController.m in Sources */,
 				181A499C2053B0B400C436EE /* EQDS_needDetailViewController.m in Sources */,
+				18CA6070214120D6003F63B4 /* FByyLabel_twobtnTableViewCell.m in Sources */,
 				180CFECD1F56BC470043C784 /* JB_AddViewController.m in Sources */,
 				18074B1D1FDBD8C3006B2682 /* CYRLayoutManager.m in Sources */,
 				180445761ED816B7003FFD88 /* SXChooseViewController.m in Sources */,
@@ -9341,6 +9402,7 @@
 				180E3FD61F3DB83400E29EB8 /* GZQ_PingLunTableViewCell.m in Sources */,
 				182723E721194D68004FA622 /* CK_CKPersonZoneViewController.m in Sources */,
 				18E465711EEA49210018D72A /* ZPJianlLiLibararyViewController.m in Sources */,
+				18CA606C2140D253003F63B4 /* FB_pipeiNeedViewController.m in Sources */,
 				18CB8F6B1EA1CF40000BABD2 /* QYQHaoYouViewController.m in Sources */,
 				181378771FADC26900B7C964 /* SDAdImageView.m in Sources */,
 				1818CDB8201ABDAE00371D22 /* FBImg_YYlabelTableViewCell.m in Sources */,
@@ -9360,6 +9422,7 @@
 				1818CDAF2019B7E400371D22 /* EQDS_SearchViewController.m in Sources */,
 				1825ADBA20E754DA001377AF /* WS_liuYanModel.m in Sources */,
 				18E102B21F95E4DC00C6A0E2 /* KeHu_ListModel.m in Sources */,
+				18CA6064213FB3E6003F63B4 /* FB_pipeiTeacherViewController.m in Sources */,
 				18341D502121846E0093C985 /* CK_courseViewController.m in Sources */,
 				18074B1F1FDBD8C3006B2682 /* CYRTextStorage.m in Sources */,
 				187D4A842060A50600F0D8B2 /* FBLabel_segmentTableViewCell.m in Sources */,
@@ -9423,6 +9486,7 @@
 				1844D8181F70CF0C002B4A66 /* LLBook_OtherDetailViewController.m in Sources */,
 				180CFF321F6283460043C784 /* HeTong_DetailViewController.m in Sources */,
 				183BFFE61FD2704100C70988 /* CarManagerModel.m in Sources */,
+				1831E670214A3C4E004F377D /* KH_fuJinKeHuViewController.m in Sources */,
 				182B7B7A212D438000D7DF0A /* FX_caiGouViewController.m in Sources */,
 				18FC4E4D1F7B506600028B69 /* MEMo_DetailViewController.m in Sources */,
 				18074B2D1FDE1519006B2682 /* EQDR_ShouYeViewController.m in Sources */,
@@ -9463,6 +9527,7 @@
 				1825ADB420E61552001377AF /* WS_ComDetailModel.m in Sources */,
 				1866046D1E80C85A00C69557 /* MyDangAn1ViewController.m in Sources */,
 				1885421E1E8CA5E40051AF74 /* LTrueTableViewCell.m in Sources */,
+				186B1AA62147A9B50038D818 /* FB_friendSearchViewController.m in Sources */,
 				182AF4EC20FF231900D6951F /* SC_MaiMaiViewController.m in Sources */,
 				181593471FA433BD00650BF8 /* MyShouCangModel.m in Sources */,
 				1824CF681F4EB8B70003237A /* ShenPiListModel.m in Sources */,
@@ -9470,6 +9535,7 @@
 				18F30FED1EE7DDBD00FA070E /* ZPLaoDongHeTongViewController.m in Sources */,
 				1831FE19208AE4290046D3B7 /* MXiaoLaBaAddViewController.m in Sources */,
 				1831FE2120907D030046D3B7 /* FX_MyRiZhiViewController.m in Sources */,
+				1831E673214A599E004F377D /* NearbyModel.m in Sources */,
 				1815122F1F038D0E004738CE /* CalendarModel.m in Sources */,
 				186FCEE8204E37F400203E6F /* EQD_photoCollectionViewCell.m in Sources */,
 				188CF40D1F482286007CF87C /* BB_PeopleViewController.m in Sources */,
@@ -9617,7 +9683,6 @@
 				18E102C61F98509700C6A0E2 /* GLChance_DetailViewController.m in Sources */,
 				1825E6F82115AA74009E6FD6 /* FBunderLineTextField.m in Sources */,
 				181C35BA1F8DFA87005E753B /* FanKui_AddViewController.m in Sources */,
-				181F75F8202D3D3000AC8440 /* EQDS_myViewController.m in Sources */,
 				183BFFFE1FD67DFC00C70988 /* RepairRecord_DetailViewController.m in Sources */,
 				1818CDBC201B2EF400371D22 /* PXKaoQin_ErWeiMaViewController.m in Sources */,
 				1833E12A2005C63C00F37B02 /* PX_Plan_AddViewController.m in Sources */,
@@ -9644,6 +9709,7 @@
 				18CB8F501E9F6AC5000BABD2 /* DerweimaViewController.m in Sources */,
 				18B6C0662008B89C005876B2 /* PlanListModel.m in Sources */,
 				183BBEE01F308CCB007D4675 /* FQ_RenWuDetailViewController.m in Sources */,
+				18CA6068213FD848003F63B4 /* FB_pipeiCourseViewController.m in Sources */,
 				18B6C06A2008BFE8005876B2 /* PX_PlanDetailViewController.m in Sources */,
 				189B4A5D1F1DAF1100073360 /* MSafeViewController.m in Sources */,
 				18CB8F361E9CD0A8000BABD2 /* FBFriendViewController.m in Sources */,

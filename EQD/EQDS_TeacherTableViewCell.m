@@ -10,8 +10,34 @@
 #import <Masonry.h>
 #import <UIImageView+WebCache.h>
 @implementation EQDS_TeacherTableViewCell
+
+-(void)setModel3:(EQDS_teacherInfoModel *)model
+{
+    _model_teacher = model;
+    [self.IV_head sd_setImageWithURL:[NSURL URLWithString:model.headimage] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+    
+    self.L_name.text =[NSString stringWithFormat:@"%@",model.realname];
+    self.L_contents.text = [NSString stringWithFormat:@"常驻地区：%@",model.address];
+    NSMutableAttributedString *ResearchField = [[NSMutableAttributedString alloc]initWithString:@""];
+    NSArray *tarr = [model.ResearchField componentsSeparatedByString:@","];
+    for (int i=0; i<tarr.count; i++) {
+        NSMutableAttributedString  *Tstr = [[NSMutableAttributedString alloc]initWithString:tarr[i] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+        [Tstr yy_setTextBackgroundBorder:[YYTextBorder borderWithLineStyle:YYTextLineStyleSingle lineWidth:1 strokeColor:[UIColor orangeColor]] range:Tstr.yy_rangeOfAll];
+        [Tstr yy_setTextHighlightRange:Tstr.yy_rangeOfAll color:[UIColor orangeColor] backgroundColor:[UIColor orangeColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+            if ([self.delegate respondsToSelector:@selector(getlable:Withmodel:)]) {
+                [self.delegate getlable:tarr[i] Withmodel:model];
+            }
+        }];
+        
+        [ResearchField appendAttributedString:Tstr];
+        NSMutableAttributedString *kong = [[NSMutableAttributedString alloc]initWithString:@"   "];
+        [ResearchField appendAttributedString:kong];
+    }
+    self.YL_label.attributedText = ResearchField;
+}
 -(void)setModel2:(EQDS_teacherInfoModel *)model2
 {
+    _model_teacher = model2;
     [self.IV_head sd_setImageWithURL:[NSURL URLWithString:model2.headimage] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
    
     self.L_name.text =[NSString stringWithFormat:@"%@",model2.realname];

@@ -7,8 +7,11 @@
 // 客户管理
 
 #import "FBBaseViewController.h"
-
+#import "KeHu_ListModel.h"
 @interface TKeHuGuanLiViewController : FBBaseViewController
-/// 0 个人客户 1 人事客户
+/// 0 个人客户 1 人事客户 3 选择客户导入联系人
 @property (nonatomic,assign) NSInteger isRenShi;
+@end
+@protocol TKeHuGuanLiViewControllerDelegate <NSObject>
+
 @end

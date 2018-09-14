@@ -109,7 +109,7 @@
     [super viewDidLoad];
     user = [WebRequest GetUserInfo];
 
-    webview_Detail= [[UIWebView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-50-kBottomSafeHeight)];
+    webview_Detail= [[UIWebView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-55-kBottomSafeHeight)];
     adjustsScrollViewInsets_NO(webview_Detail.scrollView, self);
     [self.view addSubview:webview_Detail];
     webview_Detail.delegate =self;
@@ -123,9 +123,11 @@
     [self.navigationItem setRightBarButtonItem:right];
     
     
-    V_bottom = [[UIView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-50-kBottomSafeHeight, DEVICE_WIDTH, 50)];
+    V_bottom = [[UIView alloc]initWithFrame:CGRectMake(0, DEVICE_HEIGHT-55-kBottomSafeHeight, DEVICE_WIDTH, 55)];
     V_bottom.userInteractionEnabled=YES;
-    [V_bottom setBackgroundColor:[UIColor blackColor]];
+    [V_bottom setBackgroundColor:[UIColor whiteColor]];
+    V_bottom.layer.borderColor=[UIColor grayColor].CGColor;
+    V_bottom.layer.borderWidth =0.6;
 //    V_bottom.hidden=YES;
     [self.view addSubview:V_bottom];
       [self loadRequestData];

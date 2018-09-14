@@ -9,5 +9,5 @@
 #import "FBBaseViewController.h"
 
 @interface PXNeedDetailViewController : FBBaseViewController
-
+@property (nonatomic,copy) NSString* Id;
 @end

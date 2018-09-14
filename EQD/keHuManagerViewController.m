@@ -29,6 +29,7 @@
 #import "FKDetailViewController.h"
 #import "GLLianXI_DetailViewController.h"
 #import "KHDetailViewController.h"
+#import <MapKit/MapKit.h>
 @interface keHuManagerViewController ()<UITableViewDelegate,UITableViewDataSource,FBHeadScrollTitleViewDelegate>
 {
     UITableView *tableV;
@@ -51,6 +52,11 @@
     UIView *V_secion;
     FBButton *btn_title;
     NSArray *arr_titles;
+    
+    
+    ///选择框
+    UITableView *tableV_selecte;
+    NSArray *arr_names;
 }
 
 @end
@@ -344,9 +350,101 @@
     [btn_title addTarget:self action:@selector(btnTitleClick) forControlEvents:UIControlEventTouchUpInside];
     
 
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"客户详情" style:UIBarButtonItemStylePlain target:self action:@selector(kehuDetailClick)];
+    UIBarButtonItem  *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"EQD_more"] style:UIBarButtonItemStylePlain target:self action:@selector(rightMoreCLick)];
     [self.navigationItem setRightBarButtonItem:right];
+   
     
+    arr_names = @[@"客户详情",@"到客户那去"];
+    //@"认证易企点客户"
+    tableV_selecte = [[UITableView alloc]initWithFrame:CGRectMake(DEVICE_WIDTH-160-15, DEVICE_TABBAR_Height+5, 160, 120) style:UITableViewStylePlain];
+    adjustsScrollViewInsets_NO(tableV_selecte, self);
+    tableV_selecte.delegate=self;
+    tableV_selecte.dataSource=self;
+    [self.view addSubview:tableV_selecte];
+    tableV_selecte.rowHeight=60;
+    tableV_selecte.hidden = YES;
+    tableV_selecte.layer.masksToBounds = YES;
+    tableV_selecte.layer.cornerRadius =6;
+}
+
+-(void)rightMoreCLick
+{
+    //更多
+    tableV_selecte.hidden =NO;
+    [tableV_selecte bringSubviewToFront:self.view];
+    
+}
+-(void)daohangClick
+{
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([model_detail.addrlong floatValue],[model_detail.addrlat floatValue]);
+    UIAlertController *alert = [[UIAlertController alloc]init];
+    NSURL * apple_App = [NSURL URLWithString:@"http://maps.apple.com/"];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:apple_App]) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"使用苹果自带地图导航" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //当前位置
+            MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+            MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil]];
+            //传入目的地，会显示在苹果自带地图上面目的地一栏
+            toLocation.name = model_detail.address;
+            //导航方式选择walking
+            [MKMapItem openMapsWithItems:@[currentLocation, toLocation]
+                           launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
+        
+        }]];
+    }
+    
+    NSURL * gaode_App = [NSURL URLWithString:@"iosamap://"];
+    if ([[UIApplication sharedApplication] canOpenURL:gaode_App]) {
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"使用高德地图导航" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+           
+            NSString *urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=%@&sid=BGVIS1&did=BGVIS2&dlat=%f&dlon=%f&dname=%@&dev=0&t=0",@"易企点",coordinate.latitude,coordinate.longitude,model_detail.address] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            
+            NSLog(@"%@",urlString);
+            
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:^(BOOL success) {
+               if(!success)
+               {
+                   MBFadeAlertView *alertB =[[MBFadeAlertView alloc]init];
+                   [alertB showAlertWith:@"未知错误"];
+               }
+            }];
+            
+            
+        }]];
+    }
+    
+    NSURL * baidu_App = [NSURL URLWithString:@"baidumap://"];
+    if ([[UIApplication sharedApplication] canOpenURL:baidu_App]) {
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"使用百度地图导航" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+         
+            
+            NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name:%@&mode=driving&coord_type=gcj02",coordinate.latitude, coordinate.longitude,model_detail.address] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            
+            NSLog(@"%@",urlString);
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:^(BOOL success) {
+                if(!success)
+                {
+                    MBFadeAlertView *alertB =[[MBFadeAlertView alloc]init];
+                    [alertB showAlertWith:@"未知错误"];
+                }
+            }];
+            
+            
+        }]];
+    }
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [self presentViewController:alert animated:NO completion:nil];
 }
 -(void)kehuDetailClick
 {
@@ -389,12 +487,14 @@
 #pragma  mark - 表的数据源
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section==0) {
+    
+    if (section==0 && tableView ==tableV) {
         return 50;
     }else
     {
         return 0;
     }
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -402,7 +502,8 @@
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section==0) {
+   
+    if (section==0 && tableView ==tableV) {
         return titleV;
     }else
     {
@@ -424,90 +525,130 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *tarr =@[arr_model0,arr_model1,arr_model2,arr_model3];
-    NSArray *tarr2 = tarr[temp];
-    return  tarr2.count;
+    if (tableView ==tableV) {
+        NSArray *tarr =@[arr_model0,arr_model1,arr_model2,arr_model3];
+        NSArray *tarr2 = tarr[temp];
+        return  tarr2.count;
+    }else if (tableView ==tableV_selecte)
+    {
+        return arr_names.count;
+    }else
+    {
+        return 0;
+    }
+  
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (temp ==0) {
-        //销售机会
+    
+    if (tableView ==tableV) {
         
-        static NSString *cellId=@"cellID0";
-        FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+        switch (temp) {
+            case 0:
+            {
+                //销售机会
+                
+                static NSString *cellId=@"cellID0";
+                FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+                if (!cell) {
+                    cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                ChanceSaleModel  *model = arr_model0[indexPath.row];
+                [cell setModel:model];
+                cell.L_right.textColor = EQDCOLOR;
+                FBindexTapGestureRecognizer *tap_phone = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapPhoneClick:)];
+                tap_phone.indexPath = indexPath;
+                [cell.L_right addGestureRecognizer:tap_phone];
+                cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
+                return cell;
+            }
+                break;
+               case 1:
+            {
+                //回访记录
+                
+                static NSString *cellId=@"cellID1";
+                FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+                if (!cell) {
+                    cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                GLRecodeModel *model =arr_model1[indexPath.row];
+                [cell setModel:model];
+                cell.L_right.textColor =EQDCOLOR;
+                FBindexTapGestureRecognizer *tap = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick:)];
+                tap.indexPath =indexPath;
+                [cell.L_right addGestureRecognizer:tap];
+                cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
+                return cell;
+            }
+                break;
+                case 2:
+            {
+                //反馈记录
+                
+                static NSString *cellId=@"cellID2";
+                FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+                if (!cell) {
+                    cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    
+                }
+                FanKuiRecordModel *model =arr_model2[indexPath.row];
+                [cell setModel:model];
+                cell.L_right.textColor = EQDCOLOR;
+                FBindexTapGestureRecognizer *tap = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick2:)];
+                tap.indexPath =indexPath;
+                [cell.L_right addGestureRecognizer:tap];
+                cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
+                return cell;
+            }
+                break;
+                case 3:
+            {
+                //联系人
+                
+                static NSString *cellId=@"cellID3";
+                FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+                if (!cell) {
+                    cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                }
+                GLLianXiModel *model =arr_model3[indexPath.row];
+                [cell setModel:model];
+                FBindexTapGestureRecognizer *tap_phone = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tap_phoneClick:)];
+                tap_phone.indexPath = indexPath;
+                cell.L_right.textColor = EQDCOLOR;
+                [cell.L_right addGestureRecognizer:tap_phone];
+                cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
+                
+                return cell;
+            }
+                break;
+            default:
+                return nil;
+                break;
         }
-        ChanceSaleModel  *model = arr_model0[indexPath.row];
-        [cell setModel:model];
-        cell.L_right.textColor = EQDCOLOR;
-        FBindexTapGestureRecognizer *tap_phone = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapPhoneClick:)];
-        tap_phone.indexPath = indexPath;
-        [cell.L_right addGestureRecognizer:tap_phone];
-        cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
-        return cell;
-        
-    }else if (temp ==1)
+    }else if(tableView ==tableV_selecte)
     {
-        //回访记录
-        
-        static NSString *cellId=@"cellID1";
-        FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        static NSString *cellid=@"cellid22";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
         if (!cell) {
-            cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.font = [UIFont systemFontOfSize:17];
         }
-        GLRecodeModel *model =arr_model1[indexPath.row];
-        [cell setModel:model];
-        cell.L_right.textColor =EQDCOLOR;
-        FBindexTapGestureRecognizer *tap = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick:)];
-        tap.indexPath =indexPath;
-        [cell.L_right addGestureRecognizer:tap];
-         cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
-        return cell;
-    }else if (temp ==2)
-    {
-        //反馈记录
-        
-        static NSString *cellId=@"cellID2";
-        FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            
-        }
-        FanKuiRecordModel *model =arr_model2[indexPath.row];
-        [cell setModel:model];
-        cell.L_right.textColor = EQDCOLOR;
-        FBindexTapGestureRecognizer *tap = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick2:)];
-        tap.indexPath =indexPath;
-        [cell.L_right addGestureRecognizer:tap];
-         cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
-        return cell;
-    }else if (temp ==3)
-    {
-        //联系人
-        
-        static NSString *cellId=@"cellID3";
-        FBThree_noimg112TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[FBThree_noimg112TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        GLLianXiModel *model =arr_model3[indexPath.row];
-        [cell setModel:model];
-        FBindexTapGestureRecognizer *tap_phone = [[FBindexTapGestureRecognizer alloc]initWithTarget:self action:@selector(tap_phoneClick:)];
-        tap_phone.indexPath = indexPath;
-        cell.L_right.textColor = EQDCOLOR;
-        [cell.L_right addGestureRecognizer:tap_phone];
-         cell.backgroundColor =[[UIColor grayColor] colorWithAlphaComponent:0.1];
-        
+        cell.textLabel.text = arr_names[indexPath.row];
         return cell;
     }else
     {
         return nil;
     }
     
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    tableV_selecte.hidden = YES;
 }
 -(void)tapClick2:(FBindexTapGestureRecognizer*)tap
 {
@@ -545,6 +686,8 @@
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    tableV_selecte.hidden = YES;
+    if (tableView ==tableV) {
     if (temp==0) {
         //销售机会
         ChanceSaleModel  *model =arr_model0[indexPath.row];
@@ -573,6 +716,33 @@
         GLLianXI_DetailViewController *dvc = [[GLLianXI_DetailViewController alloc]init];
         dvc.model = model;
         [self.navigationController pushViewController:dvc animated:NO];
+    }else
+    {
+        
+    }
+    }else if (tableView ==tableV_selecte)
+    {
+        switch (indexPath.row) {
+            case 0:
+            {
+                ///客户详情
+                [self kehuDetailClick];
+            }
+                break;
+                case 1:
+            {
+                //导航
+                [self daohangClick];
+            }
+                break;
+                case 2:
+            {
+               //绑定易企点
+            }
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -584,7 +754,13 @@
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(tableV ==tableView)
+    {
     return UITableViewCellEditingStyleDelete;
+    }else
+    {
+        return UITableViewCellEditingStyleNone;
+    }
     
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
