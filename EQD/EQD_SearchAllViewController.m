@@ -244,7 +244,7 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
     [self.navigationItem setLeftBarButtonItem:left];
     temp =self.temp0;
-     NSArray *tarr = @[@"讲师",@"讲师课程",@"培训需求",@"文章"];
+     NSArray *tarr = @[@"讲师",@"课程",@"需求",@"文章"];
     tlabel.text = tarr[temp];
     page =@"0";
     [self settableV];

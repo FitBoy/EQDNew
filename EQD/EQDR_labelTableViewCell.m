@@ -179,7 +179,7 @@
 {
     _contents = contents;
     NSMutableAttributedString *con = [[NSMutableAttributedString alloc]initWithString:contents attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
-    con.yy_lineSpacing =8;
+    con.yy_lineSpacing =6;
     self.YL_label.attributedText = con;
     CGSize size = [con boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     [self.YL_label mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -413,6 +413,7 @@
 
 -(void)setModel_need:(PXNeedModel *)model_need
 {
+    _model_need = model_need;
     NSMutableAttributedString *need = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"[%@]%@",model_need.comName,model_need.theTheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]}];
     NSMutableAttributedString  *type = [[NSMutableAttributedString alloc]initWithString:@"\n"];
     NSArray *tarr = [model_need.theCategory componentsSeparatedByString:@","];
@@ -446,6 +447,40 @@
     }];
     
 }
+
+-(void)setModel_need2:(PXNeedModel *)model_need
+{
+    _model_need = model_need;
+    NSMutableAttributedString *need = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@\n",model_need.thetheme] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17 weight:3]}];
+    NSMutableAttributedString  *type = [[NSMutableAttributedString alloc]initWithString:@" "];
+    NSArray *tarr = [model_need.theCategory componentsSeparatedByString:@","];
+    for (int i=0; i<tarr.count; i++) {
+        NSMutableAttributedString *ttype = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@ ",tarr[i]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor orangeColor]}];
+        [ttype yy_setTextBackgroundBorder:[YYTextBorder borderWithLineStyle:YYTextLineStyleSingle lineWidth:1 strokeColor:[UIColor orangeColor]] range:ttype.yy_rangeOfAll];
+        [type appendAttributedString:ttype];
+        NSMutableAttributedString *kong = [[NSMutableAttributedString alloc]initWithString:@"   "];
+        [type appendAttributedString:kong];
+    }
+    type.yy_alignment =NSTextAlignmentCenter;
+    [need appendAttributedString:type];
+    
+    NSMutableAttributedString *times = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"\n预计培训时间：%@ ~ %@",model_need.thedateStart,model_need.thedateEnd] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor grayColor]}];
+    times.yy_alignment =NSTextAlignmentRight;
+    [need appendAttributedString:times];
+    
+    need.yy_lineSpacing = 6;
+    
+    CGSize size = [need boundingRectWithSize:CGSizeMake(DEVICE_WIDTH-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    model_need.cellHeight = size.height+15;
+    self.YL_label.attributedText = need;
+    [self.YL_label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(size.height+10);
+        make.left.mas_equalTo(self.mas_left).mas_offset(15);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-15);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+}
+
 
 -(void)setModel_GN:(GNmodel *)model_GN
 {

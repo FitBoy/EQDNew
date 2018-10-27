@@ -32,6 +32,7 @@
 #import "CK_chuangkeShoucangViewController.h"
 #import "EQDR_labelTableViewCell.h"
 #import "PXNeedDetailViewController.h"
+#import "CK_huoDongListViewController.h"
 @interface CK_personAppViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextVViewControllerDelegate,FB_OnlyForLiuYanViewControllerDlegate>
 {
     UITableView *tableV;
@@ -304,7 +305,7 @@
     tableV2.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData2)];
     
     
-    arr_names3 = @[@"讲师课程"];
+    arr_names3 = @[@"讲师课程",@"活动"];
     tableV3 = [[UITableView alloc]initWithFrame:CGRectMake(100, DEVICE_TABBAR_Height, DEVICE_WIDTH-100, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV3, self);
     tableV3.delegate=self;
@@ -819,7 +820,13 @@
             Cvc.userGuid = user.Guid;
             Cvc.username = user.username;
             [self.navigationController pushViewController:Cvc animated:NO];
-        }else
+        }else if (indexPath.row ==1)
+        {
+            ///活动
+            CK_huoDongListViewController  *HDvc = [[CK_huoDongListViewController alloc]init];
+            [self.navigationController pushViewController:HDvc animated:NO];
+        }
+        else
         {
             
         }

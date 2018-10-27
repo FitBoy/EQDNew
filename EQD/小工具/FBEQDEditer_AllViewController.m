@@ -56,6 +56,7 @@
     {
         //课程大纲
         self.navigationItem.title = @"填写内容即可";
+    
         TF_title.hidden =YES;
         self.placeholder = @"请填写课程大纲";
         key = @"HR_CourceManage";

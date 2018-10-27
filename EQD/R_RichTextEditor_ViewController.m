@@ -64,7 +64,7 @@
     TF_title.placeholder =@"标题";
     [self.view addSubview:TF_title];
     if ([self.source integerValue]==0) {
-        self.placeholder =@"文章将会发布到易企阅和创客空间";
+        self.placeholder =@"文章将会发布到易企阅";
     }else
     {
     self.placeholder =@"文章将会发布到易企阅";

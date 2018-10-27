@@ -7,7 +7,7 @@
 //
 
 #import "FBBaseModel.h"
-
+#import "RecordListModel.h"
 @interface InviteModel : FBBaseModel
 ///邀约人
 @property (nonatomic,copy) NSString* Inviter;
@@ -23,6 +23,7 @@
 @property (nonatomic,copy) NSString* udepartment;
 ///职务
 @property (nonatomic,copy) NSString* upost;
+@property (nonatomic,strong)  NSArray *RecordList;
 -(void)setCompany:(NSString *)company;
 -(NSString*)left1;
 @end

@@ -9,6 +9,7 @@
 #import "FBBaseViewController.h"
 
 @interface EQD_SearchAllViewController : FBBaseViewController
+// 0 ,1,2,3 "讲师",@"课程",@"需求",@"文章
 @property (nonatomic,assign) NSInteger temp0;
 
 @end

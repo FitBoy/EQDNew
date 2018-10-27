@@ -41,6 +41,7 @@
             [tableV reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         }
     }];
+    /*
     [WebRequest Lectures_course_Get_CourseVideoWithcourseId:self.courseId page:@"0" And:^(NSDictionary *dic) {
          [tableV.mj_footer endRefreshing];
         if ([dic[Y_STATUS] integerValue]==200) {
@@ -55,7 +56,7 @@
             [tableV reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
             
         }
-    }];
+    }];*/
     
 }
 
@@ -137,11 +138,11 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSArray *tarr = @[@"课程信息",@"其他信息"];
+    NSArray *tarr = @[@"课程信息"];
     
     return tarr[section];
 }

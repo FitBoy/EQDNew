@@ -22,7 +22,9 @@
 //创客空间
 #import "CK_CKPersonZoneViewController.h"
 #import "FBButton.h"
-@interface PPersonCardViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+#import "KeHuChooseViewController.h"
+@interface PPersonCardViewController ()<UITableViewDelegate,UITableViewDataSource,KeHuChooseViewControllerDelegate>
 {
     UITableView *tableV;
     Com_UserModel *model;
@@ -112,7 +114,24 @@
 #pragma  mark - 一键导入CRM
 -(void)daoruCLick
 {
-    
+    KeHuChooseViewController  *Cvc = [[KeHuChooseViewController alloc]init];
+    Cvc.providesPresentationContextTransitionStyle = YES;
+    Cvc.definesPresentationContext = YES;
+    Cvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    Cvc.delegate_kehu = self;
+    [self presentViewController:Cvc animated:NO completion:nil];
+}
+-(void)getKeHuModel:(KeHu_ListModel *)tmodel
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在处理";
+    [WebRequest crmModule_Create_cuscontactsWithname:model.username dep:model.department post:model.post cellphone:model.uname conqq:model.QQ conwx:model.WeChat email:model.Email remark:model.upname cusid:tmodel.ID owner:user.Guid And:^(NSDictionary *dic) {
+        hud.label.text = [dic[Y_STATUS] integerValue]==200?@"添加成功":@"未知错误，请重试";
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:NO];
+        });
+    }];
 }
 -(void)moreClick
 {

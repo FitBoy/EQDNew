@@ -82,6 +82,8 @@
 /// 易企学的培训需求
 @property (nonatomic,strong)  PXNeedModel *model_need;
 -(void)setModel_need:(PXNeedModel *)model_need;
+///没有预算的培训需求
+-(void)setModel_need2:(PXNeedModel *)model_need;
 @end
 @protocol EQDR_labelTableViewCellDelegate <NSObject>
 -(void)getTapNameWithname:(NSString*)name  Guid:(NSString*)Guid model:(id)model;

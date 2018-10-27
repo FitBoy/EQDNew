@@ -10,7 +10,10 @@
 @interface FBGNHomeModel : NSObject
 @property (nonatomic,copy) NSString* text;
 @property (nonatomic,copy) NSString* icon;
+
+/// 标识符   区分功能
 @property (nonatomic,copy) NSString* module;
 @property (nonatomic,strong)  NSArray *children;
+/// 小红点 消息的个数
 @property (nonatomic,copy) NSString* number_red;
 @end

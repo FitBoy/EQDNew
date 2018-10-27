@@ -9,6 +9,11 @@
 #import "EQD_HtmlTool.h"
 
 @implementation EQD_HtmlTool
+
++(NSString*)getHuodongDetailWithId:(NSString*)Id
+{
+    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/acticityDetails.html?id=%@",Id];
+}
 +(NSString*)getEQDR_ArticleDetailWithId:(NSString*)Id
 {
    

@@ -15,6 +15,12 @@
              @"ID":@"id"
              };
 }
++(NSDictionary*)mj_objectClassInArray
+{
+    return @{
+             @"RecordList":@"RecordListModel"
+             };
+}
 -(void)setCompany:(NSString *)company
 {
     _company=company;

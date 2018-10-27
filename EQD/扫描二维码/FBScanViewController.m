@@ -217,6 +217,14 @@
             {
                 ///会议签到
                 [self setHuiYiWithModel:model];
+            }else if ([model.type integerValue]==5)
+            {
+                //活动报名
+                [self huodongBaomingWithModel:model];
+            }else if ([model.type integerValue] ==6)
+            {
+                ///活动签到
+                [self huodongQianDaoWithModel:model];
             }
             else
             {
@@ -231,6 +239,44 @@
         }
     }
 }
+
+#pragma  mark - 活动报名
+-(void)huodongBaomingWithModel:(EWMModel*)tmodel
+{
+    [WebRequest Activity_Add_ActivityRegWithuserGuid:user.Guid activityId:tmodel.data.Id username:user.username phone:user.uname And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            UIAlertController  *alert = [UIAlertController alertControllerWithTitle:@"报名成功" message:[NSString stringWithFormat:@"活动主题:%@\n活动地点:%@\n活动时间:%@",tmodel.data.time,tmodel.data.place,tmodel.data.time] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+         
+            [self presentViewController:alert animated:NO completion:nil];
+        }else
+        {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            [alert showAlertWith:@"重复报名或服务器错误！"];
+        }
+    }];
+}
+#pragma  mark - 活动签到
+-(void)huodongQianDaoWithModel:(EWMModel*)tmodel
+{
+    [WebRequest Activity_Sign_Add_SignWithuserGuid:user.Guid activeId:tmodel.data.Id And:^(NSDictionary *dic) {
+        if ([dic[Y_STATUS] integerValue]==200) {
+            UIAlertController  *alert = [UIAlertController alertControllerWithTitle:@"签到成功" message:[NSString stringWithFormat:@"活动主题:%@\n活动地点:%@\n活动时间:%@",tmodel.data.time,tmodel.data.place,tmodel.data.time] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            
+            [self presentViewController:alert animated:NO completion:nil];
+        }else
+        {
+            MBFadeAlertView *alert = [[MBFadeAlertView alloc]init];
+            [alert showAlertWith:@"重复签到或服务器错误！"];
+        }
+    }];
+}
+
 ///会议考勤签到
 -(void)setHuiYiWithModel:(EWMModel*)tmodel{
     
@@ -466,6 +512,14 @@
         }else if ([model.type integerValue] ==4)
         {
             [self setHuiYiWithModel:model];
+        }else if ([model.type integerValue]==5)
+        {
+            //活动报名
+            [self huodongBaomingWithModel:model];
+        }else if ([model.type integerValue] ==6)
+        {
+            ///活动签到
+            [self huodongQianDaoWithModel:model];
         }
         else
         {

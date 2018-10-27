@@ -36,7 +36,8 @@
 #import "FBHeadScrollTitleView.h"
 #import "SC_needPiPeiViewController.h"
 #import "SC_needCaiGouViewController.h"
-#import "EQDB_appViewController.h"
+#import "EQDB_appNewViewController.h"
+#import "CK_huoDongListViewController.h"
 @interface Space_comListViewController ()<UITableViewDelegate,UITableViewDataSource,FB_OnlyForLiuYanViewControllerDlegate,FBHeadScrollTitleViewDelegate,SC_needCaiGouViewControllerdelegate>
 {
     UITableView *tableV;
@@ -333,7 +334,9 @@
     [super viewDidLoad];
     arr_model1 = [NSMutableArray arrayWithCapacity:0];
     self.navigationItem.title = @"企业空间中心";
-    arr_model = @[@"日志",@"产品信息",@"企业信息",@"企业文化",@"留言",@"访客",@"交易记录",@"采购需求",@"企业收藏"];
+//    arr_model = @[@"日志",@"产品信息",@"企业信息",@"企业文化",@"留言",@"访客",@"交易记录",@"采购需求",@"企业收藏"];
+    arr_model = @[@"日志",@"采购需求",@"活动",@"产品信息",@"留言",@"访客",@"收藏",@"企业文化",@"企业信息",@"交易记录"];
+    
     
     user = [WebRequest GetUserInfo];
     //侧边栏
@@ -750,21 +753,26 @@
             tableV1.hidden =NO;
         }else if (indexPath.row ==1)
         {
+            //采购需求
+            tableV8.hidden =NO;
+            [tableV8 reloadData];
+           
+        }else if (indexPath.row == 2)
+        {
+         //活动
+            CK_huoDongListViewController  *Lvc = [[CK_huoDongListViewController alloc]init];
+            Lvc.temp =1;
+            [self.navigationController pushViewController:Lvc animated:NO];
+            
+        }else if (indexPath.row == 3)
+        {
+            
             //产品信息
             tableV2.hidden=NO;
             if (arr_model2.count ==0) {
                 [self loadrequestData2];
             }
-           
-        }else if (indexPath.row == 2)
-        {
-            //企业信息
-            tableV3.hidden=NO;
-            
-        }else if (indexPath.row == 3)
-        {
-            //企业文化
-            tableV4.hidden =NO;
+          
             
             
         }else if (indexPath.row ==4)
@@ -784,21 +792,34 @@
             }
         }else if (indexPath.row ==6)
         {
+            
+            //企业收藏
+            tableV9.hidden =NO;
+            [tableV9 reloadData];
+           
+        }else if (indexPath.row ==7)
+        {
+            
+            //企业文化
+            tableV4.hidden =NO;
+          
+        }else if (indexPath.row ==8)
+        {
+            //企业信息
+            tableV3.hidden=NO;
+           
+        }else if (indexPath.row == 9)
+        {
             //交易记录
             tableV7.hidden =NO;
             titleV_7.hidden =NO;
             if (arr_model7.count ==0) {
                 [self loadRequeestData7];
             }
-        }else if (indexPath.row ==7)
+        }
+        else
         {
-            //采购需求
-            tableV8.hidden =NO;
-            [tableV8 reloadData];
-        }else if (indexPath.row ==8)
-        {
-            tableV9.hidden =NO;
-            [tableV9 reloadData];
+            
         }
     }else if (tableView ==tableV3)
     {
@@ -888,7 +909,7 @@
         }else if (indexPath.row ==2)
         {
             //易企购
-            EQDB_appViewController  *appVc =[[EQDB_appViewController alloc]init];
+            EQDB_appNewViewController  *appVc =[[EQDB_appNewViewController alloc]init];
             [self.navigationController pushViewController:appVc animated:NO];
         }
     }else if (tableView ==tableV9)

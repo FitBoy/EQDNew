@@ -18,6 +18,8 @@
 @property (nonatomic,copy) NSString* cusCall;
 @property (nonatomic,copy) NSString* salesTerritory;
 
+@property (nonatomic,assign) float cell_height;
+
 ///客户详情
 @property (nonatomic,copy) NSString* cusCode;
 @property (nonatomic,copy) NSString* address;

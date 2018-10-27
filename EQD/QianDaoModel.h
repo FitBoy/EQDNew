@@ -27,5 +27,14 @@
 @property (nonatomic,copy) NSString* startTime;
 @property (nonatomic,copy) NSString* endTime;
 /**会议签到的字段**/
-
+/***活动报名签到的字段
+  @{
+ @"Id"
+ @"title"
+ @"place"
+ @"time"
+ }
+ **/
+@property (nonatomic,copy) NSString* title;
+@property (nonatomic,copy) NSString* time;
 @end

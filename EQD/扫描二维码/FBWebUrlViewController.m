@@ -13,6 +13,7 @@
 {
     UIWebView *webV;
     MBProgressHUD *hud ;
+    
 }
 
 @end
@@ -64,6 +65,9 @@
         hud.mode = MBProgressHUDModeAnnularDeterminate;
         hud.label.text = @"请稍等……";
     }
+    
+    NSString *js = [NSString stringWithFormat:@"localStorage.setItem(GHY_login,%@);",[USERDEFAULTS objectForKey:Y_USERINFO]];
+    [webView stringByEvaluatingJavaScriptFromString:js];
 
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView

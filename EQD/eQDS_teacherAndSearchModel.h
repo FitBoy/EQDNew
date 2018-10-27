@@ -17,6 +17,6 @@
 @property (nonatomic,copy) NSString* lectureIntroduce;
 @property (nonatomic,copy) NSString* lectureName;
 @property (nonatomic,copy) NSString* lectureType;
-
-
+@property (nonatomic,copy) NSString* lectureTel;
+@property (nonatomic,assign)  float cell_height;
 @end

@@ -27,4 +27,6 @@
 +(NSString*)getEventDetailWithId:(NSString*)Id;
 /// 企业空间的连接
 +(NSString*)getComLinkWithComId:(NSString*)comId;
+///活动的详情
++(NSString*)getHuodongDetailWithId:(NSString*)Id;
 @end

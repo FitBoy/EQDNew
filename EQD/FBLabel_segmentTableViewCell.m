@@ -32,7 +32,7 @@
         _SC_choose = [[FBSegmentedControl alloc]initWithItems:@[@"无",@"有"]];
         [self addSubview:_SC_choose];
         [_SC_choose mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(80, 30));
+            make.size.mas_equalTo(CGSizeMake(100, 35));
             make.right.mas_equalTo(self.mas_right).mas_offset(-15);
             make.centerY.mas_equalTo(self.mas_centerY);
         }];
