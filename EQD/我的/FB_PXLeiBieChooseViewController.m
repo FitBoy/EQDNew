@@ -157,7 +157,13 @@
     
     model2.isChoose = !model2.isChoose;
         if (model2.isChoose==NO) {
-            [arr_model_choose removeObject:model2];
+            for (int i=0; i<arr_model_choose.count; i++) {
+                FBAddressModel *tmodel =arr_model_choose[i];
+                if ([tmodel.name isEqualToString:model2.name]) {
+                    [arr_model_choose removeObject:tmodel];
+                    break;
+                }
+            }
         }else
         {
             [arr_model_choose addObject:model2];

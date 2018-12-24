@@ -11,6 +11,7 @@
 #import "Memo_AddViewController.h"
 #import "FBFour_noimgTableViewCell.h"
 #import "MEMo_DetailViewController.h"
+#import "Memo_TableViewCell.h"
 @interface FBeiWangLuViewController ()<FBCalendarViewControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     FBCalendarViewController *Cvc;
@@ -29,6 +30,9 @@
     [self loadOtherData];
 }
 
+- (BOOL)prefersHomeIndicatorAutoHidden{
+    return NO;
+}
 -(void)loadOtherData
 {
     Selected_date = [NSString stringWithFormat:@"%ld-%ld-%ld",Cvc.selected_model.year,Cvc.selected_model.month,Cvc.selected_model.day];
@@ -39,6 +43,7 @@
         {
         for (int i=0; i<tarr.count; i++) {
             Memo_DetailModel *model =[Memo_DetailModel mj_objectWithKeyValues:tarr[i]];
+            model.cell_height =60;
             [arr_model addObject:model];
         }
         }
@@ -64,7 +69,7 @@
     };
     
     
-    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(Cvc.view.frame), DEVICE_WIDTH, DEVICE_HEIGHT-CGRectGetMaxY(Cvc.view.frame)) style:UITableViewStylePlain];
+    tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(Cvc.view.frame), DEVICE_WIDTH, DEVICE_HEIGHT-CGRectGetMaxY(Cvc.view.frame)-kBottomSafeHeight) style:UITableViewStylePlain];
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
@@ -93,6 +98,11 @@
     };
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Memo_DetailModel *model =arr_model[indexPath.row];
+    return model.cell_height;
+}
 -(void)updateUIWithDate:(NSDate*)date{
     
    
@@ -159,33 +169,14 @@
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellId=@"cellID";
-    FBFour_noimgTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
+    Memo_TableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[FBFour_noimgTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.L_right0.textColor=[UIColor whiteColor];
-        cell.L_left0.textColor=[UIColor whiteColor];
-        cell.L_left1.textColor = [UIColor whiteColor];
-        cell.L_right1.textColor = [UIColor whiteColor];
+        cell = [[Memo_TableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     Memo_DetailModel *model =arr_model[indexPath.row];
-    cell.L_left0.text = model.eventName;
-    cell.L_left1.text =[NSString stringWithFormat:@"%@~%@",[model.startTime substringWithRange:NSMakeRange(0, 5)] ,[model.endTime substringWithRange:NSMakeRange(0, 5)]];
-    cell.L_right0.text =model.place;
-    cell.L_right1.text =model.memoInfo;
-    if ([model.eventType isEqualToString:@"空闲"]) {
-        cell.backgroundColor =[UIColor blueColor];
-    }else if([model.eventType isEqualToString:@"暂定"])
-    {
-        cell.backgroundColor =[UIColor orangeColor];
-    }else if([model.eventType isEqualToString:@"忙碌"])
-    {
-        cell.backgroundColor =[UIColor redColor];
-    }else
-    {
-        cell.backgroundColor =[UIColor greenColor];
-    }
+    [cell setModel:model];
     
     return cell;
 }

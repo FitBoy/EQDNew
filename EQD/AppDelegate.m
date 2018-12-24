@@ -10,7 +10,7 @@
 #import "FBTabBarViewController.h"
 
 #import <RongIMKit/RongIMKit.h>
-#import <RongCallKit/RongCallKit.h>
+//#import <RongCallKit/RongCallKit.h>
 #import <JPUSHService.h>
 #import <AdSupport/AdSupport.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -22,7 +22,7 @@
 #import "EQDLoginViewController.h"
 #import "FBShareViewController.h"
 #import "FBGeRenCardMessageContent.h"
-#import <Bugly/Bugly.h>
+//#import <Bugly/Bugly.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "FBSocketTool.h"
 #import "TKaoQinViewController.h"
@@ -30,9 +30,9 @@
 #import "JSHAREService.h"
 #import "FBShareMessageContent.h"
 #import <UserNotifications/UserNotifications.h>
-
+//BuglyDelegate,
 @interface AppDelegate ()<RCIMConnectionStatusDelegate,
-RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate,UNUserNotificationCenterDelegate>
+RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,UNUserNotificationCenterDelegate>
 {
     UserModel *user;
     NSInteger temp;
@@ -271,7 +271,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate,UNUserNotificatio
     
     
     //  设置通话视频分辨率
-         [[RCCallClient sharedRCCallClient] setVideoProfile:RC_VIDEO_PROFILE_480P];
+//         [[RCCallClient sharedRCCallClient] setVideoProfile:RC_VIDEO_PROFILE_480P];
     
     //设置Log级别，开发阶段打印详细log
     [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Info;
@@ -340,9 +340,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate,UNUserNotificatio
     }
     else
     {
-        
     }
-    
     /*****/
     if (![USERDEFAULTS boolForKey:Y_first_Start]) {
         
@@ -402,7 +400,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate,UNUserNotificatio
     
     completionHandler();
 }
-
+/*
 - (void)setupBugly {
     // Get the default config
     BuglyConfig * config = [[BuglyConfig alloc] init];
@@ -456,7 +454,7 @@ RCIMReceiveMessageDelegate,JPUSHRegisterDelegate,BuglyDelegate,UNUserNotificatio
     NSLog(@"(%@:%d) %s %@",[[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __PRETTY_FUNCTION__,exception);
     
     return @"This is an attachment";
-}
+}*/
 //极光推送的自定义消息
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];

@@ -9,7 +9,7 @@
 #import "FBTextvImgViewController.h"
 #import "FBImageVCollectionViewCell.h"
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
-#import <RongCallKit/RongCallKit.h>
+#import <RongIMKit/RongIMKit.h>
 #import "FBImageShowViewController.h"
 #import "FBindexpathLongPressGestureRecognizer.h"
 #import "UITextView+Tool.h"

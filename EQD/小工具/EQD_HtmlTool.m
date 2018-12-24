@@ -17,42 +17,46 @@
 +(NSString*)getEQDR_ArticleDetailWithId:(NSString*)Id
 {
    
-    return [NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
+    return [NSString stringWithFormat:@"http://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
 }
 +(NSString*)getEQDM_ArticleDetailWithId:(NSString*)Id
 {
- return [NSString stringWithFormat:@"https://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
+ return [NSString stringWithFormat:@"http://www.eqidd.com/chuangkeApace/html/circleDetails.html?id=%@",Id];
 }
 +(NSString*)getEQD_TrainJiLv
 {
-    return @"https://www.eqidd.com/html/peixun.html";
+    return @"http://www.eqidd.com/html/peixun.html";
 }
 +(NSString*)getEQD_ZoneWithid:(NSString*)Id AnduserGuid:(NSString*)userGuid
 {
-    return [NSString stringWithFormat:@"https://www.eqidd.com/Friend/friend.html?worId=%@&Guid=%@",Id,userGuid];
+    return [NSString stringWithFormat:@"http://www.eqidd.com/Friend/friend.html?worId=%@&Guid=%@",Id,userGuid];
 }
 
 +(NSString*)getCompanyCultrueWithGuid:(NSString*)guid
 {
-    return [NSString  stringWithFormat:@"https://www.eqidd.com/Friend/html/comCulture.html?guid=%@",guid];
+    return [NSString  stringWithFormat:@"http://www.eqidd.com/Friend/html/comCulture.html?guid=%@",guid];
 }
 +(NSString*)getActiveFromLingdaoWithId:(NSString*)Id
 {
-    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/leaderDetdils.html?id=%@",Id];
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/leaderDetdils.html?id=%@",Id];
 }
 
 +(NSString*)getProductDetailWithId:(NSString*)Id
 {
     
-    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/product.html?id=%@",Id];
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/product.html?id=%@",Id];
 }
 +(NSString*)getEventDetailWithId:(NSString*)Id
 {
-    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/thingDetails.html?id=%@",Id];
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/thingDetails.html?id=%@",Id];
 }
 
 +(NSString*)getComLinkWithComId:(NSString *)comId
 {
-    return [NSString stringWithFormat:@"https://www.eqidd.com/qiyeSpace/html/companyIndex.html?id=%@",comId];
+    return [NSString stringWithFormat:@"http://www.eqidd.com/qiyeSpace/html/companyIndex.html?id=%@",comId];
+}
++(NSString*)getAppDownload
+{
+    return @"http://www.eqidd.com/html/adjust.html";
 }
 @end

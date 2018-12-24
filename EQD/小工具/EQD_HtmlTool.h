@@ -29,4 +29,6 @@
 +(NSString*)getComLinkWithComId:(NSString*)comId;
 ///活动的详情
 +(NSString*)getHuodongDetailWithId:(NSString*)Id;
+///获取app的下载地址
++(NSString*)getAppDownload;
 @end

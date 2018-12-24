@@ -30,6 +30,7 @@
  21：生肖
  22：婚配   23.和联系人的关系 24 英语水平 25 宗教信仰 26 离职原因 27 离职类型*/
 #import "FBBaseViewController.h"
+#import "OptionModel.h"
 @interface FBOptionViewController : FBBaseViewController
 @property (nonatomic,assign) NSInteger option;
 @property (nonatomic,copy) NSString* contentTitle;
@@ -41,4 +42,5 @@
 
 -(void)option:(NSString*)option indexPath:(NSIndexPath*)indexPath;
 
+-(void)optionModel:(OptionModel*)model  indexPath:(NSIndexPath*)indexPath;
 @end

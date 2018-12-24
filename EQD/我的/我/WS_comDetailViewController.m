@@ -727,7 +727,7 @@
         return 4;
     }else if (tableV2 ==tableView && model_info !=nil)
     {
-        return 5;
+        return 4;
     }
     else
     {
@@ -1055,8 +1055,10 @@
             return cell;
         }else if (indexPath.section ==4)
         {
+           /*
             //联系方式
             FBLabel_YYAddTableViewCell  *cell = [[FBLabel_YYAddTableViewCell alloc]init];
+            
             NSMutableAttributedString *contents = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"联系人：%@\n联系方式：",model_info.ComCotact.Contacts] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor grayColor]}];
             NSMutableAttributedString *phone =[[NSMutableAttributedString alloc]initWithString:model_info.ComCotact.ContactNumber attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]}];
             [phone yy_setTextHighlightRange:phone.yy_rangeOfAll color:EQDCOLOR backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -1082,6 +1084,8 @@
             contact_height = size.height+20;
             return cell;
             
+            */
+            return nil;
             
         }
         else

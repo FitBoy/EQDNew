@@ -21,16 +21,18 @@
 
 @end
 
-@implementation CK_personInfoViewController
+@implementation   CK_personInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"个人信息";
     tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, DEVICE_TABBAR_Height, DEVICE_WIDTH, DEVICE_HEIGHT-DEVICE_TABBAR_Height-kBottomSafeHeight) style:UITableViewStylePlain];
     adjustsScrollViewInsets_NO(tableV, self);
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
     tableV.rowHeight=60;
+    
     [self getTeacherinfo];
     teacherInfo = [WebRequest getTeacherInfo];
     [self setTableVData];

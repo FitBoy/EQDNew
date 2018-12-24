@@ -23,6 +23,7 @@
 @property (nonatomic,copy) NSString* startTime;
 @property (nonatomic,copy) NSString* timeToRemind;
 @property (nonatomic,copy) NSString* userGuid;
+@property (nonatomic,assign)  float cell_height;
 -(NSString*)startDate;
 -(NSString*)endDate;
 -(NSString*)startTime;

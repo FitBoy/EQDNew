@@ -24,7 +24,7 @@ pod 'SDWebImage'
  pod 'Masonry'   
 pod 'RongCloudIM'
 pod 'MBProgressHUD'
-pod 'Bugly'
+#pod 'Bugly'
 pod 'CTAssetsPickerController', '~> 3.3.2-alpha'
 pod ‘AMap3DMap’
 #pod ‘AMapNavi’ #地图导航功能

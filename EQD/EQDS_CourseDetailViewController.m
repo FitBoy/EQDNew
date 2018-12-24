@@ -14,7 +14,6 @@
 #import "ImgScrollTableViewCell.h"
 #import "EQDS_searchHighViewController.h"
 #import "FBShowimg_moreViewController.h"
-#import "PlayerViewController.h"
 #import "FB_pipeiNeedViewController.h"
 @interface EQDS_CourseDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -292,6 +291,8 @@
 #pragma  mark - 表的协议代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    /*
   if(indexPath.section==1)
   {
       EQDS_VideoModel *model =arr_model[indexPath.row];
@@ -303,7 +304,7 @@
       Pvc.supportPortraitOnly =YES;
       
       [self.navigationController pushViewController:Pvc animated:NO];
-  }
+  }*/
 }
 
 

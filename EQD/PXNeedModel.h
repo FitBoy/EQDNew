@@ -18,7 +18,7 @@
 @property (nonatomic,copy) NSString* status;
 @property (nonatomic,copy) NSString* theCategory;
 @property (nonatomic,copy) NSString* thecategory;
-
+@property (nonatomic,copy) NSString *Id; //最新更改的搜索结果返回的
 
 @property (nonatomic,copy) NSString* theTheme;
 @property (nonatomic,copy) NSString* thetheme;
@@ -27,6 +27,8 @@
 @property (nonatomic,copy) NSString* theplace;
 @property (nonatomic,copy) NSString* trainees;
 @property (nonatomic,assign) float cellHeight;
+@property (nonatomic,copy) NSString* type;
+
 -(NSString*)createTime;
 -(NSString*)thedateStart;
 -(NSString*)thedateEnd;
@@ -51,7 +53,6 @@
  company = "\U90d1\U5dde\U6613\U4f"
  }
  */
-@property (nonatomic,copy) NSString* Id;
 @property (nonatomic,copy) NSString* comName;
 @property (nonatomic,copy) NSString* demandStatus;
 

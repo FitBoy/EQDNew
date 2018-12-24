@@ -8,7 +8,7 @@
 
 #import "FBComPanyStudyViewController.h"
 #import "EQDS_appViewController.h"
-#import "PorxyNavigationController.h"
+//#import "PorxyNavigationController.h"
 #import "FBTrainTellViewController.h"
 #import "GSRegisterViewController.h"
 #import "FBWebUrlViewController.h"

@@ -58,7 +58,7 @@
         [ResearchField appendAttributedString:kong];
     }
     self.YL_label.attributedText = ResearchField;
-
+    model2.cellHeight =120;
     
 }
 -(UILabel*)L_name
@@ -147,4 +147,45 @@
     
     
 }
+
+-(void)setModel_course:(EQDS_courseNewModel *)model_course
+{
+    _model_course = model_course;
+    self.L_name.text = model_course.courseTheme;
+    if(model_course.courseImages.length==0)
+    {
+        self.IV_head.hidden = YES;
+        [_IV_head mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(0, 0));
+            make.left.mas_equalTo(self.mas_left).mas_offset(15);
+            make.centerY.mas_equalTo(self.mas_centerY);
+        }];
+    }else
+    {
+        self.IV_head.hidden =NO;
+        [self.IV_head sd_setImageWithURL:[NSURL URLWithString:model_course.courseImages] placeholderImage:[UIImage imageNamed:@"no_login_head"]];
+    }
+    
+    NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"讲师：%@\n授课对象：%@",model_course.lectureName,model_course.courseObjecter] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+
+//    [content yy_setColor:[UIColor redColor] range:NSMakeRange(5, model_course.coursePrice.length)];
+//    content.yy_lineSpacing =6;
+    
+    self.L_contents.attributedText =content;
+    NSArray *tarr = [model_course.courseType  componentsSeparatedByString:@","];
+    NSMutableAttributedString *Tstr = [[NSMutableAttributedString alloc]initWithString:@""];
+    for (int i=0; i<tarr.count; i++) {
+        NSMutableAttributedString  *tstr = [[NSMutableAttributedString alloc]initWithString:tarr[i] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor orangeColor]}];
+        [tstr yy_setTextBackgroundBorder:[YYTextBorder borderWithLineStyle:YYTextLineStyleSingle lineWidth:1 strokeColor:[UIColor orangeColor]] range:tstr.yy_rangeOfAll];
+        [Tstr appendAttributedString:tstr];
+        NSMutableAttributedString *kong = [[NSMutableAttributedString alloc]initWithString:@"   "];
+        [Tstr appendAttributedString:kong];
+    }
+    self.YL_label.attributedText = Tstr;
+    
+    model_course.cell_height =110;
+    
+    
+}
+
 @end

@@ -99,6 +99,11 @@
         [self.delegate option:model.name indexPath:self.indexPath];
         [self.navigationController popViewControllerAnimated:NO];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(optionModel:indexPath:)]) {
+        [self.navigationController popViewControllerAnimated:NO];
+        [self.delegate optionModel:model indexPath:self.indexPath];
+    }
 }
 
 

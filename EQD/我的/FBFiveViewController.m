@@ -27,7 +27,11 @@
 #import "MyShouCangViewController.h"
 #import "FFMyExpensesViewController.h"
 #import "PPersonCardViewController.h"
-@interface FBFiveViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "BPCenterViewController.h"
+#import "YaoQingRegisterViewController.h"
+#import "FBTextFieldViewController.h"
+
+@interface FBFiveViewController ()<UITableViewDelegate,UITableViewDataSource,FBTextFieldViewControllerDelegate>
 {
     UITableView *tableV;
     UserModel *user;
@@ -39,6 +43,10 @@
     NSMutableArray *arr_four;
     NSMutableArray *arr_five;
     NSMutableArray *arr_type;
+    
+    ///增加的积分
+    NSMutableArray *arr_jifen;
+    
     
     NSMutableArray *arr_code;
     NSString *qiyecode;
@@ -122,6 +130,9 @@
     arr_one = [NSMutableArray arrayWithArray:@[@[@"shenq.png",@"我的申请"],@[@"pizhun.png",@"我的批准"],@[@"renwu.png",@"我的任务"],@[@"my_baobiao",@"我的报销"]]];
     arr_two=[NSMutableArray arrayWithArray:@[@[@"dak.png",@"我的打卡"],@[@"kanb.png",@"我的收藏"],@[@"beiWangLu",@"我的备忘录"],@[@"my_study",@"我的学习"]]];
     
+    arr_jifen = [NSMutableArray arrayWithArray:@[@[@"jifenCenter",@"积分中心"],@[@"yaoqing",@"邀请注册"],@[@"writePhone",@"填写邀请人手机号"]]];
+    
+    
     arr_three=[NSMutableArray arrayWithArray:@[@[@"gere",@"我"],@[@"qiye.png",@"我的企业"]]];
     //
     arr_four=[NSMutableArray arrayWithArray:@[@[@"shezh",@"系统设置"]]];
@@ -130,6 +141,7 @@
     [arr_big addObject:arr_info];
     [arr_big addObject:arr_one];
     [arr_big addObject:arr_two];
+    [arr_big addObject:arr_jifen];
     [arr_big addObject:arr_three];
     [arr_big addObject:arr_four];
 //    [arr_big addObject:arr_five];
@@ -227,7 +239,7 @@
         }else if (indexPath.section==2)
         {
             cell.L_RedTip.hidden=YES;
-        }else if (indexPath.section==3)
+        }else if (indexPath.section==4)
         {
             if (indexPath.row==1 && [qiyecode integerValue]>0) {
                 cell.L_RedTip.hidden=NO;
@@ -316,7 +328,7 @@
     
     
     
-    if (indexPath.section==1) {
+ else  if (indexPath.section==1) {
         
         RedTipTableViewCell  *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.L_RedTip.hidden=YES;
@@ -410,7 +422,7 @@
         }
     }
     
-    if (indexPath.section==2) {
+  else  if (indexPath.section==2) {
         switch (indexPath.row) {
             case 0:
             {
@@ -469,7 +481,7 @@
         }
     }
     
-    if (indexPath.section==3) {
+   else if (indexPath.section==4) {
         
         
         switch (indexPath.row) {
@@ -512,7 +524,7 @@
        
     }
     
-    if (indexPath.section==4) {
+  else  if (indexPath.section==5) {
         //系统设置
         FXiTongViewController *XTvc =[[FXiTongViewController alloc]init];
         XTvc.hidesBottomBarWhenPushed =YES;
@@ -520,13 +532,82 @@
        
         
     }
-    if (indexPath.section ==5) {
-       
+  else  if (indexPath.section ==3) {
+      switch (indexPath.row) {
+          case 0:
+          {
+              //积分中心
+              BPCenterViewController *Cvc = [[BPCenterViewController alloc]init];
+              Cvc.hidesBottomBarWhenPushed = YES;
+              [self.navigationController pushViewController:Cvc animated:NO];
+          }
+              break;
+          case 1:
+          {
+             ///邀请注册
+              YaoQingRegisterViewController *YQvc = [[YaoQingRegisterViewController alloc]init];
+              YQvc.hidesBottomBarWhenPushed = YES;
+              [self.navigationController pushViewController:YQvc animated:NO];
+          }
+              break;
+              case 2:
+          {
+             /// 填写邀请人手机号
+              
+              [WebRequest BP_bind_tele_getPhone_bindWithuserGuid:user.Guid And:^(NSDictionary *dic) {
+                  if ([dic[Y_STATUS] integerValue]==200) {
+                      MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+                      NSDictionary *tdic  = dic[Y_ITEMS];
+                      hud.mode = MBProgressHUDModeText;
+                      hud.label.text =[NSString stringWithFormat:@"您已经绑定%@",tdic[@"phone"]];
+                      dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+                      dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                          [MBProgressHUD hideHUDForView:self.view  animated:YES];
+                      });
+                  }else
+                  {
+                      FBTextFieldViewController *TFvc =[[FBTextFieldViewController alloc]init];
+                      TFvc.delegate =self;
+                      TFvc.indexPath =indexPath;
+                      TFvc.content =@"邀请人手机号";
+                      TFvc.contentTitle =@"填写邀请人的手机号";
+                      TFvc.contentTishi = @"绑定成功后，邀请人与被邀请人各得1000积分";
+                      TFvc.hidesBottomBarWhenPushed = YES;
+                      [self.navigationController pushViewController:TFvc animated:NO];
+                  }
+              }];
+              
+              
+          }
+              break;
+            
+          default:
+              break;
+      }
+        
+    }
+    else
+    {
         
     }
     
     
 }
 
+#pragma  mark - 单行文字的delegate
+-(void)content:(NSString *)content WithindexPath:(NSIndexPath *)indexPath
+{
+    [WebRequest BP_bind_tele_setPhoneBindWithuserGuid:user.Guid phone:content And:^(NSDictionary *dic) {
+        
+        MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view  animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = dic[Y_MSG];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [MBProgressHUD hideHUDForView:self.view  animated:YES];
+        });
+       
+    }];
+}
 
 @end

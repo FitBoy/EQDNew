@@ -386,7 +386,10 @@
             LYvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             LYvc.btnName = @"留言";
             LYvc.placeHolder =@"您对这个产品的兴趣点……";
-            [self presentViewController:LYvc animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               [self presentViewController:LYvc animated:NO completion:nil];
+            });
+            
         }else if (indexPath.row ==1)
         {
             //收藏

@@ -23,6 +23,7 @@
 #import "EQDR_ShouYeViewController.h"
 #import "S_huodongHomeViewController.h"
 #import "app_headView.h"
+
 @interface EQDS_appNewViewController ()<app_headViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableV;
